@@ -8,4 +8,9 @@ build/
 *.iml
 .idea/**
 
+# Output data
+output/
+
+# Source images
+source/
 
