@@ -1,0 +1,67 @@
+[versions]
+
+# Commons
+kotlin = "1.9.21"
+kotlinxDateTime = "0.5.0"
+
+# Image IO
+imageIo = "3.10.1"
+
+# Tests Tools
+kotest = "5.8.0"
+mockk = "1.13.9"
+
+# Plugins
+versionsGradlePlugin = "0.46.0"
+nexusPublishGradlePlugin = "1.1.0"
+ktlintGradlePlugin = "12.0.3"
+detektGradlePlugin = "1.23.4"
+dokkaGradlePlugin = "1.6.10"
+pitestGradlePlugin = "1.15.0"
+koverGradlePlugin = "0.7.5"
+
+[libraries]
+
+# Classpaths
+kotlinGradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+dokkaGradlePlugin = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokkaGradlePlugin" }
+detektGradlePlugin = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detektGradlePlugin" }
+versionsGradlePlugin = { module = "com.github.ben-manes:gradle-versions-plugin", version.ref = "versionsGradlePlugin" }
+ktlintGradlePlugin = { module = "org.jlleitschuh.gradle:ktlint-gradle", version.ref = "ktlintGradlePlugin" }
+nexusPublishGradlePlugin = { module = "io.github.gradle-nexus:publish-plugin", version.ref = "nexusPublishGradlePlugin" }
+pitestGradlePlugin = { module = "info.solidsoft.pitest:info.solidsoft.pitest.gradle.plugin", version.ref = "pitestGradlePlugin" }
+koverGradlePlugin = { module = "org.jetbrains.kotlinx:kover-gradle-plugin", version.ref = "koverGradlePlugin" }
+
+# Common
+kotlin = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
+kotlinxDateTime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDateTime" }
+
+# Image IO
+imageIoHDR = { module = "com.twelvemonkeys.imageio:imageio-hdr", version.ref = "imageIo" }
+imageIoWebP = { module = "com.twelvemonkeys.imageio:imageio-webp", version.ref = "imageIo" }
+imageIoTiff = { module = "com.twelvemonkeys.imageio:imageio-tiff", version.ref = "imageIo" }
+
+# Kotest
+kotestJunit5 = { module = "io.kotest:kotest-runner-junit5-jvm", version.ref = "kotest" }
+kotestAssertions = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
+kotestProperty = { module = "io.kotest:kotest-property", version.ref = "kotest" }
+
+# Mockk
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+
+[bundles]
+
+imageIo = [
+    "imageIoHDR",
+    "imageIoTiff",
+    'imageIoWebP'
+]
+
+kotest = [
+    "kotestJunit5",
+    "kotestAssertions",
+    "kotestProperty"
+]
+
+[plugins]
+versionsGradlePlugin = { id = "com.github.ben-manes.versions", version.ref = "versionsGradlePlugin" }
