@@ -7,6 +7,9 @@ kotlinxDateTime = "0.5.0"
 # Image IO
 imageIo = "3.10.1"
 
+# Static Analysis
+detekt = "1.23.5"
+
 # Tests Tools
 kotest = "5.8.0"
 mockk = "1.13.9"
@@ -40,6 +43,10 @@ kotlinxDateTime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.r
 imageIoHDR = { module = "com.twelvemonkeys.imageio:imageio-hdr", version.ref = "imageIo" }
 imageIoWebP = { module = "com.twelvemonkeys.imageio:imageio-webp", version.ref = "imageIo" }
 imageIoTiff = { module = "com.twelvemonkeys.imageio:imageio-tiff", version.ref = "imageIo" }
+
+# Detekt
+detektCli = { module = "io.gitlab.arturbosch.detekt:detekt-cli", version.ref = "detekt" }
+detektApi = { module = "io.gitlab.arturbosch.detekt:detekt-api", version.ref = "detekt" }
 
 # Kotest
 kotestJunit5 = { module = "io.kotest:kotest-runner-junit5-jvm", version.ref = "kotest" }

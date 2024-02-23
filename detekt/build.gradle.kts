@@ -6,9 +6,6 @@ plugins {
     id("com.github.ben-manes.versions")
     id("io.gitlab.arturbosch.detekt")
     id("org.jlleitschuh.gradle.ktlint")
-
-    id("info.solidsoft.pitest")
-    id("org.jetbrains.kotlinx.kover")
 }
 
 kotlin {
@@ -16,16 +13,7 @@ kotlin {
 }
 
 dependencies {
-    implementation(libs.kotlinxDateTime)
-    implementation(libs.bundles.imageIo)
-
-    implementation(files("libs/JavaHDR.jar"))
-
-    detekt(project(":detekt"))
-    detekt(libs.detektCli)
-
-    testImplementation(libs.bundles.kotest)
-    testImplementation(libs.mockk)
+    implementation(libs.detektApi)
 }
 
 ktlint {
@@ -57,19 +45,4 @@ fun isNonStable(version: String): Boolean {
     val regex = "^[0-9,.v-]+$".toRegex()
     val isStable = stableKeyword || regex.matches(version)
     return isStable.not()
-}
-
-pitest {
-    testPlugin = "junit5"
-    targetClasses.set(setOf("fr.xgouchet.luxels.*"))
-    pitestVersion = "1.15.3"
-    threads = 10
-    outputFormats = setOf("XML", "HTML")
-    timestampedReports = false
-
-    junit5PluginVersion = "1.2.0"
-    verbose = true
-}
-
-koverReport {
 }
