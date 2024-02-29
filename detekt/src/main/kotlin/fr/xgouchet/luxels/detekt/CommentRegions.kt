@@ -8,6 +8,7 @@ import io.gitlab.arturbosch.detekt.api.Issue
 import io.gitlab.arturbosch.detekt.api.Rule
 import io.gitlab.arturbosch.detekt.api.Severity
 import io.gitlab.arturbosch.detekt.api.config
+import io.gitlab.arturbosch.detekt.api.internal.RequiresTypeResolution
 import io.gitlab.arturbosch.detekt.rules.fqNameOrNull
 import io.gitlab.arturbosch.detekt.rules.isInternal
 import io.gitlab.arturbosch.detekt.rules.isOperator
@@ -26,6 +27,7 @@ import org.jetbrains.kotlin.types.typeUtil.supertypes
  * A rule to detekt comment code regions.
  * @active
  */
+@RequiresTypeResolution
 class CommentRegions(
     ruleSetConfig: Config,
 ) : Rule(ruleSetConfig) {

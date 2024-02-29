@@ -14,6 +14,8 @@ kotlin {
 dependencies {
     implementation(project(":core"))
     implementation(libs.kotlinxDateTime)
+
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
 }
 
 application {

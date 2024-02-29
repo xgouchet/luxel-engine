@@ -175,10 +175,9 @@ complexity:
     ignoreDeprecated: false
     ignorePrivate: false
     ignoreOverridden: true
-    ignoreAnnotatedFunctions: []
 
 coroutines:
-  active: false # TODO ?
+  active: true
   GlobalCoroutineUsage:
     active: false
   InjectDispatcher:

@@ -1,31 +1,74 @@
-import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
+import org.jetbrains.kotlin.konan.target.HostManager
 
 plugins {
-    kotlin("jvm")
+    kotlin("multiplatform")
 
     id("com.github.ben-manes.versions")
     id("io.gitlab.arturbosch.detekt")
     id("org.jlleitschuh.gradle.ktlint")
+    id("io.kotest.multiplatform")
 
-    id("info.solidsoft.pitest")
-    id("org.jetbrains.kotlinx.kover")
+//    id("info.solidsoft.pitest")
+//    id("org.jetbrains.kotlinx.kover")
 }
 
 kotlin {
-    jvmToolchain(17)
+    jvm {
+        jvmToolchain(17)
+        withJava()
+    }
+    js {
+        nodejs()
+    }
+
+    if (HostManager.hostIsLinux) {
+        linuxX64()
+        linuxArm64()
+    }
+    if (HostManager.hostIsMac) {
+        macosX64()
+        macosArm64()
+    }
+
+//    linuxX64()
+//    mingwX64()
+//    macosX64()
+
+    sourceSets {
+        commonMain {
+            dependencies {
+                implementation(libs.kotlinxDateTime)
+                implementation(libs.kotlinxSerialization)
+                implementation(libs.kotlinxCoroutines)
+                implementation(libs.okio)
+            }
+        }
+
+        commonTest {
+            dependencies {
+                implementation(libs.bundles.kotest)
+                implementation(libs.okioTest)
+            }
+        }
+
+        jvmMain {
+            dependencies {
+                implementation(libs.bundles.imageIo)
+                implementation(files("libs/JavaHDR.jar"))
+            }
+        }
+
+        jvmTest {
+            dependencies {
+                implementation(libs.kotestJunit5)
+            }
+        }
+    }
 }
 
 dependencies {
-    implementation(libs.kotlinxDateTime)
-    implementation(libs.bundles.imageIo)
-
-    implementation(files("libs/JavaHDR.jar"))
-
-    detekt(project(":detekt"))
+    detektPlugins(project(":detekt"))
     detekt(libs.detektCli)
-
-    testImplementation(libs.bundles.kotest)
-    testImplementation(libs.mockk)
 }
 
 ktlint {
@@ -37,39 +80,24 @@ ktlint {
     }
 }
 
-tasks.test {
+tasks.named<Test>("jvmTest") {
     useJUnitPlatform()
 }
 
-tasks.named("check") {
-    dependsOn("detektMain")
-    dependsOn("ktlintCheck")
-}
-
-tasks.withType<DependencyUpdatesTask> {
-    rejectVersionIf {
-        isNonStable(candidate.version)
-    }
-}
-
-fun isNonStable(version: String): Boolean {
-    val stableKeyword = listOf("RELEASE", "FINAL", "GA").any { version.uppercase().contains(it) }
-    val regex = "^[0-9,.v-]+$".toRegex()
-    val isStable = stableKeyword || regex.matches(version)
-    return isStable.not()
-}
-
-pitest {
-    testPlugin = "junit5"
-    targetClasses.set(setOf("fr.xgouchet.luxels.*"))
-    pitestVersion = "1.15.3"
-    threads = 10
-    outputFormats = setOf("XML", "HTML")
-    timestampedReports = false
-
-    junit5PluginVersion = "1.2.0"
-    verbose = true
-}
-
-koverReport {
-}
+// tasks.named("check") {
+//    dependsOn("detektMain")
+//    dependsOn("ktlintCheck")
+// }
+//
+// tasks.withType<DependencyUpdatesTask> {
+//    rejectVersionIf {
+//        isNonStable(candidate.version)
+//    }
+// }
+//
+// fun isNonStable(version: String): Boolean {
+//    val stableKeyword = listOf("RELEASE", "FINAL", "GA").any { version.uppercase().contains(it) }
+//    val regex = "^[0-9,.v-]+$".toRegex()
+//    val isStable = stableKeyword || regex.matches(version)
+//    return isStable.not()
+// }

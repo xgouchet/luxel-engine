@@ -8,6 +8,9 @@ build/
 *.iml
 .idea/**
 
+# Kotlin KMM
+kotlin-js-store
+
 # Output data
 output/
 

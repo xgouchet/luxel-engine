@@ -12,6 +12,7 @@ buildscript {
         classpath(libs.versionsGradlePlugin)
         classpath(libs.ktlintGradlePlugin)
         classpath(libs.detektGradlePlugin)
+        classpath(libs.kotestGradlePlugin)
 
         classpath(libs.pitestGradlePlugin)
         classpath(libs.koverGradlePlugin)
