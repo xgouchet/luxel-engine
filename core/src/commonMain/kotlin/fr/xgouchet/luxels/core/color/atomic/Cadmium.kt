@@ -1,0 +1,63 @@
+package fr.xgouchet.luxels.core.color.atomic
+
+import fr.xgouchet.luxels.core.color.ColorSource
+
+/**
+ * The Atomic Spectral Line [ColorSource] for Cadmium.
+ */
+object Cadmium: ASLColorSource(
+    "Cadmium",
+    "Cd",
+    48,
+    listOf(
+        SpectralLine(361.05077, 1.00),
+        SpectralLine(361.28729, 0.80),
+        SpectralLine(361.44529, 0.06),
+        SpectralLine(364.95584, 0.02),
+        SpectralLine(366.6756, 0.02),
+        SpectralLine(382.6710, 0.02),
+        SpectralLine(395.7244, 0.02),
+        SpectralLine(398.19257, 0.01),
+        SpectralLine(400.6867, 0.02),
+        SpectralLine(402.9124, 0.10),
+        SpectralLine(413.4768, 0.20),
+        SpectralLine(414.1493, 0.05),
+        SpectralLine(428.5078, 0.10),
+        SpectralLine(441.241, 0.10),
+        SpectralLine(441.56859, 1.00),
+        SpectralLine(444.045, 0.03),
+        SpectralLine(444.045, 0.03),
+        SpectralLine(467.81493, 0.20),
+        SpectralLine(474.4693, 0.03),
+        SpectralLine(474.4693, 0.03),
+        SpectralLine(479.99123, 0.30),
+        SpectralLine(488.1725, 0.05),
+        SpectralLine(491.885, 0.02),
+        SpectralLine(502.550, 0.05),
+        SpectralLine(508.58217, 1.00),
+        SpectralLine(526.8007, 0.10),
+        SpectralLine(527.1600, 0.10),
+        SpectralLine(527.1600, 0.10),
+        SpectralLine(533.74855, 1.00),
+        SpectralLine(537.81351, 1.00),
+        SpectralLine(538.1887, 0.20),
+        SpectralLine(584.3305, 0.04),
+        SpectralLine(588.0220, 0.05),
+        SpectralLine(609.91421, 0.30),
+        SpectralLine(611.1495, 0.10),
+        SpectralLine(632.51661, 0.10),
+        SpectralLine(633.00133, 0.03),
+        SpectralLine(635.4724, 0.40),
+        SpectralLine(635.9982, 0.50),
+        SpectralLine(635.9982, 0.50),
+        SpectralLine(643.84695, 2.00),
+        SpectralLine(646.4936, 0.40),
+        SpectralLine(656.7648, 0.03),
+        SpectralLine(672.57875, 0.50),
+        SpectralLine(675.9189, 0.10),
+        SpectralLine(677.81157, 0.03),
+        SpectralLine(723.701, 0.05),
+        SpectralLine(728.438, 0.10),
+        SpectralLine(734.56704, 1.00),
+    )
+)
