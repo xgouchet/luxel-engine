@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Molybdenum.
  */
-object Molybdenum: ASLColorSource(
+object Molybdenum : ASLColorSource(
     "Molybdenum",
     "Mo",
     42,
@@ -531,5 +531,5 @@ object Molybdenum: ASLColorSource(
         SpectralLine(765.6629, 0.02),
         SpectralLine(767.9520, 0.01),
         SpectralLine(772.0763, 0.03),
-    )
+    ),
 )

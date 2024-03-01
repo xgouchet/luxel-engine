@@ -6,7 +6,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
  * The Atomic Spectral Line [ColorSource] for Iron.
  */
 @Suppress("LargeClass")
-object Iron: ASLColorSource(
+object Iron : ASLColorSource(
     "Iron",
     "Fe",
     26,
@@ -3259,5 +3259,5 @@ object Iron: ASLColorSource(
         SpectralLine(778.03672, 0.15),
         SpectralLine(778.05568, 2.88),
         SpectralLine(778.29986, 0.40),
-    )
+    ),
 )

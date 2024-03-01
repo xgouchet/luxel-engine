@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Cadmium.
  */
-object Cadmium: ASLColorSource(
+object Cadmium : ASLColorSource(
     "Cadmium",
     "Cd",
     48,
@@ -59,5 +59,5 @@ object Cadmium: ASLColorSource(
         SpectralLine(723.701, 0.05),
         SpectralLine(728.438, 0.10),
         SpectralLine(734.56704, 1.00),
-    )
+    ),
 )

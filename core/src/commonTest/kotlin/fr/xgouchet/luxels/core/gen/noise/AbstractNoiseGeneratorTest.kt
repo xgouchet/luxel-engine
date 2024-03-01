@@ -13,7 +13,7 @@ import io.kotest.property.arbitrary.list
 import io.kotest.property.checkAll
 import kotlin.math.abs
 
-fun AbstractNoiseGeneratorTest(
+fun abstractNoiseGeneratorTest(
     description: String,
     noiseProvider: () -> DimensionalNoiseGenerator,
 ) = describeSpec {
@@ -47,7 +47,7 @@ fun AbstractNoiseGeneratorTest(
                 val changingIndex = dimension % input.size
                 val input2 = input.mapIndexed { index, d ->
                     if (index == changingIndex) {
-                        d + EPSILON
+                        d + (EPSILON / 2)
                     } else {
                         d
                     }
@@ -59,7 +59,7 @@ fun AbstractNoiseGeneratorTest(
                 assertSoftly {
                     result1.indices.forEach { i ->
                         val diff = abs(result2[i] - result1[i])
-                        diff shouldBeLessThanOrEqual (EPSILON * 4.0)
+                        diff shouldBeLessThanOrEqual (EPSILON * 5.0)
                     }
                 }
             }

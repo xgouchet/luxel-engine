@@ -6,7 +6,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
  * The Atomic Spectral Line [ColorSource] for Carbon.
  */
 @Suppress("LargeClass")
-object Carbon: ASLColorSource(
+object Carbon : ASLColorSource(
     "Carbon",
     "C",
     6,
@@ -621,5 +621,5 @@ object Carbon: ASLColorSource(
         SpectralLine(766.244, 27.00),
         SpectralLine(768.517, 23.00),
         SpectralLine(769.2495, 9.10),
-    )
+    ),
 )

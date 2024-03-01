@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Nitrogen.
  */
-object Nitrogen: ASLColorSource(
+object Nitrogen : ASLColorSource(
     "Nitrogen",
     "N",
     7,
@@ -111,5 +111,5 @@ object Nitrogen: ASLColorSource(
         SpectralLine(744.229, 0.79),
         SpectralLine(746.831, 0.90),
         SpectralLine(776.224, 0.45),
-    )
+    ),
 )

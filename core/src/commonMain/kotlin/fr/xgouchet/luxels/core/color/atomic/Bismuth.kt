@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Bismuth.
  */
-object Bismuth: ASLColorSource(
+object Bismuth : ASLColorSource(
     "Bismuth",
     "Bi",
     83,
@@ -49,5 +49,5 @@ object Bismuth: ASLColorSource(
         SpectralLine(699.0924, 0.01),
         SpectralLine(755.24, 0.09),
         SpectralLine(759.98, 0.20),
-    )
+    ),
 )

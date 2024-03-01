@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Radon.
  */
-object Radon: ASLColorSource(
+object Radon : ASLColorSource(
     "Radon",
     "Rn",
     86,
@@ -14,5 +14,5 @@ object Radon: ASLColorSource(
         SpectralLine(705.542, 0.20),
         SpectralLine(726.811, 0.10),
         SpectralLine(745.000, 0.30),
-    )
+    ),
 )

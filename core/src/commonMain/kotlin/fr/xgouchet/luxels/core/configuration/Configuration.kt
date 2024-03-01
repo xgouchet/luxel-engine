@@ -41,7 +41,6 @@ class Configuration<I : Any> internal constructor(
         val source: InputSource<D>,
     )
 
-
     /**
      * The simulation options for the simulation run.
      * @property quality the quality of the simulation (default: [Quality.DEBUG])

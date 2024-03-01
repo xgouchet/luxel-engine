@@ -127,5 +127,5 @@ object Tin : ASLColorSource(
         SpectralLine(774.03, 0.04),
         SpectralLine(774.1425, 0.50),
         SpectralLine(775.4881, 0.04),
-    )
+    ),
 )

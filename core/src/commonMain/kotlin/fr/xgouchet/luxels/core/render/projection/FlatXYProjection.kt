@@ -2,8 +2,8 @@ package fr.xgouchet.luxels.core.render.projection
 
 import fr.xgouchet.luxels.core.math.Vector2
 import fr.xgouchet.luxels.core.math.Vector3
-import fr.xgouchet.luxels.core.position.Space3
 import fr.xgouchet.luxels.core.position.Space2
+import fr.xgouchet.luxels.core.position.Space3
 
 internal class FlatXYProjection(
     private val simulationSpace: Space3,

@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Boron.
  */
-object Boron: ASLColorSource(
+object Boron : ASLColorSource(
     "Boron",
     "B",
     5,
@@ -129,5 +129,5 @@ object Boron: ASLColorSource(
         SpectralLine(614.892, 0.04),
         SpectralLine(614.892, 0.04),
         SpectralLine(628.547, 0.03),
-    )
+    ),
 )

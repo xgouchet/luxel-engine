@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Zirconium.
  */
-object Zirconium: ASLColorSource(
+object Zirconium : ASLColorSource(
     "Zirconium",
     "Zr",
     40,
@@ -86,5 +86,5 @@ object Zirconium: ASLColorSource(
         SpectralLine(456.9247, 1.80),
         SpectralLine(456.9247, 1.80),
         SpectralLine(460.8970, 0.06),
-    )
+    ),
 )

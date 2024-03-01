@@ -2,8 +2,8 @@ package fr.xgouchet.luxels.core.simulation
 
 import fr.xgouchet.luxels.core.color.Color
 import fr.xgouchet.luxels.core.configuration.Configuration
-import fr.xgouchet.luxels.core.configuration.input.InputData
 import fr.xgouchet.luxels.core.configuration.PassType
+import fr.xgouchet.luxels.core.configuration.input.InputData
 import fr.xgouchet.luxels.core.math.Vector3
 import fr.xgouchet.luxels.core.model.Luxel
 import kotlin.time.Duration
@@ -13,7 +13,7 @@ import kotlin.time.Duration
  * @param L the type of simulated Luxels
  * @param I the expected Input
  */
-interface Simulator<L : Luxel, I: Any> {
+interface Simulator<L : Luxel, I : Any> {
 
     // TODO ensure called always on the main thread !
     /**
@@ -60,5 +60,4 @@ interface Simulator<L : Luxel, I: Any> {
      * @return the color of the environment based on the given inputs
      */
     fun environmentColor(position: Vector3, time: Duration): Color = Color.WHITE
-
 }

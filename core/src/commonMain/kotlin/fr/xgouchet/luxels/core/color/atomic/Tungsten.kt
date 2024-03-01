@@ -1009,5 +1009,5 @@ object Tungsten : ASLColorSource(
         SpectralLine(777.673, 0.03),
         SpectralLine(778.277, 0.01),
         SpectralLine(778.415, 0.10),
-    )
+    ),
 )

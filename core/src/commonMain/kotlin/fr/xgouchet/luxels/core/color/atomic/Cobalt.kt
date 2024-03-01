@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Cobalt.
  */
-object Cobalt: ASLColorSource(
+object Cobalt : ASLColorSource(
     "Cobalt",
     "Co",
     27,
@@ -516,5 +516,5 @@ object Cobalt: ASLColorSource(
         SpectralLine(774.4044, 0.23),
         SpectralLine(776.8325, 0.09),
         SpectralLine(778.40324, 0.37),
-    )
+    ),
 )

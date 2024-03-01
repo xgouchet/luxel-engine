@@ -4,7 +4,6 @@ import fr.xgouchet.luxels.core.gen.noise.DimensionalNoiseGenerator
 import fr.xgouchet.luxels.core.gen.noise.NoiseGenerator
 import fr.xgouchet.luxels.core.math.Vector3
 
-
 /**
  * A generic [NoiseGenerator], computing a [Vector3] noise from a [Double] input.
  * @param delegate the underlying [DimensionalNoiseGenerator]

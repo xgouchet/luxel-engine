@@ -12,5 +12,5 @@ object Thallium : ASLColorSource(
     listOf(
         SpectralLine(377.572, 12.00),
         SpectralLine(535.046, 18.00),
-    )
+    ),
 )

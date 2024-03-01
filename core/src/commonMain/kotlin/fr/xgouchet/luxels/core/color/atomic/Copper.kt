@@ -6,7 +6,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
  * The Atomic Spectral Line [ColorSource] for Copper.
  */
 @Suppress("LargeClass")
-object Copper: ASLColorSource(
+object Copper : ASLColorSource(
     "Copper",
     "Cu",
     29,
@@ -1049,5 +1049,5 @@ object Copper: ASLColorSource(
         SpectralLine(776.6516, 0.03),
         SpectralLine(777.3196, 3.20),
         SpectralLine(777.87353, 25.00),
-    )
+    ),
 )

@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Mercury.
  */
-object Mercury: ASLColorSource(
+object Mercury : ASLColorSource(
     "Mercury",
     "Hg",
     80,
@@ -143,5 +143,5 @@ object Mercury: ASLColorSource(
         SpectralLine(756.4534, 12.00),
         SpectralLine(762.0763, 60.00),
         SpectralLine(772.8825, 0.03),
-    )
+    ),
 )

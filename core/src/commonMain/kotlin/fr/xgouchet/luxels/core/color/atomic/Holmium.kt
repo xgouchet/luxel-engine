@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Holmium.
  */
-object Holmium: ASLColorSource(
+object Holmium : ASLColorSource(
     "Holmium",
     "Ho",
     67,
@@ -28,5 +28,5 @@ object Holmium: ASLColorSource(
         SpectralLine(493.901, 0.29),
         SpectralLine(598.290, 0.23),
         SpectralLine(660.494, 0.26),
-    )
+    ),
 )

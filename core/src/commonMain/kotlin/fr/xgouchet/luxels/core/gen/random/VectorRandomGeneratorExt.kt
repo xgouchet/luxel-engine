@@ -22,18 +22,18 @@ fun RandomGenerator<Vector3>.onUnitSphere(): Vector3 {
     return Vector3.fromSpherical(polar, azimuth, 1.0)
 }
 
-//fun RandomGenerator<Vector3>.inGaussianDisc(): Vector3 {
+// fun RandomGenerator<Vector3>.inGaussianDisc(): Vector3 {
 //    val polar = RndGen.double().inRange(0.0, TAU)
 //    val radius = abs(RndGen.double().gaussian(0.0, 0.333))
 //    return Vector3.fromSpherical(polar, 0.0, radius)
-//}
+// }
 //
-//fun RandomGenerator<Vector3>.inGaussianBall(): Vector3 {
+// fun RandomGenerator<Vector3>.inGaussianBall(): Vector3 {
 //    val polar = RndGen.double().inRange(0.0, TAU)
 //    val azimuth = RndGen.double().inRange(-PI, PI)
 //    val radius = abs(RndGen.double().gaussian(0.0, 0.333))
 //    return Vector3.fromSpherical(polar, azimuth, radius)
-//}
+// }
 
 /**
  * @param space3 a 3D space

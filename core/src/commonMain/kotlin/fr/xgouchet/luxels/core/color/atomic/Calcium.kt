@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Calcium.
  */
-object Calcium: ASLColorSource(
+object Calcium : ASLColorSource(
     "Calcium",
     "Ca",
     20,
@@ -232,5 +232,5 @@ object Calcium: ASLColorSource(
         SpectralLine(769.338, 0.02),
         SpectralLine(777.714, 0.02),
         SpectralLine(779.460, 0.02),
-    )
+    ),
 )

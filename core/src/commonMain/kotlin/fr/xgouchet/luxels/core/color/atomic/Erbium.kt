@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Erbium.
  */
-object Erbium: ASLColorSource(
+object Erbium : ASLColorSource(
     "Erbium",
     "Er",
     68,
@@ -29,5 +29,5 @@ object Erbium: ASLColorSource(
         SpectralLine(460.661, 1.00),
         SpectralLine(582.679, 0.43),
         SpectralLine(622.102, 0.36),
-    )
+    ),
 )

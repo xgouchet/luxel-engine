@@ -2,7 +2,6 @@ package fr.xgouchet.luxels.core.gen.noise.wrapper
 
 import fr.xgouchet.luxels.core.gen.noise.DimensionalNoiseGenerator
 import fr.xgouchet.luxels.core.gen.noise.NoiseGenerator
-import fr.xgouchet.luxels.core.math.Vector2
 import fr.xgouchet.luxels.core.math.Vector3
 
 /**

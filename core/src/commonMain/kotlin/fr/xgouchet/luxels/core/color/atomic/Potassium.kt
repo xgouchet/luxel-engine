@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Potassium.
  */
-object Potassium: ASLColorSource(
+object Potassium : ASLColorSource(
     "Potassium",
     "K",
     19,
@@ -31,5 +31,5 @@ object Potassium: ASLColorSource(
         SpectralLine(696.4672, 0.01),
         SpectralLine(766.489913, 0.03),
         SpectralLine(769.896456, 0.02),
-    )
+    ),
 )

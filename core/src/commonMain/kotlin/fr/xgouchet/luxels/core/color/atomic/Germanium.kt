@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Germanium.
  */
-object Germanium: ASLColorSource(
+object Germanium : ASLColorSource(
     "Germanium",
     "Ge",
     32,
@@ -44,5 +44,5 @@ object Germanium: ASLColorSource(
         SpectralLine(696.63209, 0.02),
         SpectralLine(704.93694, 0.05),
         SpectralLine(714.53899, 0.03),
-    )
+    ),
 )

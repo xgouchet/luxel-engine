@@ -6,7 +6,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
  * The Atomic Spectral Line [ColorSource] for Xenon.
  */
 @Suppress("LargeClass")
-object Xenon: ASLColorSource(
+object Xenon : ASLColorSource(
     "Xenon",
     "Xe",
     54,
@@ -616,5 +616,5 @@ object Xenon: ASLColorSource(
         SpectralLine(778.3660, 0.05),
         SpectralLine(778.704, 0.10),
         SpectralLine(778.9420, 0.02),
-    )
+    ),
 )

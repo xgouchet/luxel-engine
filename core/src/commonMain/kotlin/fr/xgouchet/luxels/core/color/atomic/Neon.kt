@@ -6,7 +6,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
  * The Atomic Spectral Line [ColorSource] for Neon.
  */
 @Suppress("LargeClass")
-object Neon: ASLColorSource(
+object Neon : ASLColorSource(
     "Neon",
     "Ne",
     10,
@@ -1121,5 +1121,5 @@ object Neon: ASLColorSource(
         SpectralLine(772.8803, 0.02),
         SpectralLine(774.0740, 0.24),
         SpectralLine(774.5019, 0.16),
-    )
+    ),
 )

@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Ytterbium.
  */
-object Ytterbium: ASLColorSource(
+object Ytterbium : ASLColorSource(
     "Ytterbium",
     "Yb",
     70,
@@ -18,5 +18,5 @@ object Ytterbium: ASLColorSource(
         SpectralLine(555.647, 2.40),
         SpectralLine(679.960, 0.69),
         SpectralLine(769.948, 0.75),
-    )
+    ),
 )

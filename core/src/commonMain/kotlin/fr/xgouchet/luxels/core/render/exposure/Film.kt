@@ -10,6 +10,7 @@ interface Film {
 
     /** The width of the output image. */
     val width: Int
+
     /** The height of the output image. */
     val height: Int
 

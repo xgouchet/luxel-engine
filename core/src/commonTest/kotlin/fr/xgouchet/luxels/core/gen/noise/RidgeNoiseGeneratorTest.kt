@@ -4,5 +4,5 @@ import io.kotest.core.spec.style.DescribeSpec
 
 class RidgeNoiseGeneratorTest : DescribeSpec({
 
-    include(AbstractDelegatedNoisGeneratorTest("Ridge") { RidgeNoiseGenerator(it) })
+    include(abstractDelegatedNoiseGeneratorTest("Ridge") { RidgeNoiseGenerator(it) })
 })

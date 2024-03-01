@@ -17,9 +17,9 @@ kotlin {
         jvmToolchain(17)
         withJava()
     }
-    js {
-        nodejs()
-    }
+
+    // JS is disabled for now because KoTest doesn't support fully JS target
+    // TODO js { nodejs() }
 
     if (HostManager.hostIsLinux) {
         linuxX64()
@@ -29,10 +29,6 @@ kotlin {
         macosX64()
         macosArm64()
     }
-
-//    linuxX64()
-//    mingwX64()
-//    macosX64()
 
     sourceSets {
         commonMain {
@@ -80,9 +76,7 @@ ktlint {
     }
 }
 
-tasks.named<Test>("jvmTest") {
-    useJUnitPlatform()
-}
+tasks.named<Test>("jvmTest") { useJUnitPlatform() }
 
 // tasks.named("check") {
 //    dependsOn("detektMain")

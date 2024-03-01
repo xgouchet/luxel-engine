@@ -13,6 +13,7 @@ class PerlinNoiseGenerator(
     // region DimensionalNoise
 
     override fun noise(input: List<Double>, outputSize: Int): List<Double> {
+        maxSum = 0.0
         val floor = input.map { floor(it) }
         val frac = input.zip(floor) { a, b -> a - b }
         val ref = floor.map { perlinHash(it) }
@@ -20,7 +21,7 @@ class PerlinNoiseGenerator(
         val fade = frac.map { interpolation.factor(it) }
         val path = IntArray(ref.size) { 0 }.toList()
 
-        return interpolate(
+        val res = interpolate(
             idx = 0,
             hash = ref,
             values = frac,
@@ -28,6 +29,8 @@ class PerlinNoiseGenerator(
             fade = fade,
             outputSize = outputSize,
         )
+        println("PerlinNoise: maxSum=$maxSum scaledO:${maxSum / outputSize} scaledI:${maxSum / input.size}")
+        return res
     }
 
     // endregion
@@ -95,7 +98,7 @@ class PerlinNoiseGenerator(
             }
             h = (h - (h % 3)) / 3
         }
-        return sum
+        return sum / input.size
     }
 
     private fun perlinHash(d: Double): Int {
@@ -119,6 +122,8 @@ class PerlinNoiseGenerator(
     // endregion
 
     companion object {
+
+        var maxSum = 0.0
 
         // Allows 8 hash permutations
         private val permutations = intArrayOf(

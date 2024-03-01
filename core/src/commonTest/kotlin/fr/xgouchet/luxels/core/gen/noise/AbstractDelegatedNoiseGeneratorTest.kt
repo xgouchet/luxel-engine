@@ -2,18 +2,18 @@ package fr.xgouchet.luxels.core.gen.noise
 
 import io.kotest.core.spec.style.describeSpec
 
-fun AbstractDelegatedNoisGeneratorTest(
+fun abstractDelegatedNoiseGeneratorTest(
     description: String,
     noiseProvider: (DimensionalNoiseGenerator) -> DimensionalNoiseGenerator,
 ) = describeSpec {
     include(
-        AbstractNoiseGeneratorTest("$description+Voronoi") {
+        abstractNoiseGeneratorTest("$description+Voronoi") {
             noiseProvider(VoronoiNoiseGenerator())
         },
     )
 
     include(
-        AbstractNoiseGeneratorTest("$description+Perlin") {
+        abstractNoiseGeneratorTest("$description+Perlin") {
             noiseProvider(PerlinNoiseGenerator())
         },
     )

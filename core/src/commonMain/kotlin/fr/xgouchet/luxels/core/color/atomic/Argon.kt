@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Argon.
  */
-object Argon: ASLColorSource(
+object Argon : ASLColorSource(
     "Argon",
     "Ar",
     18,
@@ -350,5 +350,5 @@ object Argon: ASLColorSource(
         SpectralLine(763.5106, 25.00),
         SpectralLine(772.3761, 15.00),
         SpectralLine(772.4207, 10.00),
-    )
+    ),
 )

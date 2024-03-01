@@ -6,7 +6,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
  * The Atomic Spectral Line [ColorSource] for Caesium.
  */
 @Suppress("LargeClass")
-object Caesium: ASLColorSource(
+object Caesium : ASLColorSource(
     "Caesium",
     "Cs",
     55,
@@ -755,5 +755,5 @@ object Caesium: ASLColorSource(
         SpectralLine(774.69798, 31.00),
         SpectralLine(777.68722, 17.00),
         SpectralLine(777.7283, 1.80),
-    )
+    ),
 )

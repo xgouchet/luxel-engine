@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Rubidium.
  */
-object Rubidium: ASLColorSource(
+object Rubidium : ASLColorSource(
     "Rubidium",
     "Rb",
     37,
@@ -149,5 +149,5 @@ object Rubidium: ASLColorSource(
         SpectralLine(772.6078, 0.05),
         SpectralLine(775.76507, 0.30),
         SpectralLine(775.94363, 0.06),
-    )
+    ),
 )

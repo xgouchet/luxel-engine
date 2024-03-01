@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Ruthenium.
  */
-object Ruthenium: ASLColorSource(
+object Ruthenium : ASLColorSource(
     "Ruthenium",
     "Ru",
     44,
@@ -295,5 +295,5 @@ object Ruthenium: ASLColorSource(
         SpectralLine(762.150, 0.02),
         SpectralLine(772.287, 0.02),
         SpectralLine(779.186, 0.02),
-    )
+    ),
 )

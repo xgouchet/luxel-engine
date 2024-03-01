@@ -25,7 +25,7 @@ fun configuration(configure: ConfigurationBuilder<Unit>.() -> Unit): Configurati
  */
 fun configurationWithRandomSeeds(
     count: Int = 10,
-    configure: ConfigurationBuilder<Long>.() -> Unit
+    configure: ConfigurationBuilder<Long>.() -> Unit,
 ): Configuration<Long> {
     return configurationWithInputSource(RandomSeedsInputSource(count), configure)
 }
@@ -37,7 +37,7 @@ fun configurationWithRandomSeeds(
  */
 fun configurationWithFixedSeeds(
     vararg seeds: Long,
-    configure: ConfigurationBuilder<Long>.() -> Unit
+    configure: ConfigurationBuilder<Long>.() -> Unit,
 ): Configuration<Long> {
     return configurationWithInputSource(FixedSeedsInputSource(*seeds), configure)
 }
@@ -55,7 +55,7 @@ fun configurationWithFixedSeeds(
  */
 fun <E : Enum<E>> configurationWithEnum(
     enumType: KType,
-    configure: ConfigurationBuilder<E>.() -> Unit
+    configure: ConfigurationBuilder<E>.() -> Unit,
 ): Configuration<E> {
     return configurationWithInputSource(EnumInputSource(enumType), configure)
 }
@@ -68,7 +68,7 @@ fun <E : Enum<E>> configurationWithEnum(
  */
 fun <D : Any> configurationWithInputSource(
     inputSource: InputSource<D>,
-    configure: ConfigurationBuilder<D>.() -> Unit
+    configure: ConfigurationBuilder<D>.() -> Unit,
 ): Configuration<D> {
     val builder = ConfigurationBuilder(inputSource)
 
@@ -81,14 +81,13 @@ fun <D : Any> configurationWithInputSource(
  *  A builder DSL for the [Configuration] type.
  */
 class ConfigurationBuilder<D : Any> internal constructor(
-    inputSource: InputSource<D>
+    inputSource: InputSource<D>,
 ) {
 
     private var input: Configuration.Input<D> = Configuration.Input(inputSource)
     private var simulation: Configuration.Simulation = Configuration.Simulation()
     private var render: Configuration.Render = Configuration.Render()
     private var animation: Configuration.Animation = Configuration.Animation()
-
 
     /**
      * Configure the simulation options.
@@ -127,7 +126,6 @@ class ConfigurationBuilder<D : Any> internal constructor(
         return Configuration(input, simulation, render, animation)
     }
 }
-
 
 /**
  *  A builder DSL for the [Configuration.Simulation] type.
@@ -188,7 +186,6 @@ class SimulationConfigBuilder internal constructor() {
     }
 }
 
-
 /**
  *  A builder DSL for the [Configuration.Render] type.
  */
@@ -228,7 +225,6 @@ class RenderConfigBuilder internal constructor() {
         return render
     }
 }
-
 
 /**
  *  A builder DSL for the [Configuration.Animation] type.

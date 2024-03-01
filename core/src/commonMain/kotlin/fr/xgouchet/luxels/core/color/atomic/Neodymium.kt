@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Neodymium.
  */
-object Neodymium: ASLColorSource(
+object Neodymium : ASLColorSource(
     "Neodymium",
     "Nd",
     60,
@@ -450,5 +450,5 @@ object Neodymium: ASLColorSource(
         SpectralLine(753.826, 0.01),
         SpectralLine(769.656, 0.01),
         SpectralLine(775.095, 0.01),
-    )
+    ),
 )

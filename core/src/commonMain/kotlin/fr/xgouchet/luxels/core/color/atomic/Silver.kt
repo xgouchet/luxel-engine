@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Silver.
  */
-object Silver: ASLColorSource(
+object Silver : ASLColorSource(
     "Silver",
     "Ag",
     47,
@@ -141,5 +141,5 @@ object Silver: ASLColorSource(
         SpectralLine(735.996, 0.02),
         SpectralLine(743.95, 0.04),
         SpectralLine(768.7772, 0.50),
-    )
+    ),
 )

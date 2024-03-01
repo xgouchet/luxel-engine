@@ -1363,5 +1363,5 @@ object Titanium : ASLColorSource(
         SpectralLine(776.7439, 0.01),
         SpectralLine(778.6450, 0.02),
         SpectralLine(779.0316, 0.01),
-    )
+    ),
 )

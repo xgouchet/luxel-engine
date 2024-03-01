@@ -10,7 +10,6 @@ import fr.xgouchet.luxels.core.render.exposure.Film
  */
 interface Projection {
 
-
     /**
      * Converts a 3D, simulation space position to a 2D film space position.
      * @param position a simulation-space position

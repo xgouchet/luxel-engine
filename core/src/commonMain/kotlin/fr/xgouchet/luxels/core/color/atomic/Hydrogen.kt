@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Hydrogen.
  */
-object Hydrogen: ASLColorSource(
+object Hydrogen : ASLColorSource(
     "Hydrogen",
     "H",
     1,
@@ -45,5 +45,5 @@ object Hydrogen: ASLColorSource(
         SpectralLine(434.0472, 90.00),
         SpectralLine(486.135, 180.00),
         SpectralLine(656.279, 500.00),
-    )
+    ),
 )

@@ -12,7 +12,7 @@ import io.kotest.property.checkAll
 import kotlin.math.abs
 
 @Suppress("LocalVariableName", "NonAsciiCharacters")
-class RectangleTest : DescribeSpec({
+class Space2Test : DescribeSpec({
 
     describe("size") {
         it("returns the rectangle's size") {
@@ -20,24 +20,24 @@ class RectangleTest : DescribeSpec({
                 val size = s.abs()
                 val max = min + size
 
-                val rectangle = Rectangle(min, max)
+                val space2 = Space2(min, max)
 
-                rectangle.size shouldBeCloseTo size
+                space2.size shouldBeCloseTo size
             }
         }
 
         it("returns null for empty rectangle ") {
             checkAll(vector2Arb()) { u ->
-                val rectangle = Rectangle(u, u)
+                val space2 = Space2(u, u)
 
-                rectangle.size shouldBeCloseTo Vector2.NULL
+                space2.size shouldBeCloseTo Vector2.NULL
             }
         }
 
         it("returns unit for unit rectangle ") {
-            val rectangle = Rectangle.UNIT
+            val space2 = Space2.UNIT
 
-            rectangle.size shouldBeCloseTo Vector2.UNIT
+            space2.size shouldBeCloseTo Vector2.UNIT
         }
     }
 
@@ -48,17 +48,17 @@ class RectangleTest : DescribeSpec({
                 val min = center - size
                 val max = center + size
 
-                val rectangle = Rectangle(min, max)
+                val space2 = Space2(min, max)
 
-                rectangle.center shouldBeCloseTo center
+                space2.center shouldBeCloseTo center
             }
         }
 
         it("returns center for empty rectangle ") {
             checkAll(vector2Arb()) { u ->
-                val rectangle = Rectangle(u, u)
+                val space2 = Space2(u, u)
 
-                rectangle.center shouldBeCloseTo u
+                space2.center shouldBeCloseTo u
             }
         }
     }
@@ -69,9 +69,9 @@ class RectangleTest : DescribeSpec({
                 val size = s.abs()
                 val max = min + size
 
-                val rectangle = Rectangle(min, max)
+                val space2 = Space2(min, max)
 
-                min shouldBeIn rectangle
+                min shouldBeIn space2
             }
         }
 
@@ -80,9 +80,9 @@ class RectangleTest : DescribeSpec({
                 val size = s.abs()
                 val max = min + size
 
-                val rectangle = Rectangle(min, max)
+                val space2 = Space2(min, max)
 
-                max shouldBeIn rectangle
+                max shouldBeIn space2
             }
         }
 
@@ -91,9 +91,9 @@ class RectangleTest : DescribeSpec({
                 val size = s.abs()
                 val max = min + size
 
-                val rectangle = Rectangle(min, max)
+                val space2 = Space2(min, max)
 
-                rectangle.center shouldBeIn rectangle
+                space2.center shouldBeIn space2
             }
         }
 
@@ -102,10 +102,10 @@ class RectangleTest : DescribeSpec({
                 val size = s.abs()
                 val max = min + size
 
-                val rectangle = Rectangle(min, max)
+                val space2 = Space2(min, max)
                 val belowMin = min - Vector2.UNIT
 
-                belowMin shouldNotBeIn rectangle
+                belowMin shouldNotBeIn space2
             }
         }
 
@@ -114,10 +114,10 @@ class RectangleTest : DescribeSpec({
                 val size = s.abs()
                 val max = min + size
 
-                val rectangle = Rectangle(min, max)
+                val space2 = Space2(min, max)
                 val aboveMax = max + Vector2.UNIT
 
-                aboveMax shouldNotBeIn rectangle
+                aboveMax shouldNotBeIn space2
             }
         }
     }

@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Tellurium.
  */
-object Tellurium: ASLColorSource(
+object Tellurium : ASLColorSource(
     "Tellurium",
     "Te",
     52,
@@ -92,5 +92,5 @@ object Tellurium: ASLColorSource(
         SpectralLine(755.68, 0.27),
         SpectralLine(768.861, 0.14),
         SpectralLine(775.91, 0.43),
-    )
+    ),
 )

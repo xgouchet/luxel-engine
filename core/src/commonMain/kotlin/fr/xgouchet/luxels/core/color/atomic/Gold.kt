@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Gold.
  */
-object Gold: ASLColorSource(
+object Gold : ASLColorSource(
     "Gold",
     "Au",
     79,
@@ -51,5 +51,5 @@ object Gold: ASLColorSource(
         SpectralLine(595.696, 0.30),
         SpectralLine(627.817, 0.60),
         SpectralLine(751.073, 0.60),
-    )
+    ),
 )

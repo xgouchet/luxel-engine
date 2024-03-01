@@ -34,5 +34,5 @@ object Terbium : ASLColorSource(
         SpectralLine(464.531, 0.26),
         SpectralLine(475.253, 0.41),
         SpectralLine(535.488, 0.16),
-    )
+    ),
 )

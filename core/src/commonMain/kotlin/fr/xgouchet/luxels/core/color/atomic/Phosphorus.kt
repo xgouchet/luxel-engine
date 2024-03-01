@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Phosphorus.
  */
-object Phosphorus: ASLColorSource(
+object Phosphorus : ASLColorSource(
     "Phosphorus",
     "P",
     15,
@@ -71,5 +71,5 @@ object Phosphorus: ASLColorSource(
         SpectralLine(715.8367, 0.10),
         SpectralLine(716.5465, 0.18),
         SpectralLine(717.6660, 0.18),
-    )
+    ),
 )

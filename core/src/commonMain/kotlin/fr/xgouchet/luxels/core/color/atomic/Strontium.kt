@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Strontium.
  */
-object Strontium: ASLColorSource(
+object Strontium : ASLColorSource(
     "Strontium",
     "Sr",
     38,
@@ -447,5 +447,5 @@ object Strontium: ASLColorSource(
         SpectralLine(767.3077, 0.20),
         SpectralLine(772.8022, 0.03),
         SpectralLine(775.9418, 0.02),
-    )
+    ),
 )

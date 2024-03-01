@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Palladium.
  */
-object Palladium: ASLColorSource(
+object Palladium : ASLColorSource(
     "Palladium",
     "Pd",
     46,
@@ -51,5 +51,5 @@ object Palladium: ASLColorSource(
         SpectralLine(748.6908, 0.02),
         SpectralLine(776.3970, 0.12),
         SpectralLine(778.6592, 0.03),
-    )
+    ),
 )

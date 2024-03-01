@@ -356,5 +356,5 @@ object Technetium : ASLColorSource(
         SpectralLine(769.8190, 0.08),
         SpectralLine(779.3046, 0.80),
         SpectralLine(779.8280, 0.06),
-    )
+    ),
 )

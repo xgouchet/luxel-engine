@@ -4,5 +4,5 @@ import io.kotest.core.spec.style.DescribeSpec
 
 class PingPongNoiseGeneratorTest : DescribeSpec({
 
-    include(AbstractDelegatedNoisGeneratorTest("PingPong") { PingPongNoiseGenerator(it, 2.0) })
+    include(abstractDelegatedNoiseGeneratorTest("PingPong") { PingPongNoiseGenerator(it, 2.0) })
 })

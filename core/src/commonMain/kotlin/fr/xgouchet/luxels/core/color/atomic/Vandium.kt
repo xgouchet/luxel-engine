@@ -2523,5 +2523,5 @@ object Vandium : ASLColorSource(
         SpectralLine(778.3272, 7.70),
         SpectralLine(778.781, 3.40),
         SpectralLine(779.0613, 9.80),
-    )
+    ),
 )

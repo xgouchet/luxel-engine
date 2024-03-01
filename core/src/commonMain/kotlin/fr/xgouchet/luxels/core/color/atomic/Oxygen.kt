@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Oxygen.
  */
-object Oxygen: ASLColorSource(
+object Oxygen : ASLColorSource(
     "Oxygen",
     "O",
     8,
@@ -318,5 +318,5 @@ object Oxygen: ASLColorSource(
         SpectralLine(777.194, 0.87),
         SpectralLine(777.417, 0.81),
         SpectralLine(777.539, 0.75),
-    )
+    ),
 )

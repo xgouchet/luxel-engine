@@ -48,6 +48,5 @@ object RndGen {
      */
     fun vector4(): RandomGenerator<Vector4> = Vector4RandomGenerator()
 
-
 //  TODO  inline fun <reified E : Enum<E>> enum() = EnumRandomGenerator(E::class)
 }

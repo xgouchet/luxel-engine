@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Helium.
  */
-object Helium: ASLColorSource(
+object Helium : ASLColorSource(
     "Helium",
     "He",
     2,
@@ -45,5 +45,5 @@ object Helium: ASLColorSource(
         SpectralLine(706.5190, 0.20),
         SpectralLine(706.571, 0.03),
         SpectralLine(728.1349, 0.05),
-    )
+    ),
 )

@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Lutetium.
  */
-object Lutetium: ASLColorSource(
+object Lutetium : ASLColorSource(
     "Lutetium",
     "Lu",
     71,
@@ -80,5 +80,5 @@ object Lutetium: ASLColorSource(
         SpectralLine(709.634, 0.01),
         SpectralLine(723.798, 0.01),
         SpectralLine(744.152, 0.01),
-    )
+    ),
 )

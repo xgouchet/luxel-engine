@@ -44,5 +44,4 @@ abstract class InputSource<D : Any> : Iterable<InputData<D>> {
 //                )
 //            }
 //    }
-
 }

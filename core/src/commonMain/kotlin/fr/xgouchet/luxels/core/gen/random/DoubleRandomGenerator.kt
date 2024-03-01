@@ -2,7 +2,6 @@ package fr.xgouchet.luxels.core.gen.random
 
 import kotlin.random.Random
 
-
 /**
  * A [RandomGenerator] generating [Double] values.
  */

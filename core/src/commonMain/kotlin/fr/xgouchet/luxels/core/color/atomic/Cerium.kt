@@ -6,7 +6,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
  * The Atomic Spectral Line [ColorSource] for Cerium.
  */
 @Suppress("LargeClass")
-object Cerium: ASLColorSource(
+object Cerium : ASLColorSource(
     "Cerium",
     "Ce",
     58,
@@ -632,5 +632,5 @@ object Cerium: ASLColorSource(
         SpectralLine(773.233, 0.01),
         SpectralLine(774.835, 0.02),
         SpectralLine(779.770, 0.01),
-    )
+    ),
 )

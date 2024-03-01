@@ -8,7 +8,7 @@ import fr.xgouchet.luxels.core.render.projection.Projection
 import fr.xgouchet.luxels.core.simulation.Simulator
 import kotlin.time.Duration
 
-internal class PathSimulationWorker<L : Luxel, I: Any>(
+internal class PathSimulationWorker<L : Luxel, I : Any>(
     film: Film,
     simulator: Simulator<L, I>,
     simulation: Configuration.Simulation,

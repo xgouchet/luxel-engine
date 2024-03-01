@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Magnesium.
  */
-object Magnesium: ASLColorSource(
+object Magnesium : ASLColorSource(
     "Magnesium",
     "Mg",
     12,
@@ -42,5 +42,5 @@ object Magnesium: ASLColorSource(
         SpectralLine(765.9152, 0.02),
         SpectralLine(765.9902, 0.02),
         SpectralLine(769.1550, 0.02),
-    )
+    ),
 )

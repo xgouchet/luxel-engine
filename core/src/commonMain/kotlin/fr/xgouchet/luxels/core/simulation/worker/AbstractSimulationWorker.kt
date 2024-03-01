@@ -9,7 +9,7 @@ import fr.xgouchet.luxels.core.render.projection.Projection
 import fr.xgouchet.luxels.core.simulation.Simulator
 import kotlin.time.Duration
 
-internal abstract class AbstractSimulationWorker<L : Luxel, I: Any>(
+internal abstract class AbstractSimulationWorker<L : Luxel, I : Any>(
     protected val film: Film,
     protected val simulator: Simulator<L, I>,
     protected val simulation: Configuration.Simulation,

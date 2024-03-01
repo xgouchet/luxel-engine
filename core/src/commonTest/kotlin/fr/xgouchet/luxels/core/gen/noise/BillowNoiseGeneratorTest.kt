@@ -4,5 +4,5 @@ import io.kotest.core.spec.style.DescribeSpec
 
 class BillowNoiseGeneratorTest : DescribeSpec({
 
-    include(AbstractDelegatedNoisGeneratorTest("Billow") { BillowNoiseGenerator(it) })
+    include(abstractDelegatedNoiseGeneratorTest("Billow") { BillowNoiseGenerator(it) })
 })

@@ -6,7 +6,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
  * The Atomic Spectral Line [ColorSource] for Hafnium.
  */
 @Suppress("LargeClass")
-object Hafnium: ASLColorSource(
+object Hafnium : ASLColorSource(
     "Hafnium",
     "Hf",
     72,
@@ -1977,5 +1977,5 @@ object Hafnium: ASLColorSource(
         SpectralLine(779.0900, 1.50),
         SpectralLine(779.6820, 0.18),
         SpectralLine(779.6820, 0.18),
-    )
+    ),
 )

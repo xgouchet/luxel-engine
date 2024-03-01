@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Samarium.
  */
-object Samarium: ASLColorSource(
+object Samarium : ASLColorSource(
     "Samarium",
     "Sm",
     62,
@@ -30,5 +30,5 @@ object Samarium: ASLColorSource(
         SpectralLine(476.027, 0.73),
         SpectralLine(484.170, 0.97),
         SpectralLine(488.397, 0.73),
-    )
+    ),
 )

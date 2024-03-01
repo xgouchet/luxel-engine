@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Platinum.
  */
-object Platinum: ASLColorSource(
+object Platinum : ASLColorSource(
     "Platinum",
     "Pt",
     78,
@@ -327,5 +327,5 @@ object Platinum: ASLColorSource(
         SpectralLine(778.051, 1.00),
         SpectralLine(778.6753, 1.10),
         SpectralLine(779.019, 0.46),
-    )
+    ),
 )

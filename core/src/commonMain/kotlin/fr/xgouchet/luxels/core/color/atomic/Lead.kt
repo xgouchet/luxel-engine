@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Lead.
  */
-object Lead: ASLColorSource(
+object Lead : ASLColorSource(
     "Lead",
     "Pb",
     82,
@@ -44,5 +44,5 @@ object Lead: ASLColorSource(
         SpectralLine(689.2111, 0.01),
         SpectralLine(722.89653, 20.00),
         SpectralLine(734.66757, 0.01),
-    )
+    ),
 )

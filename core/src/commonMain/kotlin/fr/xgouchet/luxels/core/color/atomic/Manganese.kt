@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Manganese.
  */
-object Manganese: ASLColorSource(
+object Manganese : ASLColorSource(
     "Manganese",
     "Mn",
     25,
@@ -392,5 +392,5 @@ object Manganese: ASLColorSource(
         SpectralLine(727.856, 0.05),
         SpectralLine(727.856, 0.05),
         SpectralLine(728.016, 0.04),
-    )
+    ),
 )

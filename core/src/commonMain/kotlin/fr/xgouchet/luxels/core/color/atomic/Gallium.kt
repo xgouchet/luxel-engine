@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Gallium.
  */
-object Gallium: ASLColorSource(
+object Gallium : ASLColorSource(
     "Gallium",
     "Ga",
     31,
@@ -26,5 +26,5 @@ object Gallium: ASLColorSource(
         SpectralLine(762.05, 0.01),
         SpectralLine(773.477, 0.05),
         SpectralLine(779.2260, 0.02),
-    )
+    ),
 )

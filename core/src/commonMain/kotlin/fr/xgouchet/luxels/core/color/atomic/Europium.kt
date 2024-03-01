@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Europium.
  */
-object Europium: ASLColorSource(
+object Europium : ASLColorSource(
     "Europium",
     "Eu",
     63,
@@ -296,5 +296,5 @@ object Europium: ASLColorSource(
         SpectralLine(758.391, 0.16),
         SpectralLine(774.257, 0.06),
         SpectralLine(774.619, 0.07),
-    )
+    ),
 )

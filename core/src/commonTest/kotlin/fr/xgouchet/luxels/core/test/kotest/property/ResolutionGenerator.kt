@@ -25,7 +25,7 @@ fun resolutionArb() = arbitrary {
 
         // 16/9 resolutions
         Resolution.HD_720,
-        Resolution.HD_1080,
+        Resolution.FHD_1080,
         Resolution.QHD,
         Resolution.UHD_4K,
         // Resolution.UHD_5K, // OOM

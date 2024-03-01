@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Aluminum.
  */
-object Aluminium: ASLColorSource(
+object Aluminium : ASLColorSource(
     "Aluminium",
     "Al",
     13,
@@ -115,5 +115,5 @@ object Aluminium: ASLColorSource(
         SpectralLine(747.141, 0.09),
         SpectralLine(762.785, 0.01),
         SpectralLine(763.533, 0.02),
-    )
+    ),
 )

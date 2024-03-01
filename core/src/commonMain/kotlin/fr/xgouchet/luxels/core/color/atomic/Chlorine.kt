@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Chlorine.
  */
-object Chlorine: ASLColorSource(
+object Chlorine : ASLColorSource(
     "Chlorine",
     "Cl",
     17,
@@ -88,5 +88,5 @@ object Chlorine: ASLColorSource(
         SpectralLine(774.497, 10.00),
         SpectralLine(776.916, 2.20),
         SpectralLine(777.109, 0.65),
-    )
+    ),
 )

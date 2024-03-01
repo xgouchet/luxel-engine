@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Praseodymium.
  */
-object Praseodymium: ASLColorSource(
+object Praseodymium : ASLColorSource(
     "Praseodymium",
     "Pr",
     59,
@@ -341,5 +341,5 @@ object Praseodymium: ASLColorSource(
         SpectralLine(745.174, 0.02),
         SpectralLine(754.102, 0.01),
         SpectralLine(764.566, 0.02),
-    )
+    ),
 )

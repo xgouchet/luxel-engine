@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Gadolinium.
  */
-object Gadolinium: ASLColorSource(
+object Gadolinium : ASLColorSource(
     "Gadolinium",
     "Gd",
     64,
@@ -40,5 +40,5 @@ object Gadolinium: ASLColorSource(
         SpectralLine(451.966, 1.10),
         SpectralLine(510.345, 0.91),
         SpectralLine(515.584, 0.86),
-    )
+    ),
 )

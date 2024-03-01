@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Krypton.
  */
-object Krypton: ASLColorSource(
+object Krypton : ASLColorSource(
     "Krypton",
     "Kr",
     36,
@@ -382,5 +382,5 @@ object Krypton: ASLColorSource(
         SpectralLine(774.6828, 0.05),
         SpectralLine(777.628, 0.04),
         SpectralLine(778.197, 0.10),
-    )
+    ),
 )

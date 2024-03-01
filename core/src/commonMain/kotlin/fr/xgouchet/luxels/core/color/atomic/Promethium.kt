@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Promethium.
  */
-object Promethium: ASLColorSource(
+object Promethium : ASLColorSource(
     "Promethium",
     "Pm",
     61,
@@ -35,5 +35,5 @@ object Promethium: ASLColorSource(
         SpectralLine(514.630, 0.50),
         SpectralLine(554.608, 0.80),
         SpectralLine(557.602, 0.80),
-    )
+    ),
 )

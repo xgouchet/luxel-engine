@@ -6,7 +6,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
  * The Atomic Spectral Line [ColorSource] for Chromium.
  */
 @Suppress("LargeClass")
-object Chromium: ASLColorSource(
+object Chromium : ASLColorSource(
     "Chromium",
     "Cr",
     24,
@@ -1297,5 +1297,5 @@ object Chromium: ASLColorSource(
         SpectralLine(771.9426, 0.01),
         SpectralLine(772.600, 0.01),
         SpectralLine(777.169, 0.02),
-    )
+    ),
 )

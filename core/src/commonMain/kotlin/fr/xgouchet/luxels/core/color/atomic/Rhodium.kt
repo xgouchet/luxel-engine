@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Rhodium.
  */
-object Rhodium: ASLColorSource(
+object Rhodium : ASLColorSource(
     "Rhodium",
     "Rh",
     45,
@@ -208,5 +208,5 @@ object Rhodium: ASLColorSource(
         SpectralLine(769.005, 0.01),
         SpectralLine(777.290, 0.02),
         SpectralLine(779.161, 0.03),
-    )
+    ),
 )

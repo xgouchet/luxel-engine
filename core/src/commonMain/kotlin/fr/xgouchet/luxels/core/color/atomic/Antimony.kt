@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Antimony.
  */
-object Antimony: ASLColorSource(
+object Antimony : ASLColorSource(
     "Antimony",
     "Sb",
     51,
@@ -49,5 +49,5 @@ object Antimony: ASLColorSource(
         SpectralLine(630.2764, 0.01),
         SpectralLine(661.13796, 0.02),
         SpectralLine(764.8258, 0.03),
-    )
+    ),
 )

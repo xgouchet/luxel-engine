@@ -25,7 +25,7 @@ import io.kotest.property.withAssumptions
 import kotlin.math.PI
 import kotlin.math.abs
 
-@Suppress("DANGEROUS_CHARACTERS")
+@Suppress("RemoveRedundantBackticks")
 class Vector2Test : DescribeSpec({
 
     describe("minus") {
@@ -552,7 +552,7 @@ class Vector2Test : DescribeSpec({
         }
 
         it("loops around the polar circle") {
-            checkAll(doubleSmallArb(), doubleSmallArb()) { p, r ->
+            checkAll(doubleSmallArb()) { r ->
                 val radius = abs(r)
                 val v1 = fromCircular(0.0, radius)
                 val v2 = fromCircular(TAU, radius)

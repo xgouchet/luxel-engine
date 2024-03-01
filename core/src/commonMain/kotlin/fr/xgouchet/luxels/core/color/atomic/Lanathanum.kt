@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Lanathum.
  */
-object Lanathanum: ASLColorSource(
+object Lanathanum : ASLColorSource(
     "Lanathanum",
     "La",
     57,
@@ -485,5 +485,5 @@ object Lanathanum: ASLColorSource(
         SpectralLine(753.923, 0.09),
         SpectralLine(761.294, 0.02),
         SpectralLine(766.434, 0.02),
-    )
+    ),
 )

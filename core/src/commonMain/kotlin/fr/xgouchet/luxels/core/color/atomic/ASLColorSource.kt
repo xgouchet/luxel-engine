@@ -20,7 +20,7 @@ abstract class ASLColorSource(
     val name: String,
     val symbol: String,
     val number: Int,
-    private val spectralLines: List<SpectralLine>
+    private val spectralLines: List<SpectralLine>,
 ) : EMSColorSource(0.0, 0.0, 0.8) {
 
     /**

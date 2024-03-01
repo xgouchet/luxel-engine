@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Lithium.
  */
-object Lithium: ASLColorSource(
+object Lithium : ASLColorSource(
     "Lithium",
     "Li",
     3,
@@ -29,5 +29,5 @@ object Lithium: ASLColorSource(
         SpectralLine(610.365, 0.32),
         SpectralLine(670.776, 3.60),
         SpectralLine(670.791, 3.60),
-    )
+    ),
 )

@@ -409,5 +409,5 @@ object Thulium : ASLColorSource(
         SpectralLine(778.235, 0.12),
         SpectralLine(778.551, 0.04),
         SpectralLine(778.590, 0.03),
-    )
+    ),
 )

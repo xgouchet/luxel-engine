@@ -6,5 +6,4 @@ internal class NoOpFixer : ImageFixer {
 
     override fun write(film: Film, outputName: String) {
     }
-
 }

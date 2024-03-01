@@ -13,7 +13,7 @@ import io.kotest.property.checkAll
 import kotlin.math.abs
 
 @Suppress("LocalVariableName", "NonAsciiCharacters")
-class BoxTest : DescribeSpec({
+class Space3Test : DescribeSpec({
 
     describe("size") {
         it("returns the box's size") {

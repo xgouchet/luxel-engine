@@ -13,5 +13,4 @@ interface ImageFixer {
      * @param outputName the name of the file to write to
      */
     fun write(film: Film, outputName: String)
-
 }

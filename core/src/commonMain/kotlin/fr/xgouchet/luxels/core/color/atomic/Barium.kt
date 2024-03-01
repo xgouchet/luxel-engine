@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Barium.
  */
-object Barium: ASLColorSource(
+object Barium : ASLColorSource(
     "Barium",
     "Ba",
     56,
@@ -144,5 +144,5 @@ object Barium: ASLColorSource(
         SpectralLine(764.2793, 0.02),
         SpectralLine(767.2085, 0.56),
         SpectralLine(778.0478, 0.30),
-    )
+    ),
 )

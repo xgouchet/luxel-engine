@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Fluor.
  */
-object Fluor: ASLColorSource(
+object Fluor : ASLColorSource(
     "Fluor",
     "F",
     9,
@@ -87,5 +87,5 @@ object Fluor: ASLColorSource(
         SpectralLine(757.3384, 5.00),
         SpectralLine(760.7170, 7.00),
         SpectralLine(775.4696, 18.00),
-    )
+    ),
 )

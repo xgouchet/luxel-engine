@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Sodium.
  */
-object Sodium: ASLColorSource(
+object Sodium : ASLColorSource(
     "Sodium",
     "Na",
     11,
@@ -148,5 +148,5 @@ object Sodium: ASLColorSource(
         SpectralLine(655.2432, 0.08),
         SpectralLine(656.5850, 0.02),
         SpectralLine(656.5850, 0.02),
-    )
+    ),
 )

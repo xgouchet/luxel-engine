@@ -26,7 +26,7 @@ import io.kotest.property.checkAll
 import io.kotest.property.withAssumptions
 import kotlin.math.abs
 
-@Suppress("DANGEROUS_CHARACTERS")
+@Suppress("RemoveRedundantBackticks")
 class Vector4Test : DescribeSpec({
 
     describe("minus") {

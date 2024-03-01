@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Silicon.
  */
-object Silicon: ASLColorSource(
+object Silicon : ASLColorSource(
     "Silicon",
     "Si",
     14,
@@ -85,5 +85,5 @@ object Silicon: ASLColorSource(
         SpectralLine(761.236, 0.01),
         SpectralLine(768.0267, 0.10),
         SpectralLine(774.271, 0.04),
-    )
+    ),
 )

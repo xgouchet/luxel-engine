@@ -2,11 +2,10 @@ package fr.xgouchet.luxels.core.color.atomic
 
 import fr.xgouchet.luxels.core.color.ColorSource
 
-
 /**
  * The Atomic Spectral Line [ColorSource] for Nickel.
  */
-object Nickel: ASLColorSource(
+object Nickel : ASLColorSource(
     "Nickel",
     "Ni",
     28,
@@ -82,5 +81,5 @@ object Nickel: ASLColorSource(
         SpectralLine(771.432, 0.02),
         SpectralLine(772.761, 0.02),
         SpectralLine(778.894, 0.01),
-    )
+    ),
 )

@@ -15,5 +15,4 @@ interface RandomGenerator<T> {
      * Returns a value uniformly distributed between the given min and max.
      */
     fun inRange(min: T, max: T): T
-
 }

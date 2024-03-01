@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Niobium.
  */
-object Niobium: ASLColorSource(
+object Niobium : ASLColorSource(
     "Niobium",
     "Nb",
     41,
@@ -69,5 +69,5 @@ object Niobium: ASLColorSource(
         SpectralLine(406.3413, 200.00),
         SpectralLine(406.4682, 10.00),
         SpectralLine(409.6533, 7.00),
-    )
+    ),
 )

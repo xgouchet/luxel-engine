@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Sulfur.
  */
-object Sulfur: ASLColorSource(
+object Sulfur : ASLColorSource(
     "Sulfur",
     "S",
     16,
@@ -290,5 +290,5 @@ object Sulfur: ASLColorSource(
         SpectralLine(757.8909, 0.02),
         SpectralLine(762.9740, 0.02),
         SpectralLine(769.672, 0.01),
-    )
+    ),
 )

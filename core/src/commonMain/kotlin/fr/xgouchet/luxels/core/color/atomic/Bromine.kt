@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Bromine.
  */
-object Bromine: ASLColorSource(
+object Bromine : ASLColorSource(
     "Bromine",
     "Br",
     35,
@@ -66,5 +66,5 @@ object Bromine: ASLColorSource(
         SpectralLine(759.1611, 1.60),
         SpectralLine(759.5071, 1.80),
         SpectralLine(761.6411, 2.00),
-    )
+    ),
 )

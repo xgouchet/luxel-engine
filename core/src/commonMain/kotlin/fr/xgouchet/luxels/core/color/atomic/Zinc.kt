@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Zinc.
  */
-object Zinc: ASLColorSource(
+object Zinc : ASLColorSource(
     "Zinc",
     "Zn",
     30,
@@ -53,5 +53,5 @@ object Zinc: ASLColorSource(
         SpectralLine(773.24886, 0.30),
         SpectralLine(775.79, 0.20),
         SpectralLine(779.9362, 6.40),
-    )
+    ),
 )

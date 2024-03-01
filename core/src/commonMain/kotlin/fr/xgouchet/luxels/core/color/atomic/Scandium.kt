@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Scandium.
  */
-object Scandium: ASLColorSource(
+object Scandium : ASLColorSource(
     "Scandium",
     "Sc",
     21,
@@ -117,5 +117,5 @@ object Scandium: ASLColorSource(
         SpectralLine(774.12223, 0.02),
         SpectralLine(774.128, 0.03),
         SpectralLine(778.517, 0.02),
-    )
+    ),
 )

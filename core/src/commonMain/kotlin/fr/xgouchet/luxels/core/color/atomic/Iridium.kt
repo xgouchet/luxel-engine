@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Iridium.
  */
-object Iridium: ASLColorSource(
+object Iridium : ASLColorSource(
     "Iridium",
     "Ir",
     77,
@@ -128,5 +128,5 @@ object Iridium: ASLColorSource(
         SpectralLine(611.067, 0.02),
         SpectralLine(628.828, 0.01),
         SpectralLine(668.608, 0.01),
-    )
+    ),
 )

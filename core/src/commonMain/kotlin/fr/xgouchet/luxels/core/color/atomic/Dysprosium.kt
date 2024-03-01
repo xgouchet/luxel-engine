@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Dysprosium.
  */
-object Dysprosium: ASLColorSource(
+object Dysprosium : ASLColorSource(
     "Dysprosium",
     "Dy",
     66,
@@ -88,5 +88,5 @@ object Dysprosium: ASLColorSource(
         SpectralLine(625.909, 0.27),
         SpectralLine(657.937, 0.16),
         SpectralLine(737.604, 0.02),
-    )
+    ),
 )

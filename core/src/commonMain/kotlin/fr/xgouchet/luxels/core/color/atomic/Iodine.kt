@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Iodine.
  */
-object Iodine: ASLColorSource(
+object Iodine : ASLColorSource(
     "Iodine",
     "I",
     53,
@@ -112,5 +112,5 @@ object Iodine: ASLColorSource(
         SpectralLine(755.4175, 0.47),
         SpectralLine(755.665, 0.20),
         SpectralLine(770.020, 0.49),
-    )
+    ),
 )

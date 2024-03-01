@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Beryllium.
  */
-object Beryllium: ASLColorSource(
+object Beryllium : ASLColorSource(
     "Beryllium",
     "Be",
     4,
@@ -120,5 +120,5 @@ object Beryllium: ASLColorSource(
         SpectralLine(720.9134, 0.01),
         SpectralLine(740.120, 0.21),
         SpectralLine(740.143, 0.11),
-    )
+    ),
 )

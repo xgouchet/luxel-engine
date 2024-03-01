@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Yttrium.
  */
-object Yttrium: ASLColorSource(
+object Yttrium : ASLColorSource(
     "Yttrium",
     "Y",
     39,
@@ -304,5 +304,5 @@ object Yttrium: ASLColorSource(
         SpectralLine(772.4057, 0.02),
         SpectralLine(778.8402, 0.01),
         SpectralLine(779.6291, 0.01),
-    )
+    ),
 )

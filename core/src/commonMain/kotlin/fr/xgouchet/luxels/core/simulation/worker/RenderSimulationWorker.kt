@@ -11,7 +11,7 @@ import kotlin.math.max
 import kotlin.math.roundToInt
 import kotlin.time.Duration
 
-internal class RenderSimulationWorker<L : Luxel, I: Any>(
+internal class RenderSimulationWorker<L : Luxel, I : Any>(
     film: Film,
     simulator: Simulator<L, I>,
     simulation: Configuration.Simulation,

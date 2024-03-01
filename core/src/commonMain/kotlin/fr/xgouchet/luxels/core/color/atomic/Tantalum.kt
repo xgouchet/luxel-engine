@@ -318,5 +318,5 @@ object Tantalum : ASLColorSource(
         SpectralLine(752.056, 0.03),
         SpectralLine(772.202, 0.01),
         SpectralLine(776.311, 0.01),
-    )
+    ),
 )

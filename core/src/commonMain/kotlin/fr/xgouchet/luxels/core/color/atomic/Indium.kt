@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.core.color.ColorSource
 /**
  * The Atomic Spectral Line [ColorSource] for Indium.
  */
-object Indium: ASLColorSource(
+object Indium : ASLColorSource(
     "Indium",
     "In",
     49,
@@ -260,5 +260,5 @@ object Indium: ASLColorSource(
         SpectralLine(777.695, 0.32),
         SpectralLine(778.693, 0.10),
         SpectralLine(778.899, 0.32),
-    )
+    ),
 )
