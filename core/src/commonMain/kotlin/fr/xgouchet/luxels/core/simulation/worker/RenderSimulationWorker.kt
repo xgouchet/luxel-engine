@@ -17,8 +17,7 @@ internal class RenderSimulationWorker<L : Luxel, I : Any>(
     simulation: Configuration.Simulation,
     projection: Projection,
     time: Duration,
-    onComplete: () -> Unit,
-) : AbstractSimulationWorker<L, I>(film, simulator, simulation, projection, time, onComplete) {
+) : AbstractSimulationWorker<L, I>(film, simulator, simulation, projection, time) {
 
     private val frameStart = Clock.System.now()
 

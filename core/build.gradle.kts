@@ -1,3 +1,4 @@
+import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 import org.jetbrains.kotlin.konan.target.HostManager
 
 plugins {
@@ -44,11 +45,13 @@ kotlin {
             dependencies {
                 implementation(libs.bundles.kotest)
                 implementation(libs.okioTest)
+                implementation(libs.kotlinxCoroutinesTest)
             }
         }
 
         jvmMain {
             dependencies {
+                implementation(libs.kotlinxCoroutinesJvm)
                 implementation(libs.bundles.imageIo)
                 implementation(files("libs/JavaHDR.jar"))
             }
@@ -68,7 +71,7 @@ dependencies {
 }
 
 ktlint {
-    version = "1.1.1"
+    version = "1.2.1"
     filter {
         exclude("**/generated/**")
         exclude("**/build/**")
@@ -83,15 +86,15 @@ tasks.named<Test>("jvmTest") { useJUnitPlatform() }
 //    dependsOn("ktlintCheck")
 // }
 //
-// tasks.withType<DependencyUpdatesTask> {
-//    rejectVersionIf {
-//        isNonStable(candidate.version)
-//    }
-// }
-//
-// fun isNonStable(version: String): Boolean {
-//    val stableKeyword = listOf("RELEASE", "FINAL", "GA").any { version.uppercase().contains(it) }
-//    val regex = "^[0-9,.v-]+$".toRegex()
-//    val isStable = stableKeyword || regex.matches(version)
-//    return isStable.not()
-// }
+tasks.withType<DependencyUpdatesTask> {
+    rejectVersionIf {
+        isNonStable(candidate.version)
+    }
+}
+
+fun isNonStable(version: String): Boolean {
+    val stableKeyword = listOf("RELEASE", "FINAL", "GA").any { version.uppercase().contains(it) }
+    val regex = "^[0-9,.v-]+$".toRegex()
+    val isStable = stableKeyword || regex.matches(version)
+    return isStable.not()
+}

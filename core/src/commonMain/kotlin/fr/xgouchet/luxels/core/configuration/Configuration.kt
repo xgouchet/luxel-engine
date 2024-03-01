@@ -107,11 +107,9 @@ class Configuration<I : Any> internal constructor(
 
     internal fun <L : Luxel, I : Any> createWorker(
         simulator: Simulator<L, I>,
+        film: Film,
         frameInfo: FrameInfo,
-        onComplete: (Film) -> Unit,
     ): SimulationWorker {
-        val film = render.createFilm()
-        val onWorkerComplete = { onComplete(film) }
         return when (simulation.passType) {
             PassType.RENDER -> RenderSimulationWorker(
                 film = film,
@@ -119,7 +117,6 @@ class Configuration<I : Any> internal constructor(
                 simulation = simulation,
                 projection = projection,
                 time = frameInfo.frameTime,
-                onComplete = onWorkerComplete,
             )
 
             PassType.SPAWN -> SpawnSimulationWorker(
@@ -128,7 +125,6 @@ class Configuration<I : Any> internal constructor(
                 simulation = simulation,
                 projection = projection,
                 time = frameInfo.frameTime,
-                onComplete = onWorkerComplete,
             )
 
             PassType.PATH -> PathSimulationWorker(
@@ -137,7 +133,6 @@ class Configuration<I : Any> internal constructor(
                 simulation = simulation,
                 projection = projection,
                 time = frameInfo.frameTime,
-                onComplete = onWorkerComplete,
             )
 
             PassType.DEATH -> DeathSimulationWorker(
@@ -146,7 +141,6 @@ class Configuration<I : Any> internal constructor(
                 simulation = simulation,
                 projection = projection,
                 time = frameInfo.frameTime,
-                onComplete = onWorkerComplete,
             )
 
             PassType.ENV -> EnvSimulationWorker(
@@ -155,7 +149,6 @@ class Configuration<I : Any> internal constructor(
                 simulation = simulation,
                 projection = projection,
                 time = frameInfo.frameTime,
-                onComplete = onWorkerComplete,
             )
         }
     }

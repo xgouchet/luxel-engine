@@ -36,6 +36,9 @@ class HdrImageFixer(
             }
         }
 
+        if (!outputFile.parentFile.exists()) {
+            outputFile.parentFile.mkdirs()
+        }
         HDREncoder.writeHDR(image, outputFile)
     }
 

@@ -14,8 +14,7 @@ internal class SpawnSimulationWorker<L : Luxel, I : Any>(
     simulation: Configuration.Simulation,
     projection: Projection,
     time: Duration,
-    onComplete: () -> Unit,
-) : AbstractSimulationWorker<L, I>(film, simulator, simulation, projection, time, onComplete) {
+) : AbstractSimulationWorker<L, I>(film, simulator, simulation, projection, time) {
 
     // region AbstractSimulationWorker
 

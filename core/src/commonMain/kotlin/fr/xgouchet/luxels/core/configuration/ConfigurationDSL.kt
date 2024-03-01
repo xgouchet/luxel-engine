@@ -6,6 +6,8 @@ import fr.xgouchet.luxels.core.configuration.input.EnumInputSource
 import fr.xgouchet.luxels.core.configuration.input.FixedSeedsInputSource
 import fr.xgouchet.luxels.core.configuration.input.InputSource
 import fr.xgouchet.luxels.core.configuration.input.RandomSeedsInputSource
+import fr.xgouchet.luxels.core.io.ImageFixer
+import fr.xgouchet.luxels.core.io.NoOpFixer
 import fr.xgouchet.luxels.core.position.Space3
 import kotlin.reflect.KType
 import kotlin.time.Duration
@@ -216,10 +218,13 @@ class RenderConfigBuilder internal constructor() {
         render = render.copy(projectionType = type)
     }
 
-    //    fun iso(iso: Double) {
-//        TODO KMM Fixer
-//        renderConfig = renderConfig.copy(fixer = HdrImageFixer(iso))
-//    }
+    /**
+     * Sets the [ImageFixer] that will save the content of the film to an Image file.
+     * @param fixer the fixer to save the film to an Image file (default: [NoOpFixer])
+     */
+    fun fixer(fixer: ImageFixer) {
+        render = render.copy(fixer = fixer)
+    }
 
     internal fun build(): Configuration.Render {
         return render

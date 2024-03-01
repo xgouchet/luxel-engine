@@ -1,10 +1,10 @@
 [versions]
 
 # Commons
-kotlin = "1.9.21"
+kotlin = "1.9.22"
 kotlinxDateTime = "0.5.0"
 kotlinxSerialization = "1.6.3"
-kotlinxCoroutines = "1.6.3"
+kotlinxCoroutines = "1.8.0"
 
 # Okio
 okio = "3.8.0"
@@ -44,8 +44,11 @@ kotestGradlePlugin = { module = "io.kotest:kotest-framework-multiplatform-plugin
 # Common
 kotlin = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
 kotlinxDateTime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDateTime" }
-kotlinxSerialization = { module ="org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization"}
-kotlinxCoroutines = { module ="org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutines"}
+kotlinxSerialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
+kotlinxCoroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
+kotlinxCoroutinesJvm = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm", version.ref = "kotlinxCoroutines" }
+kotlinxCoroutinesMacOsx64 = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core-macosx64", version.ref = "kotlinxCoroutines" }
+kotlinxCoroutinesTest = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
 
 # Okio
 okio = { module = "com.squareup.okio:okio", version.ref = "okio" }

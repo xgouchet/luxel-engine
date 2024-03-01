@@ -29,7 +29,6 @@ class PerlinNoiseGenerator(
             fade = fade,
             outputSize = outputSize,
         )
-        println("PerlinNoise: maxSum=$maxSum scaledO:${maxSum / outputSize} scaledI:${maxSum / input.size}")
         return res
     }
 

@@ -1,28 +1,58 @@
+import org.jetbrains.kotlin.konan.target.HostManager
+
 plugins {
-    application
-    kotlin("jvm")
+//    application
+    kotlin("multiplatform")
 
     id("com.github.ben-manes.versions")
     id("io.gitlab.arturbosch.detekt")
     id("org.jlleitschuh.gradle.ktlint")
+    id("io.kotest.multiplatform")
 }
 
 kotlin {
-    jvmToolchain(17)
-}
+    jvm {
+        jvmToolchain(17)
+        withJava()
+        mainRun {
+            mainClass.set("fr.xgouchet.luxels.cli.MainKt")
+        }
+    }
 
-dependencies {
-    implementation(project(":core"))
-    implementation(libs.kotlinxDateTime)
+    // JS is disabled for now because KoTest doesn't support fully JS target
+    // TODO js { nodejs() }
 
-    implementation("com.squareup.okhttp3:okhttp:4.12.0")
-}
+    if (HostManager.hostIsLinux) {
+        linuxX64()
+        linuxArm64()
+    }
+    if (HostManager.hostIsMac) {
+        macosX64()
+        macosArm64()
+    }
 
-application {
-    mainClass.set("fr.xgouchet.luxels.cli.MainKt")
+    sourceSets {
+        commonMain {
+            dependencies {
+                implementation(project(":core"))
+                implementation(libs.kotlinxDateTime)
+                implementation(libs.kotlinxSerialization)
+                implementation(libs.kotlinxCoroutines)
+                implementation(libs.okio)
+            }
+        }
+
+        jvmMain {
+            dependencies {
+                implementation(libs.bundles.imageIo)
+                implementation(files("../core/libs/JavaHDR.jar"))
+            }
+        }
+    }
 }
 
 ktlint {
+    version = "1.1.1"
     filter {
         exclude("**/generated/**")
         exclude("**/build/**")
@@ -30,24 +60,19 @@ ktlint {
     }
 }
 
-tasks.withType(Test::class.java) {
-    useJUnitPlatform {
-        includeEngines("spek2", "junit-jupiter", "junit-vintage")
-    }
-}
-
-// tasks.withType(Jar::class.java) {
-//    manifest {
-//        val main by kotlin.jvm().compilations.getting
-//        attributes(
-//            "Main-Class" to "fr.xgouchet.luxels.cli.MainKt"
-//        )
-//    }
+// application {
+//    mainClass.set("fr.xgouchet.luxels.cli.MainKt")
 // }
 
-tasks.named("check") {
-    dependsOn("detektMain")
-    dependsOn("ktlintCheck")
+tasks.named<Test>("jvmTest") { useJUnitPlatform() }
+
+tasks.withType(Jar::class.java) {
+    manifest {
+        val main by kotlin.jvm().compilations.getting
+        attributes(
+            "Main-Class" to "fr.xgouchet.luxels.cli.MainKt",
+        )
+    }
 }
 
 tasks.register<Copy>("install") {

@@ -8,5 +8,8 @@
   - [ ] KtLint formatting checks
   - [ ] Kotest runs
 - [ ] Implement better logging with slf4j or alternatives
-- [ ] Write KDoc for all public data (add detekt checks there)
+- [x] Write KDoc for all public data (add detekt checks there)
 - [ ] Use clues in KoTest
+- [x] Migrate to KMM
+  - [ ] Validate on Mac OS
+  - [ ] Validate on Linux

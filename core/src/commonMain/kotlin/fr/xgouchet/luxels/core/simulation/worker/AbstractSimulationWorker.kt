@@ -15,7 +15,6 @@ internal abstract class AbstractSimulationWorker<L : Luxel, I : Any>(
     protected val simulation: Configuration.Simulation,
     private val projection: Projection,
     protected val time: Duration,
-    private val onComplete: () -> Unit,
 ) : SimulationWorker {
 
     // region AbstractSimulationWorker
@@ -41,7 +40,6 @@ internal abstract class AbstractSimulationWorker<L : Luxel, I : Any>(
             t.printStackTrace()
         }
 
-        onComplete()
         print("\r  Worker stopping on thread (TODO Thread ID)")
     }
 

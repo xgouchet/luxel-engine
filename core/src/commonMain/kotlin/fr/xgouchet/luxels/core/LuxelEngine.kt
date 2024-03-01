@@ -1,11 +1,20 @@
 package fr.xgouchet.luxels.core
 
+import fr.xgouchet.luxels.core.concurrent.mainDispatcher
 import fr.xgouchet.luxels.core.configuration.Configuration
 import fr.xgouchet.luxels.core.configuration.input.InputData
 import fr.xgouchet.luxels.core.gen.random.RndGen
 import fr.xgouchet.luxels.core.model.Luxel
+import fr.xgouchet.luxels.core.render.exposure.Film
 import fr.xgouchet.luxels.core.render.exposure.LayeredFilm
 import fr.xgouchet.luxels.core.simulation.Simulator
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.newSingleThreadContext
+import kotlinx.coroutines.runBlocking
 import kotlinx.datetime.Clock
 import kotlin.time.Duration.Companion.seconds
 
@@ -16,15 +25,6 @@ import kotlin.time.Duration.Companion.seconds
  */
 object LuxelEngine {
 
-//    private val threadPool = ForkJoinPool(
-//        Runtime.getRuntime().availableProcessors(),
-//        ForkJoinPool.defaultForkJoinWorkerThreadFactory,
-//        LuxelEngineCrashHandler(),
-//        false,
-//    )
-//
-//    private val outputDir = File("output").apply { mkdirs() }
-
     /**
      * Runs the simulation, using the provided simulator and configuration.
      * @param L the type of [Luxel] to simulate
@@ -33,14 +33,21 @@ object LuxelEngine {
      * @param configuration the configuration detailing the input, simulation, animation and rendering options
      */
     fun <L : Luxel, I : Any> runSimulation(simulator: Simulator<L, I>, configuration: Configuration<I>) {
-        configuration.input.source.forEach {
-            runSimulation(simulator, configuration, it)
+        val mainJob = CoroutineScope(mainDispatcher).launch {
+            configuration.input.source.forEach {
+                runSimulationWithInput(simulator, configuration, it)
+            }
+        }
+
+        // Wait for completion
+        runBlocking {
+            mainJob.join()
         }
     }
 
-    // region e
+    // region Internal
 
-    private fun <L : Luxel, I : Any> runSimulation(
+    private suspend fun <L : Luxel, I : Any> runSimulationWithInput(
         simulator: Simulator<L, I>,
         configuration: Configuration<I>,
         inputData: InputData<I>,
@@ -57,7 +64,7 @@ object LuxelEngine {
         }
     }
 
-    private fun <L : Luxel, I : Any> simulateFrame(
+    private suspend fun <L : Luxel, I : Any> simulateFrame(
         simulator: Simulator<L, I>,
         configuration: Configuration<I>,
         inputData: InputData<*>,
@@ -72,7 +79,8 @@ object LuxelEngine {
         configuration.render.fixer.write(layeredFilm, fileName)
     }
 
-    private fun <L : Luxel, I : Any> simulateFrameParallel(
+    @OptIn(DelicateCoroutinesApi::class, ExperimentalCoroutinesApi::class)
+    private suspend fun <L : Luxel, I : Any> simulateFrameParallel(
         simulator: Simulator<L, I>,
         configuration: Configuration<I>,
         frameInfo: FrameInfo,
@@ -81,20 +89,25 @@ object LuxelEngine {
         simulator.onFrameStart(configuration.simulation, frameInfo.frameTime)
         val threadCount = configuration.simulation.threadCount
 
-//        val countDownLatch = CountDownLatch(threadCount) // TODO use threads join?
-
+        val jobs = mutableMapOf<Job, Film>()
         val frameStart = Clock.System.now()
 
+        // Start all workers
         repeat(threadCount) {
-            val worker = configuration.createWorker(simulator, frameInfo) { layer ->
-                layeredFilm.mergeLayer(layer)
-//                countDownLatch.countDown()
+            val layer = configuration.render.createFilm()
+            val worker = configuration.createWorker(simulator, layer, frameInfo)
+            val workerJob = CoroutineScope(newSingleThreadContext("worker-$it")).launch {
+                worker.work()
             }
-
-//            threadPool.submit(worker)
+            jobs[workerJob] = layer
         }
 
-//        countDownLatch.await()
+        // Wait for all workers
+        for ((job, layer) in jobs) {
+            job.join()
+            layeredFilm.mergeLayer(layer)
+        }
+
         val elapsed = Clock.System.now() - frameStart
         println("\r    ✔ Frame $frameInfo simulation complete in $elapsed")
     }
