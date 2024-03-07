@@ -11,6 +11,7 @@ plugins {
 }
 
 kotlin {
+
     jvm {
         jvmToolchain(17)
         withJava()
@@ -31,8 +32,6 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                implementation(libs.kotlinxDateTime)
-                implementation(libs.kotlinxSerialization)
                 implementation(libs.kotlinxCoroutines)
                 implementation(libs.okio)
             }
@@ -48,9 +47,7 @@ kotlin {
 
         jvmMain {
             dependencies {
-                implementation(libs.kotlinxCoroutinesJvm)
-                implementation(libs.bundles.imageIo)
-                implementation(files("libs/JavaHDR.jar"))
+                implementation(libs.okioJvm)
             }
         }
 
@@ -78,11 +75,6 @@ ktlint {
 
 tasks.named<Test>("jvmTest") { useJUnitPlatform() }
 
-// tasks.named("check") {
-//    dependsOn("detektMain")
-//    dependsOn("ktlintCheck")
-// }
-//
 tasks.withType<DependencyUpdatesTask> {
     rejectVersionIf {
         isNonStable(candidate.version)

@@ -52,6 +52,11 @@ kotlinxCoroutinesTest = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-tes
 
 # Okio
 okio = { module = "com.squareup.okio:okio", version.ref = "okio" }
+okioJvm = { module = "com.squareup.okio:okio-jvm", version.ref = "okio" }
+okioMacosX64 = { module = "com.squareup.okio:okio-macosx64", version.ref = "okio" }
+okioMacosArm64 = { module = "com.squareup.okio:okio-macosarm64", version.ref = "okio" }
+okioLinuxX64 = { module = "com.squareup.okio:okio-linuxx64", version.ref = "okio" }
+okioLinuxArm64 = { module = "com.squareup.okio:okio-linuxarm64", version.ref = "okio" }
 okioTest = { module = "com.squareup.okio:okio-fakefilesystem", version.ref = "okio" }
 
 # Image IO
