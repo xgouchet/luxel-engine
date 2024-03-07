@@ -17,15 +17,15 @@ class BuddhabrotPositionSource(
 
     init {
         var vector = Vector3(
-            RndGen.double().inRange(-2.0, 2.0),
-            RndGen.double().inRange(-2.0, 2.0),
+            RndGen.double.inRange(-2.0, 2.0),
+            RndGen.double.inRange(-2.0, 2.0),
             0.0,
         )
 
         while (isInside(vector, maxSteps)) {
             vector = Vector3(
-                RndGen.double().inRange(-2.0, 2.0),
-                RndGen.double().inRange(-2.0, 2.0),
+                RndGen.double.inRange(-2.0, 2.0),
+                RndGen.double.inRange(-2.0, 2.0),
                 0.0,
             )
         }

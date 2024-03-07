@@ -14,7 +14,7 @@ import java.nio.charset.Charset
  * Implementation based on Paul Bourke's format page: https://paulbourke.net/dataformats/pic/
  * and other sources online
  */
-class HdrImageFixer(
+class JvmHdrImageFixer(
     iso: Double = BASE_ISO,
     // TODO Greyscale version ?
 ) : ImageFixer {

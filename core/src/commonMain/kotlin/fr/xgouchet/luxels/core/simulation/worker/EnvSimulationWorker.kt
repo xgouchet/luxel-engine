@@ -20,7 +20,7 @@ internal class EnvSimulationWorker<L : Luxel, I : Any>(
     // region AbstractSimulationWorker
 
     override fun simulateSingleLuxel(i: Long) {
-        val simulationPosition = RndGen.vector3().inBox(simulation.space)
+        val simulationPosition = RndGen.vector3.inBox(simulation.space)
 
         val color = simulator.environmentColor(simulationPosition, time)
 

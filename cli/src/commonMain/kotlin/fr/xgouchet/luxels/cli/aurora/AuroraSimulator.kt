@@ -24,7 +24,7 @@ class AuroraSimulator : Simulator<AuroraLuxel, Long> {
 
     override fun spawnLuxel(simulation: Configuration.Simulation, time: Duration): AuroraLuxel {
         val input = (time.toDouble(DurationUnit.SECONDS) + element.number) * 10.0
-        val t = RndGen.double().uniform() + input
+        val t = RndGen.double.uniform() + input
 
         val v = (noisePosition.noise(t) * simulation.space.size * 0.5)
 

@@ -7,25 +7,23 @@ import fr.xgouchet.luxels.core.math.Vector4
  */
 class Vector4RandomGenerator : RandomGenerator<Vector4> {
 
-    private val doubleRng = RndGen.double()
-
     // region RandomGenerator
 
     override fun uniform(): Vector4 {
         return Vector4(
-            doubleRng.uniform(),
-            doubleRng.uniform(),
-            doubleRng.uniform(),
-            doubleRng.uniform(),
+            RndGen.double.uniform(),
+            RndGen.double.uniform(),
+            RndGen.double.uniform(),
+            RndGen.double.uniform(),
         )
     }
 
     override fun inRange(min: Vector4, max: Vector4): Vector4 {
         return Vector4(
-            doubleRng.inRange(min.x, max.x),
-            doubleRng.inRange(min.y, max.y),
-            doubleRng.inRange(min.z, max.z),
-            doubleRng.inRange(min.w, max.w),
+            RndGen.double.inRange(min.x, max.x),
+            RndGen.double.inRange(min.y, max.y),
+            RndGen.double.inRange(min.z, max.z),
+            RndGen.double.inRange(min.w, max.w),
         )
     }
 

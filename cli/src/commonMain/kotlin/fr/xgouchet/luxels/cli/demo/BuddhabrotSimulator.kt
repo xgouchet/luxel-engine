@@ -18,7 +18,7 @@ class BuddhabrotSimulator : Simulator<BuddhabrotLuxel, Unit> {
     }
 
     override fun spawnLuxel(simulation: Configuration.Simulation, time: Duration): BuddhabrotLuxel {
-        val (color, lifespan) = when (RndGen.int().inRange(0, 3)) {
+        val (color, lifespan) = when (RndGen.int.inRange(0, 3)) {
             0 -> Color.RED to 0x4_000
             1 -> Color.GREEN to 0x2_000
             2 -> Color.BLUE to 0x1_000

@@ -26,27 +26,27 @@ object RndGen {
     /**
      * @return a [RandomGenerator] generating integer numbers
      */
-    fun int(): RandomGenerator<Int> = IntRandomGenerator(Random(seed))
+    val int: RandomGenerator<Int> = IntRandomGenerator(Random(seed))
 
     /**
      * @return a [RandomGenerator] generating double numbers
      */
-    fun double(): RandomGenerator<Double> = DoubleRandomGenerator(Random(seed))
+    val double: RandomGenerator<Double> = DoubleRandomGenerator(Random(seed))
 
     /**
      * @return a [RandomGenerator] generating 2D vectors
      */
-    fun vector2(): RandomGenerator<Vector2> = Vector2RandomGenerator()
+    val vector2: RandomGenerator<Vector2> = Vector2RandomGenerator()
 
     /**
      * @return a [RandomGenerator] generating 3D vectors
      */
-    fun vector3(): RandomGenerator<Vector3> = Vector3RandomGenerator()
+    val vector3: RandomGenerator<Vector3> = Vector3RandomGenerator()
 
     /**
      * @return a [RandomGenerator] generating 4D vectors
      */
-    fun vector4(): RandomGenerator<Vector4> = Vector4RandomGenerator()
+    val vector4: RandomGenerator<Vector4> = Vector4RandomGenerator()
 
 //  TODO  inline fun <reified E : Enum<E>> enum() = EnumRandomGenerator(E::class)
 }

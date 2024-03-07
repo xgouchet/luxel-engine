@@ -48,29 +48,29 @@ class RainSimulator : Simulator<RainLuxel, Long> {
         extendedRange = simulation.space.expanded(2.0)
         safeRange = simulation.space.expanded(1.2)
 
-        noiseOffset = RndGen.vector3().inBox(noiseOffsetSpace3)
+        noiseOffset = RndGen.vector3.inBox(noiseOffsetSpace3)
 
-        noiseScale = 1.0 / RndGen.double().inRange(100.0, 500.0)
-        noiseThreshold = RndGen.double().uniform()
-        inRI = RndGen.double().inRange(1.0, 2.0)
-        outRI = RndGen.double().inRange(1.0, 2.0)
+        noiseScale = 1.0 / RndGen.double.inRange(100.0, 500.0)
+        noiseThreshold = RndGen.double.uniform()
+        inRI = RndGen.double.inRange(1.0, 2.0)
+        outRI = RndGen.double.inRange(1.0, 2.0)
 
         directionalRainSpeed = Vector3(
-            RndGen.double().inRange(-2.0, 2.0),
+            RndGen.double.inRange(-2.0, 2.0),
             1.0,
             0.0,
         ).normalized()
 
         spotRainPosition = Vector3(
-            RndGen.double().inRange(simulation.space.min.x, simulation.space.max.x),
+            RndGen.double.inRange(simulation.space.min.x, simulation.space.max.x),
             simulation.space.min.y - 200,
             0.0,
         )
 
-        bounceThreshold = RndGen.double().inRange(75.0, 100.0)
+        bounceThreshold = RndGen.double.inRange(75.0, 100.0)
         simulationRange = simulation.space
 
-        animationDirection = (RndGen.vector3().onUnitCircle() + Vector3(0.0, 0.0, 5.0)).normalized()
+        animationDirection = (RndGen.vector3.onUnitCircle() + Vector3(0.0, 0.0, 5.0)).normalized()
     }
 
     override fun onFrameStart(simulation: Configuration.Simulation, time: Duration) {
@@ -87,18 +87,18 @@ class RainSimulator : Simulator<RainLuxel, Long> {
                 Vector3(simulationRange.min.x - halfWidth, simulationRange.min.y - twentiethHeight, 0.0),
                 Vector3(simulationRange.max.x + halfWidth, simulationRange.min.y - twentiethHeight, 0.0),
             )
-            randomPosition = RndGen.vector3().inBox(range)
-            randomSpeed = directionalRainSpeed + RndGen.vector3().onUnitCircle()
+            randomPosition = RndGen.vector3.inBox(range)
+            randomSpeed = directionalRainSpeed + RndGen.vector3.onUnitCircle()
         } else {
             randomPosition =
-                spotRainPosition + (RndGen.vector3().onUnitCircle() * 100.0) + (RndGen.vector3().onUnitCircle() * 50.0)
-            randomSpeed = RndGen.vector3().onUnitCircle()
+                spotRainPosition + (RndGen.vector3.onUnitCircle() * 100.0) + (RndGen.vector3.onUnitCircle() * 50.0)
+            randomSpeed = RndGen.vector3.onUnitCircle()
         }
 
         val refractionIndex = getRefractionIndex(randomPosition)
         return RainLuxel(
-            RndGen.double().inRange(1024.0, 8192.0).roundToInt(),
-            RndGen.double().inRange(
+            RndGen.double.inRange(1024.0, 8192.0).roundToInt(),
+            RndGen.double.inRange(
                 EMSColorSource.MIN_VISIBLE_LIGHT,
                 EMSColorSource.MAX_VISIBLE_LIGHT,
             ),
@@ -121,7 +121,7 @@ class RainSimulator : Simulator<RainLuxel, Long> {
 
             if (n != 1.0) {
                 val normal = getNormal(position)
-                if (RndGen.double().inRange(0.0, 100.0) < bounceThreshold) {
+                if (RndGen.double.inRange(0.0, 100.0) < bounceThreshold) {
                     luxel.positionSource.updateSpeed(
                         luxel.positionSource.speed.refract(
                             normal,

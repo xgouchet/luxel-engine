@@ -31,7 +31,7 @@ class DebugSimulator() : Simulator<DebugLuxel, Long> {
     }
 
     override fun spawnLuxel(simulation: Configuration.Simulation, time: Duration): DebugLuxel {
-        val position = RndGen.vector3().inBox(simulation.space)
+        val position = RndGen.vector3.inBox(simulation.space)
 //        val noise = vectorToVector.noise(position * noiseScale)
 //        val color = Color(noise.x, noise.y, noise.z)
         val noise = vectorToDouble.noise((position * noiseScale) + noiseOffset)

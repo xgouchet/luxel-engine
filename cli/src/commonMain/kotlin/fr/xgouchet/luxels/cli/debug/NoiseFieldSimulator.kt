@@ -4,6 +4,7 @@ import fr.xgouchet.luxels.core.color.Color
 import fr.xgouchet.luxels.core.configuration.Configuration
 import fr.xgouchet.luxels.core.configuration.input.InputData
 import fr.xgouchet.luxels.core.gen.noise.DimensionalNoiseGenerator
+import fr.xgouchet.luxels.core.gen.noise.FractalNoiseGenerator.Companion.blueNoise
 import fr.xgouchet.luxels.core.gen.noise.PerlinNoiseGenerator
 import fr.xgouchet.luxels.core.gen.noise.wrapper.Vector3ToDoubleNoiseGenerator
 import fr.xgouchet.luxels.core.gen.random.RndGen
@@ -14,7 +15,7 @@ import kotlin.time.Duration
 
 class NoiseFieldSimulator() : Simulator<NoiseFieldLuxel, Long> {
 
-    val baseNoise: DimensionalNoiseGenerator = PerlinNoiseGenerator()
+    val baseNoise: DimensionalNoiseGenerator = blueNoise(PerlinNoiseGenerator())
 
     //    val brownian = FractalBrownianNoise(baseNoise, 1, 0.5)
     val vectorToDouble = Vector3ToDoubleNoiseGenerator(baseNoise)
@@ -24,8 +25,8 @@ class NoiseFieldSimulator() : Simulator<NoiseFieldLuxel, Long> {
     private var noiseOffset = Vector3.NULL
 
     override fun initEnvironment(simulation: Configuration.Simulation, inputData: InputData<Long>) {
-        noiseOffset = RndGen.vector3().inBox(simulation.space)
-        noiseScale = RndGen.double().inRange(0.001, 0.01)
+        noiseOffset = RndGen.vector3.inBox(simulation.space)
+        noiseScale = RndGen.double.inRange(0.001, 0.01)
     }
 
     override fun onFrameStart(simulation: Configuration.Simulation, time: Duration) {
@@ -33,7 +34,7 @@ class NoiseFieldSimulator() : Simulator<NoiseFieldLuxel, Long> {
     }
 
     override fun spawnLuxel(simulation: Configuration.Simulation, time: Duration): NoiseFieldLuxel {
-        val position = RndGen.vector3().inBox(simulation.space)
+        val position = RndGen.vector3.inBox(simulation.space)
         val color = vectorToDouble.noise((position * noiseScale) + noiseOffset)
 
         return NoiseFieldLuxel(position, Color(color, color, color))

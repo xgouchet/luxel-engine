@@ -9,7 +9,7 @@ import kotlin.math.PI
  * @return a random 3D vector on a circle on the XY plane around the origin of the 3D space
  */
 fun RandomGenerator<Vector3>.onUnitCircle(): Vector3 {
-    val polar = RndGen.double().inRange(0.0, TAU)
+    val polar = RndGen.double.inRange(0.0, TAU)
     return Vector3.fromSpherical(polar, 0.0, 1.0)
 }
 
@@ -17,21 +17,21 @@ fun RandomGenerator<Vector3>.onUnitCircle(): Vector3 {
  * @return a random 3D vector on a sphere around the origin of the 3D space
  */
 fun RandomGenerator<Vector3>.onUnitSphere(): Vector3 {
-    val polar = RndGen.double().inRange(0.0, TAU)
-    val azimuth = RndGen.double().inRange(-PI, PI)
+    val polar = RndGen.double.inRange(0.0, TAU)
+    val azimuth = RndGen.double.inRange(-PI, PI)
     return Vector3.fromSpherical(polar, azimuth, 1.0)
 }
 
 // fun RandomGenerator<Vector3>.inGaussianDisc(): Vector3 {
-//    val polar = RndGen.double().inRange(0.0, TAU)
-//    val radius = abs(RndGen.double().gaussian(0.0, 0.333))
+//    val polar = RndGen.double.inRange(0.0, TAU)
+//    val radius = abs(RndGen.double.gaussian(0.0, 0.333))
 //    return Vector3.fromSpherical(polar, 0.0, radius)
 // }
 //
 // fun RandomGenerator<Vector3>.inGaussianBall(): Vector3 {
-//    val polar = RndGen.double().inRange(0.0, TAU)
-//    val azimuth = RndGen.double().inRange(-PI, PI)
-//    val radius = abs(RndGen.double().gaussian(0.0, 0.333))
+//    val polar = RndGen.double.inRange(0.0, TAU)
+//    val azimuth = RndGen.double.inRange(-PI, PI)
+//    val radius = abs(RndGen.double.gaussian(0.0, 0.333))
 //    return Vector3.fromSpherical(polar, azimuth, radius)
 // }
 

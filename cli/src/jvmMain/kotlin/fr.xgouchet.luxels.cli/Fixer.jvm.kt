@@ -1,6 +1,6 @@
 package fr.xgouchet.luxels.cli
 
-import fr.xgouchet.luxels.core.io.HdrImageFixer
 import fr.xgouchet.luxels.core.io.ImageFixer
+import fr.xgouchet.luxels.core.io.JvmHdrImageFixer
 
-actual val mainFixer: ImageFixer = HdrImageFixer()
+actual val mainFixer: ImageFixer = JvmHdrImageFixer()

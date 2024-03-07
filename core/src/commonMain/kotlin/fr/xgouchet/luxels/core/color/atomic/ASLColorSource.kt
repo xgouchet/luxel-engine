@@ -36,7 +36,7 @@ abstract class ASLColorSource(
     // region ColorSource
 
     override fun color(): Color {
-        val index = RndGen.int().inRange(0, spectralLines.size)
+        val index = RndGen.int.inRange(0, spectralLines.size)
         val line = spectralLines[index]
         waveLength = line.waveLength
         intensity = line.intensity
