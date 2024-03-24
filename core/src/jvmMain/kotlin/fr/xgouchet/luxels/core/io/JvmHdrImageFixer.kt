@@ -60,6 +60,7 @@ class JvmHdrImageFixer(
         val width = film.width
         val height = film.height
 
+        println("w:$width h:$height")
         writeHeader(film, outputStream)
 
 //        for (i in 0..<width) {
@@ -94,7 +95,7 @@ class JvmHdrImageFixer(
         private val HEADER_SOFTWARE = "SOFTWARE=Luxel 1.0\n" // TODO inject version number :)
         private val HEADER_EMPTY_LINE = "\n"
 
-        const val OUTPUT_FORMAT = "hdr"
+        private const val OUTPUT_FORMAT = "hdr"
 
         internal const val BASE_ISO = 1000.0
     }

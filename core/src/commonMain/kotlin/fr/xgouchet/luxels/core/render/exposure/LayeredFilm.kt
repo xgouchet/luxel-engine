@@ -18,7 +18,7 @@ internal class LayeredFilm(resolution: Resolution) : AbstractFilm(resolution) {
 
     // endregion
 
-    // region LayeredFilm
+    // region Internal
 
     private val mergeMutex = Mutex()
 

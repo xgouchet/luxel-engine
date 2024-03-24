@@ -1,19 +1,45 @@
 package fr.xgouchet.graphikio.writer
 
+import fr.xgouchet.graphikio.api.RasterWriter
+import fr.xgouchet.graphikio.format.ImageFormat
 import fr.xgouchet.graphikio.test.kotest.property.imageSizeIntArb
 import fr.xgouchet.graphikio.test.stub.StubRasterData
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.describeSpec
 import io.kotest.matchers.longs.shouldBeGreaterThan
 import io.kotest.matchers.shouldBe
+import io.kotest.property.Arb
+import io.kotest.property.arbitrary.element
 import io.kotest.property.checkAll
 import okio.Buffer
 
 @Suppress("TestFunctionName")
 fun <W : RasterWriter> AbstractRasterWriterSpec(
+    vararg imageFormats: ImageFormat,
     writerProvider: () -> W,
 ) = describeSpec {
     describe("generic writer") {
+        it("supports all expected formats") {
+            checkAll(Arb.element(*imageFormats)) { format ->
+                val writer = writerProvider()
+
+                val result = writer.supportsFormat(format)
+
+                result shouldBe true
+            }
+        }
+
+        it("doesn't support non expected formats") {
+            // TODO generate unsupported formats
+//            checkAll(Arb.element(imageFormats)) { format ->
+//                val writer = writerProvider()
+//
+//                val result = writer.supportsFormat(format)
+//
+//                result shouldBe true
+//            }
+        }
+
         it("writes to a sink") {
             checkAll(imageSizeIntArb(), imageSizeIntArb()) { w, h ->
                 val writer = writerProvider()

@@ -11,7 +11,7 @@ class DoubleToDoubleNoiseGenerator(
     private val delegate: DimensionalNoiseGenerator,
 ) : NoiseGenerator<Double, Double> {
 
-    // region Noise
+    // region NoiseGenerator
 
     override fun noise(input: Double): Double {
         return delegate.noise(listOf(input), 1)[0]

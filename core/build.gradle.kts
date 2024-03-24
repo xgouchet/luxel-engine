@@ -1,6 +1,7 @@
 import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 import org.jetbrains.kotlin.konan.target.HostManager
 
+
 plugins {
     kotlin("multiplatform")
 
@@ -78,11 +79,6 @@ ktlint {
 
 tasks.named<Test>("jvmTest") { useJUnitPlatform() }
 
-// tasks.named("check") {
-//    dependsOn("detektMain")
-//    dependsOn("ktlintCheck")
-// }
-//
 tasks.withType<DependencyUpdatesTask> {
     rejectVersionIf {
         isNonStable(candidate.version)

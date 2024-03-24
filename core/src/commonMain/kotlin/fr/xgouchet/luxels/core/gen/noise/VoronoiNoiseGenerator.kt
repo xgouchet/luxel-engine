@@ -16,7 +16,7 @@ class VoronoiNoiseGenerator : DimensionalNoiseGenerator {
 
     private val random = Random(0L)
 
-    // region DimensionalNoise
+    // region DimensionalNoiseGenerator
 
     override fun noise(input: List<Double>, outputSize: Int): List<Double> {
         val floor = input.map { floor(it).toInt() }

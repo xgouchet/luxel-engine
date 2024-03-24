@@ -96,7 +96,15 @@ class CommentRegions(
 
         val matchResult = START_REGION_REGEX.matchEntire(commentContent)
         if (matchResult != null) {
-//            println("REGION: ${matchResult.groupValues[1]} $commentContent")
+            if (!region.isNullOrBlank()) {
+                report(
+                    CodeSmell(
+                        issue,
+                        Entity.from(comment),
+                        "New region block comment but the previous region '$region' was not closed",
+                    ),
+                )
+            }
             region = matchResult.groupValues[1]
         } else if (END_REGION_REGEX.matches(commentContent)) {
             region = null
@@ -109,11 +117,15 @@ class CommentRegions(
         super.visitNamedFunction(function)
 
         val currentType = currentTypeStack.lastOrNull()
-        if (currentType == null) {
-            // Top level function, ignore ?
-            return
+        if (currentType != null) {
+            visitNamedFunctionInType(currentType, function)
         }
+    }
 
+    private fun visitNamedFunctionInType(
+        currentType: SimpleType,
+        function: KtNamedFunction,
+    ) {
         val currentTypeRegion = currentType.fqNameOrNull()?.shortName()?.asString() ?: "???"
         var expectedRegion: String = currentTypeRegion
 
@@ -125,41 +137,86 @@ class CommentRegions(
                 }
             }
         } else if (function.isOperator()) {
-            expectedRegion = "Operators"
+            expectedRegion = REGION_OPERATORS
         } else if (function.isInternal() || function.isPrivate()) {
-            expectedRegion = "Internal"
+            expectedRegion = REGION_INTERNAL
         }
 
-        if (expectedRegion == currentTypeRegion) {
-            if (region.isNullOrBlank() && forceRegionOnMainTypeFunctions) {
-                report(
-                    CodeSmell(
-                        issue,
-                        Entity.from(function),
-                        "Function declaration should not happen outside a region block; was expected in a region named $expectedRegion.",
-                    ),
-                )
-            } else if (region != expectedRegion && !customRegionOnMainTypeFunctions) {
-                report(
-                    CodeSmell(
-                        issue,
-                        Entity.from(function),
-                        "Function declaration in region $region but was expected in a region named $expectedRegion.",
-                    ),
-                )
-            }
-        } else if (region != expectedRegion) {
+        val actualRegion = region
+        val isMainRegion = (expectedRegion == currentTypeRegion)
+        if (actualRegion.isNullOrBlank()) {
+            verifyFunctionOutsideRegion(expectedRegion, isMainRegion, function)
+        } else {
+            verifyFunctionWithinRegion(expectedRegion, actualRegion, isMainRegion, function)
+        }
+    }
+
+    private fun verifyFunctionOutsideRegion(
+        expectedRegion: String,
+        isMainRegion: Boolean,
+        function: KtNamedFunction,
+    ) {
+        if (isMainRegion && forceRegionOnMainTypeFunctions) {
             report(
                 CodeSmell(
                     issue,
                     Entity.from(function),
-                    "Function declaration in region $region but was expected in a region named $expectedRegion.",
+                    "Public function declaration should not happen outside a region block; " +
+                        "was expected in a region named $expectedRegion. You can turn off this rule by setting the " +
+                        "CommentRegions.forceRegionOnMainTypeFunctions option to false.",
+                ),
+            )
+        } else if (!isMainRegion) {
+            report(
+                CodeSmell(
+                    issue,
+                    Entity.from(function),
+                    "Function declaration should not happen outside a region block; function ${function.name} " +
+                        "should be in a region named $expectedRegion.",
                 ),
             )
         }
     }
 
+    private fun verifyFunctionWithinRegion(
+        expectedRegion: String,
+        actualRegion: String,
+        isMainRegion: Boolean,
+        function: KtNamedFunction,
+    ) {
+        if (actualRegion != expectedRegion) {
+            if (expectedRegion == REGION_INTERNAL) {
+                if (!actualRegion.startsWith(REGION_INTERNAL)) {
+                    val visibility =
+                        if (function.isPrivate()) "private" else if (function.isInternal()) "internal" else "?"
+                    report(
+                        CodeSmell(
+                            issue,
+                            Entity.from(function),
+                            "Function declaration with visibility $visibility should be in a region " +
+                                "prefixed with $REGION_INTERNAL;  function ${function.name} was found in region named " +
+                                "$actualRegion instead.",
+                        ),
+                    )
+                }
+            } else if ((!isMainRegion) || (!customRegionOnMainTypeFunctions)) {
+                report(
+                    CodeSmell(
+                        issue,
+                        Entity.from(function),
+                        "Function declaration should be in a region named $expectedRegion; " +
+                            "function ${function.name} was found in region named $actualRegion instead.",
+                    ),
+                )
+            }
+        }
+    }
+
     companion object {
+
+        private const val REGION_OPERATORS = "Operators"
+        private const val REGION_INTERNAL = "Internal"
+
         private val START_REGION_REGEX = Regex("""//\s*region\s+(.*)""")
         private val END_REGION_REGEX = Regex("""//\s*endregion\s*""")
     }

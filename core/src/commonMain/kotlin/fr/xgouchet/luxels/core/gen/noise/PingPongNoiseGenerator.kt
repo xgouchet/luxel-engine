@@ -12,7 +12,7 @@ class PingPongNoiseGenerator(
     private val strength: Double = 2.0,
 ) : DimensionalNoiseGenerator {
 
-    // region DimensionalNoise
+    // region DimensionalNoiseGenerator
 
     override fun noise(input: List<Double>, outputSize: Int): List<Double> {
         return delegate.noise(input, outputSize).map {

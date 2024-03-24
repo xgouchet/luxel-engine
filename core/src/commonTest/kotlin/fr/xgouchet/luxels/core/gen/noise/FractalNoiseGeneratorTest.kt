@@ -33,4 +33,10 @@ class FractalNoiseGeneratorTest : DescribeSpec({
             FractalNoiseGenerator.blueNoise(it)
         },
     )
+
+    include(
+        abstractDelegatedNoiseGeneratorTest("Fractal-Violet") {
+            FractalNoiseGenerator.violetNoise(it)
+        },
+    )
 })

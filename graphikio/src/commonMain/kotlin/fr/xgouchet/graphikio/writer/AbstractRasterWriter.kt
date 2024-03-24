@@ -1,5 +1,6 @@
 package fr.xgouchet.graphikio.writer
 
+import fr.xgouchet.graphikio.api.RasterWriter
 import fr.xgouchet.graphikio.format.ImageFormat
 
 abstract class AbstractRasterWriter(

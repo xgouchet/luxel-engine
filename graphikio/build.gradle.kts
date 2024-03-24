@@ -48,6 +48,7 @@ kotlin {
         jvmMain {
             dependencies {
                 implementation(libs.okioJvm)
+                implementation(files("libs/JavaHDR.jar"))
             }
         }
 

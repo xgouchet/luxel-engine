@@ -10,7 +10,7 @@ class RidgeNoiseGenerator(
     private val delegate: DimensionalNoiseGenerator = PerlinNoiseGenerator(),
 ) : DimensionalNoiseGenerator {
 
-    // region DimensionalNoise
+    // region DimensionalNoiseGenerator
 
     override fun noise(input: List<Double>, outputSize: Int): List<Double> {
         return delegate.noise(input, outputSize).map {

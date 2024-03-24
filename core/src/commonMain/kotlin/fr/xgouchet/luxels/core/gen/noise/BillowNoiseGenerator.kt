@@ -10,7 +10,7 @@ class BillowNoiseGenerator(
     private val delegate: DimensionalNoiseGenerator = PerlinNoiseGenerator(),
 ) : DimensionalNoiseGenerator {
 
-    // region DimensionalNoise
+    // region DimensionalNoiseGenerator
 
     // x             0 .. .5 .. 1
     // 2x            0 .. 1 ... 2

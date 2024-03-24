@@ -6,6 +6,11 @@ import java.io.File
 import javax.imageio.ImageIO
 import kotlin.math.roundToInt
 
+/**
+ * An image color source.
+ * @param imageFile the file to read from
+ * @property uv the UV coordinate (in 0..1 range)
+ */
 class ImageColorSource(
     private val imageFile: File,
     var uv: Vector2,
@@ -29,8 +34,4 @@ class ImageColorSource(
     }
 
     // endregion
-
-    companion object {
-        val readableImageFileExt: Array<String> = ImageIO.getReaderFileSuffixes()
-    }
 }

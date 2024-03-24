@@ -2,6 +2,7 @@ package fr.xgouchet.graphikio.test.stub
 
 import fr.xgouchet.graphikio.color.BoundColor
 import fr.xgouchet.graphikio.color.Color
+import fr.xgouchet.graphikio.data.MetadataAttribute
 import fr.xgouchet.graphikio.data.RasterData
 
 /**
@@ -49,5 +50,9 @@ class StubRasterData(
                 BoundColor(kx, kx, kx, ky)
             }
         }
+    }
+
+    override fun getMetadata(): Map<String, MetadataAttribute> {
+        return emptyMap()
     }
 }

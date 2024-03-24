@@ -19,7 +19,6 @@ import kotlinx.datetime.Clock
 import kotlin.time.Duration.Companion.seconds
 
 // TODO use SLF4J or other lib to log instead of println
-
 /**
  * The main engine driving the Luxel simulation.
  */
@@ -111,6 +110,10 @@ object LuxelEngine {
         val elapsed = Clock.System.now() - frameStart
         println("\r    ✔ Frame $frameInfo simulation complete in $elapsed")
     }
+
+    // endregion
+
+    // region Internal/Utils
 
     private fun getFilename(
         simulator: Simulator<*, *>,

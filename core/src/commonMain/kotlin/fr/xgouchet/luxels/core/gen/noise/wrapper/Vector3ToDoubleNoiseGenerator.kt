@@ -12,7 +12,7 @@ class Vector3ToDoubleNoiseGenerator(
     private val delegate: DimensionalNoiseGenerator,
 ) : NoiseGenerator<Vector3, Double> {
 
-    // region Noise
+    // region NoiseGenerator
 
     override fun noise(input: Vector3): Double {
         return delegate.noise(input.components(), 1)[0]

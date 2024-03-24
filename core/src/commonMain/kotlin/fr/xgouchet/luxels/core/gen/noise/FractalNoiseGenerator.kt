@@ -19,7 +19,7 @@ class FractalNoiseGenerator(
     private val persistence: Double = 0.5,
 ) : DimensionalNoiseGenerator {
 
-    // region DimensionalNoise
+    // region DimensionalNoiseGenerator
 
     override fun noise(input: List<Double>, outputSize: Int): List<Double> {
         val sum = DoubleArray(outputSize) { 0.0 }
@@ -44,6 +44,13 @@ class FractalNoiseGenerator(
 
     companion object {
 
+        /**
+         * Create a White Noise generator based on the delegate.
+         * Each layer will contribute with the same importance to the final noise.
+         *
+         * @param delegate the delegate [DimensionalNoiseGenerator] used to generate each layer
+         *  @param octaves the number of layers (default: 8)
+         */
         fun whiteNoise(
             delegate: DimensionalNoiseGenerator,
             octaves: Int = 8,
@@ -56,6 +63,13 @@ class FractalNoiseGenerator(
             )
         }
 
+        /**
+         * Create a Pink Noise generator based on the delegate.
+         * This gives slightly more emphasis to the low frequency layers.
+         *
+         * @param delegate the delegate [DimensionalNoiseGenerator] used to generate each layer
+         *  @param octaves the number of layers (default: 8)
+         */
         fun pinkNoise(
             delegate: DimensionalNoiseGenerator,
             octaves: Int = 8,
@@ -68,6 +82,13 @@ class FractalNoiseGenerator(
             )
         }
 
+        /**
+         * Create a Brown Noise generator based on the delegate.
+         * This gives much more emphasis to the low frequency layers.
+         *
+         * @param delegate the delegate [DimensionalNoiseGenerator] used to generate each layer
+         *  @param octaves the number of layers (default: 8)
+         */
         fun brownNoise(
             delegate: DimensionalNoiseGenerator,
             octaves: Int = 8,
@@ -80,7 +101,33 @@ class FractalNoiseGenerator(
             )
         }
 
+        /**
+         * Create a Blue Noise generator based on the delegate.
+         * This gives slightly more emphasis to the high frequency layers.
+         *
+         * @param delegate the delegate [DimensionalNoiseGenerator] used to generate each layer
+         *  @param octaves the number of layers (default: 8)
+         */
         fun blueNoise(
+            delegate: DimensionalNoiseGenerator,
+            octaves: Int = 8,
+        ): DimensionalNoiseGenerator {
+            return FractalNoiseGenerator(
+                delegate,
+                octaves = octaves,
+                lacunarity = 2.0,
+                persistence = 1.5,
+            )
+        }
+
+        /**
+         * Create a Violet Noise generator based on the delegate.
+         * This gives much more emphasis to the high frequency layers.
+         *
+         * @param delegate the delegate [DimensionalNoiseGenerator] used to generate each layer
+         *  @param octaves the number of layers (default: 8)
+         */
+        fun violetNoise(
             delegate: DimensionalNoiseGenerator,
             octaves: Int = 8,
         ): DimensionalNoiseGenerator {

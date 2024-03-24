@@ -508,4 +508,5 @@ luxel:
   active: true
   CommentRegions:
     active: true
-    regionOnTypeFunction: false
+    forceRegionOnMainTypeFunctions: false
+    customRegionOnMainTypeFunctions: true

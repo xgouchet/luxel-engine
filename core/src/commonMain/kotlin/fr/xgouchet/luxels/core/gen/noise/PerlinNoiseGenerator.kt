@@ -10,10 +10,9 @@ class PerlinNoiseGenerator(
     private val interpolation: Interpolation = Interpolation.Quintic,
 ) : DimensionalNoiseGenerator {
 
-    // region DimensionalNoise
+    // region DimensionalNoiseGenerator
 
     override fun noise(input: List<Double>, outputSize: Int): List<Double> {
-        maxSum = 0.0
         val floor = input.map { floor(it) }
         val frac = input.zip(floor) { a, b -> a - b }
         val ref = floor.map { perlinHash(it) }
@@ -121,8 +120,6 @@ class PerlinNoiseGenerator(
     // endregion
 
     companion object {
-
-        var maxSum = 0.0
 
         // Allows 8 hash permutations
         private val permutations = intArrayOf(

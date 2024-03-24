@@ -25,7 +25,9 @@ internal abstract class AbstractSimulationWorker<L : Luxel, I : Any>(
         film.expose(projection.convertPosition(position), color)
     }
 
-    // region Runnable
+    // endregion
+
+    // region SimulationWorker
 
     @Suppress("TooGenericExceptionCaught")
     final override fun work() {
