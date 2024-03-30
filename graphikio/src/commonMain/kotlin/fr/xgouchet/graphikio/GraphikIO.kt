@@ -5,9 +5,8 @@ import fr.xgouchet.graphikio.data.RasterData
 import fr.xgouchet.graphikio.format.ImageFormat
 import fr.xgouchet.graphikio.format.bmp.BmpImageFormat
 import fr.xgouchet.graphikio.format.bmp.BmpRasterWriter
+import fr.xgouchet.graphikio.format.hdr.HdrImageFormat
 import fr.xgouchet.graphikio.format.hdr.HdrRasterWriter
-import fr.xgouchet.graphikio.format.openexr.ExrImageFormat
-import fr.xgouchet.graphikio.format.openexr.ExrRasterWriterNotWorking
 import okio.Path
 import okio.Sink
 
@@ -15,12 +14,15 @@ object GraphikIO {
 
     private val writers: List<RasterWriter> by lazy {
         // TODO automatic lazy loading
-        listOf(BmpRasterWriter(), HdrRasterWriter(), ExrRasterWriterNotWorking())
+        listOf(
+            BmpRasterWriter(),
+            HdrRasterWriter(),
+        )
     }
 
     val supportedFormats = listOf(
         BmpImageFormat,
-        ExrImageFormat,
+        HdrImageFormat,
     )
 
     fun write(

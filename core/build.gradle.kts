@@ -36,6 +36,8 @@ kotlin {
                 implementation(libs.kotlinxSerialization)
                 implementation(libs.kotlinxCoroutines)
                 implementation(libs.okio)
+
+                implementation(project(":graphikio"))
             }
         }
 
@@ -51,7 +53,6 @@ kotlin {
             dependencies {
                 implementation(libs.kotlinxCoroutinesJvm)
                 implementation(libs.bundles.imageIo)
-                implementation(files("libs/JavaHDR.jar"))
             }
         }
 

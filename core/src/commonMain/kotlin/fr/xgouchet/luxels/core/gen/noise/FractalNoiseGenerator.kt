@@ -45,13 +45,13 @@ class FractalNoiseGenerator(
     companion object {
 
         /**
-         * Create a White Noise generator based on the delegate.
-         * Each layer will contribute with the same importance to the final noise.
+         * Create a Brown Noise generator based on the delegate.
+         * This gives much more emphasis to the low frequency layers.
          *
          * @param delegate the delegate [DimensionalNoiseGenerator] used to generate each layer
          *  @param octaves the number of layers (default: 8)
          */
-        fun whiteNoise(
+        fun brownNoise(
             delegate: DimensionalNoiseGenerator,
             octaves: Int = 8,
         ): DimensionalNoiseGenerator {
@@ -59,7 +59,7 @@ class FractalNoiseGenerator(
                 delegate,
                 octaves = octaves,
                 lacunarity = 2.0,
-                persistence = 1.0,
+                persistence = 0.333,
             )
         }
 
@@ -83,13 +83,13 @@ class FractalNoiseGenerator(
         }
 
         /**
-         * Create a Brown Noise generator based on the delegate.
-         * This gives much more emphasis to the low frequency layers.
+         * Create a White Noise generator based on the delegate.
+         * Each layer will contribute with the same importance to the final noise.
          *
          * @param delegate the delegate [DimensionalNoiseGenerator] used to generate each layer
          *  @param octaves the number of layers (default: 8)
          */
-        fun brownNoise(
+        fun whiteNoise(
             delegate: DimensionalNoiseGenerator,
             octaves: Int = 8,
         ): DimensionalNoiseGenerator {
@@ -97,7 +97,7 @@ class FractalNoiseGenerator(
                 delegate,
                 octaves = octaves,
                 lacunarity = 2.0,
-                persistence = 0.333,
+                persistence = 1.0,
             )
         }
 
