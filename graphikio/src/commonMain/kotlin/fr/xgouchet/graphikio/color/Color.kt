@@ -1,5 +1,8 @@
 package fr.xgouchet.graphikio.color
 
+/**
+ * A basic color interface.
+ */
 interface Color {
 
     companion object {

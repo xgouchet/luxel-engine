@@ -215,14 +215,6 @@ class RenderConfigBuilder internal constructor() {
     }
 
     /**
-     * Sets the type of projection to convert luxel position from simulation space to film space.
-     * @param type the type of projection (default: [ProjectionType.FLAT_XY])
-     */
-    fun projectionType(type: ProjectionType) {
-        render = render.copy(projectionType = type)
-    }
-
-    /**
      * Uses an HDR image fixer.
      * @param path the output directory path (default is "./output")
      */

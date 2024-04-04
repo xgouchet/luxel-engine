@@ -1,14 +1,11 @@
 package fr.xgouchet.graphikio.format
 
+/**
+ * Describes a specific image format.
+ * @property fileNameExtension the default extension for files in this format
+ * @property constraints the constraints of this format
+ */
 abstract class ImageFormat(
-    val boundedColor: Boolean,
-    val supportsAlpha: Boolean,
-    val lossless: Boolean,
     val fileNameExtension: String,
-) {
-    fun matches(other: ImageFormat): Boolean {
-        return boundedColor == other.boundedColor &&
-            supportsAlpha == other.supportsAlpha &&
-            lossless == other.lossless
-    }
-}
+    val constraints: ImageFormatConstraints,
+)

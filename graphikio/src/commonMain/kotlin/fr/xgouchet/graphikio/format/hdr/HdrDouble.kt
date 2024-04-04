@@ -70,7 +70,7 @@ internal data class HdrDouble(
 
         /**
          * Represents a positive double with the exponent bits set to 1077,
-         * resolved as an exponent of 54 (1077 - 1023 = 54)
+         * resolved as an exponent of 54 (1077 - 1023 = 54).
          */
         private const val DOUBLE_EXP_54 = 1.8014398509481984E16
         private const val EXP_MINUS_54 = -54

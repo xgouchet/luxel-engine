@@ -9,6 +9,8 @@ interface DimensionalNoiseGenerator {
 
     /**
      * Generate a deterministic noise based on the input, with the output size dimension.
+     * All values in the output are going to be in a [0…1] range.
+     *
      * @param input the input
      * @param outputSize the size of the output list
      */

@@ -1,12 +1,12 @@
 package fr.xgouchet.graphikio.test.stub
 
-import fr.xgouchet.graphikio.color.BoundColor
 import fr.xgouchet.graphikio.color.Color
+import fr.xgouchet.graphikio.color.SDRColor
 import fr.xgouchet.graphikio.data.MetadataAttribute
 import fr.xgouchet.graphikio.data.RasterData
 
 /**
- * A picture with only [BoundColor] pixels.
+ * A picture with only [SDRColor] pixels.
  *  - pixel on the borders are pure black
  *  - pixel in the top-left corner make a gradient of red/green
  *  - pixel in the top-right corner make a gradient of green/blue
@@ -31,23 +31,23 @@ class StubRasterData(
 
         pixelRead[x + (y * width)]++
 
-        if (x == 0 || y == 0) return BoundColor.BLACK
-        if (x == (width - 1) || y == (height - 1)) return BoundColor.WHITE
+        if (x == 0 || y == 0) return SDRColor.BLACK
+        if (x == (width - 1) || y == (height - 1)) return SDRColor.WHITE
 
         val kx = ((512 * x) / width).mod(256)
         val ky = ((512 * y) / height).mod(256)
 
         return if (x < halfWidth) {
             if (y < halfHeight) {
-                BoundColor(kx, ky, 0)
+                SDRColor(kx, ky, 0)
             } else {
-                BoundColor(ky, 0, kx)
+                SDRColor(ky, 0, kx)
             }
         } else {
             if (y < halfHeight) {
-                BoundColor(0, kx, ky)
+                SDRColor(0, kx, ky)
             } else {
-                BoundColor(kx, kx, kx, ky)
+                SDRColor(kx, kx, kx, ky)
             }
         }
     }

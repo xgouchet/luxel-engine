@@ -1,15 +1,23 @@
 package fr.xgouchet.graphikio.color
 
-fun BoundColor(
+/**
+ * Creates an SDRColor instance from double numbers.
+ */
+@Suppress("FunctionNaming")
+fun SDRColor(
     r: Double,
     g: Double,
     b: Double,
     a: Double = 255.0,
-) = BoundColor.bindInRange(r, g, b, a)
+) = SDRColor.bindInRange(r, g, b, a)
 
-fun BoundColor(
+/**
+ * Creates an SDRColor instance from int numbers.
+ */
+@Suppress("FunctionNaming")
+fun SDRColor(
     r: Int,
     g: Int,
     b: Int,
     a: Int = 255,
-) = BoundColor.bindInRange(r, g, b, a)
+) = SDRColor.bindInRange(r, g, b, a)

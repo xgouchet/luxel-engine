@@ -15,7 +15,7 @@ import kotlin.math.min
  * @property b the blue component.
  * @property a the alpha component.
  */
-data class UnboundColor(
+data class HDRColor(
     val r: Double,
     val g: Double,
     val b: Double,
@@ -28,16 +28,16 @@ data class UnboundColor(
      * @param other the color to add to this color
      * @return a color with each component as the component in this color plus the matching component in the given input
      */
-    operator fun plus(other: UnboundColor): UnboundColor {
-        return UnboundColor(r + other.r, g + other.g, b + other.b, a + other.a)
+    operator fun plus(other: HDRColor): HDRColor {
+        return HDRColor(r + other.r, g + other.g, b + other.b, a + other.a)
     }
 
     /**
      * @param scale the factor by which to multiply the color
      * @return a color with each component multiplied by the given input
      */
-    operator fun times(scale: Double): UnboundColor {
-        return UnboundColor(r * scale, g * scale, b * scale, a * scale)
+    operator fun times(scale: Double): HDRColor {
+        return HDRColor(r * scale, g * scale, b * scale, a * scale)
     }
 
     // endregion
@@ -101,33 +101,33 @@ data class UnboundColor(
 
     companion object {
         /** Perfect White color. */
-        val WHITE = UnboundColor(1.0, 1.0, 1.0, 1.0)
+        val WHITE = HDRColor(1.0, 1.0, 1.0, 1.0)
 
         /** Perfect half grey color. */
-        val GREY = UnboundColor(0.5, 0.5, 0.5, 1.0)
+        val GREY = HDRColor(0.5, 0.5, 0.5, 1.0)
 
         /** Perfect black color. */
-        val BLACK = UnboundColor(0.0, 0.0, 0.0, 1.0)
+        val BLACK = HDRColor(0.0, 0.0, 0.0, 1.0)
 
         /** Perfect red color. */
-        val RED = UnboundColor(1.0, 0.0, 0.0, 1.0)
+        val RED = HDRColor(1.0, 0.0, 0.0, 1.0)
 
         /** Perfect green color. */
-        val GREEN = UnboundColor(0.0, 1.0, 0.0, 1.0)
+        val GREEN = HDRColor(0.0, 1.0, 0.0, 1.0)
 
         /** Perfect blue color. */
-        val BLUE = UnboundColor(0.0, 0.0, 1.0, 1.0)
+        val BLUE = HDRColor(0.0, 0.0, 1.0, 1.0)
 
         /** Perfect yellow color. */
-        val YELLOW = UnboundColor(1.0, 1.0, 0.0, 1.0)
+        val YELLOW = HDRColor(1.0, 1.0, 0.0, 1.0)
 
         /** Perfect teal color. */
-        val TEAL = UnboundColor(0.0, 1.0, 1.0, 1.0)
+        val TEAL = HDRColor(0.0, 1.0, 1.0, 1.0)
 
         /** Perfect violet color. */
-        val VIOLET = UnboundColor(1.0, 0.0, 1.0, 1.0)
+        val VIOLET = HDRColor(1.0, 0.0, 1.0, 1.0)
 
         /** Perfect transparent color. */
-        val TRANSPARENT = UnboundColor(0.0, 0.0, 0.0, 0.0)
+        val TRANSPARENT = HDRColor(0.0, 0.0, 0.0, 0.0)
     }
 }

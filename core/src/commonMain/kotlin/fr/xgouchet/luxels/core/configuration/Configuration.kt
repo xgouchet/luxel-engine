@@ -8,8 +8,6 @@ import fr.xgouchet.luxels.core.model.Luxel
 import fr.xgouchet.luxels.core.position.Space2
 import fr.xgouchet.luxels.core.position.Space3
 import fr.xgouchet.luxels.core.render.exposure.Film
-import fr.xgouchet.luxels.core.render.projection.FlatXYProjection
-import fr.xgouchet.luxels.core.render.projection.Projection
 import fr.xgouchet.luxels.core.simulation.Simulator
 import fr.xgouchet.luxels.core.simulation.worker.DeathSimulationWorker
 import fr.xgouchet.luxels.core.simulation.worker.EnvSimulationWorker
@@ -61,14 +59,11 @@ class Configuration<I : Any> internal constructor(
      * The rendering options for the simulation run.
      * @property filmType the type of film to render on (default: [FilmType.ROUGH])
      * @property resolution the resolution of film to render on (default: [Resolution.XGA])
-     * @property projectionType the type of projection to convert luxel position
-     * from simulation space to film space (default: [ProjectionType.FLAT_XY])
      * @property fixer the fixer used to write the film into an image file (default: [NoOpFixer])
      */
     data class Render(
         val filmType: FilmType = FilmType.ROUGH,
         val resolution: Resolution = Resolution.XGA,
-        val projectionType: ProjectionType = ProjectionType.FLAT_XY,
         val fixer: ImageFixer = NoOpFixer(),
     ) {
         internal fun createFilm(): Film {
@@ -101,15 +96,13 @@ class Configuration<I : Any> internal constructor(
         }
     }
 
-    internal val projection: Projection = when (render.projectionType) {
-        ProjectionType.FLAT_XY -> FlatXYProjection(simulation.space, render.filmSpace)
-    }
-
     internal fun <L : Luxel, I : Any> createWorker(
         simulator: Simulator<L, I>,
         film: Film,
         frameInfo: FrameInfo,
     ): SimulationWorker {
+        val projection = simulator.getProjection(simulation.space, render.filmSpace, frameInfo.frameTime)
+
         return when (simulation.passType) {
             PassType.RENDER -> RenderSimulationWorker(
                 film = film,

@@ -27,5 +27,13 @@ class Vector4RandomGenerator : RandomGenerator<Vector4> {
         )
     }
 
+    override fun gaussian(): Vector4 {
+        return gaussian(Vector4.NULL, Vector4.UNIT)
+    }
+
+    override fun gaussian(mean: Vector4, standardDeviation: Vector4): Vector4 {
+        TODO("Not yet implemented")
+    }
+
     // endregion
 }

@@ -1,6 +1,7 @@
 package fr.xgouchet.luxels.cli.debug
 
 import fr.xgouchet.luxels.core.color.Color
+import fr.xgouchet.luxels.core.gen.random.RndGen
 import fr.xgouchet.luxels.core.math.Vector3
 import fr.xgouchet.luxels.core.model.Luxel
 
@@ -22,7 +23,7 @@ class DebugLuxel(
     // region PositionSource
 
     override fun position(): Vector3 {
-        return position
+        return position + (RndGen.vector3.gaussian() * 5.0)
     }
 
     // endregion

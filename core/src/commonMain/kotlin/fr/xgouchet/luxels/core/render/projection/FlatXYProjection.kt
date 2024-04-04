@@ -6,9 +6,9 @@ import fr.xgouchet.luxels.core.position.Space2
 import fr.xgouchet.luxels.core.position.Space3
 
 internal class FlatXYProjection(
-    private val simulationSpace: Space3,
-    private val filmSpace: Space2,
-) : Projection {
+    simulationSpace: Space3,
+    filmSpace: Space2,
+) : AbstractProjection(simulationSpace, filmSpace) {
 
     // region Projection
 

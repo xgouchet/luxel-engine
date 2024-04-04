@@ -15,4 +15,15 @@ interface RandomGenerator<T> {
      * Returns a value uniformly distributed between the given min and max.
      */
     fun inRange(min: T, max: T): T
+
+    /**
+     * Returns a value following a default gaussian distribution.
+     */
+    fun gaussian(): T
+
+    /**
+     * Returns a value following a gaussian distribution around the provided mean,
+     * with the given standard deviation.
+     */
+    fun gaussian(mean: T, standardDeviation: T): T
 }

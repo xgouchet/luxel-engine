@@ -21,6 +21,7 @@ object RndGen {
     fun resetSeed(newSeed: Long) {
         seed = newSeed
         random = Random(newSeed)
+        println("--- Reset Seed: $newSeed")
     }
 
     /**

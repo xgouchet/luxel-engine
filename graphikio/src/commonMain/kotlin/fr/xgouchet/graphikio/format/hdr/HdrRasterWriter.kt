@@ -1,5 +1,6 @@
 package fr.xgouchet.graphikio.format.hdr
 
+import fr.xgouchet.graphikio.color.HDRColor
 import fr.xgouchet.graphikio.color.asUnboundColor
 import fr.xgouchet.graphikio.data.RasterData
 import fr.xgouchet.graphikio.data.pixelCount
@@ -7,12 +8,16 @@ import fr.xgouchet.graphikio.writer.AbstractRasterWriter
 import okio.BufferedSink
 import okio.Sink
 import okio.buffer
+import kotlin.math.max
 
 /**
  * Implementation based on Paul Bourke's format page: https://paulbourke.net/dataformats/pic/
  * and Víctor Arellano's Java implementation https://github.com/Ivelate/JavaHDR
  */
 class HdrRasterWriter : AbstractRasterWriter(HdrImageFormat) {
+
+    // region RasterWriter
+
     override fun write(rasterData: RasterData, sink: Sink) {
         check(rasterData.pixelCount > 0) { "Writer can't write an empty raster" }
 
@@ -21,6 +26,10 @@ class HdrRasterWriter : AbstractRasterWriter(HdrImageFormat) {
         buffer.flush()
         buffer.close()
     }
+
+    // endregion
+
+    // region Internal
 
     private fun writeHDR(rasterData: RasterData, out: BufferedSink) {
         val width = rasterData.width
@@ -41,14 +50,8 @@ class HdrRasterWriter : AbstractRasterWriter(HdrImageFormat) {
             for (i in 0..<width) {
                 val color = rasterData.getColor(i, j).asUnboundColor()
                 val s = j * width * 3
-                float2rgbe(
-                    rgbeData,
-                    color.r.toFloat(),
-                    color.g.toFloat(),
-                    color.b.toFloat(),
-                    i + ((s / 3) * 4),
-                    width,
-                )
+                val offset = i + ((s / 3) * 4)
+                float2rgbe(rgbeData, color, offset, width)
             }
         }
         return rgbeData
@@ -82,6 +85,8 @@ class HdrRasterWriter : AbstractRasterWriter(HdrImageFormat) {
         }
     }
 
+    // TODO rewrite the RLE algorithm
+    @Suppress("NestedBlockDepth", "CognitiveComplexMethod")
     private fun writeDataRLE(out: BufferedSink, rgbeData: ByteArray, scanlineWidth: Int) {
         val scanlineHeader = byteArrayOf(
             2,
@@ -99,14 +104,14 @@ class HdrRasterWriter : AbstractRasterWriter(HdrImageFormat) {
         var scanlineEnd = scanlineWidth
         while (scanlineEnd <= rgbeData.size) {
             var auxIndex = curr
-            var repeating = rgbeData[curr + 1] == rgbeData[curr]
+            var isRepeating = rgbeData[curr + 1] == rgbeData[curr]
 
             while (curr < scanlineEnd - 1) {
                 curr++
-                val equal = rgbeData[curr] == rgbeData[auxIndex]
+                val isEqual = rgbeData[curr] == rgbeData[auxIndex]
                 val fromAux = curr - auxIndex
-                if (equal != repeating || fromAux >= 127) {
-                    if (repeating) {
+                if (isEqual != isRepeating || fromAux >= 127) {
+                    if (isRepeating) {
                         scanlineBuf[scanlineBufIndex++] = (128 + fromAux).toByte()
                         scanlineBuf[scanlineBufIndex++] = rgbeData[auxIndex]
                     } else {
@@ -116,12 +121,12 @@ class HdrRasterWriter : AbstractRasterWriter(HdrImageFormat) {
                         }
                     }
                     auxIndex = curr
-                    repeating = curr != scanlineEnd - 1 && rgbeData[curr + 1] == rgbeData[curr]
+                    isRepeating = curr != scanlineEnd - 1 && rgbeData[curr + 1] == rgbeData[curr]
                 }
             }
             curr++
             val fromAux = curr - auxIndex
-            if (repeating) {
+            if (isRepeating) {
                 scanlineBuf[scanlineBufIndex++] = (128 + fromAux).toByte()
                 scanlineBuf[scanlineBufIndex++] = rgbeData[auxIndex]
             } else {
@@ -153,20 +158,11 @@ class HdrRasterWriter : AbstractRasterWriter(HdrImageFormat) {
 
     private fun float2rgbe(
         rgbeData: ByteArray,
-        red: Float,
-        green: Float,
-        blue: Float,
+        color: HDRColor,
         off: Int,
         separation: Int,
     ) {
-        var v = red
-        if (green > red) {
-            v = green
-        }
-
-        if (blue > v) {
-            v = blue
-        }
+        var v = max(color.r, (max(color.g, color.b)))
 
         if (v < 1.0E-32f) {
             rgbeData[off + separation * 3] = 0
@@ -174,14 +170,16 @@ class HdrRasterWriter : AbstractRasterWriter(HdrImageFormat) {
             rgbeData[off + separation] = rgbeData[off + separation * 2]
             rgbeData[off] = rgbeData[off + separation]
         } else {
-            val fe = HdrDouble.fromDouble(v.toDouble())
-            v = (fe.fraction * 256.0 / v.toDouble()).toFloat()
-            rgbeData[off] = (red * v).toInt().toByte()
-            rgbeData[off + separation] = (green * v).toInt().toByte()
-            rgbeData[off + separation * 2] = (blue * v).toInt().toByte()
+            val fe = HdrDouble.fromDouble(v)
+            v = (fe.fraction * 256.0 / v)
+            rgbeData[off] = (color.r * v).toInt().toByte()
+            rgbeData[off + separation] = (color.g * v).toInt().toByte()
+            rgbeData[off + separation * 2] = (color.b * v).toInt().toByte()
             rgbeData[off + separation * 3] = (fe.exponent + 128).toByte()
         }
     }
+
+    // endregion
 
     companion object {
         private const val HEADER_SEP = "\n"

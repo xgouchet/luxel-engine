@@ -45,7 +45,6 @@ kotlin {
         jvmMain {
             dependencies {
                 implementation(libs.bundles.imageIo)
-                implementation(files("../core/libs/JavaHDR.jar"))
             }
         }
     }

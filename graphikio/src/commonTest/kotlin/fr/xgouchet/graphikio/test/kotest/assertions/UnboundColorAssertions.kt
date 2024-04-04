@@ -1,6 +1,6 @@
 package fr.xgouchet.graphikio.test.kotest.assertions
 
-import fr.xgouchet.graphikio.color.UnboundColor
+import fr.xgouchet.graphikio.color.HDRColor
 import io.kotest.matchers.Matcher
 import io.kotest.matchers.MatcherResult
 import io.kotest.matchers.compose.all
@@ -14,10 +14,10 @@ import kotlin.math.nextUp
 
 private fun channelIsWithinPercentageOf(
     channelName: String,
-    getChannel: UnboundColor.() -> Double,
-    other: UnboundColor,
+    getChannel: HDRColor.() -> Double,
+    other: HDRColor,
     percentage: Percentage,
-) = Matcher<UnboundColor> { value ->
+) = Matcher<HDRColor> { value ->
     val otherChannel = other.getChannel()
     val tolerance = max(otherChannel.times(percentage.value / 100.0).absoluteValue, 0.00001)
     val minBound = (otherChannel - tolerance).nextDown()
@@ -30,27 +30,27 @@ private fun channelIsWithinPercentageOf(
     )
 }
 
-fun redIsWithinPercentageOf(other: UnboundColor, percentage: Percentage) =
+fun redIsWithinPercentageOf(other: HDRColor, percentage: Percentage) =
     channelIsWithinPercentageOf("red", { r }, other, percentage)
 
-fun greenIsWithinPercentageOf(other: UnboundColor, percentage: Percentage) =
+fun greenIsWithinPercentageOf(other: HDRColor, percentage: Percentage) =
     channelIsWithinPercentageOf("green", { g }, other, percentage)
 
-fun blueIsWithinPercentageOf(other: UnboundColor, percentage: Percentage) =
+fun blueIsWithinPercentageOf(other: HDRColor, percentage: Percentage) =
     channelIsWithinPercentageOf("blue", { b }, other, percentage)
 
-fun alphaIsWithinPercentageOf(other: UnboundColor, percentage: Percentage) =
+fun alphaIsWithinPercentageOf(other: HDRColor, percentage: Percentage) =
     channelIsWithinPercentageOf("alpha", { a }, other, percentage)
 
-fun beWithinPercentageOf(other: UnboundColor, percentage: Percentage) = Matcher.all(
+fun beWithinPercentageOf(other: HDRColor, percentage: Percentage) = Matcher.all(
     redIsWithinPercentageOf(other, percentage),
     greenIsWithinPercentageOf(other, percentage),
     blueIsWithinPercentageOf(other, percentage),
     alphaIsWithinPercentageOf(other, percentage),
 )
 
-fun beCloseTo(other: UnboundColor) = beWithinPercentageOf(other, 1.percent)
+fun beCloseTo(other: HDRColor) = beWithinPercentageOf(other, 1.percent)
 
-infix fun UnboundColor.shouldBeCloseTo(other: UnboundColor) {
+infix fun HDRColor.shouldBeCloseTo(other: HDRColor) {
     this should beCloseTo(other)
 }

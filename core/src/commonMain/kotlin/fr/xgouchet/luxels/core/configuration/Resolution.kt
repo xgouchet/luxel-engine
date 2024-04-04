@@ -4,6 +4,7 @@ import fr.xgouchet.luxels.core.math.Vector2
 import fr.xgouchet.luxels.core.math.Vector3
 import fr.xgouchet.luxels.core.position.Space2
 import fr.xgouchet.luxels.core.position.Space3
+import kotlin.math.max
 
 /**
  * The resolution of the film capturing the simulation rendering.
@@ -91,7 +92,7 @@ enum class Resolution(val width: Int, val height: Int) {
      * @return the resolution as a [Vector3]
      */
     fun asVector3(): Vector3 {
-        return Vector3(width.toDouble(), height.toDouble(), 0.0)
+        return Vector3(width.toDouble(), height.toDouble(), max(width, height).toDouble())
     }
 
     /**

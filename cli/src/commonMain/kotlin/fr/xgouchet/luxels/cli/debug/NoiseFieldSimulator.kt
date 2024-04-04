@@ -4,7 +4,7 @@ import fr.xgouchet.luxels.core.color.Color
 import fr.xgouchet.luxels.core.configuration.Configuration
 import fr.xgouchet.luxels.core.configuration.input.InputData
 import fr.xgouchet.luxels.core.gen.noise.DimensionalNoiseGenerator
-import fr.xgouchet.luxels.core.gen.noise.FractalNoiseGenerator.Companion.blueNoise
+import fr.xgouchet.luxels.core.gen.noise.FractalNoiseGenerator.Companion.brownNoise
 import fr.xgouchet.luxels.core.gen.noise.PerlinNoiseGenerator
 import fr.xgouchet.luxels.core.gen.noise.wrapper.Vector3ToDoubleNoiseGenerator
 import fr.xgouchet.luxels.core.gen.random.RndGen
@@ -15,7 +15,7 @@ import kotlin.time.Duration
 
 class NoiseFieldSimulator() : Simulator<NoiseFieldLuxel, Long> {
 
-    val baseNoise: DimensionalNoiseGenerator = blueNoise(PerlinNoiseGenerator())
+    val baseNoise: DimensionalNoiseGenerator = brownNoise(PerlinNoiseGenerator())
 
     //    val brownian = FractalBrownianNoise(baseNoise, 1, 0.5)
     val vectorToDouble = Vector3ToDoubleNoiseGenerator(baseNoise)

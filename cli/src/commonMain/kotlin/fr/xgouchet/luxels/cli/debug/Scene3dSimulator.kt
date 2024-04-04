@@ -1,0 +1,75 @@
+package fr.xgouchet.luxels.cli.debug
+
+import fr.xgouchet.luxels.core.color.Color
+import fr.xgouchet.luxels.core.configuration.Configuration
+import fr.xgouchet.luxels.core.gen.random.RndGen
+import fr.xgouchet.luxels.core.math.Vector3
+import fr.xgouchet.luxels.core.position.Space2
+import fr.xgouchet.luxels.core.position.Space3
+import fr.xgouchet.luxels.core.render.projection.PerspectiveProjection
+import fr.xgouchet.luxels.core.render.projection.Projection
+import fr.xgouchet.luxels.core.simulation.Simulator
+import kotlin.time.Duration
+
+class Scene3dSimulator : Simulator<DebugLuxel, Long> {
+
+    override fun getProjection(simulationSpace: Space3, filmSpace: Space2, time: Duration): Projection {
+        return PerspectiveProjection(
+            simulationSpace,
+            filmSpace,
+            simulationSpace.center + (Vector3(1.0, 0.2, 0.5) * simulationSpace.size.length()),
+            simulationSpace.center,
+        )
+    }
+
+    override fun spawnLuxel(simulation: Configuration.Simulation, time: Duration): DebugLuxel {
+        val t = RndGen.double.inRange(-1.0, 1.0)
+        val edge = RndGen.int.uniform() % 12
+
+        val p = when (edge) {
+            0 -> Vector3(t, -1.0, -1.0)
+            1 -> Vector3(t, -1.0, 1.0)
+            2 -> Vector3(t, 1.0, -1.0)
+            3 -> Vector3(t, 1.0, 1.0)
+
+            4 -> Vector3(-1.0, t, -1.0)
+            5 -> Vector3(-1.0, t, 1.0)
+            6 -> Vector3(1.0, t, -1.0)
+            7 -> Vector3(1.0, t, 1.0)
+
+            8 -> Vector3(-1.0, -1.0, t)
+            9 -> Vector3(-1.0, 1.0, t)
+            10 -> Vector3(1.0, -1.0, t)
+            11 -> Vector3(1.0, 1.0, t)
+
+            else -> Vector3.NULL
+        }
+
+        val c = t + 1.0
+        val color = when (edge) {
+            0 -> Color(c, 0.0, 0.0)
+            1 -> Color(c, 0.0, 1.0)
+            2 -> Color(c, 1.0, 0.0)
+            3 -> Color(c, 1.0, 1.0)
+
+            4 -> Color(0.0, c, 0.0)
+            5 -> Color(0.0, c, 1.0)
+            6 -> Color(1.0, c, 0.0)
+            7 -> Color(1.0, c, 1.0)
+
+            8 -> Color(0.0, 0.0, c)
+            9 -> Color(0.0, 1.0, c)
+            10 -> Color(1.0, 0.0, c)
+            11 -> Color(1.0, 1.0, c)
+
+            else -> Color.BLACK
+        }
+
+        val position = (p * simulation.space.size * 0.1) + simulation.space.center
+        return DebugLuxel(position, color)
+    }
+
+    override fun outputName(): String {
+        return "scene_3d"
+    }
+}

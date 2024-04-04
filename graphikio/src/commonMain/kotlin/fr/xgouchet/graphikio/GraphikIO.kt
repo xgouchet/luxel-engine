@@ -2,7 +2,7 @@ package fr.xgouchet.graphikio
 
 import fr.xgouchet.graphikio.api.RasterWriter
 import fr.xgouchet.graphikio.data.RasterData
-import fr.xgouchet.graphikio.format.ImageFormat
+import fr.xgouchet.graphikio.format.ImageFormatConstraints
 import fr.xgouchet.graphikio.format.bmp.BmpImageFormat
 import fr.xgouchet.graphikio.format.bmp.BmpRasterWriter
 import fr.xgouchet.graphikio.format.hdr.HdrImageFormat
@@ -10,6 +10,9 @@ import fr.xgouchet.graphikio.format.hdr.HdrRasterWriter
 import okio.Path
 import okio.Sink
 
+/**
+ * Utility object used to read/write image data.
+ */
 object GraphikIO {
 
     private val writers: List<RasterWriter> by lazy {
@@ -20,35 +23,49 @@ object GraphikIO {
         )
     }
 
-    val supportedFormats = listOf(
-        BmpImageFormat,
-        HdrImageFormat,
-    )
+    /**
+     * The list of image formats supported by this library.
+     */
+    val supportedFormats = listOf(BmpImageFormat, HdrImageFormat)
 
+    /**
+     * Writes the provided image data to a file at the provided path.
+     * @param rasterData the raster data content
+     * @param constraints the desired image format
+     * @param directoryPath the path to the directory where the image should be written
+     * @param baseName the base name of the output image file (without the extension)
+     */
     fun write(
         rasterData: RasterData,
-        imageFormat: ImageFormat,
-        parentPath: Path,
+        constraints: ImageFormatConstraints,
+        directoryPath: Path,
         baseName: String,
     ) {
-        val writer = writers.firstOrNull { writer -> writer.supportsFormat(imageFormat) }
+        val writer = writers.firstOrNull { writer -> writer.supportsFormat(constraints) }
         if (writer == null) {
             throw IllegalArgumentException("No writer found to write the provided image")
         }
 
-        fileSystem.createDirectories(parentPath)
-        val filePath = parentPath.div("$baseName.${imageFormat.fileNameExtension}")
+        fileSystem.createDirectories(directoryPath)
+        val fileExtension = writer.fileExtension(constraints)
+        val filePath = directoryPath.div("$baseName.$fileExtension")
         val sink = fileSystem.sink(filePath, mustCreate = false)
 
         writer.write(rasterData, sink)
     }
 
+    /**
+     * Writes the provided image data to the provided [Sink].
+     * @param rasterData the raster data content
+     * @param constraints the desired image format
+     * @param sink the sink to write to
+     */
     fun write(
         rasterData: RasterData,
-        imageFormat: ImageFormat,
+        constraints: ImageFormatConstraints,
         sink: Sink,
     ) {
-        val writer = writers.firstOrNull { writer -> writer.supportsFormat(imageFormat) }
+        val writer = writers.firstOrNull { writer -> writer.supportsFormat(constraints) }
         if (writer == null) {
             throw IllegalArgumentException("No writer found to write the provided image")
         }

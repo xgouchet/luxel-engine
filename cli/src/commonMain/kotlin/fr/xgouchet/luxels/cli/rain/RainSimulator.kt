@@ -8,7 +8,6 @@ import fr.xgouchet.luxels.core.gen.noise.PerlinNoiseGenerator
 import fr.xgouchet.luxels.core.gen.noise.wrapper.Vector3ToDoubleNoiseGenerator
 import fr.xgouchet.luxels.core.gen.random.RndGen
 import fr.xgouchet.luxels.core.gen.random.inBox
-import fr.xgouchet.luxels.core.gen.random.onUnitCircle
 import fr.xgouchet.luxels.core.math.EPSILON
 import fr.xgouchet.luxels.core.math.TAU
 import fr.xgouchet.luxels.core.math.Vector3
@@ -70,7 +69,7 @@ class RainSimulator : Simulator<RainLuxel, Long> {
         bounceThreshold = RndGen.double.inRange(75.0, 100.0)
         simulationRange = simulation.space
 
-        animationDirection = (RndGen.vector3.onUnitCircle() + Vector3(0.0, 0.0, 5.0)).normalized()
+        animationDirection = (RndGen.vector3.uniform() + Vector3(0.0, 0.0, 5.0)).normalized()
     }
 
     override fun onFrameStart(simulation: Configuration.Simulation, time: Duration) {
@@ -88,11 +87,10 @@ class RainSimulator : Simulator<RainLuxel, Long> {
                 Vector3(simulationRange.max.x + halfWidth, simulationRange.min.y - twentiethHeight, 0.0),
             )
             randomPosition = RndGen.vector3.inBox(range)
-            randomSpeed = directionalRainSpeed + RndGen.vector3.onUnitCircle()
+            randomSpeed = directionalRainSpeed + RndGen.vector3.gaussian()
         } else {
-            randomPosition =
-                spotRainPosition + (RndGen.vector3.onUnitCircle() * 100.0) + (RndGen.vector3.onUnitCircle() * 50.0)
-            randomSpeed = RndGen.vector3.onUnitCircle()
+            randomPosition = spotRainPosition + (RndGen.vector3.gaussian() * 100.0)
+            randomSpeed = RndGen.vector3.uniform()
         }
 
         val refractionIndex = getRefractionIndex(randomPosition)

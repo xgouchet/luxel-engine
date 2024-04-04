@@ -6,6 +6,10 @@ import fr.xgouchet.luxels.core.configuration.PassType
 import fr.xgouchet.luxels.core.configuration.input.InputData
 import fr.xgouchet.luxels.core.math.Vector3
 import fr.xgouchet.luxels.core.model.Luxel
+import fr.xgouchet.luxels.core.position.Space2
+import fr.xgouchet.luxels.core.position.Space3
+import fr.xgouchet.luxels.core.render.projection.FlatXYProjection
+import fr.xgouchet.luxels.core.render.projection.Projection
 import kotlin.time.Duration
 
 /**
@@ -22,6 +26,17 @@ interface Simulator<L : Luxel, I : Any> {
      * @param inputData the input for the simulation
      */
     fun initEnvironment(simulation: Configuration.Simulation, inputData: InputData<I>) {}
+
+    /**
+     * Called whenever a projection needs to be created.
+     * @param simulationSpace the simulation space
+     * @param filmSpace the target film space
+     * @param time the current time within the simulated animation
+     * @return the type of projection to convert luxel position from simulation space to film space
+     */
+    fun getProjection(simulationSpace: Space3, filmSpace: Space2, time: Duration): Projection {
+        return FlatXYProjection(simulationSpace, filmSpace)
+    }
 
     /**
      * Called once when a new frame starts.

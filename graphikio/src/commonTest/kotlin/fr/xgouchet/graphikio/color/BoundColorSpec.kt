@@ -1,21 +1,21 @@
 package fr.xgouchet.graphikio.color
 
-import fr.xgouchet.graphikio.color.BoundColor.Companion.BLACK
-import fr.xgouchet.graphikio.color.BoundColor.Companion.BLUE
-import fr.xgouchet.graphikio.color.BoundColor.Companion.CHANNEL_RANGE
-import fr.xgouchet.graphikio.color.BoundColor.Companion.GREEN
-import fr.xgouchet.graphikio.color.BoundColor.Companion.GREY
-import fr.xgouchet.graphikio.color.BoundColor.Companion.HALF_VALUE
-import fr.xgouchet.graphikio.color.BoundColor.Companion.MAX_VALUE
-import fr.xgouchet.graphikio.color.BoundColor.Companion.RED
-import fr.xgouchet.graphikio.color.BoundColor.Companion.TEAL
-import fr.xgouchet.graphikio.color.BoundColor.Companion.TRANSPARENT
-import fr.xgouchet.graphikio.color.BoundColor.Companion.VIOLET
-import fr.xgouchet.graphikio.color.BoundColor.Companion.WHITE
-import fr.xgouchet.graphikio.color.BoundColor.Companion.YELLOW
 import fr.xgouchet.graphikio.color.Color.Companion.LUMINANCE_BLUE
 import fr.xgouchet.graphikio.color.Color.Companion.LUMINANCE_GREEN
 import fr.xgouchet.graphikio.color.Color.Companion.LUMINANCE_RED
+import fr.xgouchet.graphikio.color.SDRColor.Companion.BLACK
+import fr.xgouchet.graphikio.color.SDRColor.Companion.BLUE
+import fr.xgouchet.graphikio.color.SDRColor.Companion.CHANNEL_RANGE
+import fr.xgouchet.graphikio.color.SDRColor.Companion.GREEN
+import fr.xgouchet.graphikio.color.SDRColor.Companion.GREY
+import fr.xgouchet.graphikio.color.SDRColor.Companion.HALF_VALUE
+import fr.xgouchet.graphikio.color.SDRColor.Companion.MAX_VALUE
+import fr.xgouchet.graphikio.color.SDRColor.Companion.RED
+import fr.xgouchet.graphikio.color.SDRColor.Companion.TEAL
+import fr.xgouchet.graphikio.color.SDRColor.Companion.TRANSPARENT
+import fr.xgouchet.graphikio.color.SDRColor.Companion.VIOLET
+import fr.xgouchet.graphikio.color.SDRColor.Companion.WHITE
+import fr.xgouchet.graphikio.color.SDRColor.Companion.YELLOW
 import fr.xgouchet.graphikio.test.kotest.property.boundColorArb
 import fr.xgouchet.graphikio.test.kotest.property.colorChannelDoubleArb
 import fr.xgouchet.graphikio.test.kotest.property.colorChannelIntArb
@@ -36,7 +36,7 @@ class BoundColorSpec : DescribeSpec({
     describe("int constructor") {
         it("keep all channel in bound range") {
             checkAll(intArb(), intArb(), intArb(), intArb()) { r, g, b, a ->
-                val c = BoundColor(r, g, b, a)
+                val c = SDRColor(r, g, b, a)
 
                 c.r shouldBeInRange CHANNEL_RANGE
                 c.g shouldBeInRange CHANNEL_RANGE
@@ -52,7 +52,7 @@ class BoundColorSpec : DescribeSpec({
                 colorChannelIntArb(),
                 colorChannelIntArb(),
             ) { r, g, b, a ->
-                val c = BoundColor(r, g, b, a)
+                val c = SDRColor(r, g, b, a)
 
                 c.r shouldBe r
                 c.g shouldBe g
@@ -65,7 +65,7 @@ class BoundColorSpec : DescribeSpec({
     describe("double constructor") {
         it("keep all channel in bound range") {
             checkAll(doubleArb(), doubleArb(), doubleArb(), doubleArb()) { r, g, b, a ->
-                val c = BoundColor(r, g, b, a)
+                val c = SDRColor(r, g, b, a)
 
                 c.r shouldBeInRange CHANNEL_RANGE
                 c.g shouldBeInRange CHANNEL_RANGE
@@ -81,7 +81,7 @@ class BoundColorSpec : DescribeSpec({
                 colorChannelDoubleArb(),
                 colorChannelDoubleArb(),
             ) { r, g, b, a ->
-                val c = BoundColor(r, g, b, a)
+                val c = SDRColor(r, g, b, a)
 
                 abs(c.r - r) shouldBe between(0.0, 1.0, 0.0001)
                 abs(c.g - g) shouldBe between(0.0, 1.0, 0.0001)
@@ -126,7 +126,7 @@ class BoundColorSpec : DescribeSpec({
                     c.b shouldBeLessThan 254
                     c.a shouldBeLessThan 254
                 }
-                val `c + unit` = c + BoundColor(1, 1, 1, 1)
+                val `c + unit` = c + SDRColor(1, 1, 1, 1)
 
                 `c + unit`.r shouldBe (c.r + 1)
                 `c + unit`.g shouldBe (c.g + 1)

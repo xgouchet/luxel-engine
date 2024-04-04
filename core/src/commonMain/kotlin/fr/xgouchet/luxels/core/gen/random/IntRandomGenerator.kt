@@ -1,6 +1,10 @@
 package fr.xgouchet.luxels.core.gen.random
 
+import fr.xgouchet.luxels.core.math.TAU
+import kotlin.math.cos
+import kotlin.math.ln
 import kotlin.math.roundToInt
+import kotlin.math.sqrt
 import kotlin.random.Random
 
 /**
@@ -22,6 +26,19 @@ class IntRandomGenerator(
         } else {
             random.nextInt(min, max)
         }
+    }
+
+    override fun gaussian(): Int {
+        return gaussian(50, 20)
+    }
+
+    override fun gaussian(mean: Int, standardDeviation: Int): Int {
+        val u = 1 - random.nextDouble()
+        val v = random.nextDouble()
+
+        val z = sqrt(-2.0 * ln(u)) * cos(TAU * v)
+
+        return (mean + (z * standardDeviation)).roundToInt()
     }
 
     // endregion

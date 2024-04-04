@@ -17,7 +17,7 @@ class GraphikIOSpec : DescribeSpec({
             checkAll(Arb.element(GraphikIO.supportedFormats)) { format ->
                 GraphikIO.write(
                     stubRaster,
-                    format,
+                    format.constraints,
                     "test_output".toPath(),
                     "test_raster",
                 )
@@ -30,7 +30,7 @@ class GraphikIOSpec : DescribeSpec({
                 val buffer = Buffer()
                 GraphikIO.write(
                     stubRaster,
-                    format,
+                    format.constraints,
                     buffer,
                 )
 

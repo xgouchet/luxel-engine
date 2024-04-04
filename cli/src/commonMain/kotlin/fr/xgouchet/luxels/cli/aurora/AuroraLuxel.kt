@@ -3,6 +3,7 @@ package fr.xgouchet.luxels.cli.aurora
 import fr.xgouchet.luxels.core.color.Color
 import fr.xgouchet.luxels.core.color.ColorSource
 import fr.xgouchet.luxels.core.color.atomic.ASLColorSource
+import fr.xgouchet.luxels.core.gen.random.RndGen
 import fr.xgouchet.luxels.core.math.Vector3
 import fr.xgouchet.luxels.core.model.AgeingLifespanSource
 import fr.xgouchet.luxels.core.model.PrincipledLuxel
@@ -20,12 +21,12 @@ class AuroraLuxel(
 ) {
 
     override fun color(): Color {
-        val scale = 15.0 / (lifespanSource.age + 1)
+        val scale = 15.0 / (lifespanSource.age + 1 + RndGen.double.inRange(0.0, 1024.0))
         return super.color() * scale * scale
     }
 
     override fun onStep(step: Int) {
-        positionSource.radius = (1.0 - lifespanSource.progression) * 10.0
+        positionSource.radius = ((RndGen.double.gaussian() * .1) + 1.0 - lifespanSource.progression) * 10.0
         super.onStep(step)
     }
 }

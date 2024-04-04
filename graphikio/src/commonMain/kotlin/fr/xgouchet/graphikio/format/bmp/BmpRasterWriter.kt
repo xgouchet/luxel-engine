@@ -1,5 +1,6 @@
 package fr.xgouchet.graphikio.format.bmp
 
+import fr.xgouchet.graphikio.api.RasterWriter
 import fr.xgouchet.graphikio.color.asBoundColor
 import fr.xgouchet.graphikio.data.RasterData
 import fr.xgouchet.graphikio.writer.AbstractRasterWriter
@@ -7,7 +8,12 @@ import okio.BufferedSink
 import okio.Sink
 import okio.buffer
 
+/**
+ * A [RasterWriter] supporting the [BmpImageFormat].
+ */
 class BmpRasterWriter : AbstractRasterWriter(BmpImageFormat) {
+
+    // region RasterWriter
 
     override fun write(rasterData: RasterData, sink: Sink) {
         val bytesPerRow = BYTES_PER_PIXEL * rasterData.width
@@ -48,6 +54,10 @@ class BmpRasterWriter : AbstractRasterWriter(BmpImageFormat) {
         bufferedSink.close()
     }
 
+    // endregion
+
+    // region Internal
+
     private fun writeBmpHeader(bufferedSink: BufferedSink, fileSize: Int) {
         bufferedSink.writeUtf8(BMP_PREFIX)
         bufferedSink.writeIntLe(fileSize)
@@ -69,6 +79,8 @@ class BmpRasterWriter : AbstractRasterWriter(BmpImageFormat) {
         bufferedSink.writeIntLe(COLOR_PALETTE_SIZE)
         bufferedSink.writeIntLe(IMPORTANT_COLOR_COUNT)
     }
+
+    //  endregion
 
     companion object {
         private const val BMP_PREFIX = "BM"

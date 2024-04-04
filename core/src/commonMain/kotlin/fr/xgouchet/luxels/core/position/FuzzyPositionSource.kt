@@ -1,7 +1,6 @@
 package fr.xgouchet.luxels.core.position
 
 import fr.xgouchet.luxels.core.gen.random.RndGen
-import fr.xgouchet.luxels.core.gen.random.onUnitSphere
 import fr.xgouchet.luxels.core.math.Vector3
 
 /**
@@ -20,8 +19,7 @@ data class FuzzyPositionSource<P : PositionSource>(
     // region PositionSource
 
     override fun position(): Vector3 {
-        return delegate.position() + (RndGen.vector3.onUnitSphere() * radius)
-        // TODO KMM + (RndGen.vector3().inGaussianBall() * radius)
+        return delegate.position() + (RndGen.vector3.gaussian() * radius)
     }
 
     // endregion

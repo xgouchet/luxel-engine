@@ -1,5 +1,9 @@
 package fr.xgouchet.luxels.core.gen.random
 
+import fr.xgouchet.luxels.core.math.TAU
+import kotlin.math.cos
+import kotlin.math.ln
+import kotlin.math.sqrt
 import kotlin.random.Random
 
 /**
@@ -21,6 +25,19 @@ class DoubleRandomGenerator(
         } else {
             random.nextDouble(min, max)
         }
+    }
+
+    override fun gaussian(): Double {
+        return gaussian(0.0, 1.0)
+    }
+
+    override fun gaussian(mean: Double, standardDeviation: Double): Double {
+        val u = 1 - uniform()
+        val v = uniform()
+
+        val z = sqrt(-2.0 * ln(u)) * cos(TAU * v)
+
+        return mean + (z * standardDeviation)
     }
 
     // endregion

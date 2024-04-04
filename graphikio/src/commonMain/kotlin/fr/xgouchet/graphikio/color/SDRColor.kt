@@ -10,18 +10,19 @@ import kotlin.math.roundToInt
 /**
  * Represents a Color in standard RGBA space.
  * Each channel holds an integer value in [0…255] range.
+ *
  * @property r the red component.
  * @property g the green component.
  * @property b the blue component.
  * @property a the alpha component.
- * @property coerced whether the value had to be coerced within the [0…255] range.
+ * @param isCoerced whether the value had to be coerced within the [0…255] range.
  */
-class BoundColor private constructor(
+class SDRColor private constructor(
     val r: Int,
     val g: Int,
     val b: Int,
     val a: Int,
-    val coerced: Boolean,
+    private val isCoerced: Boolean,
 ) : Color {
 
     init {
@@ -37,7 +38,7 @@ class BoundColor private constructor(
      * @param other the color to add to this color
      * @return a color with each component as the component in this color plus the matching component in the given input
      */
-    operator fun plus(other: BoundColor): BoundColor {
+    operator fun plus(other: SDRColor): SDRColor {
         return bindInRange(r + other.r, g + other.g, b + other.b, a + other.a)
     }
 
@@ -45,7 +46,7 @@ class BoundColor private constructor(
      * @param scale the factor by which to multiply the color
      * @return a color with each component multiplied by the given input
      */
-    operator fun times(scale: Double): BoundColor {
+    operator fun times(scale: Double): SDRColor {
         return bindInRange(r * scale, g * scale, b * scale, a * scale)
     }
 
@@ -112,7 +113,7 @@ class BoundColor private constructor(
         if (this === other) return true
         if (other == null || this::class != other::class) return false
 
-        other as BoundColor
+        other as SDRColor
 
         if (r != other.r) return false
         if (g != other.g) return false
@@ -134,16 +135,18 @@ class BoundColor private constructor(
 
     companion object {
 
-        const val MAX_VALUE = 255
+        internal const val MAX_VALUE = 255
         internal const val HALF_VALUE = 128
         internal val CHANNEL_RANGE = 0..MAX_VALUE
+
+        // region Internal
 
         internal fun bindInRange(
             r: Double,
             g: Double,
             b: Double,
             a: Double,
-        ): BoundColor {
+        ): SDRColor {
             return bindInRange(
                 r.roundToInt(),
                 g.roundToInt(),
@@ -157,63 +160,65 @@ class BoundColor private constructor(
             g: Int,
             b: Int,
             a: Int,
-        ): BoundColor {
-            var coerced = false
+        ): SDRColor {
+            var isCoerced = false
             val ri = if (r in CHANNEL_RANGE) {
                 r
             } else {
-                coerced = true
+                isCoerced = true
                 r.coerceIn(CHANNEL_RANGE)
             }
             val gi = if (g in CHANNEL_RANGE) {
                 g
             } else {
-                coerced = true
+                isCoerced = true
                 g.coerceIn(CHANNEL_RANGE)
             }
             val bi = if (b in CHANNEL_RANGE) {
                 b
             } else {
-                coerced = true
+                isCoerced = true
                 b.coerceIn(CHANNEL_RANGE)
             }
             val ai = if (a in CHANNEL_RANGE) {
                 a
             } else {
-                coerced = true
+                isCoerced = true
                 a.coerceIn(CHANNEL_RANGE)
             }
-            return BoundColor(ri, gi, bi, ai, coerced)
+            return SDRColor(ri, gi, bi, ai, isCoerced)
         }
 
+        // endregion
+
         /** Perfect White color. */
-        val WHITE = BoundColor(MAX_VALUE, MAX_VALUE, MAX_VALUE, MAX_VALUE)
+        val WHITE = SDRColor(MAX_VALUE, MAX_VALUE, MAX_VALUE, MAX_VALUE)
 
         /** Perfect half grey color. */
-        val GREY = BoundColor(HALF_VALUE, HALF_VALUE, HALF_VALUE, MAX_VALUE)
+        val GREY = SDRColor(HALF_VALUE, HALF_VALUE, HALF_VALUE, MAX_VALUE)
 
         /** Perfect black color. */
-        val BLACK = BoundColor(0, 0, 0, MAX_VALUE)
+        val BLACK = SDRColor(0, 0, 0, MAX_VALUE)
 
         /** Perfect red color. */
-        val RED = BoundColor(MAX_VALUE, 0, 0, MAX_VALUE)
+        val RED = SDRColor(MAX_VALUE, 0, 0, MAX_VALUE)
 
         /** Perfect green color. */
-        val GREEN = BoundColor(0, MAX_VALUE, 0, MAX_VALUE)
+        val GREEN = SDRColor(0, MAX_VALUE, 0, MAX_VALUE)
 
         /** Perfect blue color. */
-        val BLUE = BoundColor(0, 0, MAX_VALUE, MAX_VALUE)
+        val BLUE = SDRColor(0, 0, MAX_VALUE, MAX_VALUE)
 
         /** Perfect yellow color. */
-        val YELLOW = BoundColor(MAX_VALUE, MAX_VALUE, 0, MAX_VALUE)
+        val YELLOW = SDRColor(MAX_VALUE, MAX_VALUE, 0, MAX_VALUE)
 
         /** Perfect teal color. */
-        val TEAL = BoundColor(0, MAX_VALUE, MAX_VALUE, MAX_VALUE)
+        val TEAL = SDRColor(0, MAX_VALUE, MAX_VALUE, MAX_VALUE)
 
         /** Perfect violet color. */
-        val VIOLET = BoundColor(MAX_VALUE, 0, MAX_VALUE, MAX_VALUE)
+        val VIOLET = SDRColor(MAX_VALUE, 0, MAX_VALUE, MAX_VALUE)
 
         /** Perfect transparent color. */
-        val TRANSPARENT = BoundColor(0, 0, 0, 0)
+        val TRANSPARENT = SDRColor(0, 0, 0, 0)
     }
 }
