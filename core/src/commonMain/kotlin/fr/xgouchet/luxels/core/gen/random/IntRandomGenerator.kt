@@ -13,7 +13,6 @@ import kotlin.random.Random
 class IntRandomGenerator(
     private val random: Random,
 ) : RandomGenerator<Int> {
-
     // region RandomGenerator
 
     override fun uniform(): Int {

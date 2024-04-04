@@ -6,7 +6,7 @@ import io.kotest.matchers.shouldBe
 import io.kotest.property.checkAll
 
 class LinearInterpolationTest : DescribeSpec({
-    include(AbstractInterpolationTest(Interpolation.Linear))
+    include(abstractInterpolationTest(Interpolation.Linear))
 
     describe("linear interpolation") {
         it("returns the input if between 0 and 1") {

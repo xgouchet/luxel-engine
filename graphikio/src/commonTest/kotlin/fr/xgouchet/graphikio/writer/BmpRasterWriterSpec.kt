@@ -6,5 +6,5 @@ import io.kotest.core.spec.style.DescribeSpec
 
 class BmpRasterWriterSpec : DescribeSpec({
 
-    include(AbstractRasterWriterSpec(BmpImageFormat) { BmpRasterWriter() })
+    include(abstractRasterWriterSpec(BmpImageFormat) { BmpRasterWriter() })
 })

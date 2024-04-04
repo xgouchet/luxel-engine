@@ -13,7 +13,6 @@ fun resolutionArb() = arbitrary {
         Resolution.SQUARE_2160, // OOM
         Resolution.SQUARE_2880, // OOM
         // Resolution.SQUARE_4320, // OOM
-
         // 4/3 resolutions
         Resolution.QVGA,
         Resolution.HVGA,
@@ -22,7 +21,6 @@ fun resolutionArb() = arbitrary {
         Resolution.XGA,
         Resolution.UXGA,
         Resolution.QXGA,
-
         // 16/9 resolutions
         Resolution.HD_720,
         Resolution.FHD_1080,

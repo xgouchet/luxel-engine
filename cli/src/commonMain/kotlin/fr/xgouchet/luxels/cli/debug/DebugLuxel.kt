@@ -5,11 +5,10 @@ import fr.xgouchet.luxels.core.gen.random.RndGen
 import fr.xgouchet.luxels.core.math.Vector3
 import fr.xgouchet.luxels.core.model.Luxel
 
-class DebugLuxel(
+internal class DebugLuxel(
     private val position: Vector3,
     private val color: Color,
 ) : Luxel {
-
     private var isAlive = true
 
     // region ColorSource

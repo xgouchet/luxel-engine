@@ -6,7 +6,7 @@ import fr.xgouchet.luxels.core.model.AgeingLifespanSource
 import fr.xgouchet.luxels.core.model.PrincipledLuxel
 import fr.xgouchet.luxels.core.position.InertiaPositionSource
 
-class RainLuxel(
+internal class RainLuxel(
     lifespan: Int,
     waveLength: Double,
     initialPosition: Vector3,
@@ -17,6 +17,5 @@ class RainLuxel(
     InertiaPositionSource(initialPosition, initialSpeed),
     AgeingLifespanSource(lifespan),
 ) {
-
     val reductionFactor = (10000.0 - ((waveLength - EMSColorSource.MIN_UV_LIGHT) * 10.0)) / 10000.0
 }

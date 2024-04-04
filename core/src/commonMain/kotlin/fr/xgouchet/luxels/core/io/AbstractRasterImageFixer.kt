@@ -5,11 +5,18 @@ import fr.xgouchet.graphikio.format.ImageFormat
 import fr.xgouchet.luxels.core.render.exposure.Film
 import okio.Path
 
+/**
+ * An abstract [ImageFixer] based on the graphikio module capabilities.
+ * @param targetFormat the [ImageFormat] to use when writing an image
+ * @param outputDirPath the path to the output dir where the file should be saved
+ * @param iso the sensitivity of the film (can be useful when exporting to SDR formats)
+ */
 abstract class AbstractRasterImageFixer(
-    val targetFormat: ImageFormat,
-    val outputDirPath: Path,
-    val iso: Double = 1.0,
+    private val targetFormat: ImageFormat,
+    private val outputDirPath: Path,
+    private val iso: Double = 1.0,
 ) : ImageFixer {
+    // region ImageFixer
 
     override fun write(film: Film, outputName: String) {
         val rasterData = FilmRasterDataWrapper(film, iso)
@@ -21,4 +28,6 @@ abstract class AbstractRasterImageFixer(
             outputName,
         )
     }
+
+    //  endregion
 }

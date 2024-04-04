@@ -31,6 +31,7 @@ import io.kotest.property.checkAll
 import kotlin.math.abs
 import kotlin.math.roundToInt
 
+@Suppress("ktlint:standard:property-naming")
 class BoundColorSpec : DescribeSpec({
 
     describe("int constructor") {

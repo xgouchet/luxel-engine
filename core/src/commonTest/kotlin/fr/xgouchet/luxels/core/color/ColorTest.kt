@@ -10,6 +10,7 @@ import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.property.checkAll
 
+@Suppress("ktlint:standard:property-naming")
 class ColorTest : DescribeSpec({
 
     describe("addition") {

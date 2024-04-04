@@ -25,7 +25,7 @@ import io.kotest.property.withAssumptions
 import kotlin.math.PI
 import kotlin.math.abs
 
-@Suppress("RemoveRedundantBackticks")
+@Suppress("RemoveRedundantBackticks", "ktlint:standard:property-naming")
 class Vector2Test : DescribeSpec({
 
     describe("minus") {

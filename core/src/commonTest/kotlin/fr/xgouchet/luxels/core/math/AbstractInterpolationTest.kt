@@ -18,8 +18,7 @@ import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
 
-@Suppress("TestFunctionName")
-fun <T : Interpolation> AbstractInterpolationTest(interpolation: T) = describeSpec {
+fun <T : Interpolation> abstractInterpolationTest(interpolation: T) = describeSpec {
     describe("generic factor") {
         it("always returns a value between 0.0 and 1.0") {
             checkAll(doubleArb()) { t ->

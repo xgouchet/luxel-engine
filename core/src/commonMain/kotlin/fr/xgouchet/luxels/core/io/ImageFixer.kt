@@ -6,7 +6,6 @@ import fr.xgouchet.luxels.core.render.exposure.Film
  * Used to convert the exposed film into a digital Image file.
  */
 interface ImageFixer {
-
     /**
      * Write the data from the given film into a file.
      * @param film the [Film] to read from

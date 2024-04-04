@@ -6,7 +6,6 @@ package fr.xgouchet.luxels.core.gen.noise
  * @param O the type of the Output
  */
 interface NoiseGenerator<in I : Any, out O : Any> {
-
     /**
      * @param input the input to compute the noise
      * @return a noise value

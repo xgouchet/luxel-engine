@@ -5,11 +5,15 @@ import fr.xgouchet.luxels.core.math.Vector3
 import fr.xgouchet.luxels.core.position.Space2
 import fr.xgouchet.luxels.core.position.Space3
 
+/**
+ * A [Projection] using an orthographic 2D camera.
+ * @property simulationSpace the simulation space
+ * @property filmSpace the film space
+ */
 internal class FlatXYProjection(
-    simulationSpace: Space3,
-    filmSpace: Space2,
-) : AbstractProjection(simulationSpace, filmSpace) {
-
+    override val simulationSpace: Space3,
+    override val filmSpace: Space2,
+) : Projection {
     // region Projection
 
     override fun convertPosition(position: Vector3): Vector2 {

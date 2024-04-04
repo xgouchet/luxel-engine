@@ -6,7 +6,6 @@ import io.kotest.core.test.TestCase
 import io.kotest.core.test.TestResult
 
 class MemoryGuardExtension : BeforeEachListener, AfterEachListener {
-
     override suspend fun beforeEach(testCase: TestCase) {
         super.beforeEach(testCase)
         cleanupMemory()

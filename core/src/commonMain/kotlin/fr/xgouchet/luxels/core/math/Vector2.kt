@@ -17,7 +17,6 @@ data class Vector2(
     val x: Double,
     val y: Double,
 ) {
-
     // region Operators
 
     /**
@@ -171,21 +170,14 @@ data class Vector2(
      * @param normal the normal vector of the surface against which this vector should be reflected
      * @return the reflected vector
      */
-    fun reflect(
-        normal: Vector2,
-    ): Vector2 {
+    fun reflect(normal: Vector2): Vector2 {
         return this - (normal * dot(normal) * 2.0)
     }
 
     /**
      * Refract this vector through a surface with the given normal.
      */
-    fun refract(
-        normal: Vector2,
-        sourceIndex: Double,
-        destinationIndex: Double,
-        refractionFactor: Double,
-    ): Vector2 {
+    fun refract(normal: Vector2, sourceIndex: Double, destinationIndex: Double, refractionFactor: Double): Vector2 {
         val r = (sourceIndex / destinationIndex) * refractionFactor
         val c = -(normal.dot(this))
         val k = r * c - sqrt(abs(1.0 - (r * r * (1.0 - c * c))))
@@ -213,7 +205,6 @@ data class Vector2(
     // endregion
 
     companion object {
-
         /**
          * Builds a [Vector2] from the given components.
          * @param components a list of exactly 2 components in [x, y] order

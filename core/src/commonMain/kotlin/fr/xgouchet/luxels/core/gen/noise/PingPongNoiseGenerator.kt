@@ -11,7 +11,6 @@ class PingPongNoiseGenerator(
     private val delegate: DimensionalNoiseGenerator = PerlinNoiseGenerator(),
     private val strength: Double = 2.0,
 ) : DimensionalNoiseGenerator {
-
     // region DimensionalNoiseGenerator
 
     override fun noise(input: List<Double>, outputSize: Int): List<Double> {

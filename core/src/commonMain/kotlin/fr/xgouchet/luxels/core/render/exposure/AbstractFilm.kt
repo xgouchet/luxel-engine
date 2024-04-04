@@ -6,7 +6,6 @@ import fr.xgouchet.luxels.core.configuration.Resolution
 internal abstract class AbstractFilm(
     val resolution: Resolution,
 ) : Film {
-
     private val pixelCount = resolution.width * resolution.height
     private val exposure: Array<Color> = Array(pixelCount) { Color(0.0, 0.0, 0.0, 0.0) }
     private var exposedOutsideBounds = 0L

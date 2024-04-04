@@ -6,5 +6,5 @@ import io.kotest.core.spec.style.DescribeSpec
 
 class HdrRasterWriterSpec : DescribeSpec({
 
-    include(AbstractRasterWriterSpec(HdrImageFormat) { HdrRasterWriter() })
+    include(abstractRasterWriterSpec(HdrImageFormat) { HdrRasterWriter() })
 })

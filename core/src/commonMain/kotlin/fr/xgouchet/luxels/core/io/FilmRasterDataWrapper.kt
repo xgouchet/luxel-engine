@@ -10,7 +10,6 @@ internal class FilmRasterDataWrapper(
     val film: Film,
     iso: Double,
 ) : RasterData {
-
     private val scaledIso = iso / 1600.0
 
     init {

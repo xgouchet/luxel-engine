@@ -5,12 +5,10 @@ import fr.xgouchet.luxels.core.math.Vector3
 import fr.xgouchet.luxels.core.position.Space3
 import fr.xgouchet.luxels.core.position.UpdatablePositionSource
 
-// DISCUSS: use Z0 = 0.0 ?
-class BuddhabrotPositionSource(
+internal class BuddhabrotPositionSource(
     val maxSteps: Int,
     val simulationSpace: Space3,
 ) : UpdatablePositionSource {
-
     val initialPos: Vector3
 
     var complexPosition: Vector3 = Vector3.NULL
@@ -34,6 +32,8 @@ class BuddhabrotPositionSource(
         complexPosition = vector
     }
 
+    // region PositionSource
+
     override fun position(): Vector3 {
         return Vector3(
             ((complexPosition.x + 2.0) / 4.0) * simulationSpace.size.x,
@@ -42,9 +42,17 @@ class BuddhabrotPositionSource(
         )
     }
 
+    // endregion
+
+    // region UpdatablePositionSource
+
     override fun updatePosition(strength: Double) {
         complexPosition = mandelbrotStep(complexPosition, initialPos)
     }
+
+    // endregion
+
+    // region Internal
 
     private fun isInside(c: Vector3, maxSteps: Int): Boolean {
         var z = c.copy()
@@ -54,4 +62,6 @@ class BuddhabrotPositionSource(
         }
         return true
     }
+
+    // endregion
 }

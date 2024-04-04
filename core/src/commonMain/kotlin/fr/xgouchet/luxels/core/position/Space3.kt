@@ -11,7 +11,6 @@ data class Space3(
     val min: Vector3,
     val max: Vector3,
 ) {
-
     /** The size of the space (i.e.: length of the diagonal from the lower to upper corner). */
     val size = Vector3(max.x - min.x, max.y - min.y, max.z - min.z)
 

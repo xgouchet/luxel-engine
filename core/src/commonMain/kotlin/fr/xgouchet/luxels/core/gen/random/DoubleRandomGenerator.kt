@@ -12,7 +12,6 @@ import kotlin.random.Random
 class DoubleRandomGenerator(
     private val random: Random,
 ) : RandomGenerator<Double> {
-
     // region RandomGenerator
 
     override fun uniform(): Double {

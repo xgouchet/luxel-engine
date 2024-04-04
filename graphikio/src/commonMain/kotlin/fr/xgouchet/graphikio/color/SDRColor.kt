@@ -24,7 +24,6 @@ class SDRColor private constructor(
     val a: Int,
     private val isCoerced: Boolean,
 ) : Color {
-
     init {
         check(r in CHANNEL_RANGE)
         check(g in CHANNEL_RANGE)
@@ -134,19 +133,13 @@ class SDRColor private constructor(
     // endregion
 
     companion object {
-
         internal const val MAX_VALUE = 255
         internal const val HALF_VALUE = 128
         internal val CHANNEL_RANGE = 0..MAX_VALUE
 
         // region Internal
 
-        internal fun bindInRange(
-            r: Double,
-            g: Double,
-            b: Double,
-            a: Double,
-        ): SDRColor {
+        internal fun bindInRange(r: Double, g: Double, b: Double, a: Double): SDRColor {
             return bindInRange(
                 r.roundToInt(),
                 g.roundToInt(),
@@ -155,12 +148,7 @@ class SDRColor private constructor(
             )
         }
 
-        internal fun bindInRange(
-            r: Int,
-            g: Int,
-            b: Int,
-            a: Int,
-        ): SDRColor {
+        internal fun bindInRange(r: Int, g: Int, b: Int, a: Int): SDRColor {
             var isCoerced = false
             val ri = if (r in CHANNEL_RANGE) {
                 r

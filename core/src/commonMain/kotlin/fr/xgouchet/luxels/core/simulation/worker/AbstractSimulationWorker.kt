@@ -16,7 +16,6 @@ internal abstract class AbstractSimulationWorker<L : Luxel, I : Any>(
     private val projection: Projection,
     protected val time: Duration,
 ) : SimulationWorker {
-
     // region AbstractSimulationWorker
 
     abstract fun simulateSingleLuxel(i: Long)

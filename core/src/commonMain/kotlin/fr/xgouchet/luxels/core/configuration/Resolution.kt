@@ -12,8 +12,6 @@ import kotlin.math.max
  * @property height the height of the film (in pixels)
  */
 enum class Resolution(val width: Int, val height: Int) {
-
-    // Square resolutions
     /** A square of 720×720 (518'400) pixels. */
     SQUARE_720(720, 720),
 
@@ -32,7 +30,6 @@ enum class Resolution(val width: Int, val height: Int) {
     /** A square of 4320×4320 (18'662'400) pixels. */
     SQUARE_4320(4320, 4320),
 
-    // 4/3 resolutions
     /** Quarter VGA: 320×240 (76'800) pixels. */
     QVGA(320, 240),
 
@@ -54,7 +51,6 @@ enum class Resolution(val width: Int, val height: Int) {
     /** Quad-XGA: 2048×1536 (3'145'728) pixels. */
     QXGA(2048, 1536),
 
-    // 16/9 resolutions
     /** HD 720p: 1280×720 (921'600) pixels. */
     HD_720(1280, 720),
 

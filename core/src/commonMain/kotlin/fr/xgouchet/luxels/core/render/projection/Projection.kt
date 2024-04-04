@@ -11,8 +11,10 @@ import fr.xgouchet.luxels.core.render.exposure.Film
  * A Projection converts the position of a [Luxel] into a 2D position on a [Film].
  */
 interface Projection {
-
+    /** The simulation space. */
     abstract val simulationSpace: Space3
+
+    /** The film space. */
     abstract val filmSpace: Space2
 
     /**

@@ -15,7 +15,6 @@ class ImageColorSource(
     private val imageFile: File,
     var uv: Vector2,
 ) : ColorSource {
-
     // TODO write tests
 
     private val imageData: BufferedImage by lazy { ImageIO.read(imageFile) }

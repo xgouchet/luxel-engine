@@ -9,7 +9,6 @@ import kotlin.math.abs
 class RidgeNoiseGenerator(
     private val delegate: DimensionalNoiseGenerator = PerlinNoiseGenerator(),
 ) : DimensionalNoiseGenerator {
-
     // region DimensionalNoiseGenerator
 
     override fun noise(input: List<Double>, outputSize: Int): List<Double> {

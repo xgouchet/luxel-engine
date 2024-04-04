@@ -18,9 +18,8 @@ import kotlin.time.Duration
  * @param I the expected Input
  */
 interface Simulator<L : Luxel, I : Any> {
-
-    // TODO ensure called always on the main thread !
     /**
+     * TODO ensure called always on the main thread !
      * Called once per input to initialize the environment.
      * @param simulation the simulation options
      * @param inputData the input for the simulation

@@ -11,7 +11,6 @@ import fr.xgouchet.luxels.core.math.Vector2
 class Vector2ToVector2NoiseGenerator(
     private val delegate: DimensionalNoiseGenerator,
 ) : NoiseGenerator<Vector2, Vector2> {
-
     // region NoiseGenerator
 
     override fun noise(input: Vector2): Vector2 {

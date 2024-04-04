@@ -202,21 +202,14 @@ data class Vector3(
      * @param normal the normal vector of the surface against which this vector should be reflected
      * @return the reflected vector
      */
-    fun reflect(
-        normal: Vector3,
-    ): Vector3 {
+    fun reflect(normal: Vector3): Vector3 {
         return this - (normal * dot(normal) * 2.0)
     }
 
     /**
      * Refract this vector through a surface with the given normal.
      */
-    fun refract(
-        normal: Vector3,
-        sourceIndex: Double,
-        destinationIndex: Double,
-        refractionFactor: Double,
-    ): Vector3 {
+    fun refract(normal: Vector3, sourceIndex: Double, destinationIndex: Double, refractionFactor: Double): Vector3 {
         val r = (sourceIndex / destinationIndex) * refractionFactor
         val c = -(normal.dot(this))
         val k = r * c - sqrt(abs(1.0 - (r * r * (1.0 - c * c))))
@@ -244,7 +237,6 @@ data class Vector3(
     // endregion
 
     companion object {
-
         /**
          * Builds a [Vector3] from the given components.
          * @param components a list of exactly 3 components in [x, y, z] order
@@ -264,8 +256,8 @@ data class Vector3(
             val cosA = cos(azimuth)
             return Vector3(
                 radius * cos(polar) * cosA,
-                radius * sin(polar) * cosA,
                 radius * sin(azimuth),
+                radius * sin(polar) * cosA,
             )
         }
 

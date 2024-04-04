@@ -6,7 +6,6 @@ import io.kotest.core.extensions.Extension
 import io.kotest.property.PropertyTesting
 
 open class GraphikIOConfig : AbstractProjectConfig() {
-
     init {
         PropertyTesting.defaultIterationCount = 16
     }

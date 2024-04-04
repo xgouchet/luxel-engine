@@ -12,7 +12,6 @@ import okio.buffer
  * A [RasterWriter] supporting the [BmpImageFormat].
  */
 class BmpRasterWriter : AbstractRasterWriter(BmpImageFormat) {
-
     // region RasterWriter
 
     override fun write(rasterData: RasterData, sink: Sink) {

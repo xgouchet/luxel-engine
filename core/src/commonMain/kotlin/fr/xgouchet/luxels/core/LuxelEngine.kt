@@ -19,11 +19,11 @@ import kotlinx.datetime.Clock
 import kotlin.time.Duration.Companion.seconds
 
 // TODO use SLF4J or other lib to log instead of println
+
 /**
  * The main engine driving the Luxel simulation.
  */
 object LuxelEngine {
-
     /**
      * Runs the simulation, using the provided simulator and configuration.
      * @param L the type of [Luxel] to simulate

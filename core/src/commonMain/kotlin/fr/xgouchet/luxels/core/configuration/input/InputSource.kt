@@ -5,7 +5,6 @@ package fr.xgouchet.luxels.core.configuration.input
  * @param D the type of data used as input
  */
 abstract class InputSource<D : Any> : Iterable<InputData<D>> {
-
     /** The list of inputs. */
     protected abstract val inputDataList: List<InputData<D>>
 

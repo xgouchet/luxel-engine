@@ -5,7 +5,6 @@ package fr.xgouchet.luxels.core.gen.random
  * @param T the type of values generated.
  */
 interface RandomGenerator<T> {
-
     /**
      * Returns a value uniformly distributed in the default range for [T].
      */

@@ -8,7 +8,6 @@ import kotlin.math.PI
  * A [RandomGenerator] generating [Vector3] values.
  */
 class Vector3RandomGenerator : RandomGenerator<Vector3> {
-
     // region RandomGenerator
 
     override fun uniform(): Vector3 {

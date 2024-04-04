@@ -7,7 +7,6 @@ import fr.xgouchet.graphikio.color.Color
  * grid of pixels.
  */
 interface RasterData {
-
     /** The width of the image, i.e.: the number of pixel columns. */
     val width: Int
 

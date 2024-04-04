@@ -21,7 +21,6 @@ data class HDRColor(
     val b: Double,
     val a: Double = 1.0,
 ) : Color {
-
     // region Operators
 
     /**
@@ -76,8 +75,8 @@ data class HDRColor(
 
     /**
      * @return the saturation of this color (in a [0…1] range).
+     * TODO ? @Deprecated("Does this even make sense for an unbound color?")
      */
-    // TODO ? @Deprecated("Does this even make sense for an unbound color?")
     fun saturation(): Double {
         val min = min(min(r, g), b)
         val max = max(max(r, g), b)

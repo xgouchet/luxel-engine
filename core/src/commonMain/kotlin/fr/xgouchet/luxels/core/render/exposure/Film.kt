@@ -7,7 +7,6 @@ import fr.xgouchet.luxels.core.math.Vector2
  * A Film which can be exposed to luxels, to render a simulation.
  */
 interface Film {
-
     /** The width of the output image. */
     val width: Int
 

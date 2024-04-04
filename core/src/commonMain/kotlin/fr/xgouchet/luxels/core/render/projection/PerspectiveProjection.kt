@@ -8,14 +8,22 @@ import fr.xgouchet.luxels.core.math.Vector4
 import fr.xgouchet.luxels.core.position.Space2
 import fr.xgouchet.luxels.core.position.Space3
 
+/**
+ * A [Projection] using a Perspective 3D camera.
+ * @property simulationSpace the simulation space
+ * @property filmSpace the film space
+ * @param cameraPosition the position (in simulation space) of the camera
+ * @param targetPosition the position (in simulation space) that the camera is pointed at (defaults to the
+ * center of the simulation space)
+ * @param fov the field of view angle in degrees (defaults to 90°)
+ */
 class PerspectiveProjection(
-    simulationSpace: Space3,
-    filmSpace: Space2,
+    override val simulationSpace: Space3,
+    override val filmSpace: Space2,
     cameraPosition: Vector3,
     targetPosition: Vector3 = simulationSpace.center,
     fov: Double = 90.0,
-) : AbstractProjection(simulationSpace, filmSpace) {
-
+) : Projection {
     private var viewMatrix: Matrix4x4 = Matrix4x4.IDENTITY
     private var projectionMatrix: Matrix4x4 = Matrix4x4.IDENTITY
 
@@ -44,12 +52,12 @@ class PerspectiveProjection(
     }
 
     // endregion
-}
 
-fun Vector3.asPosition(): Vector4 {
-    return Vector4(x, y, z, 1.0)
-}
+    // region Internal
 
-fun Vector3.asDirection(): Vector4 {
-    return Vector4(x, y, z, 0.0)
+    private fun Vector3.asPosition(): Vector4 {
+        return Vector4(x, y, z, 1.0)
+    }
+
+    // endregion
 }

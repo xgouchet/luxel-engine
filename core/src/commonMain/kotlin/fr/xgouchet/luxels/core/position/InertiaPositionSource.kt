@@ -13,7 +13,6 @@ class InertiaPositionSource(
     initialPosition: Vector3,
     initialSpeed: Vector3,
 ) : UpdatablePositionSource {
-
     private var position = initialPosition
 
     /** The current speed of the luxel. */
@@ -52,6 +51,6 @@ class InertiaPositionSource(
      */
     fun updateSpeed(newSpeed: Vector3, inertia: Double = 0.0) {
         // TODO check the newtownian formulas for inertia ;)
-        speed = ((speed * inertia) + newSpeed).normalized()
+        speed = ((speed * inertia) + newSpeed) / (inertia + 1.0)
     }
 }

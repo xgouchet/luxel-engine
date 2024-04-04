@@ -6,7 +6,6 @@ import io.kotest.core.extensions.Extension
 import io.kotest.property.PropertyTesting
 
 class LuxelProjectJVMConfig : AbstractProjectConfig() {
-
     init {
         PropertyTesting.defaultIterationCount = 16
         System.setProperty(AssertionsConfigSystemProperties.disableNaNEquality, "true")

@@ -17,7 +17,6 @@ class StubRasterData(
     override val width: Int,
     override val height: Int,
 ) : RasterData {
-
     private val halfWidth = width / 2
     private val halfHeight = height / 2
 

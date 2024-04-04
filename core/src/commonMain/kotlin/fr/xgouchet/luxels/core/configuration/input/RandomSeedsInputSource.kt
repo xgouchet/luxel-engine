@@ -8,7 +8,6 @@ import kotlin.math.absoluteValue
  * @param count the number of random numbers (default: 10)
  */
 class RandomSeedsInputSource(count: Int = 10) : InputSource<Long>() {
-
     override val inputDataList: List<InputData<Long>>
 
     init {

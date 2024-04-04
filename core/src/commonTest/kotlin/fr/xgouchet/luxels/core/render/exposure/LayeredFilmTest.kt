@@ -17,7 +17,7 @@ import io.kotest.property.checkAll
 
 class LayeredFilmTest : DescribeSpec({
 
-    include(AbstractFilmTest(false) { resolution -> LayeredFilm(resolution) })
+    include(abstractFilmTest(false) { resolution -> LayeredFilm(resolution) })
 
     describe("expose") {
         it("should throw") {

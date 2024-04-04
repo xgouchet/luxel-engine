@@ -9,9 +9,10 @@ import fr.xgouchet.luxels.core.position.Space3
 import fr.xgouchet.luxels.core.simulation.Simulator
 import kotlin.time.Duration
 
-class BuddhabrotSimulator : Simulator<BuddhabrotLuxel, Unit> {
-
+internal class BuddhabrotSimulator : Simulator<BuddhabrotLuxel, Unit> {
     var simulationSpace: Space3 = Space3.UNIT
+
+    // region Simulator
 
     override fun initEnvironment(simulation: Configuration.Simulation, inputData: InputData<Unit>) {
         this.simulationSpace = simulation.space
@@ -39,4 +40,6 @@ class BuddhabrotSimulator : Simulator<BuddhabrotLuxel, Unit> {
     override fun updateLuxel(luxel: BuddhabrotLuxel, time: Duration) {
         luxel.positionSource.updatePosition()
     }
+
+    // endregion
 }

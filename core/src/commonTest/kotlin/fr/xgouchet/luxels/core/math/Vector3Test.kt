@@ -28,7 +28,7 @@ import io.kotest.property.withAssumptions
 import kotlin.math.PI
 import kotlin.math.abs
 
-@Suppress("RemoveRedundantBackticks")
+@Suppress("RemoveRedundantBackticks", "ktlint:standard:property-naming")
 class Vector3Test : DescribeSpec({
 
     describe("minus") {
@@ -710,22 +710,23 @@ class Vector3Test : DescribeSpec({
             }
         }
 
-        it("is symmetrical across azimuth=0 (Z plane)") {
+        it("is symmetrical across azimuth=0 (Y plane)") {
+            val symmetrical = X_AXIS - Y_AXIS + Z_AXIS
             checkAll(doubleSmallArb(), doubleSmallArb(), doubleSmallArb()) { p, a, r ->
                 val radius = abs(r)
-                val v1 = fromSpherical(p, a, radius) * (X_AXIS + Y_AXIS - Z_AXIS)
+                val v1 = fromSpherical(p, a, radius) * symmetrical
                 val v2 = fromSpherical(p, -a, radius)
 
                 v1 shouldBeCloseTo v2
             }
         }
 
-        it("returns a vector with z=0 when azimuth=0") {
+        it("returns a vector with y=0 when azimuth=0") {
             checkAll(doubleSmallArb(), doubleSmallArb()) { p, r ->
                 val radius = abs(r)
                 val v = fromSpherical(p, 0.0, radius)
 
-                v.z shouldBeCloseTo 0.0
+                v.y shouldBeCloseTo 0.0
             }
         }
 
@@ -733,12 +734,12 @@ class Vector3Test : DescribeSpec({
             fromSpherical(0.0, 0.0, 1.0) shouldBeCloseTo X_AXIS
             fromSpherical(PI, 0.0, 1.0) shouldBeCloseTo -X_AXIS
 
-            fromSpherical(HALF_PI, 0.0, 1.0) shouldBeCloseTo Y_AXIS
-            fromSpherical(-HALF_PI, 0.0, 1.0) shouldBeCloseTo -Y_AXIS
+            fromSpherical(HALF_PI, 0.0, 1.0) shouldBeCloseTo Z_AXIS
+            fromSpherical(-HALF_PI, 0.0, 1.0) shouldBeCloseTo -Z_AXIS
 
             checkAll(doubleSmallArb()) { p ->
-                fromSpherical(p, HALF_PI, 1.0) shouldBeCloseTo Z_AXIS
-                fromSpherical(p, -HALF_PI, 1.0) shouldBeCloseTo -Z_AXIS
+                fromSpherical(p, HALF_PI, 1.0) shouldBeCloseTo Y_AXIS
+                fromSpherical(p, -HALF_PI, 1.0) shouldBeCloseTo -Y_AXIS
             }
         }
 
@@ -746,7 +747,7 @@ class Vector3Test : DescribeSpec({
             checkAll(doubleSmallArb()) { p ->
                 val v = fromSpherical(p)
 
-                v.z shouldBeCloseTo 0.0
+                v.y shouldBeCloseTo 0.0
                 v.length() shouldBeCloseTo 1.0
             }
         }

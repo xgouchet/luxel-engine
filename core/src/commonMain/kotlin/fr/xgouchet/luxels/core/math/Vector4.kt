@@ -19,7 +19,6 @@ data class Vector4(
     val z: Double,
     val w: Double,
 ) {
-
     /** The [Vector2] corresponding with the [x, y] components. */
     val xy: Vector2 by lazy { Vector2(x, y) }
 
@@ -221,21 +220,14 @@ data class Vector4(
      * @param normal the normal vector of the surface against which this vector should be reflected
      * @return the reflected vector
      */
-    fun reflect(
-        normal: Vector4,
-    ): Vector4 {
+    fun reflect(normal: Vector4): Vector4 {
         return this - (normal * dot(normal) * 2.0)
     }
 
     /**
      * Refract this vector through a surface with the given normal.
      */
-    fun refract(
-        normal: Vector4,
-        sourceIndex: Double,
-        destinationIndex: Double,
-        refractionFactor: Double,
-    ): Vector4 {
+    fun refract(normal: Vector4, sourceIndex: Double, destinationIndex: Double, refractionFactor: Double): Vector4 {
         val r = (sourceIndex / destinationIndex) * refractionFactor
         val c = -(normal.dot(this))
         val k = r * c - sqrt(abs(1.0 - (r * r * (1.0 - c * c))))
@@ -263,7 +255,6 @@ data class Vector4(
     // endregion
 
     companion object {
-
         /**
          * Builds a [Vector4] from the given components.
          * @param components a list of exactly 4 components in [x, y, z, w] order

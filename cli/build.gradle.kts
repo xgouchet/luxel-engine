@@ -50,6 +50,11 @@ kotlin {
     }
 }
 
+dependencies {
+    detektPlugins(project(":detekt"))
+    detekt(libs.detektCli)
+}
+
 ktlint {
     version = "1.1.1"
     filter {

@@ -16,7 +16,6 @@ internal class EnvSimulationWorker<L : Luxel, I : Any>(
     projection: Projection,
     time: Duration,
 ) : AbstractSimulationWorker<L, I>(film, simulator, simulation, projection, time) {
-
     // region AbstractSimulationWorker
 
     override fun simulateSingleLuxel(i: Long) {

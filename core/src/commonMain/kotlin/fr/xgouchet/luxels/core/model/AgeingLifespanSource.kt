@@ -7,7 +7,6 @@ package fr.xgouchet.luxels.core.model
 class AgeingLifespanSource(
     val lifespan: Int,
 ) : LifespanSource {
-
     /**
      * The current age of the luxel.
      */

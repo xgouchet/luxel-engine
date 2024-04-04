@@ -11,7 +11,8 @@ import fr.xgouchet.luxels.core.render.projection.Projection
 import fr.xgouchet.luxels.core.simulation.Simulator
 import kotlin.time.Duration
 
-class Scene3dSimulator : Simulator<DebugLuxel, Long> {
+internal class Scene3dSimulator : Simulator<DebugLuxel, Long> {
+    // region Simulator
 
     override fun getProjection(simulationSpace: Space3, filmSpace: Space2, time: Duration): Projection {
         return PerspectiveProjection(
@@ -22,6 +23,7 @@ class Scene3dSimulator : Simulator<DebugLuxel, Long> {
         )
     }
 
+    @Suppress("CyclomaticComplexMethod")
     override fun spawnLuxel(simulation: Configuration.Simulation, time: Duration): DebugLuxel {
         val t = RndGen.double.inRange(-1.0, 1.0)
         val edge = RndGen.int.uniform() % 12
@@ -72,4 +74,6 @@ class Scene3dSimulator : Simulator<DebugLuxel, Long> {
     override fun outputName(): String {
         return "scene_3d"
     }
+
+    // endregion
 }

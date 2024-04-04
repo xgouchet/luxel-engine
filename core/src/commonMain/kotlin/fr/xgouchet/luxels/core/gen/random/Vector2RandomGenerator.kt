@@ -7,7 +7,6 @@ import fr.xgouchet.luxels.core.math.Vector2
  * A [RandomGenerator] generating [Vector2] values.
  */
 class Vector2RandomGenerator : RandomGenerator<Vector2> {
-
     // region RandomGenerator
 
     override fun uniform(): Vector2 {

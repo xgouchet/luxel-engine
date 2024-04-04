@@ -8,7 +8,7 @@ import fr.xgouchet.luxels.core.model.PrincipledLuxel
 import fr.xgouchet.luxels.core.position.FuzzyPositionSource
 import fr.xgouchet.luxels.core.position.StaticPositionSource
 
-class NoiseFieldLuxel(
+internal class NoiseFieldLuxel(
     initialPosition: Vector3,
     color: Color,
 ) : PrincipledLuxel<StaticColorSource, FuzzyPositionSource<StaticPositionSource>, AgeingLifespanSource>(

@@ -14,7 +14,6 @@ import okio.Sink
  * Utility object used to read/write image data.
  */
 object GraphikIO {
-
     private val writers: List<RasterWriter> by lazy {
         // TODO automatic lazy loading
         listOf(
@@ -35,12 +34,7 @@ object GraphikIO {
      * @param directoryPath the path to the directory where the image should be written
      * @param baseName the base name of the output image file (without the extension)
      */
-    fun write(
-        rasterData: RasterData,
-        constraints: ImageFormatConstraints,
-        directoryPath: Path,
-        baseName: String,
-    ) {
+    fun write(rasterData: RasterData, constraints: ImageFormatConstraints, directoryPath: Path, baseName: String) {
         val writer = writers.firstOrNull { writer -> writer.supportsFormat(constraints) }
         if (writer == null) {
             throw IllegalArgumentException("No writer found to write the provided image")
@@ -60,11 +54,7 @@ object GraphikIO {
      * @param constraints the desired image format
      * @param sink the sink to write to
      */
-    fun write(
-        rasterData: RasterData,
-        constraints: ImageFormatConstraints,
-        sink: Sink,
-    ) {
+    fun write(rasterData: RasterData, constraints: ImageFormatConstraints, sink: Sink) {
         val writer = writers.firstOrNull { writer -> writer.supportsFormat(constraints) }
         if (writer == null) {
             throw IllegalArgumentException("No writer found to write the provided image")

@@ -4,7 +4,6 @@ package fr.xgouchet.luxels.core.model
  * Determines the lifespan of a luxel dynamically.
  */
 interface LifespanSource {
-
     /**
      * Called when a luxel is spawned.
      */

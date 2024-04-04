@@ -30,17 +30,21 @@ private fun channelIsWithinPercentageOf(
     )
 }
 
-fun redIsWithinPercentageOf(other: HDRColor, percentage: Percentage) =
-    channelIsWithinPercentageOf("red", { r }, other, percentage)
+fun redIsWithinPercentageOf(other: HDRColor, percentage: Percentage) = channelIsWithinPercentageOf("red", {
+    r
+}, other, percentage)
 
-fun greenIsWithinPercentageOf(other: HDRColor, percentage: Percentage) =
-    channelIsWithinPercentageOf("green", { g }, other, percentage)
+fun greenIsWithinPercentageOf(other: HDRColor, percentage: Percentage) = channelIsWithinPercentageOf("green", {
+    g
+}, other, percentage)
 
-fun blueIsWithinPercentageOf(other: HDRColor, percentage: Percentage) =
-    channelIsWithinPercentageOf("blue", { b }, other, percentage)
+fun blueIsWithinPercentageOf(other: HDRColor, percentage: Percentage) = channelIsWithinPercentageOf("blue", {
+    b
+}, other, percentage)
 
-fun alphaIsWithinPercentageOf(other: HDRColor, percentage: Percentage) =
-    channelIsWithinPercentageOf("alpha", { a }, other, percentage)
+fun alphaIsWithinPercentageOf(other: HDRColor, percentage: Percentage) = channelIsWithinPercentageOf("alpha", {
+    a
+}, other, percentage)
 
 fun beWithinPercentageOf(other: HDRColor, percentage: Percentage) = Matcher.all(
     redIsWithinPercentageOf(other, percentage),

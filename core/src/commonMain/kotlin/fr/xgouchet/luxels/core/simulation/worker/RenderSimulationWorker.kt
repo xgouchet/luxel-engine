@@ -18,7 +18,6 @@ internal class RenderSimulationWorker<L : Luxel, I : Any>(
     projection: Projection,
     time: Duration,
 ) : AbstractSimulationWorker<L, I>(film, simulator, simulation, projection, time) {
-
     private val frameStart = Clock.System.now()
 
     private val progressNotif = max(floor(simulation.luxelPerThread / 1000.0).toLong(), 1)

@@ -15,7 +15,6 @@ import kotlin.math.max
  * and Víctor Arellano's Java implementation https://github.com/Ivelate/JavaHDR
  */
 class HdrRasterWriter : AbstractRasterWriter(HdrImageFormat) {
-
     // region RasterWriter
 
     override fun write(rasterData: RasterData, sink: Sink) {
@@ -40,9 +39,7 @@ class HdrRasterWriter : AbstractRasterWriter(HdrImageFormat) {
         writeHDR(rgbeData, width, height, out)
     }
 
-    private fun prepareRgbeData(
-        rasterData: RasterData,
-    ): ByteArray {
+    private fun prepareRgbeData(rasterData: RasterData): ByteArray {
         val width = rasterData.width
         val height = rasterData.height
         val rgbeData = ByteArray(width * height * (4))
@@ -156,12 +153,7 @@ class HdrRasterWriter : AbstractRasterWriter(HdrImageFormat) {
         }
     }
 
-    private fun float2rgbe(
-        rgbeData: ByteArray,
-        color: HDRColor,
-        off: Int,
-        separation: Int,
-    ) {
+    private fun float2rgbe(rgbeData: ByteArray, color: HDRColor, off: Int, separation: Int) {
         var v = max(color.r, (max(color.g, color.b)))
 
         if (v < 1.0E-32f) {

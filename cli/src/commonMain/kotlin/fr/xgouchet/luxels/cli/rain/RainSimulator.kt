@@ -16,12 +16,11 @@ import fr.xgouchet.luxels.core.simulation.Simulator
 import kotlin.math.roundToInt
 import kotlin.time.Duration
 
-class RainSimulator : Simulator<RainLuxel, Long> {
-
+internal class RainSimulator : Simulator<RainLuxel, Long> {
     val noiseField = Vector3ToDoubleNoiseGenerator(PerlinNoiseGenerator())
 
-    lateinit var extendedRange: Space3
-    lateinit var safeRange: Space3
+    private var extendedRange: Space3 = Space3.UNIT
+    private var safeRange: Space3 = Space3.UNIT
 
     private var noiseOffset: Vector3 = Vector3.NULL
     private var noiseScale: Double = 0.005
@@ -36,7 +35,7 @@ class RainSimulator : Simulator<RainLuxel, Long> {
 
     private var bounceThreshold: Double = 0.0
 
-    private val directional = true
+    private val isDirectional = true
 
     private var animationDirection: Vector3 = Vector3.NULL
     private var animationOffset: Vector3 = Vector3.NULL
@@ -79,7 +78,7 @@ class RainSimulator : Simulator<RainLuxel, Long> {
     override fun spawnLuxel(simulation: Configuration.Simulation, time: Duration): RainLuxel {
         val randomSpeed: Vector3
         val randomPosition: Vector3
-        if (directional) {
+        if (isDirectional) {
             val halfWidth = simulationRange.size.x / 2.0
             val twentiethHeight = simulationRange.size.y / 20.0
             val range = Space3(
@@ -104,10 +103,6 @@ class RainSimulator : Simulator<RainLuxel, Long> {
             randomSpeed,
             refractionIndex,
         )
-    }
-
-    override fun outputName(): String {
-        return "rain"
     }
 
     override fun updateLuxel(luxel: RainLuxel, time: Duration) {
@@ -157,6 +152,10 @@ class RainSimulator : Simulator<RainLuxel, Long> {
             inRI -> Color.GREEN
             else -> Color.RED
         }
+    }
+
+    override fun outputName(): String {
+        return "rain"
     }
 
     // endregion

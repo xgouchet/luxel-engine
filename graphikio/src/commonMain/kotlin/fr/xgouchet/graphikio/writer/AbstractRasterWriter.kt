@@ -12,7 +12,6 @@ import fr.xgouchet.graphikio.format.ImageFormatConstraints
 abstract class AbstractRasterWriter(
     vararg supportedFormat: ImageFormat,
 ) : RasterWriter {
-
     private val supportedFormats: List<ImageFormat> = supportedFormat.toList()
 
     init {

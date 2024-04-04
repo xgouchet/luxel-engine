@@ -89,7 +89,6 @@ fun <D : Any> configurationWithInputSource(
 class ConfigurationBuilder<D : Any> internal constructor(
     inputSource: InputSource<D>,
 ) {
-
     private var input: Configuration.Input<D> = Configuration.Input(inputSource)
     private var simulation: Configuration.Simulation = Configuration.Simulation()
     private var render: Configuration.Render = Configuration.Render()
@@ -227,11 +226,8 @@ class RenderConfigBuilder internal constructor() {
      * @param iso the iso sensitivity of the fixer (the lower the darker the image, the higher the brighter, default is 400)
      * @param path the output directory path (default is "./output")
      */
-    fun bmpFixer(
-        iso: Double = 400.0,
-        path: Path = "output".toPath(),
-    ) {
-        render = render.copy(fixer = BmpImageFixer(iso, path))
+    fun bmpFixer(iso: Double = 400.0, path: Path = "output".toPath()) {
+        render = render.copy(fixer = BmpImageFixer(path, iso))
     }
 
     /**
@@ -251,7 +247,6 @@ class RenderConfigBuilder internal constructor() {
  *  A builder DSL for the [Configuration.Animation] type.
  */
 class AnimationConfigBuilder {
-
     private var animation = Configuration.Animation()
 
     /**

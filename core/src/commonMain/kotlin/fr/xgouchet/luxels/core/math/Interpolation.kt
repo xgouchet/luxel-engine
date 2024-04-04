@@ -5,7 +5,6 @@ package fr.xgouchet.luxels.core.math
  * A generic interpolation class.
  */
 sealed class Interpolation {
-
     /**
      * Converts a linear factor between 0 and 1 into a factor following this
      * interpolation's formula.

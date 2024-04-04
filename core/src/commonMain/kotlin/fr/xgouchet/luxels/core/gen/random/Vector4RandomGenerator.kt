@@ -6,7 +6,6 @@ import fr.xgouchet.luxels.core.math.Vector4
  * A [RandomGenerator] generating [Vector4] values.
  */
 class Vector4RandomGenerator : RandomGenerator<Vector4> {
-
     // region RandomGenerator
 
     override fun uniform(): Vector4 {
@@ -32,7 +31,7 @@ class Vector4RandomGenerator : RandomGenerator<Vector4> {
     }
 
     override fun gaussian(mean: Vector4, standardDeviation: Vector4): Vector4 {
-        TODO("Not yet implemented")
+        throw UnsupportedOperationException("Random gaussian is not available for Vector4")
     }
 
     // endregion

@@ -8,7 +8,6 @@ import io.gitlab.arturbosch.detekt.api.RuleSetProvider
  * The [RuleSetProvider] for Datadog's SDK for Android.
  */
 class LuxelDetektProvider : RuleSetProvider {
-
     override val ruleSetId: String = "luxel"
 
     override fun instance(config: Config): RuleSet {

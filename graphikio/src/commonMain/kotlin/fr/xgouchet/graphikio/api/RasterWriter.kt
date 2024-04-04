@@ -8,7 +8,6 @@ import okio.Sink
  * A class able to write a [RasterData] image to a [Sink].
  */
 interface RasterWriter {
-
     /** The file extension associated with this writer for the given format. */
     fun fileExtension(constraints: ImageFormatConstraints): String
 

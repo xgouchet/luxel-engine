@@ -16,7 +16,6 @@ import kotlin.math.sin
 internal class CleanFilm(
     resolution: Resolution,
 ) : AbstractFilm(resolution) {
-
     // region Film
 
     override fun expose(position: Vector2, color: Color) {

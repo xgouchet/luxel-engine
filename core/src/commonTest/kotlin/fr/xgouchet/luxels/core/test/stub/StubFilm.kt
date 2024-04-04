@@ -6,7 +6,6 @@ import fr.xgouchet.luxels.core.math.Vector2
 import fr.xgouchet.luxels.core.render.exposure.Film
 
 class StubFilm(resolution: Resolution) : Film {
-
     override val width: Int = resolution.width
     override val height: Int = resolution.height
 

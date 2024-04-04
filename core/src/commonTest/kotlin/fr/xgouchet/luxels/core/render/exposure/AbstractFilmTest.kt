@@ -17,180 +17,178 @@ import kotlin.math.ceil
 import kotlin.math.floor
 
 @OptIn(ExperimentalKotest::class)
-internal fun AbstractFilmTest(
-    supportsDirectExposure: Boolean = true,
-    filmProvider: (Resolution) -> AbstractFilm,
-) = describeSpec {
-    describe("exposeLuxel (int)") {
-        it("does nothing when exposing outside the bounds of the film (-x)") {
-            checkAll(
-                resolutionArb(),
-                Arb.int(max = -1),
-                Arb.int(),
-                colorArb(),
-                Arb.double(0.1, 100.0),
-            ) { resolution, i, j, color, intensity ->
-                val film = filmProvider(resolution)
+internal fun abstractFilmTest(supportsDirectExposure: Boolean = true, filmProvider: (Resolution) -> AbstractFilm) =
+    describeSpec {
+        describe("exposeLuxel (int)") {
+            it("does nothing when exposing outside the bounds of the film (-x)") {
+                checkAll(
+                    resolutionArb(),
+                    Arb.int(max = -1),
+                    Arb.int(),
+                    colorArb(),
+                    Arb.double(0.1, 100.0),
+                ) { resolution, i, j, color, intensity ->
+                    val film = filmProvider(resolution)
 
-                film.expose(i, j, color, intensity)
+                    film.expose(i, j, color, intensity)
 
-                film.getColor(i, j) shouldBeCloseTo Color.TRANSPARENT
+                    film.getColor(i, j) shouldBeCloseTo Color.TRANSPARENT
+                }
+            }
+            it("does nothing when exposing outside the bounds of the film (-y)") {
+                checkAll(
+                    resolutionArb(),
+                    Arb.int(),
+                    Arb.int(max = -1),
+                    colorArb(),
+                    Arb.double(0.1, 100.0),
+                ) { resolution, i, j, color, intensity ->
+                    val film = filmProvider(resolution)
+
+                    film.expose(i, j, color, intensity)
+
+                    film.getColor(i, j) shouldBeCloseTo Color.TRANSPARENT
+                }
+            }
+
+            it("does nothing when exposing outside the bounds of the film (x++)") {
+                checkAll(
+                    resolutionArb(),
+                    Arb.int(min = 8192),
+                    Arb.int(),
+                    colorArb(),
+                    Arb.double(0.1, 100.0),
+                ) { resolution, i, j, color, intensity ->
+                    val film = filmProvider(resolution)
+
+                    film.expose(i, j, color, intensity)
+
+                    film.getColor(i, j) shouldBeCloseTo Color.TRANSPARENT
+                }
+            }
+
+            it("does nothing when exposing outside the bounds of the film (y++)") {
+                checkAll(
+                    resolutionArb(),
+                    Arb.int(),
+                    Arb.int(min = 8192),
+                    colorArb(),
+                    Arb.double(0.1, 100.0),
+                ) { resolution, i, j, color, intensity ->
+                    val film = filmProvider(resolution)
+
+                    film.expose(i, j, color, intensity)
+
+                    film.getColor(i, j) shouldBeCloseTo Color.TRANSPARENT
+                }
+            }
+
+            it("exposes a pixel with the given color") {
+                checkAll(
+                    resolutionArb(),
+                    Arb.positiveInt(max = 65536),
+                    Arb.positiveInt(max = 65536),
+                    colorArb(),
+                ) { resolution, i, j, color ->
+                    val film = filmProvider(resolution)
+
+                    film.expose(i % resolution.width, j % resolution.height, color, 1.0)
+
+                    film.getColor(i % resolution.width, j % resolution.height) shouldBeCloseTo color
+                }
+            }
+
+            it("exposes a pixel with the given intensity") {
+                checkAll(
+                    resolutionArb(),
+                    Arb.positiveInt(max = 65536),
+                    Arb.positiveInt(max = 65536),
+                    Arb.double(0.1, 100.0),
+                ) { resolution, i, j, intensity ->
+                    val film = filmProvider(resolution)
+                    val expectedColor = Color(intensity, intensity, intensity, intensity)
+
+                    film.expose(i % resolution.width, j % resolution.height, Color.WHITE, intensity)
+
+                    film.getColor(i % resolution.width, j % resolution.height) shouldBeCloseTo expectedColor
+                }
             }
         }
-        it("does nothing when exposing outside the bounds of the film (-y)") {
-            checkAll(
-                resolutionArb(),
-                Arb.int(),
-                Arb.int(max = -1),
-                colorArb(),
-                Arb.double(0.1, 100.0),
-            ) { resolution, i, j, color, intensity ->
-                val film = filmProvider(resolution)
 
-                film.expose(i, j, color, intensity)
+        describe("exposeLuxel (double)").config(enabled = supportsDirectExposure) {
+            it("does nothing when exposing outside the bounds of the film (-x)") {
+                checkAll(
+                    resolutionArb(),
+                    Arb.double(max = -2.0),
+                    Arb.double(),
+                    colorArb(),
+                ) { resolution, x, y, color ->
+                    val film = filmProvider(resolution)
 
-                film.getColor(i, j) shouldBeCloseTo Color.TRANSPARENT
+                    film.expose(Vector2(x, y), color)
+
+                    for (i in floor(x).toInt()..ceil(x).toInt()) {
+                        for (j in floor(y).toInt()..ceil(y).toInt()) {
+                            film.getColor(i, j) shouldBeCloseTo Color.TRANSPARENT
+                        }
+                    }
+                }
             }
-        }
+            it("does nothing when exposing outside the bounds of the film (-y)") {
+                checkAll(
+                    resolutionArb(),
+                    Arb.double(),
+                    Arb.double(max = -2.0),
+                    colorArb(),
+                ) { resolution, x, y, color ->
+                    val film = filmProvider(resolution)
 
-        it("does nothing when exposing outside the bounds of the film (x++)") {
-            checkAll(
-                resolutionArb(),
-                Arb.int(min = 8192),
-                Arb.int(),
-                colorArb(),
-                Arb.double(0.1, 100.0),
-            ) { resolution, i, j, color, intensity ->
-                val film = filmProvider(resolution)
+                    film.expose(Vector2(x, y), color)
 
-                film.expose(i, j, color, intensity)
-
-                film.getColor(i, j) shouldBeCloseTo Color.TRANSPARENT
+                    for (i in floor(x).toInt()..ceil(x).toInt()) {
+                        for (j in floor(y).toInt()..ceil(y).toInt()) {
+                            film.getColor(i, j) shouldBeCloseTo Color.TRANSPARENT
+                        }
+                    }
+                }
             }
-        }
 
-        it("does nothing when exposing outside the bounds of the film (y++)") {
-            checkAll(
-                resolutionArb(),
-                Arb.int(),
-                Arb.int(min = 8192),
-                colorArb(),
-                Arb.double(0.1, 100.0),
-            ) { resolution, i, j, color, intensity ->
-                val film = filmProvider(resolution)
+            it("does nothing when exposing outside the bounds of the film (x++)") {
+                checkAll(
+                    resolutionArb(),
+                    Arb.double(min = 8192.0),
+                    Arb.double(),
+                    colorArb(),
+                ) { resolution, x, y, color ->
+                    val film = filmProvider(resolution)
 
-                film.expose(i, j, color, intensity)
+                    film.expose(Vector2(x, y), color)
 
-                film.getColor(i, j) shouldBeCloseTo Color.TRANSPARENT
+                    for (i in floor(x).toInt()..ceil(x).toInt()) {
+                        for (j in floor(y).toInt()..ceil(y).toInt()) {
+                            film.getColor(i, j) shouldBeCloseTo Color.TRANSPARENT
+                        }
+                    }
+                }
             }
-        }
 
-        it("exposes a pixel with the given color") {
-            checkAll(
-                resolutionArb(),
-                Arb.positiveInt(max = 65536),
-                Arb.positiveInt(max = 65536),
-                colorArb(),
-            ) { resolution, i, j, color ->
-                val film = filmProvider(resolution)
+            it("does nothing when exposing outside the bounds of the film (y++)") {
+                checkAll(
+                    resolutionArb(),
+                    Arb.double(),
+                    Arb.double(min = 8192.0),
+                    colorArb(),
+                ) { resolution, x, y, color ->
+                    val film = filmProvider(resolution)
 
-                film.expose(i % resolution.width, j % resolution.height, color, 1.0)
+                    film.expose(Vector2(x, y), color)
 
-                film.getColor(i % resolution.width, j % resolution.height) shouldBeCloseTo color
-            }
-        }
-
-        it("exposes a pixel with the given intensity") {
-            checkAll(
-                resolutionArb(),
-                Arb.positiveInt(max = 65536),
-                Arb.positiveInt(max = 65536),
-                Arb.double(0.1, 100.0),
-            ) { resolution, i, j, intensity ->
-                val film = filmProvider(resolution)
-                val expectedColor = Color(intensity, intensity, intensity, intensity)
-
-                film.expose(i % resolution.width, j % resolution.height, Color.WHITE, intensity)
-
-                film.getColor(i % resolution.width, j % resolution.height) shouldBeCloseTo expectedColor
+                    for (i in floor(x).toInt()..ceil(x).toInt()) {
+                        for (j in floor(y).toInt()..ceil(y).toInt()) {
+                            film.getColor(i, j) shouldBeCloseTo Color.TRANSPARENT
+                        }
+                    }
+                }
             }
         }
     }
-
-    describe("exposeLuxel (double)").config(enabled = supportsDirectExposure) {
-        it("does nothing when exposing outside the bounds of the film (-x)") {
-            checkAll(
-                resolutionArb(),
-                Arb.double(max = -2.0),
-                Arb.double(),
-                colorArb(),
-            ) { resolution, x, y, color ->
-                val film = filmProvider(resolution)
-
-                film.expose(Vector2(x, y), color)
-
-                for (i in floor(x).toInt()..ceil(x).toInt()) {
-                    for (j in floor(y).toInt()..ceil(y).toInt()) {
-                        film.getColor(i, j) shouldBeCloseTo Color.TRANSPARENT
-                    }
-                }
-            }
-        }
-        it("does nothing when exposing outside the bounds of the film (-y)") {
-            checkAll(
-                resolutionArb(),
-                Arb.double(),
-                Arb.double(max = -2.0),
-                colorArb(),
-            ) { resolution, x, y, color ->
-                val film = filmProvider(resolution)
-
-                film.expose(Vector2(x, y), color)
-
-                for (i in floor(x).toInt()..ceil(x).toInt()) {
-                    for (j in floor(y).toInt()..ceil(y).toInt()) {
-                        film.getColor(i, j) shouldBeCloseTo Color.TRANSPARENT
-                    }
-                }
-            }
-        }
-
-        it("does nothing when exposing outside the bounds of the film (x++)") {
-            checkAll(
-                resolutionArb(),
-                Arb.double(min = 8192.0),
-                Arb.double(),
-                colorArb(),
-            ) { resolution, x, y, color ->
-                val film = filmProvider(resolution)
-
-                film.expose(Vector2(x, y), color)
-
-                for (i in floor(x).toInt()..ceil(x).toInt()) {
-                    for (j in floor(y).toInt()..ceil(y).toInt()) {
-                        film.getColor(i, j) shouldBeCloseTo Color.TRANSPARENT
-                    }
-                }
-            }
-        }
-
-        it("does nothing when exposing outside the bounds of the film (y++)") {
-            checkAll(
-                resolutionArb(),
-                Arb.double(),
-                Arb.double(min = 8192.0),
-                colorArb(),
-            ) { resolution, x, y, color ->
-                val film = filmProvider(resolution)
-
-                film.expose(Vector2(x, y), color)
-
-                for (i in floor(x).toInt()..ceil(x).toInt()) {
-                    for (j in floor(y).toInt()..ceil(y).toInt()) {
-                        film.getColor(i, j) shouldBeCloseTo Color.TRANSPARENT
-                    }
-                }
-            }
-        }
-    }
-}

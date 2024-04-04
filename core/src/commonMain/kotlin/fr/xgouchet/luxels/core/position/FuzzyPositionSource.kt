@@ -15,7 +15,6 @@ data class FuzzyPositionSource<P : PositionSource>(
     val delegate: P,
     var radius: Double,
 ) : UpdatablePositionSource {
-
     // region PositionSource
 
     override fun position(): Vector3 {

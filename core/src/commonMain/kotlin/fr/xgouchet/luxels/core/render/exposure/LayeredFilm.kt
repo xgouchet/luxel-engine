@@ -7,7 +7,6 @@ import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 
 internal class LayeredFilm(resolution: Resolution) : AbstractFilm(resolution) {
-
     private var layerCount = 0
 
     // region Film

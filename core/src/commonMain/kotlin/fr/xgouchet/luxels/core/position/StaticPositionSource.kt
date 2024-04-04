@@ -8,7 +8,6 @@ import fr.xgouchet.luxels.core.math.Vector3
 class StaticPositionSource(
     private val position: Vector3,
 ) : PositionSource {
-
     // region PositionSource
 
     override fun position(): Vector3 {

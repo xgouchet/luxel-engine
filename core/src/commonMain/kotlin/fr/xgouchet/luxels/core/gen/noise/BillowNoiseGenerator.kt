@@ -9,7 +9,6 @@ import kotlin.math.abs
 class BillowNoiseGenerator(
     private val delegate: DimensionalNoiseGenerator = PerlinNoiseGenerator(),
 ) : DimensionalNoiseGenerator {
-
     // region DimensionalNoiseGenerator
 
     // x             0 .. .5 .. 1

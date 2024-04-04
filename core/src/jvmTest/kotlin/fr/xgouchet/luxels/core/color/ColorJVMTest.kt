@@ -24,10 +24,11 @@ class ColorJVMTest : DescribeSpec({
                 val color = awtColor.asColor()
 
                 val delta = (abs(color.hue() - h) * 360.0)
-                delta should Matcher.any(
-                    beLessThanOrEqualTo(1.0),
-                    beGreaterThanOrEqualTo(359.0),
-                )
+                delta should
+                    Matcher.any(
+                        beLessThanOrEqualTo(1.0),
+                        beGreaterThanOrEqualTo(359.0),
+                    )
             }
         }
     }

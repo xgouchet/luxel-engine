@@ -2,16 +2,22 @@ package fr.xgouchet.luxels.core.math
 
 import kotlin.math.tan
 
-class Matrix4x4(
-    internal val data: DoubleArray = DoubleArray(SIZE_4x4) { 0.0 },
+/**
+ * A basic 4⨉4 Matrix.
+ */
+class Matrix4x4 internal constructor(
+    internal val data: DoubleArray = DoubleArray(SIZE_4X4) { 0.0 },
 ) {
-
     init {
-        check(data.size == SIZE_4x4)
+        check(data.size == SIZE_4X4)
     }
 
+    /**
+     * Inverse the Matrix.
+     */
+    @Suppress("LongMethod")
     fun inverse(): Matrix4x4 {
-        val inv = DoubleArray(SIZE_4x4)
+        val inv = DoubleArray(SIZE_4X4)
 
         inv[0] = data[5] * data[10] * data[15] -
             data[5] * data[11] * data[14] -
@@ -128,16 +134,22 @@ class Matrix4x4(
         val det = data[0] * inv[0] + data[1] * inv[4] + data[2] * inv[8] + data[3] * inv[12]
 
         if (det == 0.0) {
-            throw IllegalArgumentException()
+            throw IllegalArgumentException("Unable to inverse Matrix, the determinant is null")
         }
 
-        for (i in 0..<SIZE_4x4) {
+        for (i in 0..<SIZE_4X4) {
             inv[i] *= det
         }
 
         return Matrix4x4(inv)
     }
 
+    // region Operators
+
+    /**
+     * @param v the vector to multiply with this matrix
+     * @return the product of this matrix with a vector
+     */
     operator fun times(v: Vector4): Vector4 {
         return Vector4(
             (v.x * data[0]) + (v.y * data[1]) + (v.z * data[2]) + (v.w * data[3]),
@@ -147,8 +159,12 @@ class Matrix4x4(
         )
     }
 
+    /**
+     * @param m the matrix to multiply with this matrix
+     * @return the product of this matrix with another matrix
+     */
     operator fun times(m: Matrix4x4): Matrix4x4 {
-        val mult = DoubleArray(SIZE_4x4)
+        val mult = DoubleArray(SIZE_4X4)
 
         mult[0] = (data[0] * m.data[0]) + (data[1] * m.data[4]) + (data[2] * m.data[8]) + (data[3] * m.data[12])
         mult[4] = (data[4] * m.data[0]) + (data[5] * m.data[4]) + (data[6] * m.data[8]) + (data[7] * m.data[12])
@@ -173,12 +189,14 @@ class Matrix4x4(
         return Matrix4x4(mult)
     }
 
+    // endregion
+
     companion object {
+        internal const val SIZE_4X4 = 16
 
-        const val SIZE_4x4 = 16
-
+        /** The Identity Matrix (all 0s, except 1s on the main diagonal). */
         val IDENTITY: Matrix4x4 = Matrix4x4(
-            DoubleArray(SIZE_4x4).apply {
+            DoubleArray(SIZE_4X4).apply {
                 this[0] = 1.0
                 this[5] = 1.0
                 this[10] = 1.0
@@ -186,15 +204,17 @@ class Matrix4x4(
             },
         )
 
-        fun view(
-            cameraPosition: Vector3,
-            targetPosition: Vector3,
-        ): Matrix4x4 {
+        /**
+         * Creates a Matrix representing the position and orientation of a target camera in a 3D space.
+         * @param cameraPosition the position of the camera
+         * @param targetPosition the position the camera is pointed at
+         */
+        fun view(cameraPosition: Vector3, targetPosition: Vector3): Matrix4x4 {
             val dir = (targetPosition - cameraPosition).normalized()
             val right = dir cross Vector3.Y_AXIS
             val up = right cross dir
 
-            val data = DoubleArray(SIZE_4x4) { 0.0 }
+            val data = DoubleArray(SIZE_4X4) { 0.0 }
             data[0] = right.x
             data[1] = up.x
             data[2] = dir.x
@@ -215,21 +235,23 @@ class Matrix4x4(
             return Matrix4x4(data)
         }
 
-        fun projection(
-            width: Double,
-            height: Double,
-            fov: Double,
-            nearClip: Double,
-            farClip: Double,
-        ): Matrix4x4 {
+        /**
+         * Creates a Matrix representing the projection onto a screen.
+         * @param width the width of the screen
+         * @param height the height of the screen
+         * @param fov the field of view angle (in degrees)
+         * @param nearPlane the distance from the camera to the near plane
+         * @param farPlane the distance from the camera to the far plane
+         */
+        fun projection(width: Double, height: Double, fov: Double, nearPlane: Double, farPlane: Double): Matrix4x4 {
             val aspectRatio = width / height
             val w = 1.0 / tan(fov * 0.5)
             val h = w / aspectRatio
-            val depth = farClip - nearClip
-            val a = farClip / depth
-            val b = (-nearClip * farClip) / depth
+            val depth = farPlane - nearPlane
+            val a = farPlane / depth
+            val b = (-nearPlane * farPlane) / depth
 
-            val data = DoubleArray(SIZE_4x4) { 0.0 }
+            val data = DoubleArray(SIZE_4X4) { 0.0 }
 
             data[0] = w
             data[5] = h
@@ -242,6 +264,10 @@ class Matrix4x4(
     }
 }
 
+/**
+ * @param m the matrix to multiply with this vector
+ * @return the product of this vector with a matrix
+ */
 operator fun Vector4.times(m: Matrix4x4): Vector4 {
     return Vector4(
         (x * m.data[0]) + (y * m.data[4]) + (z * m.data[8]) + (w * m.data[12]),

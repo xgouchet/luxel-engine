@@ -11,7 +11,6 @@ import kotlin.math.roundToInt
 internal class RoughFilm(
     resolution: Resolution,
 ) : AbstractFilm(resolution) {
-
     // region Film
 
     override fun expose(position: Vector2, color: Color) {

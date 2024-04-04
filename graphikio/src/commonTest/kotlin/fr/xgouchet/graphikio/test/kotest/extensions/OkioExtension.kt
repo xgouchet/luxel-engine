@@ -6,7 +6,6 @@ import io.kotest.core.test.TestResult
 import okio.fakefilesystem.FakeFileSystem
 
 class OkioExtension : AfterTestListener {
-
     override suspend fun afterTest(testCase: TestCase, result: TestResult) {
         FakeFileSystem().checkNoOpenFiles()
     }

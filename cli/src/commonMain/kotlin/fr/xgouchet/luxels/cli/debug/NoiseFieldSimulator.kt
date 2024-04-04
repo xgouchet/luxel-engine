@@ -13,16 +13,16 @@ import fr.xgouchet.luxels.core.math.Vector3
 import fr.xgouchet.luxels.core.simulation.Simulator
 import kotlin.time.Duration
 
-class NoiseFieldSimulator() : Simulator<NoiseFieldLuxel, Long> {
-
+internal class NoiseFieldSimulator : Simulator<NoiseFieldLuxel, Long> {
     val baseNoise: DimensionalNoiseGenerator = brownNoise(PerlinNoiseGenerator())
 
-    //    val brownian = FractalBrownianNoise(baseNoise, 1, 0.5)
     val vectorToDouble = Vector3ToDoubleNoiseGenerator(baseNoise)
 
     private var noiseScale = 0.005
 
     private var noiseOffset = Vector3.NULL
+
+    // region Simulator
 
     override fun initEnvironment(simulation: Configuration.Simulation, inputData: InputData<Long>) {
         noiseOffset = RndGen.vector3.inBox(simulation.space)
@@ -40,10 +40,6 @@ class NoiseFieldSimulator() : Simulator<NoiseFieldLuxel, Long> {
         return NoiseFieldLuxel(position, Color(color, color, color))
     }
 
-    override fun outputName(): String {
-        return "noise"
-    }
-
     override fun updateLuxel(luxel: NoiseFieldLuxel, time: Duration) {
         // val angle = vectorToDouble.noise((luxel.position() * noiseScale) + noiseOffset) * TAU
         // val speed = Vector3.fromSpherical(angle)
@@ -53,4 +49,10 @@ class NoiseFieldSimulator() : Simulator<NoiseFieldLuxel, Long> {
 //        luxel.positionSource.updateSpeed(speed, 1.0 / (1.0 + saturation))
 //        luxel.positionSource.updatePosition(0.2)
     }
+
+    override fun outputName(): String {
+        return "noise"
+    }
+
+    // endregion
 }

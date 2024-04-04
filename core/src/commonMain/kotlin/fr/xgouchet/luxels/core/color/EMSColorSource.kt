@@ -28,7 +28,6 @@ open class EMSColorSource(
     var intensity: Double = 1.0,
     var gamma: Double = 0.8,
 ) : ColorSource {
-
     // TODO add memoization
 
     // region ColorSource
@@ -55,10 +54,7 @@ open class EMSColorSource(
 
     // region Internal
 
-    private fun channel(
-        value: Double,
-        falloff: Double,
-    ): Double {
+    private fun channel(value: Double, falloff: Double): Double {
         return if (value == 0.0) {
             0.0
         } else {
@@ -66,13 +62,7 @@ open class EMSColorSource(
         }
     }
 
-    private fun lerpWithin(
-        x: Double,
-        min: Double,
-        plateauMin: Double,
-        plateauMax: Double,
-        max: Double,
-    ): Double {
+    private fun lerpWithin(x: Double, min: Double, plateauMin: Double, plateauMax: Double, max: Double): Double {
         return when {
             x < min -> 0.0
             x < plateauMin -> (x - min) / (plateauMin - min)
@@ -85,7 +75,6 @@ open class EMSColorSource(
     // endregion
 
     companion object {
-
         /** Minimum wavelength of UV light. */
         const val MIN_UV_LIGHT: WavelengthNanometer = 360.0
 

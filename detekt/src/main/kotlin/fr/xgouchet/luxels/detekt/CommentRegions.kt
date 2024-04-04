@@ -21,6 +21,7 @@ import org.jetbrains.kotlin.psi.psiUtil.isPrivate
 import org.jetbrains.kotlin.resolve.BindingContext
 import org.jetbrains.kotlin.types.KotlinType
 import org.jetbrains.kotlin.types.SimpleType
+import org.jetbrains.kotlin.types.typeUtil.isInterface
 import org.jetbrains.kotlin.types.typeUtil.supertypes
 
 /**
@@ -31,7 +32,6 @@ import org.jetbrains.kotlin.types.typeUtil.supertypes
 class CommentRegions(
     ruleSetConfig: Config,
 ) : Rule(ruleSetConfig) {
-
     private val forceRegionOnMainTypeFunctions: Boolean by config(defaultValue = false)
     private val customRegionOnMainTypeFunctions: Boolean by config(defaultValue = true)
 
@@ -122,20 +122,25 @@ class CommentRegions(
         }
     }
 
-    private fun visitNamedFunctionInType(
-        currentType: SimpleType,
-        function: KtNamedFunction,
-    ) {
-        val currentTypeRegion = currentType.fqNameOrNull()?.shortName()?.asString() ?: "???"
+    private fun visitNamedFunctionInType(currentType: SimpleType, function: KtNamedFunction) {
+        val currentTypeRegion = currentType.regionName()
         var expectedRegion: String = currentTypeRegion
 
         if (function.isOverride()) {
-            val superTypes = superTypesStack.lastOrNull().orEmpty()
-            superTypes.forEach { superType ->
-                if (superType.memberScope.getFunctionNames().any { it == function.nameAsSafeName }) {
-                    expectedRegion = superType.fqNameOrNull()?.shortName()?.asString() ?: "???"
+            var actualSupertype: KotlinType = currentType
+            superTypesStack.lastOrNull().orEmpty()
+                .filter { superType ->
+                    superType.memberScope.getFunctionNames().any { it == function.nameAsSafeName }
                 }
-            }
+                .forEach { superType ->
+                    if (superType.isInterface()) {
+                        actualSupertype = superType
+                    } else if (superType in actualSupertype.supertypes()) {
+                        actualSupertype = superType
+                    }
+                }
+
+            expectedRegion = actualSupertype.regionName()
         } else if (function.isOperator()) {
             expectedRegion = REGION_OPERATORS
         } else if (function.isInternal() || function.isPrivate()) {
@@ -151,11 +156,7 @@ class CommentRegions(
         }
     }
 
-    private fun verifyFunctionOutsideRegion(
-        expectedRegion: String,
-        isMainRegion: Boolean,
-        function: KtNamedFunction,
-    ) {
+    private fun verifyFunctionOutsideRegion(expectedRegion: String, isMainRegion: Boolean, function: KtNamedFunction) {
         if (isMainRegion && forceRegionOnMainTypeFunctions) {
             report(
                 CodeSmell(
@@ -187,15 +188,19 @@ class CommentRegions(
         if (actualRegion != expectedRegion) {
             if (expectedRegion == REGION_INTERNAL) {
                 if (!actualRegion.startsWith(REGION_INTERNAL)) {
-                    val visibility =
-                        if (function.isPrivate()) "private" else if (function.isInternal()) "internal" else "?"
+                    val visibility = if (function.isPrivate()) {
+                        "private"
+                    } else if (function.isInternal()) {
+                        "internal"
+                    } else {
+                        "?"
+                    }
                     report(
                         CodeSmell(
                             issue,
                             Entity.from(function),
-                            "Function declaration with visibility $visibility should be in a region " +
-                                "prefixed with $REGION_INTERNAL;  function ${function.name} was found in region named " +
-                                "$actualRegion instead.",
+                            "Function declaration ($visibility) should be in a region named $REGION_INTERNAL; " +
+                                "function ${function.name} was found in region named $actualRegion instead.",
                         ),
                     )
                 }
@@ -212,8 +217,11 @@ class CommentRegions(
         }
     }
 
-    companion object {
+    private fun KotlinType.regionName(): String {
+        return fqNameOrNull()?.shortName()?.asString() ?: "???"
+    }
 
+    companion object {
         private const val REGION_OPERATORS = "Operators"
         private const val REGION_INTERNAL = "Internal"
 

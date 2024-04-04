@@ -17,7 +17,6 @@ open class BBRColorSource(
     var temperature: Kelvin,
     var magnitude: Double = 1.0,
 ) : ColorSource {
-
     // TODO write tests
     // TODO add memoization
 

@@ -8,7 +8,6 @@ import fr.xgouchet.luxels.core.render.exposure.RoughFilm
  * The type of film to use to capture the luxel exposition.
  */
 enum class FilmType {
-
     /** Provides a clean and accurate film (slower). */
     CLEAN,
 

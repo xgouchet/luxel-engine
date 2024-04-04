@@ -14,7 +14,7 @@ import fr.xgouchet.luxels.core.math.Vector3
 import fr.xgouchet.luxels.core.simulation.Simulator
 import kotlin.time.Duration
 
-class DebugSimulator() : Simulator<DebugLuxel, Long> {
+internal class DebugSimulator : Simulator<DebugLuxel, Long> {
 
     val baseNoise: DimensionalNoiseGenerator = PerlinNoiseGenerator()
     val ridged = PingPongNoiseGenerator(baseNoise)
@@ -25,6 +25,8 @@ class DebugSimulator() : Simulator<DebugLuxel, Long> {
     private val noiseScale = Vector3(0.005, 0.005, 0.005)
 
     private var noiseOffset = Vector3.NULL
+
+    // region Simulator
 
     override fun onFrameStart(simulation: Configuration.Simulation, time: Duration) {
         noiseOffset = Vector3(0.0, 0.0, time.inWholeMilliseconds * 0.001)
@@ -49,4 +51,6 @@ class DebugSimulator() : Simulator<DebugLuxel, Long> {
 
     override fun updateLuxel(luxel: DebugLuxel, time: Duration) {
     }
+
+    // endregion
 }

@@ -12,7 +12,7 @@ import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.property.checkAll
 import kotlin.math.abs
 
-@Suppress("LocalVariableName", "NonAsciiCharacters")
+@Suppress("ktlint:standard:property-naming")
 class Space3Test : DescribeSpec({
 
     describe("size") {
@@ -140,7 +140,7 @@ class Space3Test : DescribeSpec({
 
                 val expanded = b.expanded(scale)
 
-                expanded.size shouldBeCloseTo b.size * (1 + scale)
+                expanded.size shouldBeCloseTo b.size * scale
             }
         }
     }

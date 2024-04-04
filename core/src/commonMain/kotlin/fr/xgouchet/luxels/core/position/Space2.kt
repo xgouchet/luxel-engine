@@ -11,7 +11,6 @@ data class Space2(
     val min: Vector2,
     val max: Vector2,
 ) {
-
     /** The size of the space (i.e.: length of the diagonal from the lower to upper corner). */
     val size = Vector2(max.x - min.x, max.y - min.y)
 

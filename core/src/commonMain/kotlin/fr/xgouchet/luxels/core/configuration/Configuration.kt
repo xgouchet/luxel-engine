@@ -29,7 +29,6 @@ class Configuration<I : Any> internal constructor(
     internal val render: Render,
     internal val animation: Animation,
 ) {
-
     /**
      * The input options for the simulation run.
      * @param D the type of data used as input
@@ -83,7 +82,6 @@ class Configuration<I : Any> internal constructor(
         val duration: Duration = 0.seconds,
         val fps: Int = 60,
     ) {
-
         private val timeStep = 1.seconds / fps
 
         internal val frameCount = (duration / timeStep).roundToInt() + 1
@@ -104,45 +102,50 @@ class Configuration<I : Any> internal constructor(
         val projection = simulator.getProjection(simulation.space, render.filmSpace, frameInfo.frameTime)
 
         return when (simulation.passType) {
-            PassType.RENDER -> RenderSimulationWorker(
-                film = film,
-                simulator = simulator,
-                simulation = simulation,
-                projection = projection,
-                time = frameInfo.frameTime,
-            )
+            PassType.RENDER ->
+                RenderSimulationWorker(
+                    film = film,
+                    simulator = simulator,
+                    simulation = simulation,
+                    projection = projection,
+                    time = frameInfo.frameTime,
+                )
 
-            PassType.SPAWN -> SpawnSimulationWorker(
-                film = film,
-                simulator = simulator,
-                simulation = simulation,
-                projection = projection,
-                time = frameInfo.frameTime,
-            )
+            PassType.SPAWN ->
+                SpawnSimulationWorker(
+                    film = film,
+                    simulator = simulator,
+                    simulation = simulation,
+                    projection = projection,
+                    time = frameInfo.frameTime,
+                )
 
-            PassType.PATH -> PathSimulationWorker(
-                film = film,
-                simulator = simulator,
-                simulation = simulation,
-                projection = projection,
-                time = frameInfo.frameTime,
-            )
+            PassType.PATH ->
+                PathSimulationWorker(
+                    film = film,
+                    simulator = simulator,
+                    simulation = simulation,
+                    projection = projection,
+                    time = frameInfo.frameTime,
+                )
 
-            PassType.DEATH -> DeathSimulationWorker(
-                film = film,
-                simulator = simulator,
-                simulation = simulation,
-                projection = projection,
-                time = frameInfo.frameTime,
-            )
+            PassType.DEATH ->
+                DeathSimulationWorker(
+                    film = film,
+                    simulator = simulator,
+                    simulation = simulation,
+                    projection = projection,
+                    time = frameInfo.frameTime,
+                )
 
-            PassType.ENV -> EnvSimulationWorker(
-                film = film,
-                simulator = simulator,
-                simulation = simulation,
-                projection = projection,
-                time = frameInfo.frameTime,
-            )
+            PassType.ENV ->
+                EnvSimulationWorker(
+                    film = film,
+                    simulator = simulator,
+                    simulation = simulation,
+                    projection = projection,
+                    time = frameInfo.frameTime,
+                )
         }
     }
 }

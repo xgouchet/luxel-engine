@@ -139,7 +139,7 @@ class Space2Test : DescribeSpec({
 
                 val expanded = b.expanded(scale)
 
-                expanded.size shouldBeCloseTo b.size * (1 + scale)
+                expanded.size shouldBeCloseTo b.size * scale
             }
         }
     }

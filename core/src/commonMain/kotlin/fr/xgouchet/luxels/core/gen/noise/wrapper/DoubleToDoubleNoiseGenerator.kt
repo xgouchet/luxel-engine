@@ -10,7 +10,6 @@ import fr.xgouchet.luxels.core.gen.noise.NoiseGenerator
 class DoubleToDoubleNoiseGenerator(
     private val delegate: DimensionalNoiseGenerator,
 ) : NoiseGenerator<Double, Double> {
-
     // region NoiseGenerator
 
     override fun noise(input: Double): Double {

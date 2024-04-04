@@ -22,7 +22,6 @@ abstract class ASLColorSource(
     val number: Int,
     private val spectralLines: List<SpectralLine>,
 ) : EMSColorSource(0.0, 0.0, 0.8) {
-
     /**
      * Describe one of the spectral lines a given element can emit.
      * @property waveLength the wavelength of the spectral line (in nm)
