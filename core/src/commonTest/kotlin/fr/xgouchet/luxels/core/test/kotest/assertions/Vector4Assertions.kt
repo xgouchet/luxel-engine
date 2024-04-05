@@ -1,6 +1,6 @@
 package fr.xgouchet.luxels.core.test.kotest.assertions
 
-import fr.xgouchet.luxels.core.math.Vector4
+import fr.xgouchet.luxels.core.math.geometry.Vector4
 import io.kotest.matchers.Matcher
 import io.kotest.matchers.MatcherResult
 import io.kotest.matchers.should

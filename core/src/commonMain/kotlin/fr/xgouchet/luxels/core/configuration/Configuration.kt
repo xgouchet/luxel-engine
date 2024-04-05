@@ -4,9 +4,9 @@ import fr.xgouchet.luxels.core.FrameInfo
 import fr.xgouchet.luxels.core.configuration.input.InputSource
 import fr.xgouchet.luxels.core.io.ImageFixer
 import fr.xgouchet.luxels.core.io.NoOpFixer
+import fr.xgouchet.luxels.core.math.geometry.Space2
+import fr.xgouchet.luxels.core.math.geometry.Space3
 import fr.xgouchet.luxels.core.model.Luxel
-import fr.xgouchet.luxels.core.position.Space2
-import fr.xgouchet.luxels.core.position.Space3
 import fr.xgouchet.luxels.core.render.exposure.Film
 import fr.xgouchet.luxels.core.simulation.Simulator
 import fr.xgouchet.luxels.core.simulation.worker.DeathSimulationWorker

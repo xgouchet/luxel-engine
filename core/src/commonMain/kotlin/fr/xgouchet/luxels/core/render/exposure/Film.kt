@@ -1,7 +1,7 @@
 package fr.xgouchet.luxels.core.render.exposure
 
 import fr.xgouchet.luxels.core.color.Color
-import fr.xgouchet.luxels.core.math.Vector2
+import fr.xgouchet.luxels.core.math.geometry.Vector2
 
 /**
  * A Film which can be exposed to luxels, to render a simulation.

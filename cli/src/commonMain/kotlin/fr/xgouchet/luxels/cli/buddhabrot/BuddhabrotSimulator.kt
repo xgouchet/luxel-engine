@@ -4,8 +4,8 @@ import fr.xgouchet.luxels.core.color.Color
 import fr.xgouchet.luxels.core.color.StaticColorSource
 import fr.xgouchet.luxels.core.configuration.Configuration
 import fr.xgouchet.luxels.core.configuration.input.InputData
-import fr.xgouchet.luxels.core.gen.random.RndGen
-import fr.xgouchet.luxels.core.position.Space3
+import fr.xgouchet.luxels.core.math.geometry.Space3
+import fr.xgouchet.luxels.core.math.random.RndGen
 import fr.xgouchet.luxels.core.simulation.Simulator
 import kotlin.time.Duration
 

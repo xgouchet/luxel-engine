@@ -1,11 +1,11 @@
 package fr.xgouchet.luxels.cli.debug
 
+import fr.xgouchet.luxels.components.position.FuzzyPositionSource
 import fr.xgouchet.luxels.core.color.Color
 import fr.xgouchet.luxels.core.color.StaticColorSource
-import fr.xgouchet.luxels.core.math.Vector3
+import fr.xgouchet.luxels.core.math.geometry.Vector3
 import fr.xgouchet.luxels.core.model.AgeingLifespanSource
 import fr.xgouchet.luxels.core.model.PrincipledLuxel
-import fr.xgouchet.luxels.core.position.FuzzyPositionSource
 import fr.xgouchet.luxels.core.position.StaticPositionSource
 
 internal class NoiseFieldLuxel(

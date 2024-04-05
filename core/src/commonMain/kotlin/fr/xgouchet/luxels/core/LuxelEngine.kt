@@ -3,7 +3,7 @@ package fr.xgouchet.luxels.core
 import fr.xgouchet.luxels.core.concurrent.mainDispatcher
 import fr.xgouchet.luxels.core.configuration.Configuration
 import fr.xgouchet.luxels.core.configuration.input.InputData
-import fr.xgouchet.luxels.core.gen.random.RndGen
+import fr.xgouchet.luxels.core.math.random.RndGen
 import fr.xgouchet.luxels.core.model.Luxel
 import fr.xgouchet.luxels.core.render.exposure.Film
 import fr.xgouchet.luxels.core.render.exposure.LayeredFilm

@@ -1,6 +1,6 @@
 package fr.xgouchet.luxels.cli.buddhabrot
 
-import fr.xgouchet.luxels.core.math.Vector3
+import fr.xgouchet.luxels.core.math.geometry.Vector3
 
 internal fun mandelbrotStep(z: Vector3, c: Vector3): Vector3 {
     return Vector3(

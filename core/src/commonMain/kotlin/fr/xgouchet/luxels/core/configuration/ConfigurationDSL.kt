@@ -10,7 +10,7 @@ import fr.xgouchet.luxels.core.io.BmpImageFixer
 import fr.xgouchet.luxels.core.io.HdrImageFixer
 import fr.xgouchet.luxels.core.io.ImageFixer
 import fr.xgouchet.luxels.core.io.NoOpFixer
-import fr.xgouchet.luxels.core.position.Space3
+import fr.xgouchet.luxels.core.math.geometry.Space3
 import okio.Path
 import okio.Path.Companion.toPath
 import kotlin.reflect.KType

@@ -1,17 +1,17 @@
 package fr.xgouchet.luxels.cli.rain
 
+import fr.xgouchet.luxels.components.color.EMSColorSource
+import fr.xgouchet.luxels.components.noise.PerlinNoiseGenerator
+import fr.xgouchet.luxels.components.noise.wrapper.Vector3ToDoubleNoiseGenerator
 import fr.xgouchet.luxels.core.color.Color
-import fr.xgouchet.luxels.core.color.EMSColorSource
 import fr.xgouchet.luxels.core.configuration.Configuration
 import fr.xgouchet.luxels.core.configuration.input.InputData
-import fr.xgouchet.luxels.core.gen.noise.PerlinNoiseGenerator
-import fr.xgouchet.luxels.core.gen.noise.wrapper.Vector3ToDoubleNoiseGenerator
-import fr.xgouchet.luxels.core.gen.random.RndGen
-import fr.xgouchet.luxels.core.gen.random.inBox
 import fr.xgouchet.luxels.core.math.EPSILON
 import fr.xgouchet.luxels.core.math.TAU
-import fr.xgouchet.luxels.core.math.Vector3
-import fr.xgouchet.luxels.core.position.Space3
+import fr.xgouchet.luxels.core.math.geometry.Space3
+import fr.xgouchet.luxels.core.math.geometry.Vector3
+import fr.xgouchet.luxels.core.math.random.RndGen
+import fr.xgouchet.luxels.core.math.random.inBox
 import fr.xgouchet.luxels.core.simulation.Simulator
 import kotlin.math.roundToInt
 import kotlin.time.Duration

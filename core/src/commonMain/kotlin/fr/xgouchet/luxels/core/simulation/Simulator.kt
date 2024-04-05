@@ -4,10 +4,10 @@ import fr.xgouchet.luxels.core.color.Color
 import fr.xgouchet.luxels.core.configuration.Configuration
 import fr.xgouchet.luxels.core.configuration.PassType
 import fr.xgouchet.luxels.core.configuration.input.InputData
-import fr.xgouchet.luxels.core.math.Vector3
+import fr.xgouchet.luxels.core.math.geometry.Space2
+import fr.xgouchet.luxels.core.math.geometry.Space3
+import fr.xgouchet.luxels.core.math.geometry.Vector3
 import fr.xgouchet.luxels.core.model.Luxel
-import fr.xgouchet.luxels.core.position.Space2
-import fr.xgouchet.luxels.core.position.Space3
 import fr.xgouchet.luxels.core.render.projection.FlatXYProjection
 import fr.xgouchet.luxels.core.render.projection.Projection
 import kotlin.time.Duration

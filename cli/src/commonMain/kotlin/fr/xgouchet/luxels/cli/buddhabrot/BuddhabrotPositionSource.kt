@@ -1,8 +1,8 @@
 package fr.xgouchet.luxels.cli.buddhabrot
 
-import fr.xgouchet.luxels.core.gen.random.RndGen
-import fr.xgouchet.luxels.core.math.Vector3
-import fr.xgouchet.luxels.core.position.Space3
+import fr.xgouchet.luxels.core.math.geometry.Space3
+import fr.xgouchet.luxels.core.math.geometry.Vector3
+import fr.xgouchet.luxels.core.math.random.RndGen
 import fr.xgouchet.luxels.core.position.UpdatablePositionSource
 
 internal class BuddhabrotPositionSource(

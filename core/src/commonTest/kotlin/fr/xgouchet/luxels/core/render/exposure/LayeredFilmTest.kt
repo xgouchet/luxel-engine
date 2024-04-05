@@ -1,7 +1,7 @@
 package fr.xgouchet.luxels.core.render.exposure
 
 import fr.xgouchet.luxels.core.configuration.Resolution
-import fr.xgouchet.luxels.core.math.Vector2
+import fr.xgouchet.luxels.core.math.geometry.Vector2
 import fr.xgouchet.luxels.core.test.kotest.assertions.shouldBeCloseTo
 import fr.xgouchet.luxels.core.test.kotest.property.colorArb
 import fr.xgouchet.luxels.core.test.kotest.property.resolutionArb

@@ -2,7 +2,7 @@ package fr.xgouchet.luxels.core.simulation.worker
 
 import fr.xgouchet.luxels.core.color.Color
 import fr.xgouchet.luxels.core.configuration.Configuration
-import fr.xgouchet.luxels.core.math.Vector3
+import fr.xgouchet.luxels.core.math.geometry.Vector3
 import fr.xgouchet.luxels.core.model.Luxel
 import fr.xgouchet.luxels.core.render.exposure.Film
 import fr.xgouchet.luxels.core.render.projection.Projection

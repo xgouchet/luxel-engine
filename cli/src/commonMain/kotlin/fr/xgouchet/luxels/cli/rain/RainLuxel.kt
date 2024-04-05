@@ -1,10 +1,10 @@
 package fr.xgouchet.luxels.cli.rain
 
-import fr.xgouchet.luxels.core.color.EMSColorSource
-import fr.xgouchet.luxels.core.math.Vector3
+import fr.xgouchet.luxels.components.color.EMSColorSource
+import fr.xgouchet.luxels.components.position.InertiaPositionSource
+import fr.xgouchet.luxels.core.math.geometry.Vector3
 import fr.xgouchet.luxels.core.model.AgeingLifespanSource
 import fr.xgouchet.luxels.core.model.PrincipledLuxel
-import fr.xgouchet.luxels.core.position.InertiaPositionSource
 
 internal class RainLuxel(
     lifespan: Int,

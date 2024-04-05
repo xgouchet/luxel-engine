@@ -1,6 +1,6 @@
 package fr.xgouchet.luxels.core.position
 
-import fr.xgouchet.luxels.core.math.Vector3
+import fr.xgouchet.luxels.core.math.geometry.Vector3
 
 /**
  * A static immutable [PositionSource].

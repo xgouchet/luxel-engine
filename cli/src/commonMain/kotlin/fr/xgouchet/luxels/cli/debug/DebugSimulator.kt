@@ -1,16 +1,16 @@
 package fr.xgouchet.luxels.cli.debug
 
+import fr.xgouchet.luxels.components.noise.DimensionalNoiseGenerator
+import fr.xgouchet.luxels.components.noise.FractalNoiseGenerator
+import fr.xgouchet.luxels.components.noise.PerlinNoiseGenerator
+import fr.xgouchet.luxels.components.noise.PingPongNoiseGenerator
+import fr.xgouchet.luxels.components.noise.wrapper.Vector3ToDoubleNoiseGenerator
+import fr.xgouchet.luxels.components.noise.wrapper.Vector3ToVector3NoiseGenerator
 import fr.xgouchet.luxels.core.color.Color
 import fr.xgouchet.luxels.core.configuration.Configuration
-import fr.xgouchet.luxels.core.gen.noise.DimensionalNoiseGenerator
-import fr.xgouchet.luxels.core.gen.noise.FractalNoiseGenerator
-import fr.xgouchet.luxels.core.gen.noise.PerlinNoiseGenerator
-import fr.xgouchet.luxels.core.gen.noise.PingPongNoiseGenerator
-import fr.xgouchet.luxels.core.gen.noise.wrapper.Vector3ToDoubleNoiseGenerator
-import fr.xgouchet.luxels.core.gen.noise.wrapper.Vector3ToVector3NoiseGenerator
-import fr.xgouchet.luxels.core.gen.random.RndGen
-import fr.xgouchet.luxels.core.gen.random.inBox
-import fr.xgouchet.luxels.core.math.Vector3
+import fr.xgouchet.luxels.core.math.geometry.Vector3
+import fr.xgouchet.luxels.core.math.random.RndGen
+import fr.xgouchet.luxels.core.math.random.inBox
 import fr.xgouchet.luxels.core.simulation.Simulator
 import kotlin.time.Duration
 

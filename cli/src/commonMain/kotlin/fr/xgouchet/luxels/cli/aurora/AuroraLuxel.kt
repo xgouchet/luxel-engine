@@ -1,13 +1,13 @@
 package fr.xgouchet.luxels.cli.aurora
 
+import fr.xgouchet.luxels.components.color.atomic.ASLColorSource
+import fr.xgouchet.luxels.components.position.FuzzyPositionSource
+import fr.xgouchet.luxels.components.position.InertiaPositionSource
 import fr.xgouchet.luxels.core.color.Color
 import fr.xgouchet.luxels.core.color.ColorSource
-import fr.xgouchet.luxels.core.color.atomic.ASLColorSource
-import fr.xgouchet.luxels.core.math.Vector3
+import fr.xgouchet.luxels.core.math.geometry.Vector3
 import fr.xgouchet.luxels.core.model.AgeingLifespanSource
 import fr.xgouchet.luxels.core.model.PrincipledLuxel
-import fr.xgouchet.luxels.core.position.FuzzyPositionSource
-import fr.xgouchet.luxels.core.position.InertiaPositionSource
 
 internal class AuroraLuxel(
     element: ASLColorSource,

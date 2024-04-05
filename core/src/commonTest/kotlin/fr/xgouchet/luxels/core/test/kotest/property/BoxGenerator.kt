@@ -1,6 +1,6 @@
 package fr.xgouchet.luxels.core.test.kotest.property
 
-import fr.xgouchet.luxels.core.position.Space3
+import fr.xgouchet.luxels.core.math.geometry.Space3
 import io.kotest.property.arbitrary.arbitrary
 
 fun boxArb() = arbitrary {

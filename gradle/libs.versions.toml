@@ -1,22 +1,22 @@
 [versions]
 
 # Commons
-kotlin = "1.9.22"
+kotlin = "1.9.23"
 kotlinxDateTime = "0.5.0"
 kotlinxSerialization = "1.6.3"
 kotlinxCoroutines = "1.8.0"
 
 # Okio
-okio = "3.8.0"
+okio = "3.9.0"
 
 # Image IO
 imageIo = "3.10.1"
 
 # Static Analysis
-detekt = "1.23.5"
+detekt = "1.23.6"
 
 # Tests Tools
-kotest = "5.8.0"
+kotest = "5.8.1"
 mockk = "1.13.9"
 
 # Plugins
@@ -26,7 +26,7 @@ ktlintGradlePlugin = "12.1.0"
 detektGradlePlugin = "1.23.4"
 dokkaGradlePlugin = "1.6.10"
 pitestGradlePlugin = "1.15.0"
-koverGradlePlugin = "0.7.5"
+koverGradlePlugin = "0.7.6"
 
 [libraries]
 

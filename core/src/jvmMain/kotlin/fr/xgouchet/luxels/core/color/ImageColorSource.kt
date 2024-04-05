@@ -1,6 +1,6 @@
 package fr.xgouchet.luxels.core.color
 
-import fr.xgouchet.luxels.core.math.Vector2
+import fr.xgouchet.luxels.core.math.geometry.Vector2
 import java.awt.image.BufferedImage
 import java.io.File
 import javax.imageio.ImageIO

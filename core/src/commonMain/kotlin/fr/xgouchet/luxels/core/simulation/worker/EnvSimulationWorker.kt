@@ -1,8 +1,8 @@
 package fr.xgouchet.luxels.core.simulation.worker
 
 import fr.xgouchet.luxels.core.configuration.Configuration
-import fr.xgouchet.luxels.core.gen.random.RndGen
-import fr.xgouchet.luxels.core.gen.random.inBox
+import fr.xgouchet.luxels.core.math.random.RndGen
+import fr.xgouchet.luxels.core.math.random.inBox
 import fr.xgouchet.luxels.core.model.Luxel
 import fr.xgouchet.luxels.core.render.exposure.Film
 import fr.xgouchet.luxels.core.render.projection.Projection

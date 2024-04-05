@@ -1,7 +1,7 @@
 package fr.xgouchet.luxels.core.test.kotest.assertions
 
-import fr.xgouchet.luxels.core.math.Vector3
-import fr.xgouchet.luxels.core.position.Space3
+import fr.xgouchet.luxels.core.math.geometry.Space3
+import fr.xgouchet.luxels.core.math.geometry.Vector3
 import io.kotest.matchers.Matcher
 import io.kotest.matchers.MatcherResult
 import io.kotest.matchers.should

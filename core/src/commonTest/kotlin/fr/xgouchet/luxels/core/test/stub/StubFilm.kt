@@ -2,7 +2,7 @@ package fr.xgouchet.luxels.core.test.stub
 
 import fr.xgouchet.luxels.core.color.Color
 import fr.xgouchet.luxels.core.configuration.Resolution
-import fr.xgouchet.luxels.core.math.Vector2
+import fr.xgouchet.luxels.core.math.geometry.Vector2
 import fr.xgouchet.luxels.core.render.exposure.Film
 
 class StubFilm(resolution: Resolution) : Film {

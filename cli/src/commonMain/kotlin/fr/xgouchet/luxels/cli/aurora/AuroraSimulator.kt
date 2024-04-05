@@ -1,24 +1,18 @@
 package fr.xgouchet.luxels.cli.aurora
 
-import fr.xgouchet.luxels.core.color.atomic.ASLColorSource
-import fr.xgouchet.luxels.core.color.atomic.Aluminium
-import fr.xgouchet.luxels.core.color.atomic.Carbon
-import fr.xgouchet.luxels.core.color.atomic.Copper
-import fr.xgouchet.luxels.core.color.atomic.Helium
-import fr.xgouchet.luxels.core.color.atomic.Hydrogen
-import fr.xgouchet.luxels.core.color.atomic.Iron
-import fr.xgouchet.luxels.core.color.atomic.Nitrogen
-import fr.xgouchet.luxels.core.color.atomic.Oxygen
+import fr.xgouchet.luxels.components.color.atomic.ASLColorSource
+import fr.xgouchet.luxels.components.color.atomic.Hydrogen
+import fr.xgouchet.luxels.components.color.atomic.PeriodicTable
+import fr.xgouchet.luxels.components.noise.FractalNoiseGenerator
+import fr.xgouchet.luxels.components.noise.PerlinNoiseGenerator
+import fr.xgouchet.luxels.components.noise.wrapper.DoubleToVector3NoiseGenerator
 import fr.xgouchet.luxels.core.configuration.Configuration
 import fr.xgouchet.luxels.core.configuration.input.InputData
-import fr.xgouchet.luxels.core.gen.noise.FractalNoiseGenerator
-import fr.xgouchet.luxels.core.gen.noise.PerlinNoiseGenerator
-import fr.xgouchet.luxels.core.gen.noise.wrapper.DoubleToVector3NoiseGenerator
-import fr.xgouchet.luxels.core.gen.random.RndGen
-import fr.xgouchet.luxels.core.gen.random.inBox
-import fr.xgouchet.luxels.core.math.Vector3
-import fr.xgouchet.luxels.core.position.Space2
-import fr.xgouchet.luxels.core.position.Space3
+import fr.xgouchet.luxels.core.math.geometry.Space2
+import fr.xgouchet.luxels.core.math.geometry.Space3
+import fr.xgouchet.luxels.core.math.geometry.Vector3
+import fr.xgouchet.luxels.core.math.random.RndGen
+import fr.xgouchet.luxels.core.math.random.inBox
 import fr.xgouchet.luxels.core.render.projection.PerspectiveProjection
 import fr.xgouchet.luxels.core.render.projection.Projection
 import fr.xgouchet.luxels.core.simulation.Simulator
@@ -46,9 +40,7 @@ internal class AuroraSimulator : Simulator<AuroraLuxel, Long> {
     }
 
     override fun initEnvironment(simulation: Configuration.Simulation, inputData: InputData<Long>) {
-//        element = input.data as AtomicElementColorSource
         element = elements[RndGen.int.inRange(0, elements.size)]
-        element = Oxygen
         strandCount = (element.number % 3) + 1
         strandInput = RndGen.double.inRange(-1000.0, 1000.0)
         strandOffsets = (0..<strandCount).map {
@@ -94,15 +86,6 @@ internal class AuroraSimulator : Simulator<AuroraLuxel, Long> {
     // endregion
 
     companion object {
-        private val elements = arrayOf(
-            Hydrogen,
-            Helium,
-            Carbon,
-            Oxygen,
-            Nitrogen,
-            Aluminium,
-            Iron,
-            Copper,
-        )
+        private val elements = PeriodicTable.lightElements
     }
 }
