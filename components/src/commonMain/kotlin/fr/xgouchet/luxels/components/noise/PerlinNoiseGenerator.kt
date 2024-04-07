@@ -75,7 +75,7 @@ class PerlinNoiseGenerator(
         check(aList.size == bList.size)
 
         return aList.zip(bList) { a, b ->
-            interpolation.lerp(a, b, t)
+            interpolation.interpolate(a, b, t)
         }
     }
 

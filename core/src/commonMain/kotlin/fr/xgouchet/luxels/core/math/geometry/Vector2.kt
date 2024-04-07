@@ -17,7 +17,8 @@ import kotlin.math.sqrt
 data class Vector2(
     val x: Double,
     val y: Double,
-) {
+) : Vector {
+
     // region Operators
 
     /**
@@ -187,20 +188,13 @@ data class Vector2(
 
     // endregion
 
-    // region Utils
+    // region Vector
 
     /**
      * @return the components as a list of Double, with size 2, in [x, y] order
      */
-    fun components(): List<Double> {
+    override fun components(): List<Double> {
         return listOf(x, y)
-    }
-
-    /**
-     * @return true if at least one component of this vector is NaN
-     */
-    fun isNaN(): Boolean {
-        return x.isNaN() || y.isNaN()
     }
 
     // endregion

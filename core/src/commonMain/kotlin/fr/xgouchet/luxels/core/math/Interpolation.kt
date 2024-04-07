@@ -19,7 +19,7 @@ sealed class Interpolation {
      * A value of 0.0 will return `a`. A value of 1.0 will return `b`.
      * A value of 0.5 will return the midpoint between `a` and `b`.
      */
-    fun lerp(a: Double, b: Double, t: Double): Double {
+    fun interpolate(a: Double, b: Double, t: Double): Double {
         return a + ((b - a) * factor(t))
     }
 

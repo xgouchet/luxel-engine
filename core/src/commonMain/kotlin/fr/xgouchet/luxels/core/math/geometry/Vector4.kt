@@ -19,7 +19,8 @@ data class Vector4(
     val y: Double,
     val z: Double,
     val w: Double,
-) {
+) : Vector {
+
     /** The [Vector2] corresponding with the [x, y] components. */
     val xy: Vector2 by lazy { Vector2(x, y) }
 
@@ -237,20 +238,13 @@ data class Vector4(
 
     // endregion
 
-    // region Utils
+    // region Vector
 
     /**
      * @return the components as a list of Double, with size 4, in [x, y, z, w] order
      */
-    fun components(): List<Double> {
+    override fun components(): List<Double> {
         return listOf(x, y, z, w)
-    }
-
-    /**
-     * @return true if at least one component of this vector is NaN
-     */
-    fun isNaN(): Boolean {
-        return x.isNaN() || y.isNaN() || z.isNaN() || w.isNaN()
     }
 
     // endregion

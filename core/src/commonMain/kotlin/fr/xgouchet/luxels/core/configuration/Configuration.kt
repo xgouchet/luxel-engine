@@ -51,7 +51,7 @@ class Configuration<I : Any> internal constructor(
         val threadCount: Int = 4,
         val passType: PassType = PassType.RENDER,
     ) {
-        internal val luxelPerThread = (quality.count / threadCount)
+        val luxelPerThread = (quality.count / threadCount)
     }
 
     /**

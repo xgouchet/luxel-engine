@@ -245,8 +245,8 @@ class Matrix4x4 internal constructor(
          */
         fun projection(width: Double, height: Double, fov: Double, nearPlane: Double, farPlane: Double): Matrix4x4 {
             val aspectRatio = width / height
-            val w = 1.0 / tan(fov * 0.5)
-            val h = w / aspectRatio
+            val h = 1.0 / tan(fov * 0.5)
+            val w = h / aspectRatio
             val depth = farPlane - nearPlane
             val a = farPlane / depth
             val b = (-nearPlane * farPlane) / depth

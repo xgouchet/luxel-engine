@@ -80,7 +80,7 @@ fun <T : Interpolation> abstractInterpolationTest(interpolation: T) = describeSp
         it("always returns a value between a and b for input between 0 and 1") {
             checkAll(inputDoubleArb(), doubleArb(), doubleArb()) { t, a, size ->
                 val b = a + abs(size)
-                val result = interpolation.lerp(a, b, t)
+                val result = interpolation.interpolate(a, b, t)
 
                 assertSoftly {
                     result shouldBeGreaterThanOrEqual a
@@ -93,7 +93,7 @@ fun <T : Interpolation> abstractInterpolationTest(interpolation: T) = describeSp
             checkAll(Arb.double(-Double.MAX_VALUE, 0.0, false), doubleArb(), doubleArb()) { t, a, size ->
                 val b = a + abs(size)
 
-                interpolation.lerp(a, b, t) shouldBeLessThanOrEqual a
+                interpolation.interpolate(a, b, t) shouldBeLessThanOrEqual a
             }
         }
 
@@ -101,7 +101,7 @@ fun <T : Interpolation> abstractInterpolationTest(interpolation: T) = describeSp
             checkAll(Arb.double(1.0, Double.MAX_VALUE, false), doubleArb(), doubleArb()) { t, a, size ->
                 val b = a + abs(size)
 
-                interpolation.lerp(a, b, t) shouldBeGreaterThanOrEqual b
+                interpolation.interpolate(a, b, t) shouldBeGreaterThanOrEqual b
             }
         }
 
@@ -109,8 +109,8 @@ fun <T : Interpolation> abstractInterpolationTest(interpolation: T) = describeSp
             // Only check on the [0..1] range
             checkAll(inputDoubleArb(), doubleSmallArb(), doubleSmallArb()) { t, a, size ->
                 val b = a + abs(size)
-                val result1 = interpolation.lerp(a, b, t)
-                val result2 = interpolation.lerp(a, b, t + (EPSILON / 10.0))
+                val result1 = interpolation.interpolate(a, b, t)
+                val result2 = interpolation.interpolate(a, b, t + (EPSILON / 10.0))
 
                 val diff = result2 - result1
                 diff shouldBeLessThanOrEqual (4 * EPSILON * abs(size))
@@ -123,8 +123,8 @@ fun <T : Interpolation> abstractInterpolationTest(interpolation: T) = describeSp
                 val minT = min(t1, t2)
                 val maxT = max(t1, t2)
 
-                val resultMin = interpolation.lerp(a, b, minT)
-                val resultMax = interpolation.lerp(a, b, maxT)
+                val resultMin = interpolation.interpolate(a, b, minT)
+                val resultMax = interpolation.interpolate(a, b, maxT)
 
                 resultMin shouldBeLessThanOrEqual resultMax
             }
@@ -134,9 +134,9 @@ fun <T : Interpolation> abstractInterpolationTest(interpolation: T) = describeSp
             checkAll(doubleArb(), doubleArb()) { a, size ->
                 val b = a + abs(size)
                 assertSoftly {
-                    interpolation.lerp(a, b, 0.0) shouldBeCloseTo a
-                    interpolation.lerp(a, b, 0.5) shouldBeCloseTo ((a + b) / 2)
-                    interpolation.lerp(a, b, 1.0) shouldBeCloseTo b
+                    interpolation.interpolate(a, b, 0.0) shouldBeCloseTo a
+                    interpolation.interpolate(a, b, 0.5) shouldBeCloseTo ((a + b) / 2)
+                    interpolation.interpolate(a, b, 1.0) shouldBeCloseTo b
                 }
             }
         }
