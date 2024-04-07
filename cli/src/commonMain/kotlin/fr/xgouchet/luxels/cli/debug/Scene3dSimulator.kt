@@ -12,6 +12,7 @@ import fr.xgouchet.luxels.core.simulation.Simulator
 import kotlin.time.Duration
 
 internal class Scene3dSimulator : Simulator<DebugLuxel, Long> {
+
     // region Simulator
 
     override fun getProjection(simulationSpace: Space3, filmSpace: Space2, time: Duration): Projection {

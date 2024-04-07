@@ -1,11 +1,9 @@
 package fr.xgouchet.luxels.cli.debug
 
 import fr.xgouchet.luxels.components.noise.DimensionalNoiseGenerator
-import fr.xgouchet.luxels.components.noise.FractalNoiseGenerator
 import fr.xgouchet.luxels.components.noise.PerlinNoiseGenerator
-import fr.xgouchet.luxels.components.noise.PingPongNoiseGenerator
+import fr.xgouchet.luxels.components.noise.RidgeNoiseGenerator
 import fr.xgouchet.luxels.components.noise.wrapper.Vector3ToDoubleNoiseGenerator
-import fr.xgouchet.luxels.components.noise.wrapper.Vector3ToVector3NoiseGenerator
 import fr.xgouchet.luxels.core.color.Color
 import fr.xgouchet.luxels.core.configuration.Configuration
 import fr.xgouchet.luxels.core.math.geometry.Vector3
@@ -17,12 +15,11 @@ import kotlin.time.Duration
 internal class DebugSimulator : Simulator<DebugLuxel, Long> {
 
     val baseNoise: DimensionalNoiseGenerator = PerlinNoiseGenerator()
-    val ridged = PingPongNoiseGenerator(baseNoise)
-    val brownian = FractalNoiseGenerator(ridged, 4)
-    val vectorToDouble = Vector3ToDoubleNoiseGenerator(brownian)
-    val vectorToVector = Vector3ToVector3NoiseGenerator(brownian)
+    val ridged = RidgeNoiseGenerator(baseNoise)
 
-    private val noiseScale = Vector3(0.005, 0.005, 0.005)
+    val vectorToDouble = Vector3ToDoubleNoiseGenerator(ridged)
+
+    private val noiseScale = Vector3(0.001, 0.001, 0.001)
 
     private var noiseOffset = Vector3.NULL
 
