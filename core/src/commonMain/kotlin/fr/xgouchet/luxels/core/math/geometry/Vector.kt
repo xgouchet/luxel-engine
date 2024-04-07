@@ -1,9 +1,23 @@
 package fr.xgouchet.luxels.core.math.geometry
 
+/**
+ * A basic interface around Vector types, i.e. a list of numbers
+ * representing coordinates in a multidimensional space.
+ */
 interface Vector {
 
     /**
-     * @return the components as a list of Double, with size 3, in [x, y, z] order
+     * A builder to convert from a list of components to a Vector.
+     */
+    interface Builder<V : Vector> {
+        /**
+         * Builds an instance of [Vector] from numeric components.
+         */
+        fun buildFromComponents(components: List<Double>): V
+    }
+
+    /**
+     * @return the components as a list of Double
      */
     fun components(): List<Double>
 

@@ -249,6 +249,15 @@ data class Vector4(
 
     // endregion
 
+    /**
+     * The builder instance for Vector2.
+     */
+    object Builder : Vector.Builder<Vector4> {
+        override fun buildFromComponents(components: List<Double>): Vector4 {
+            return fromComponents(components)
+        }
+    }
+
     companion object {
         /**
          * Builds a [Vector4] from the given components.

@@ -51,6 +51,7 @@ class Configuration<I : Any> internal constructor(
         val threadCount: Int = 4,
         val passType: PassType = PassType.RENDER,
     ) {
+        /** The number of luxels computed on each thread. */
         val luxelPerThread = (quality.count / threadCount)
     }
 

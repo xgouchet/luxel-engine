@@ -6,20 +6,27 @@ import kotlin.math.floor
 import kotlin.math.max
 import kotlin.math.min
 
-abstract class Curve<V : Vector>(private val points: List<V>) {
-
-    constructor(vararg points: V) : this(listOf(*points))
+/**
+ * An abstract Curve described by a list of control points.
+ * @param V the type of the control points
+ * @param points the control points describing the curve
+ * @param vectorBuilder the [Vector.Builder] to build interpolated positions
+ */
+open class Curve<V : Vector>(
+    private val points: List<V>,
+    private val vectorBuilder: Vector.Builder<V>,
+) {
 
     /**
-     * @param p the progress along the curve (0..1)
+     * @param t the progress along the curve (0..1)
      * @return the position on the curve
      */
-    fun getPosition(p: Double): V {
-        val step = p.coerceIn(0.0, 1.0) * (points.size - 1)
+    fun getPosition(t: Double): V {
+        val stepIndex = t.coerceIn(0.0, 1.0) * (points.size - 1)
 
-        val i = floor(step).toInt()
-        val t = step - i
+        val i = floor(stepIndex).toInt()
         val j = min(i + 1, points.size - 1)
+        val stepProgress = stepIndex - i
 
         // m · · N --*---- O · · P
         val m = points[max(i - 1, 0)].components()
@@ -30,11 +37,9 @@ abstract class Curve<V : Vector>(private val points: List<V>) {
         val nt = zip(m, n, o) { prev, current, next -> current + ((next - prev) / 4.0) }
         val ot = zip(n, o, p) { prev, current, next -> current - ((next - prev) / 4.0) }
 
-        val bezier = bezier(n, nt, ot, o, t)
-        return getPointFromComponents(bezier)
+        val resolvedComponents = bezier(n, nt, ot, o, stepProgress)
+        return vectorBuilder.buildFromComponents(resolvedComponents)
     }
-
-    abstract fun getPointFromComponents(components: List<Double>): V
 
     // region Internal
 
