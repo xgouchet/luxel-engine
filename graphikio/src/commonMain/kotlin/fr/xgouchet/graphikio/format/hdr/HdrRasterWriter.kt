@@ -1,10 +1,10 @@
 package fr.xgouchet.graphikio.format.hdr
 
+import fr.xgouchet.graphikio.api.AbstractRasterWriter
 import fr.xgouchet.graphikio.color.HDRColor
-import fr.xgouchet.graphikio.color.asUnboundColor
+import fr.xgouchet.graphikio.color.asHDR
 import fr.xgouchet.graphikio.data.RasterData
 import fr.xgouchet.graphikio.data.pixelCount
-import fr.xgouchet.graphikio.writer.AbstractRasterWriter
 import okio.BufferedSink
 import okio.Sink
 import okio.buffer
@@ -45,7 +45,7 @@ class HdrRasterWriter : AbstractRasterWriter(HdrImageFormat) {
         val rgbeData = ByteArray(width * height * (4))
         for (j in 0..<height) {
             for (i in 0..<width) {
-                val color = rasterData.getColor(i, j).asUnboundColor()
+                val color = rasterData.getColor(i, j).asHDR()
                 val s = j * width * 3
                 val offset = i + ((s / 3) * 4)
                 float2rgbe(rgbeData, color, offset, width)

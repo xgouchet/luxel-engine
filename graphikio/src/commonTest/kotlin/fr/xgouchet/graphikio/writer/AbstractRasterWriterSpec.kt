@@ -20,7 +20,7 @@ fun <W : RasterWriter> abstractRasterWriterSpec(vararg imageFormats: ImageFormat
                 checkAll(Arb.element(*imageFormats)) { format ->
                     val writer = writerProvider()
 
-                    val result = writer.supportsFormat(format.constraints)
+                    val result = writer.supportsFormatConstraints(format.constraints)
 
                     result shouldBe true
                 }

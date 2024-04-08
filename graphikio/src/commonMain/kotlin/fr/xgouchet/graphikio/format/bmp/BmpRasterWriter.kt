@@ -1,9 +1,16 @@
 package fr.xgouchet.graphikio.format.bmp
 
+import fr.xgouchet.graphikio.api.AbstractRasterWriter
 import fr.xgouchet.graphikio.api.RasterWriter
-import fr.xgouchet.graphikio.color.asBoundColor
+import fr.xgouchet.graphikio.color.asSDR
 import fr.xgouchet.graphikio.data.RasterData
-import fr.xgouchet.graphikio.writer.AbstractRasterWriter
+import fr.xgouchet.graphikio.format.bmp.BmpImageFormat.BITS_PER_PIXEL
+import fr.xgouchet.graphikio.format.bmp.BmpImageFormat.BMP_HEADER_SIZE
+import fr.xgouchet.graphikio.format.bmp.BmpImageFormat.BMP_PREFIX
+import fr.xgouchet.graphikio.format.bmp.BmpImageFormat.BYTES_PER_PIXEL
+import fr.xgouchet.graphikio.format.bmp.BmpImageFormat.BYTE_ALIGN_COUNT
+import fr.xgouchet.graphikio.format.bmp.BmpImageFormat.DIB_HEADER_SIZE
+import fr.xgouchet.graphikio.format.bmp.BmpImageFormat.PIXEL_DATA_OFFSET
 import okio.BufferedSink
 import okio.Sink
 import okio.buffer
@@ -16,9 +23,8 @@ class BmpRasterWriter : AbstractRasterWriter(BmpImageFormat) {
 
     override fun write(rasterData: RasterData, sink: Sink) {
         val bytesPerRow = BYTES_PER_PIXEL * rasterData.width
-        val modulo = bytesPerRow.mod(4)
-        // Compute a full row byte count ensuring a 4 bytes alignment
-        val bytesPerPadding = if (modulo == 0) 0 else (4 - modulo)
+        val modulo = bytesPerRow.mod(BYTE_ALIGN_COUNT)
+        val bytesPerPadding = if (modulo == 0) 0 else (BYTE_ALIGN_COUNT - modulo)
         val bytesPerRowPadded = bytesPerRow + bytesPerPadding
 
         val pixelDataSize = bytesPerRowPadded * rasterData.height
@@ -32,12 +38,17 @@ class BmpRasterWriter : AbstractRasterWriter(BmpImageFormat) {
         writeBmpHeader(bufferedSink, fileSize)
 
         // DIB Header
-        writeDibHeader(bufferedSink, rasterData)
+        val header = DibHeader.BitmapInfoHeader(
+            rasterData.width,
+            rasterData.height,
+            BITS_PER_PIXEL,
+        )
+        header.write(bufferedSink)
 
         // Pixel data.
         for (y in rasterData.height - 1 downTo 0) {
             for (x in 0..<rasterData.width) {
-                val color = rasterData.getColor(x, y).asBoundColor()
+                val color = rasterData.getColor(x, y).asSDR()
                 bufferedSink.writeByte(color.b)
                 bufferedSink.writeByte(color.g)
                 bufferedSink.writeByte(color.r)
@@ -65,36 +76,5 @@ class BmpRasterWriter : AbstractRasterWriter(BmpImageFormat) {
         bufferedSink.writeIntLe(PIXEL_DATA_OFFSET)
     }
 
-    private fun writeDibHeader(bufferedSink: BufferedSink, rasterData: RasterData) {
-        bufferedSink.writeIntLe(DIB_HEADER_SIZE)
-        bufferedSink.writeIntLe(rasterData.width)
-        bufferedSink.writeIntLe(rasterData.height)
-        bufferedSink.writeShortLe(COLOR_PLANE_COUNT)
-        bufferedSink.writeShortLe(BITS_PER_PIXEL)
-        bufferedSink.writeIntLe(COMPRESSION)
-        bufferedSink.writeIntLe(16) // Size of bitmap data including padding.
-        bufferedSink.writeIntLe(PRINT_RESOLUTION_PPM) // Horizontal
-        bufferedSink.writeIntLe(PRINT_RESOLUTION_PPM) // Vertical
-        bufferedSink.writeIntLe(COLOR_PALETTE_SIZE)
-        bufferedSink.writeIntLe(IMPORTANT_COLOR_COUNT)
-    }
-
     //  endregion
-
-    companion object {
-        private const val BMP_PREFIX = "BM"
-        private const val BYTES_PER_PIXEL = 3
-        private const val BITS_PER_PIXEL = BYTES_PER_PIXEL * Byte.SIZE_BITS
-
-        private const val BMP_HEADER_SIZE = 14
-        private const val DIB_HEADER_SIZE = 40
-        private const val PIXEL_DATA_OFFSET = BMP_HEADER_SIZE + DIB_HEADER_SIZE
-        private const val COLOR_PLANE_COUNT = 1
-        private const val COLOR_PALETTE_SIZE = 0
-        private const val IMPORTANT_COLOR_COUNT = 0
-        private const val COMPRESSION = 0
-
-        /** Print resolution in Pixel per Meter. 72 ppi ~ 2835 ppm */
-        private const val PRINT_RESOLUTION_PPM = 2835
-    }
 }

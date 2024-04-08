@@ -12,8 +12,11 @@ plugins {
 
 // region JUnit
 
-tasks.findByPath("jvmTest")?.apply {
-    (this as? Test)?.useJUnitPlatform()
+project.afterEvaluate {
+    tasks.findByPath("jvmTest")?.apply {
+        println("Found jvmTest in project $project")
+        (this as? Test)?.useJUnitPlatform()
+    }
 }
 
 // endregion

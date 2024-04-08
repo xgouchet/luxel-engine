@@ -1,6 +1,5 @@
-package fr.xgouchet.graphikio.writer
+package fr.xgouchet.graphikio.api
 
-import fr.xgouchet.graphikio.api.RasterWriter
 import fr.xgouchet.graphikio.format.ImageFormat
 import fr.xgouchet.graphikio.format.ImageFormatConstraints
 
@@ -24,8 +23,12 @@ abstract class AbstractRasterWriter(
         return supportedFormats.first { it.constraints == constraints }.fileNameExtension
     }
 
-    override fun supportsFormat(constraints: ImageFormatConstraints): Boolean {
+    override fun supportsFormatConstraints(constraints: ImageFormatConstraints): Boolean {
         return supportedFormats.any { it.constraints == constraints }
+    }
+
+    override fun supportedFormats(): Collection<ImageFormat> {
+        return supportedFormats
     }
 
     // endregion

@@ -78,6 +78,14 @@ allprojects {
                         mainSourceSets,
                     )
                 }
+
+                if (detektJvmTest != null) {
+                    detektJvmTest.source = UnionFileTree(
+                        DefaultTaskDependencyFactory.withNoAssociatedProject(),
+                        "unified detektJvmMain source set",
+                        testSourceSets,
+                    )
+                }
             }
         }
     }
