@@ -94,11 +94,15 @@ object GraphikIO {
         val fileExtension = filePath.name.substringAfterLast('.')
         val reader = readers.firstOrNull { reader -> reader.supportsFileExtension(fileExtension) }
         if (reader == null) {
-            throw IllegalArgumentException("No reader found to read the provided image")
+            throw IllegalArgumentException("No reader found to read the provided image at $filePath")
         }
 
         val source = fileSystem.source(filePath)
-        return reader.read(source)
+        return try {
+            reader.read(source)
+        } catch (e : Exception){
+            throw IllegalStateException("Unable to read image from path $filePath", e)
+        }
     }
 
     fun read(imageFormat: ImageFormat, source: Source): RasterData {
@@ -106,6 +110,10 @@ object GraphikIO {
         if (reader == null) {
             throw IllegalArgumentException("No reader found to read the provided image")
         }
-        return reader.read(source)
+        return try {
+            reader.read(source)
+        } catch (e : Exception){
+            throw IllegalStateException("Unable to read image from source", e)
+        }
     }
 }

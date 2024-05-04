@@ -3,6 +3,7 @@
 package fr.xgouchet.luxels.core.configuration
 
 import fr.xgouchet.luxels.core.configuration.input.EnumInputSource
+import fr.xgouchet.luxels.core.configuration.input.FilesInputSource
 import fr.xgouchet.luxels.core.configuration.input.FixedSeedsInputSource
 import fr.xgouchet.luxels.core.configuration.input.InputSource
 import fr.xgouchet.luxels.core.configuration.input.RandomSeedsInputSource
@@ -45,7 +46,7 @@ fun configurationWithFixedSeeds(
     vararg seeds: Long,
     configure: ConfigurationBuilder<Long>.() -> Unit,
 ): Configuration<Long> {
-    return configurationWithInputSource(FixedSeedsInputSource(*seeds), configure)
+    return configurationWithInputSource(FixedSeedsInputSource(seeds.toList()), configure)
 }
 
 // TODO KMM
@@ -64,6 +65,17 @@ fun <E : Enum<E>> configurationWithEnum(
     configure: ConfigurationBuilder<E>.() -> Unit,
 ): Configuration<E> {
     return configurationWithInputSource(EnumInputSource(enumType), configure)
+}
+
+/**
+ * Creates a Luxel configuration with all files from a directory.
+ * @param configure the configuration block
+ */
+fun configurationWithFilesFrom(
+    inputDir: Path,
+    configure: ConfigurationBuilder<Path>.() -> Unit,
+): Configuration<Path> {
+    return configurationWithInputSource(FilesInputSource(inputDir), configure)
 }
 
 /**

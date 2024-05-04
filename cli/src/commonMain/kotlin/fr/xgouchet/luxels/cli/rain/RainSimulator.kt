@@ -71,7 +71,7 @@ internal class RainSimulator : Simulator<RainLuxel, Long> {
         animationDirection = (RndGen.vector3.uniform() + Vector3(0.0, 0.0, 5.0)).normalized()
     }
 
-    override fun onFrameStart(simulation: Configuration.Simulation, time: Duration) {
+    override fun onFrameStart(simulation: Configuration.Simulation, time: Duration, animationDuration: Duration) {
         animationOffset = animationDirection * time.inWholeMilliseconds.toDouble() * 0.25
     }
 

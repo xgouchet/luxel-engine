@@ -85,7 +85,7 @@ object LuxelEngine {
         frameInfo: FrameInfo,
         layeredFilm: LayeredFilm,
     ) {
-        simulator.onFrameStart(configuration.simulation, frameInfo.frameTime)
+        simulator.onFrameStart(configuration.simulation, frameInfo.frameTime, configuration.animation.duration)
         val threadCount = configuration.simulation.threadCount
 
         val jobs = mutableMapOf<Job, Film>()

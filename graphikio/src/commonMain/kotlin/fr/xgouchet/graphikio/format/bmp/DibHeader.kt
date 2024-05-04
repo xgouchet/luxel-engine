@@ -151,6 +151,114 @@ internal sealed class DibHeader(
         }
     }
 
+    class BitmapInfoHeaderV5(
+        width: Int,
+        height: Int,
+        bitPerPixel: Int,
+        colorPlaneCount: Int = DEFAULT_COLOR_PLANE_COUNT,
+        val horizontalResolutionPPM: Int = DEFAULT_RESOLUTION_PPM,
+        val verticalResolutionPPM: Int = DEFAULT_RESOLUTION_PPM,
+        val colorPaletteSize: Int = DEFAULT_COLOR_PALETTE_SIZE,
+        val importantColorCount: Int = DEFAULT_IMPORTANT_COLOR_COUNT,
+    ) : DibHeader(width, height, bitPerPixel, colorPlaneCount) {
+
+        // region DibHeader
+
+        override val headerSize: Int = DIB_HEADER_SIZE
+
+        // endregion
+
+        // region Writeable
+
+        override fun write(sink: BufferedSink) {
+            sink.writeIntLe(DIB_HEADER_SIZE)
+            sink.writeIntLe(width)
+            sink.writeIntLe(height)
+            sink.writeShortLe(colorPlaneCount)
+            sink.writeShortLe(bitPerPixel)
+
+            sink.writeIntLe(BmpImageFormat.COMPRESSION_BI_RGB)
+            sink.writeIntLe(0) // Size of bitmap data including padding, only when data is compressed
+
+            sink.writeIntLe(horizontalResolutionPPM)
+            sink.writeIntLe(verticalResolutionPPM)
+            sink.writeIntLe(colorPaletteSize)
+            sink.writeIntLe(importantColorCount)
+        }
+
+        // endregion
+
+        companion object {
+
+            internal const val DIB_HEADER_SIZE: Int = 124
+
+            internal const val DEFAULT_COLOR_PALETTE_SIZE = 0
+            internal const val DEFAULT_RESOLUTION_PPM = 2835
+            internal const val DEFAULT_IMPORTANT_COLOR_COUNT = 0
+
+            fun read(size: Int, source: BufferedSource): BitmapInfoHeaderV5 {
+                // Unlike all other DIB headers width and height are stored as unsigned short
+                val width = source.readIntLe()
+                val height = source.readIntLe()
+
+                val colorPlaneCount = source.readShortLe().toInt()
+                check(colorPlaneCount == 1) {
+                    "Bitmap file uses unsupported multiple color planes ($colorPlaneCount)"
+                }
+                val bitPerPixel = source.readShortLe().toInt()
+
+                val compression = source.readIntLe()
+                check(compression == BmpImageFormat.COMPRESSION_BI_RGB) {
+                    "Bitmap file uses an unsupported compression flag: $compression"
+                }
+
+                source.readIntLe() // Image Size, unused
+
+                val xPPM = source.readIntLe()
+                val yPPM = source.readIntLe()
+
+                val paletteSize = source.readIntLe()
+                val importantColorCount = source.readIntLe()
+
+                val masks = IntArray(4)
+
+                for (i in masks.indices) {
+                    masks[i] = source.readIntLe()
+                }
+
+                val colorSpaceType = source.readIntLe()
+
+                val cieXYZEndpoints = DoubleArray(9)
+
+                for (i in cieXYZEndpoints.indices) {
+                    cieXYZEndpoints[i] = source.readIntLe().toDouble() // TODO: Hmmm...?
+                }
+
+                val gamma = IntArray(3)
+
+                for (i in gamma.indices) {
+                    gamma[i] = source.readIntLe()
+                }
+
+                val intent = source.readIntLe() // TODO: Verify if this is same as ICC intent
+                val profileData = source.readIntLe().toLong() and 0xffffffffL
+                val profileSize = source.readIntLe().toLong() and 0xffffffffL
+                source.readIntLe() // Reserved
+
+                return BitmapInfoHeaderV5(
+                    width,
+                    height,
+                    bitPerPixel,
+                    colorPlaneCount,
+                    xPPM,
+                    yPPM,
+                    paletteSize,
+                    importantColorCount,
+                )
+            }
+        }
+    }
+
     companion object {
 
         internal const val DEFAULT_COLOR_PLANE_COUNT = 1
@@ -161,6 +269,7 @@ internal sealed class DibHeader(
             return when (headerSize) {
                 BitmapCoreHeader.DIB_HEADER_SIZE -> BitmapCoreHeader.read(headerSize, source)
                 BitmapInfoHeader.DIB_HEADER_SIZE -> BitmapInfoHeader.read(headerSize, source)
+                BitmapInfoHeaderV5.DIB_HEADER_SIZE -> BitmapInfoHeaderV5.read(headerSize, source)
                 else -> throw IllegalArgumentException("Unsupported header size $headerSize")
             }
         }

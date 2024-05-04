@@ -19,7 +19,9 @@ class BmpRasterReader : AbstractRasterReader(BmpImageFormat) {
 
         val (_, pixelDataOffset) = readBmpHeader(bufferedSource)
         val dibHeader = DibHeader.readDibHeader(bufferedSource)
-        check(pixelDataOffset == BMP_HEADER_SIZE + dibHeader.headerSize)
+        check(pixelDataOffset == BMP_HEADER_SIZE + dibHeader.headerSize) {
+            "Invalid pixel data offset $pixelDataOffset, expected ${BMP_HEADER_SIZE + dibHeader.headerSize}"
+        }
         check(dibHeader.bitPerPixel == 24)
 
         val bytesPerRow = BYTES_PER_PIXEL * dibHeader.width

@@ -41,8 +41,14 @@ interface Simulator<L : Luxel, I : Any> {
      * Called once when a new frame starts.
      * @param simulation the simulation options
      * @param time the current time within the simulated animation
+     * @param animationDuration the total duration of the current animation
      */
-    fun onFrameStart(simulation: Configuration.Simulation, time: Duration) {}
+    fun onFrameStart(
+        simulation: Configuration.Simulation,
+        time: Duration,
+        animationDuration: Duration
+    ) {
+    }
 
     /**
      * Spawns a [Luxel] in the simulator.
@@ -60,6 +66,17 @@ interface Simulator<L : Luxel, I : Any> {
      * @see [Luxel.isAlive]
      */
     fun updateLuxel(luxel: L, time: Duration) {}
+
+    /**
+     * Exposes the given [Luxel] with a lambda.
+     * By default the exposition uses the luxel's position and color, but simulators can
+     * override this function to apply effects.
+     * @param luxel the [Luxel] to expose
+     * @param filmExposition a lambda taking the 3D position to expose and the color to use
+     */
+    fun exposeLuxel(luxel: L, filmExposition: (Vector3, Color) -> Unit) {
+        filmExposition(luxel.position(), luxel.color())
+    }
 
     /**
      * @return the name of this simulator (used to tag output image files)

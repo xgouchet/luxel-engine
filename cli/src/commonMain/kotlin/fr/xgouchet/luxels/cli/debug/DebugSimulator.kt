@@ -25,7 +25,7 @@ internal class DebugSimulator : Simulator<DebugLuxel, Long> {
 
     // region Simulator
 
-    override fun onFrameStart(simulation: Configuration.Simulation, time: Duration) {
+    override fun onFrameStart(simulation: Configuration.Simulation, time: Duration, animationDuration: Duration) {
         noiseOffset = Vector3(0.0, 0.0, time.inWholeMilliseconds * 0.001)
     }
 

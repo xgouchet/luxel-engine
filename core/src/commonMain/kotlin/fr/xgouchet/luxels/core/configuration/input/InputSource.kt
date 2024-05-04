@@ -1,10 +1,15 @@
 package fr.xgouchet.luxels.core.configuration.input
 
+import fr.xgouchet.graphikio.data.RasterData
+import fr.xgouchet.graphikio.fileSystem
+import okio.Path
+
 /**
  * Provides a collection of input data for a simulation run.
  * @param D the type of data used as input
  */
 abstract class InputSource<D : Any> : Iterable<InputData<D>> {
+
     /** The list of inputs. */
     protected abstract val inputDataList: List<InputData<D>>
 
@@ -20,27 +25,10 @@ abstract class InputSource<D : Any> : Iterable<InputData<D>> {
     object Default : InputSource<Unit>() {
         override val inputDataList: List<InputData<Unit>> = listOf(
             InputData(
-                "default",
-                0L,
-                Unit,
+                id = "default",
+                seed = 0L,
+                data = Unit,
             ),
         )
     }
-
-    //    class Images(dir: String) : InputSource<Source>() {
-//
-//        override val inputList: List<Input<Source>> = dir.listFiles { file: File ->
-//            file.isFile && (file.extension in ImageColorSource.readableImageFileExt)
-//        }
-//            .orEmpty()
-//            .sorted()
-//            .map { file ->
-//                val seed = file.nameWithoutExtension.hashCode().toLong() xor file.length()
-//                Input(
-//                    file.nameWithoutExtension,
-//                    seed,
-//                    file,
-//                )
-//            }
-//    }
 }

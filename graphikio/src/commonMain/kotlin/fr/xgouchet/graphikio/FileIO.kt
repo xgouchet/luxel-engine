@@ -2,4 +2,5 @@ package fr.xgouchet.graphikio
 
 import okio.FileSystem
 
-internal expect val fileSystem: FileSystem
+/** Shortcut to the underlying Okio Filesystem */
+ expect val fileSystem: FileSystem

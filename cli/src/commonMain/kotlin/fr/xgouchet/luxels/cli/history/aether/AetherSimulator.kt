@@ -14,6 +14,7 @@ import fr.xgouchet.luxels.core.render.projection.Projection
 import fr.xgouchet.luxels.core.simulation.Simulator
 import kotlin.math.PI
 import kotlin.time.Duration
+import kotlin.time.Duration.Companion.milliseconds
 
 internal class AetherSimulator : Simulator<AetherLuxel, Long> {
 
@@ -38,9 +39,12 @@ internal class AetherSimulator : Simulator<AetherLuxel, Long> {
         }
     }
 
-    override fun onFrameStart(simulation: Configuration.Simulation, time: Duration) {
-        super.onFrameStart(simulation, time)
-        frameCenterP = (time.inWholeMilliseconds / 1000.0)
+    override fun onFrameStart(simulation: Configuration.Simulation, time: Duration, animationDuration: Duration) {
+        super.onFrameStart(simulation, time, animationDuration)
+        if (animationDuration > 16.milliseconds)
+            frameCenterP = (time / animationDuration)
+        else
+            frameCenterP = RndGen.double.inRange(0.25, 0.75)
     }
 
     override fun spawnLuxel(simulation: Configuration.Simulation, time: Duration): AetherLuxel {
@@ -60,6 +64,7 @@ internal class AetherSimulator : Simulator<AetherLuxel, Long> {
             filmSpace,
             simulationSpace.center + offset,
             simulationSpace.center,
+            fov = 70.0,
         )
     }
 

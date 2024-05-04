@@ -31,7 +31,7 @@ internal class RenderSimulationWorker<L : Luxel, I : Any>(
         var step = 0
         while (luxel.isAlive()) {
             luxel.onStep(step)
-            expose(luxel.position(), luxel.color())
+            simulator.exposeLuxel(luxel) { position, color -> expose(position, color) }
             simulator.updateLuxel(luxel, time)
             step++
         }

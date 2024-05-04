@@ -21,32 +21,40 @@ object RndGen {
         seed = newSeed
         random = Random(newSeed)
         println("--- Reset Seed: $newSeed")
+
+        int = IntRandomGenerator(Random(seed))
+        double = DoubleRandomGenerator(Random(seed))
     }
 
     /**
      * @return a [RandomGenerator] generating integer numbers
      */
-    val int: RandomGenerator<Int> = IntRandomGenerator(Random(seed))
+    var int: RandomGenerator<Int> = IntRandomGenerator(Random(seed))
+        private set
 
     /**
      * @return a [RandomGenerator] generating double numbers
      */
-    val double: RandomGenerator<Double> = DoubleRandomGenerator(Random(seed))
+    var double: RandomGenerator<Double> = DoubleRandomGenerator(Random(seed))
+        private set
 
     /**
      * @return a [RandomGenerator] generating 2D vectors
      */
-    val vector2: RandomGenerator<Vector2> = Vector2RandomGenerator()
+    var vector2: RandomGenerator<Vector2> = Vector2RandomGenerator()
+        private set
 
     /**
      * @return a [RandomGenerator] generating 3D vectors
      */
-    val vector3: RandomGenerator<Vector3> = Vector3RandomGenerator()
+    var vector3: RandomGenerator<Vector3> = Vector3RandomGenerator()
+        private set
 
     /**
      * @return a [RandomGenerator] generating 4D vectors
      */
-    val vector4: RandomGenerator<Vector4> = Vector4RandomGenerator()
+    var vector4: RandomGenerator<Vector4> = Vector4RandomGenerator()
+        private set
 
 //  TODO  inline fun <reified E : Enum<E>> enum() = EnumRandomGenerator(E::class)
 }

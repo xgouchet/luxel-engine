@@ -14,7 +14,6 @@ plugins {
 
 project.afterEvaluate {
     tasks.findByPath("jvmTest")?.apply {
-        println("Found jvmTest in project $project")
         (this as? Test)?.useJUnitPlatform()
     }
 }

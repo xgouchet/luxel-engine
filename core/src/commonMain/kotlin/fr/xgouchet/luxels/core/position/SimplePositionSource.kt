@@ -4,9 +4,10 @@ import fr.xgouchet.luxels.core.math.geometry.Vector3
 
 /**
  * A static immutable [PositionSource].
+ * @property position the position of the luxel
  */
-class StaticPositionSource(
-    private val position: Vector3,
+class SimplePositionSource(
+    var position: Vector3,
 ) : PositionSource {
     // region PositionSource
 

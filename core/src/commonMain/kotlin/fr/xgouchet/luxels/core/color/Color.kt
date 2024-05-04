@@ -39,6 +39,14 @@ data class Color(
         return Color(r * scale, g * scale, b * scale, a * scale)
     }
 
+    /**
+     * @param scale the factor by which to multiply the color
+     * @return a color with each component multiplied by the given input
+     */
+    operator fun times(scale: Color): Color {
+        return Color(r * scale.r, g * scale.g, b * scale.b, a * scale.a)
+    }
+
     // endregion
 
     // region Color operations
