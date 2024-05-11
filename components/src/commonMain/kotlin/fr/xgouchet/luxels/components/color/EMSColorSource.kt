@@ -1,6 +1,6 @@
 package fr.xgouchet.luxels.components.color
 
-import fr.xgouchet.luxels.core.color.Color
+import fr.xgouchet.graphikio.color.HDRColor
 import fr.xgouchet.luxels.core.color.ColorSource
 import kotlin.math.pow
 
@@ -35,7 +35,7 @@ open class EMSColorSource(
     // region ColorSource
 
     @Suppress("NamedArguments")
-    override fun color(): Color {
+    override fun color(): HDRColor {
         val redHigh = lerpWithin(waveLength, PURE_GREEN, PURE_YELLOW, Double.MAX_VALUE, Double.MAX_VALUE)
         val green = lerpWithin(waveLength, PURE_BLUE, PURE_TEAL, PURE_YELLOW, PURE_RED)
         val blue = lerpWithin(waveLength, 0.0, 0.0, PURE_TEAL, PURE_GREEN)
@@ -44,7 +44,7 @@ open class EMSColorSource(
         val falloff = lerpWithin(waveLength, MIN_VISIBLE_LIGHT, MIN_FALLOFF, MAX_FALLOFF, MAX_VISIBLE_LIGHT)
         val alpha = lerpWithin(waveLength, MIN_UV_LIGHT, MIN_VISIBLE_LIGHT, MAX_VISIBLE_LIGHT, MAX_IR_LIGHT)
 
-        return Color(
+        return HDRColor(
             channel(redHigh + redLow, falloff),
             channel(green, falloff),
             channel(blue, falloff),

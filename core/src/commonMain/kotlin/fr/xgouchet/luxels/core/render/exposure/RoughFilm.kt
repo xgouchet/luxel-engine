@@ -1,6 +1,6 @@
 package fr.xgouchet.luxels.core.render.exposure
 
-import fr.xgouchet.luxels.core.color.Color
+import fr.xgouchet.graphikio.color.Color
 import fr.xgouchet.luxels.core.configuration.Resolution
 import fr.xgouchet.luxels.core.math.geometry.Vector2
 import kotlin.math.roundToInt
@@ -11,6 +11,7 @@ import kotlin.math.roundToInt
 internal class RoughFilm(
     resolution: Resolution,
 ) : AbstractFilm(resolution) {
+
     // region Film
 
     override fun expose(position: Vector2, color: Color) {

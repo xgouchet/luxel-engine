@@ -1,6 +1,7 @@
 package fr.xgouchet.luxels.core.simulation
 
-import fr.xgouchet.luxels.core.color.Color
+import fr.xgouchet.graphikio.color.Color
+import fr.xgouchet.graphikio.color.HDRColor
 import fr.xgouchet.luxels.core.configuration.Configuration
 import fr.xgouchet.luxels.core.configuration.PassType
 import fr.xgouchet.luxels.core.configuration.input.InputData
@@ -90,5 +91,5 @@ interface Simulator<L : Luxel, I : Any> {
      * @param time the current time within the simulated animation
      * @return the color of the environment based on the given inputs
      */
-    fun environmentColor(position: Vector3, time: Duration): Color = Color.WHITE
+    fun environmentColor(position: Vector3, time: Duration): Color = HDRColor.WHITE
 }

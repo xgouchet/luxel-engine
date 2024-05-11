@@ -1,6 +1,6 @@
 package fr.xgouchet.luxels.core.simulation.worker
 
-import fr.xgouchet.luxels.core.color.Color
+import fr.xgouchet.graphikio.color.Color
 import fr.xgouchet.luxels.core.configuration.Configuration
 import fr.xgouchet.luxels.core.math.geometry.Vector3
 import fr.xgouchet.luxels.core.model.Luxel
@@ -16,6 +16,7 @@ internal abstract class AbstractSimulationWorker<L : Luxel, I : Any>(
     private val projection: Projection,
     protected val time: Duration,
 ) : SimulationWorker {
+
     // region AbstractSimulationWorker
 
     abstract fun simulateSingleLuxel(i: Long)

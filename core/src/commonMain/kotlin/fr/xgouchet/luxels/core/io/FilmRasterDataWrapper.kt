@@ -1,7 +1,6 @@
 package fr.xgouchet.luxels.core.io
 
 import fr.xgouchet.graphikio.color.Color
-import fr.xgouchet.graphikio.color.HDRColor
 import fr.xgouchet.graphikio.data.MetadataAttribute
 import fr.xgouchet.graphikio.data.RasterData
 import fr.xgouchet.luxels.core.render.exposure.Film
@@ -23,7 +22,7 @@ internal class FilmRasterDataWrapper(
     override val height: Int = film.height
 
     override fun getColor(x: Int, y: Int): Color {
-        return film.getColor(x, y).asUnboundColor() * scaledIso
+        return film.getColor(x, y) * scaledIso
     }
 
     override fun getMetadata(): Map<String, MetadataAttribute> {
@@ -31,8 +30,4 @@ internal class FilmRasterDataWrapper(
     }
 
     // endregion
-}
-
-private fun fr.xgouchet.luxels.core.color.Color.asUnboundColor(): HDRColor {
-    return HDRColor(r, g, b, a)
 }

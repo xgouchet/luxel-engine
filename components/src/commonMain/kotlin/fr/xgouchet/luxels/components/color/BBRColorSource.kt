@@ -1,6 +1,6 @@
 package fr.xgouchet.luxels.components.color
 
-import fr.xgouchet.luxels.core.color.Color
+import fr.xgouchet.graphikio.color.HDRColor
 import fr.xgouchet.luxels.core.color.ColorSource
 import kotlin.math.ln
 import kotlin.math.pow
@@ -24,7 +24,7 @@ open class BBRColorSource(
 
     // region ColorSource
 
-    override fun color(): Color {
+    override fun color(): HDRColor {
         return temperatureToRGB(temperature)
     }
 
@@ -32,7 +32,7 @@ open class BBRColorSource(
 
     // region Internal
 
-    private fun temperatureToRGB(kelvin: Double): Color {
+    private fun temperatureToRGB(kelvin: Double): HDRColor {
         val temp = kelvin / 100.0
 
         val red: Double = if (temp <= 66.0) {
@@ -59,7 +59,7 @@ open class BBRColorSource(
 
 //        val intensity = kelvin.pow(0.10418521566)
 
-        return Color(
+        return HDRColor(
             red.coerceIn(0.0, 1.0),
             green.coerceIn(0.0, 1.0),
             blue.coerceIn(0.0, 1.0),

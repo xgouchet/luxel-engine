@@ -1,8 +1,8 @@
 package fr.xgouchet.luxels.components.color.atomic
 
+import fr.xgouchet.graphikio.color.HDRColor
 import fr.xgouchet.luxels.components.color.EMSColorSource
 import fr.xgouchet.luxels.components.color.WavelengthNanometer
-import fr.xgouchet.luxels.core.color.Color
 import fr.xgouchet.luxels.core.color.ColorSource
 import fr.xgouchet.luxels.core.math.random.RndGen
 
@@ -34,7 +34,7 @@ abstract class ASLColorSource(
 
     // region ColorSource
 
-    override fun color(): Color {
+    override fun color(): HDRColor {
         val index = RndGen.int.inRange(0, spectralLines.size)
         val line = spectralLines[index]
         waveLength = line.waveLength

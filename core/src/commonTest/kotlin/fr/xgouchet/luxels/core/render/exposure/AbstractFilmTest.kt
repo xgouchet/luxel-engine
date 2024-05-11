@@ -1,6 +1,6 @@
 package fr.xgouchet.luxels.core.render.exposure
 
-import fr.xgouchet.luxels.core.color.Color
+import fr.xgouchet.graphikio.color.HDRColor
 import fr.xgouchet.luxels.core.configuration.Resolution
 import fr.xgouchet.luxels.core.math.geometry.Vector2
 import fr.xgouchet.luxels.core.test.kotest.assertions.shouldBeCloseTo
@@ -32,7 +32,7 @@ internal fun abstractFilmTest(supportsDirectExposure: Boolean = true, filmProvid
 
                     film.expose(i, j, color, intensity)
 
-                    film.getColor(i, j) shouldBeCloseTo Color.TRANSPARENT
+                    film.getColor(i, j) shouldBeCloseTo HDRColor.TRANSPARENT
                 }
             }
             it("does nothing when exposing outside the bounds of the film (-y)") {
@@ -47,7 +47,7 @@ internal fun abstractFilmTest(supportsDirectExposure: Boolean = true, filmProvid
 
                     film.expose(i, j, color, intensity)
 
-                    film.getColor(i, j) shouldBeCloseTo Color.TRANSPARENT
+                    film.getColor(i, j) shouldBeCloseTo HDRColor.TRANSPARENT
                 }
             }
 
@@ -63,7 +63,7 @@ internal fun abstractFilmTest(supportsDirectExposure: Boolean = true, filmProvid
 
                     film.expose(i, j, color, intensity)
 
-                    film.getColor(i, j) shouldBeCloseTo Color.TRANSPARENT
+                    film.getColor(i, j) shouldBeCloseTo HDRColor.TRANSPARENT
                 }
             }
 
@@ -79,7 +79,7 @@ internal fun abstractFilmTest(supportsDirectExposure: Boolean = true, filmProvid
 
                     film.expose(i, j, color, intensity)
 
-                    film.getColor(i, j) shouldBeCloseTo Color.TRANSPARENT
+                    film.getColor(i, j) shouldBeCloseTo HDRColor.TRANSPARENT
                 }
             }
 
@@ -106,9 +106,9 @@ internal fun abstractFilmTest(supportsDirectExposure: Boolean = true, filmProvid
                     Arb.double(0.1, 100.0),
                 ) { resolution, i, j, intensity ->
                     val film = filmProvider(resolution)
-                    val expectedColor = Color(intensity, intensity, intensity, intensity)
+                    val expectedColor = HDRColor(intensity, intensity, intensity, intensity)
 
-                    film.expose(i % resolution.width, j % resolution.height, Color.WHITE, intensity)
+                    film.expose(i % resolution.width, j % resolution.height, HDRColor.WHITE, intensity)
 
                     film.getColor(i % resolution.width, j % resolution.height) shouldBeCloseTo expectedColor
                 }
@@ -129,7 +129,7 @@ internal fun abstractFilmTest(supportsDirectExposure: Boolean = true, filmProvid
 
                     for (i in floor(x).toInt()..ceil(x).toInt()) {
                         for (j in floor(y).toInt()..ceil(y).toInt()) {
-                            film.getColor(i, j) shouldBeCloseTo Color.TRANSPARENT
+                            film.getColor(i, j) shouldBeCloseTo HDRColor.TRANSPARENT
                         }
                     }
                 }
@@ -147,7 +147,7 @@ internal fun abstractFilmTest(supportsDirectExposure: Boolean = true, filmProvid
 
                     for (i in floor(x).toInt()..ceil(x).toInt()) {
                         for (j in floor(y).toInt()..ceil(y).toInt()) {
-                            film.getColor(i, j) shouldBeCloseTo Color.TRANSPARENT
+                            film.getColor(i, j) shouldBeCloseTo HDRColor.TRANSPARENT
                         }
                     }
                 }
@@ -166,7 +166,7 @@ internal fun abstractFilmTest(supportsDirectExposure: Boolean = true, filmProvid
 
                     for (i in floor(x).toInt()..ceil(x).toInt()) {
                         for (j in floor(y).toInt()..ceil(y).toInt()) {
-                            film.getColor(i, j) shouldBeCloseTo Color.TRANSPARENT
+                            film.getColor(i, j) shouldBeCloseTo HDRColor.TRANSPARENT
                         }
                     }
                 }
@@ -185,7 +185,7 @@ internal fun abstractFilmTest(supportsDirectExposure: Boolean = true, filmProvid
 
                     for (i in floor(x).toInt()..ceil(x).toInt()) {
                         for (j in floor(y).toInt()..ceil(y).toInt()) {
-                            film.getColor(i, j) shouldBeCloseTo Color.TRANSPARENT
+                            film.getColor(i, j) shouldBeCloseTo HDRColor.TRANSPARENT
                         }
                     }
                 }

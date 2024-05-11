@@ -1,6 +1,7 @@
 package fr.xgouchet.luxels.core.render.exposure
 
-import fr.xgouchet.luxels.core.color.Color
+import fr.xgouchet.graphikio.color.Color
+import fr.xgouchet.graphikio.color.HDRColor
 import fr.xgouchet.luxels.core.math.geometry.Vector2
 
 /**
@@ -30,5 +31,5 @@ interface Film {
      * @param j the row index of the pixel
      * @return the color of the pixel
      */
-    fun getColor(i: Int, j: Int): Color
+    fun getColor(i: Int, j: Int): HDRColor
 }

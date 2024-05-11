@@ -1,6 +1,6 @@
 package fr.xgouchet.luxels.core.simulation.worker
 
-import fr.xgouchet.luxels.core.color.Color
+import fr.xgouchet.graphikio.color.HDRColor
 import fr.xgouchet.luxels.core.configuration.Configuration
 import fr.xgouchet.luxels.core.model.Luxel
 import fr.xgouchet.luxels.core.render.exposure.Film
@@ -15,6 +15,7 @@ internal class SpawnSimulationWorker<L : Luxel, I : Any>(
     projection: Projection,
     time: Duration,
 ) : AbstractSimulationWorker<L, I>(film, simulator, simulation, projection, time) {
+
     // region AbstractSimulationWorker
 
     override fun simulateSingleLuxel(i: Long) {
@@ -26,6 +27,6 @@ internal class SpawnSimulationWorker<L : Luxel, I : Any>(
     // endregion
 
     companion object {
-        val SPAWN_COLOR = Color.GREEN
+        val SPAWN_COLOR = HDRColor.GREEN
     }
 }
