@@ -46,7 +46,7 @@ interface Simulator<L : Luxel, I : Any> {
     fun onFrameStart(
         simulation: Configuration.Simulation,
         time: Duration,
-        animationDuration: Duration
+        animationDuration: Duration,
     ) {
     }
 

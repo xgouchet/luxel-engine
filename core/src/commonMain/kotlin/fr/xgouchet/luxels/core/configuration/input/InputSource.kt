@@ -1,9 +1,5 @@
 package fr.xgouchet.luxels.core.configuration.input
 
-import fr.xgouchet.graphikio.data.RasterData
-import fr.xgouchet.graphikio.fileSystem
-import okio.Path
-
 /**
  * Provides a collection of input data for a simulation run.
  * @param D the type of data used as input

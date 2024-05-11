@@ -12,5 +12,4 @@ class FilesInputSource(private val inputDir: Path) : InputSource<Path>() {
             it,
         )
     }
-
 }
