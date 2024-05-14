@@ -1,6 +1,6 @@
 package fr.xgouchet.luxels.cli.buddhabrot
 
-import fr.xgouchet.luxels.core.color.Color
+import fr.xgouchet.graphikio.color.HDRColor
 import fr.xgouchet.luxels.core.color.StaticColorSource
 import fr.xgouchet.luxels.core.configuration.Configuration
 import fr.xgouchet.luxels.core.configuration.input.InputData
@@ -20,10 +20,10 @@ internal class BuddhabrotSimulator : Simulator<BuddhabrotLuxel, Unit> {
 
     override fun spawnLuxel(simulation: Configuration.Simulation, time: Duration): BuddhabrotLuxel {
         val (color, lifespan) = when (RndGen.int.inRange(0, 3)) {
-            0 -> Color.RED to 0x4_000
-            1 -> Color.GREEN to 0x2_000
-            2 -> Color.BLUE to 0x1_000
-            else -> Color.TRANSPARENT to 1
+            0 -> HDRColor.RED to 0x4_000
+            1 -> HDRColor.GREEN to 0x2_000
+            2 -> HDRColor.BLUE to 0x1_000
+            else -> HDRColor.TRANSPARENT to 1
         }
 
         return BuddhabrotLuxel(

@@ -1,9 +1,9 @@
 package fr.xgouchet.luxels.cli.history.aether
 
+import fr.xgouchet.graphikio.color.HDRColor
 import fr.xgouchet.luxels.components.color.EMSColorSource
 import fr.xgouchet.luxels.components.color.WavelengthNanometer
 import fr.xgouchet.luxels.components.geometry.Curve
-import fr.xgouchet.luxels.core.color.Color
 import fr.xgouchet.luxels.core.math.TAU
 import fr.xgouchet.luxels.core.math.geometry.Vector3
 import fr.xgouchet.luxels.core.model.AgeingLifespanSource
@@ -28,7 +28,7 @@ internal class AetherLuxel(
         return curve3.getPosition(progress)
     }
 
-    override fun color(): Color {
+    override fun color(): HDRColor {
         val rawColor = super.color()
         val progress = lifespanSource.progression
         val factor = (1.0 - cos(progress * TAU)) / 2.0

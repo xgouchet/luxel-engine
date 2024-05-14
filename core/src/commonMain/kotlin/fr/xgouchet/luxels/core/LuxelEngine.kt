@@ -108,6 +108,7 @@ object LuxelEngine {
         }
 
         val elapsed = Clock.System.now() - frameStart
+        simulator.onFrameEnd(frameInfo.frameTime, configuration.animation.duration)
         println("\r    ✔ Frame $frameInfo simulation complete in $elapsed")
     }
 

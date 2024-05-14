@@ -1,6 +1,8 @@
 package fr.xgouchet.luxels.cli.debug
 
-import fr.xgouchet.luxels.core.color.Color
+import fr.xgouchet.graphikio.color.Color
+import fr.xgouchet.graphikio.color.HDRColor
+import fr.xgouchet.graphikio.color.asHDR
 import fr.xgouchet.luxels.core.math.geometry.Vector3
 import fr.xgouchet.luxels.core.math.random.RndGen
 import fr.xgouchet.luxels.core.model.Luxel
@@ -13,8 +15,8 @@ internal class DebugLuxel(
 
     // region ColorSource
 
-    override fun color(): Color {
-        return color
+    override fun color(): HDRColor {
+        return color.asHDR()
     }
 
     // endregion

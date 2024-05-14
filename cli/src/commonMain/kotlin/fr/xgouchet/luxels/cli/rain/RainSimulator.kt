@@ -1,9 +1,9 @@
 package fr.xgouchet.luxels.cli.rain
 
+import fr.xgouchet.graphikio.color.HDRColor
 import fr.xgouchet.luxels.components.color.EMSColorSource
 import fr.xgouchet.luxels.components.noise.PerlinNoiseGenerator
 import fr.xgouchet.luxels.components.noise.wrapper.Vector3ToDoubleNoiseGenerator
-import fr.xgouchet.luxels.core.color.Color
 import fr.xgouchet.luxels.core.configuration.Configuration
 import fr.xgouchet.luxels.core.configuration.input.InputData
 import fr.xgouchet.luxels.core.math.EPSILON
@@ -145,12 +145,12 @@ internal class RainSimulator : Simulator<RainLuxel, Long> {
         }
     }
 
-    override fun environmentColor(position: Vector3, time: Duration): Color {
+    override fun environmentColor(position: Vector3, time: Duration): HDRColor {
         val ri = getRefractionIndex(position)
         return when (ri) {
-            outRI -> Color.BLUE
-            inRI -> Color.GREEN
-            else -> Color.RED
+            outRI -> HDRColor.BLUE
+            inRI -> HDRColor.GREEN
+            else -> HDRColor.RED
         }
     }
 
@@ -172,7 +172,7 @@ internal class RainSimulator : Simulator<RainLuxel, Long> {
     private fun getNormal(position: Vector3): Vector3 {
         var normal = Vector3.NULL
         val ri = getRefractionIndex(position)
-        for (i in 0 until 360 step 45) {
+        for (i in 0..<360 step 45) {
             val angle = TAU * i / 360.0
             val offset = Vector3.fromSpherical(angle, radius = 10.0)
             val otherRi = getRefractionIndex(position + offset)

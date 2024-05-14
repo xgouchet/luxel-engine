@@ -1,8 +1,9 @@
 package fr.xgouchet.luxels.cli.history.pixie
 
 import fr.xgouchet.graphikio.GraphikIO
+import fr.xgouchet.graphikio.color.Color
+import fr.xgouchet.graphikio.color.HDRColor
 import fr.xgouchet.graphikio.data.RasterData
-import fr.xgouchet.luxels.core.color.Color
 import fr.xgouchet.luxels.core.configuration.Configuration
 import fr.xgouchet.luxels.core.configuration.input.InputData
 import fr.xgouchet.luxels.core.math.geometry.Space3
@@ -12,7 +13,6 @@ import fr.xgouchet.luxels.core.math.random.RndGen
 import fr.xgouchet.luxels.core.simulation.Simulator
 import okio.Path
 import kotlin.time.Duration
-
 
 internal class PixieSimulator : Simulator<PixieLuxel, Path> {
 
@@ -26,14 +26,13 @@ internal class PixieSimulator : Simulator<PixieLuxel, Path> {
     }
 
     override fun spawnLuxel(simulation: Configuration.Simulation, time: Duration): PixieLuxel {
-
         val uv = Vector2(RndGen.double.uniform(), RndGen.double.uniform())
         val position = (Vector3(uv.x, uv.y, 0.0) * simulation.space.size) + simulation.space.min
 
         val (colorMask, iteration) = when (RndGen.int.uniform() % 3) {
-            0 -> (Color.RED * 0.05) to 20
-            1 -> (Color.GREEN * 0.01) to 100
-            2 -> (Color.BLUE * 0.002) to 500
+            0 -> (HDRColor.RED * 0.05) to 20
+            1 -> (HDRColor.GREEN * 0.01) to 100
+            2 -> (HDRColor.BLUE * 0.002) to 500
             else -> TODO()
         }
 
@@ -55,7 +54,7 @@ internal class PixieSimulator : Simulator<PixieLuxel, Path> {
         val homogenousDir = Vector3(
             (color.hue() * 2.0) - 1.0,
             (color.saturation() * 2.0) - 1.0,
-            0.0
+            0.0,
         ) * color.value()
 
         val newPosition = keepInRange(homogenousPos + (homogenousDir * SPEED_SCALE))

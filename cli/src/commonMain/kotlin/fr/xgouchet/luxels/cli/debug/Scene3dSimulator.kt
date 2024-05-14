@@ -1,6 +1,6 @@
 package fr.xgouchet.luxels.cli.debug
 
-import fr.xgouchet.luxels.core.color.Color
+import fr.xgouchet.graphikio.color.HDRColor
 import fr.xgouchet.luxels.core.configuration.Configuration
 import fr.xgouchet.luxels.core.math.geometry.Space2
 import fr.xgouchet.luxels.core.math.geometry.Space3
@@ -50,22 +50,22 @@ internal class Scene3dSimulator : Simulator<DebugLuxel, Long> {
 
         val c = t + 1.0
         val color = when (edge) {
-            0 -> Color(c, 0.0, 0.0)
-            1 -> Color(c, 0.0, 1.0)
-            2 -> Color(c, 1.0, 0.0)
-            3 -> Color(c, 1.0, 1.0)
+            0 -> HDRColor(c, 0.0, 0.0)
+            1 -> HDRColor(c, 0.0, 1.0)
+            2 -> HDRColor(c, 1.0, 0.0)
+            3 -> HDRColor(c, 1.0, 1.0)
 
-            4 -> Color(0.0, c, 0.0)
-            5 -> Color(0.0, c, 1.0)
-            6 -> Color(1.0, c, 0.0)
-            7 -> Color(1.0, c, 1.0)
+            4 -> HDRColor(0.0, c, 0.0)
+            5 -> HDRColor(0.0, c, 1.0)
+            6 -> HDRColor(1.0, c, 0.0)
+            7 -> HDRColor(1.0, c, 1.0)
 
-            8 -> Color(0.0, 0.0, c)
-            9 -> Color(0.0, 1.0, c)
-            10 -> Color(1.0, 0.0, c)
-            11 -> Color(1.0, 1.0, c)
+            8 -> HDRColor(0.0, 0.0, c)
+            9 -> HDRColor(0.0, 1.0, c)
+            10 -> HDRColor(1.0, 0.0, c)
+            11 -> HDRColor(1.0, 1.0, c)
 
-            else -> Color.BLACK
+            else -> HDRColor.BLACK
         }
 
         val position = (p * simulation.space.size * 0.1) + simulation.space.center

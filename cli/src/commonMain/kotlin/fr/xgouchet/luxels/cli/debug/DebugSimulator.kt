@@ -1,10 +1,10 @@
 package fr.xgouchet.luxels.cli.debug
 
+import fr.xgouchet.graphikio.color.HDRColor
 import fr.xgouchet.luxels.components.noise.DimensionalNoiseGenerator
 import fr.xgouchet.luxels.components.noise.PerlinNoiseGenerator
 import fr.xgouchet.luxels.components.noise.RidgeNoiseGenerator
 import fr.xgouchet.luxels.components.noise.wrapper.Vector3ToDoubleNoiseGenerator
-import fr.xgouchet.luxels.core.color.Color
 import fr.xgouchet.luxels.core.configuration.Configuration
 import fr.xgouchet.luxels.core.math.geometry.Vector3
 import fr.xgouchet.luxels.core.math.random.RndGen
@@ -34,7 +34,7 @@ internal class DebugSimulator : Simulator<DebugLuxel, Long> {
 //        val noise = vectorToVector.noise(position * noiseScale)
 //        val color = Color(noise.x, noise.y, noise.z)
         val noise = vectorToDouble.noise((position * noiseScale) + noiseOffset)
-        val color = Color(noise, noise, noise)
+        val color = HDRColor(noise, noise, noise)
 
         return DebugLuxel(
             position,

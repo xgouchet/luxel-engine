@@ -52,6 +52,13 @@ interface Simulator<L : Luxel, I : Any> {
     }
 
     /**
+     * Called once when a frame ends.
+     * @param time the current time within the simulated animation
+     * @param animationDuration the total duration of the current animation
+     */
+    fun onFrameEnd(time: Duration, animationDuration: Duration) {}
+
+    /**
      * Spawns a [Luxel] in the simulator.
      * @param simulation the simulation options
      * @param time the current time within the simulated animation
@@ -91,5 +98,5 @@ interface Simulator<L : Luxel, I : Any> {
      * @param time the current time within the simulated animation
      * @return the color of the environment based on the given inputs
      */
-    fun environmentColor(position: Vector3, time: Duration): Color = HDRColor.WHITE
+    fun environmentColor(position: Vector3, time: Duration): HDRColor = HDRColor.WHITE
 }

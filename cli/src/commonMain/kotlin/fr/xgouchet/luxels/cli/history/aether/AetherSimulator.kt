@@ -41,10 +41,11 @@ internal class AetherSimulator : Simulator<AetherLuxel, Long> {
 
     override fun onFrameStart(simulation: Configuration.Simulation, time: Duration, animationDuration: Duration) {
         super.onFrameStart(simulation, time, animationDuration)
-        if (animationDuration > 16.milliseconds)
+        if (animationDuration > 16.milliseconds) {
             frameCenterP = (time / animationDuration)
-        else
+        } else {
             frameCenterP = RndGen.double.inRange(0.25, 0.75)
+        }
     }
 
     override fun spawnLuxel(simulation: Configuration.Simulation, time: Duration): AetherLuxel {
