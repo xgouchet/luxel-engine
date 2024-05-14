@@ -1,8 +1,10 @@
 package fr.xgouchet.luxels.core.math
 
+import fr.xgouchet.luxels.core.test.kotest.assertions.beCloseTo
 import fr.xgouchet.luxels.core.test.kotest.assertions.isTooSmall
 import fr.xgouchet.luxels.core.test.kotest.assertions.shouldBeCloseTo
 import fr.xgouchet.luxels.core.test.kotest.property.doubleArb
+import fr.xgouchet.luxels.core.test.kotest.property.doubleInfiniteArb
 import fr.xgouchet.luxels.core.test.kotest.property.doubleNaNArb
 import fr.xgouchet.luxels.core.test.kotest.property.vectorArb
 import io.kotest.assertions.assertSoftly
@@ -10,24 +12,26 @@ import io.kotest.core.spec.style.describeSpec
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.doubles.shouldBeGreaterThanOrEqual
 import io.kotest.matchers.doubles.shouldBeLessThanOrEqual
+import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
 import io.kotest.property.arbitrary.arbitrary
 import io.kotest.property.checkAll
 import io.kotest.property.withAssumptions
 import kotlin.math.abs
 
+@Suppress("LocalVariableName", "NonAsciiCharacters", "ktlint:standard:property-naming")
 fun <D : Dimension> abstractVectorSpec(d: D) = describeSpec {
     val nul = Vector.nul(d)
     val unit = Vector.unit(d)
     val axes = Vector.axes(d)
     val vectorArb = vectorArb(d)
 
-    describe("minus") {
+    describe("minus ($d)") {
         it("is consistent with addition: u + (-u) = null") {
             checkAll(vectorArb) { u ->
                 val `u + _-u_` = u + (-u)
 
-                `u + _-u_` shouldBeCloseTo nul
+                `u + _-u_` should beCloseTo(nul)
             }
         }
 
@@ -36,18 +40,18 @@ fun <D : Dimension> abstractVectorSpec(d: D) = describeSpec {
                 val `-u` = -u
                 val `null - u` = nul - u
 
-                `-u` shouldBeCloseTo `null - u`
+                `-u` should beCloseTo(`null - u`)
             }
         }
     }
 
-    describe("addition") {
+    describe("addition ($d)") {
         it("is commutative: u + v = v + u") {
             checkAll(vectorArb, vectorArb) { u, v ->
                 val `u + v` = u + v
                 val `v + u` = v + u
 
-                `u + v` shouldBeCloseTo `v + u`
+                `u + v` should beCloseTo(`v + u`)
             }
         }
 
@@ -56,7 +60,7 @@ fun <D : Dimension> abstractVectorSpec(d: D) = describeSpec {
                 val `u + _v + w_` = u + (v + w)
                 val `_u + v_ + w` = (u + v) + w
 
-                `u + _v + w_` shouldBeCloseTo `_u + v_ + w`
+                `u + _v + w_` should beCloseTo(`_u + v_ + w`)
             }
         }
 
@@ -64,7 +68,7 @@ fun <D : Dimension> abstractVectorSpec(d: D) = describeSpec {
             checkAll(vectorArb) { u ->
                 val `u + 0` = u + nul
 
-                `u + 0` shouldBeCloseTo u
+                `u + 0` should beCloseTo(u)
             }
         }
 
@@ -81,19 +85,19 @@ fun <D : Dimension> abstractVectorSpec(d: D) = describeSpec {
         }
     }
 
-    describe("subtraction") {
+    describe("subtraction ($d)") {
         it("is consistent with addition: (u + v) - v = u") {
             checkAll(vectorArb, vectorArb) { u, v ->
                 val `_u + v_ - v` = (u + v) - v
 
-                `_u + v_ - v` shouldBeCloseTo u
+                `_u + v_ - v` should beCloseTo(u)
             }
         }
         it("is consistent with addition: (u - v) + v = u") {
             checkAll(vectorArb, vectorArb) { u, v ->
                 val `_u - v_ + v` = (u - v) + v
 
-                `_u - v_ + v` shouldBeCloseTo u
+                `_u - v_ + v` should beCloseTo(u)
             }
         }
 
@@ -101,7 +105,7 @@ fun <D : Dimension> abstractVectorSpec(d: D) = describeSpec {
             checkAll(vectorArb) { u ->
                 val `u - 0` = u - nul
 
-                `u - 0` shouldBeCloseTo u
+                `u - 0` should beCloseTo(u)
             }
         }
 
@@ -118,13 +122,13 @@ fun <D : Dimension> abstractVectorSpec(d: D) = describeSpec {
         }
     }
 
-    describe("scalar multiplication") {
+    describe("scalar multiplication ($d)") {
         it("is associative: u × (x × y) = (u × x) × y") {
             checkAll(vectorArb, doubleArb(), doubleArb()) { u, x, y ->
                 val `u × _x × y_` = u * (x * y)
                 val `_u × x_ × y` = (u * x) * y
 
-                `u × _x × y_` shouldBeCloseTo `_u × x_ × y`
+                `u × _x × y_` should beCloseTo(`_u × x_ × y`)
             }
         }
 
@@ -132,7 +136,7 @@ fun <D : Dimension> abstractVectorSpec(d: D) = describeSpec {
             checkAll(vectorArb) { u ->
                 val `u × one` = u * 1.0
 
-                `u × one` shouldBeCloseTo u
+                `u × one` should beCloseTo(u)
             }
         }
 
@@ -140,7 +144,7 @@ fun <D : Dimension> abstractVectorSpec(d: D) = describeSpec {
             checkAll(vectorArb) { u ->
                 val `u × zero` = u * 0.0
 
-                `u × zero` shouldBeCloseTo nul
+                `u × zero` should beCloseTo(nul)
             }
         }
 
@@ -157,13 +161,13 @@ fun <D : Dimension> abstractVectorSpec(d: D) = describeSpec {
         }
     }
 
-    describe("vector multiplication") {
+    describe("vector multiplication ($d)") {
         it("is associative: u × (v × w) = (u × v) × w") {
             checkAll(vectorArb, vectorArb, vectorArb) { u, v, w ->
                 val `u × _v × w_` = u * (v * w)
                 val `_u × v_ × w` = (u * v) * w
 
-                `u × _v × w_` shouldBeCloseTo `_u × v_ × w`
+                `u × _v × w_` should beCloseTo(`_u × v_ × w`)
             }
         }
 
@@ -171,7 +175,7 @@ fun <D : Dimension> abstractVectorSpec(d: D) = describeSpec {
             checkAll(vectorArb) { u ->
                 val `u × unit` = u * unit
 
-                `u × unit` shouldBeCloseTo u
+                `u × unit` should beCloseTo(u)
             }
         }
 
@@ -179,18 +183,18 @@ fun <D : Dimension> abstractVectorSpec(d: D) = describeSpec {
             checkAll(vectorArb) { u ->
                 val `u × null` = u * nul
 
-                `u × null` shouldBeCloseTo nul
+                `u × null` should beCloseTo(nul)
             }
         }
     }
 
-    describe("scalar division") {
+    describe("scalar division ($d)") {
         it("is consistent with scalar multiplication: (u × x) ÷ x = u") {
             checkAll(vectorArb, doubleArb()) { u, x ->
                 withAssumptions(abs(x) > EPSILON) {
                     val `_u × x_ ÷ x` = (u * x) / x
 
-                    `_u × x_ ÷ x` shouldBeCloseTo u
+                    `_u × x_ ÷ x` should beCloseTo(u)
                 }
             }
         }
@@ -200,7 +204,7 @@ fun <D : Dimension> abstractVectorSpec(d: D) = describeSpec {
                 withAssumptions(abs(x) > EPSILON) {
                     val `_u ÷ x_ × x` = (u / x) * x
 
-                    `_u ÷ x_ × x` shouldBeCloseTo u
+                    `_u ÷ x_ × x` should beCloseTo(u)
                 }
             }
         }
@@ -209,18 +213,18 @@ fun <D : Dimension> abstractVectorSpec(d: D) = describeSpec {
             checkAll(vectorArb) { u ->
                 val `u ÷ one` = u / 1.0
 
-                `u ÷ one` shouldBeCloseTo u
+                `u ÷ one` should beCloseTo(u)
             }
         }
     }
 
-    describe("vector division") {
+    describe("vector division ($d)") {
         it("is consistent with vector multiplication: (u × v) ÷ v = u") {
             checkAll(vectorArb, vectorArb) { u, v ->
                 withAssumptions(!v.isTooSmall()) {
                     val `_u × v_ ÷ v` = (u * v) / v
 
-                    `_u × v_ ÷ v` shouldBeCloseTo u
+                    `_u × v_ ÷ v` should beCloseTo(u)
                 }
             }
         }
@@ -230,7 +234,7 @@ fun <D : Dimension> abstractVectorSpec(d: D) = describeSpec {
                 withAssumptions(!v.isTooSmall()) {
                     val `_u ÷ v_ × v` = (u / v) * v
 
-                    `_u ÷ v_ × v` shouldBeCloseTo u
+                    `_u ÷ v_ × v` should beCloseTo(u)
                 }
             }
         }
@@ -239,12 +243,198 @@ fun <D : Dimension> abstractVectorSpec(d: D) = describeSpec {
             checkAll(vectorArb) { u ->
                 val `u ÷ unit` = u / unit
 
-                `u ÷ unit` shouldBeCloseTo u
+                `u ÷ unit` should beCloseTo(u)
             }
         }
     }
 
-    describe("length") {
+    describe("isLessThanOrEqual ($d)") {
+        it("returns true when equal") {
+            checkAll(vectorArb) { u ->
+                u isLessThanOrEqual u shouldBe true
+            }
+        }
+
+        it("returns true when compared with successor") {
+            checkAll(vectorArb) { u ->
+                u isLessThanOrEqual u + unit shouldBe true
+            }
+        }
+
+        it("is consistent with addition") {
+            checkAll(vectorArb, vectorArb, vectorArb) { u, v, w ->
+                val `v lte u` = v isLessThanOrEqual u
+                val `v + w lte u + w` = (v + w) isLessThanOrEqual (u + w)
+
+                `v lte u` shouldBe `v + w lte u + w`
+            }
+        }
+
+        it("is consistent with multiplication") {
+            checkAll(vectorArb, vectorArb, doubleArb()) { u, v, r ->
+                val k = abs(r)
+
+                withAssumptions(k > EPSILON) {
+                    val `v lte u` = v isLessThanOrEqual u
+                    val `kv lte ku` = (v * k) isLessThanOrEqual (u * k)
+
+                    `v lte u` shouldBe `kv lte ku`
+                }
+            }
+        }
+
+        it("is consistent with greaterThan") {
+            checkAll(vectorArb, vectorArb) { u, v ->
+                val `v lte u` = v isLessThanOrEqual u
+                val `v gt u` = v isGreaterThan u
+
+                if (`v lte u`) {
+                    `v gt u` shouldBe false
+                }
+                if (`v gt u`) {
+                    `v lte u` shouldBe false
+                }
+            }
+        }
+
+        it("is consistent with isLessThan") {
+            checkAll(vectorArb, vectorArb) { u, v ->
+                val `v lt u` = v isLessThan u
+                val `v lte u` = v isLessThanOrEqual u
+
+                if (`v lt u`) {
+                    `v lte u` shouldBe true
+                }
+                if (!`v lte u`) {
+                    `v lt u` shouldBe false
+                }
+            }
+        }
+    }
+
+    describe("isLessThan ($d)") {
+        it("returns true when compared with successor") {
+            checkAll(vectorArb) { u ->
+                u isLessThan u + unit shouldBe true
+            }
+        }
+
+        it("is consistent with addition") {
+            checkAll(vectorArb, vectorArb, vectorArb) { u, v, w ->
+                val `v lt u` = v isLessThan u
+                val `v + w lt u + w` = (v + w) isLessThan (u + w)
+
+                `v lt u` shouldBe `v + w lt u + w`
+            }
+        }
+
+        it("is consistent with multiplication") {
+            checkAll(vectorArb, vectorArb, doubleArb()) { u, v, r ->
+                val k = abs(r)
+                withAssumptions(k > EPSILON) {
+                    val `v lt u` = v isLessThan u
+                    val `kv lt ku` = (v * k) isLessThan (u * k)
+
+                    `v lt u` shouldBe `kv lt ku`
+                }
+            }
+        }
+    }
+
+    describe("isGreaterThanOrEqual ($d)") {
+        it("returns true when equal") {
+            checkAll(vectorArb) { u ->
+                u isGreaterThanOrEqual u shouldBe true
+            }
+        }
+
+        it("returns true when compared with predecessor") {
+            checkAll(vectorArb) { u ->
+                u isGreaterThanOrEqual u - unit shouldBe true
+            }
+        }
+
+        it("is consistent with addition") {
+            checkAll(vectorArb, vectorArb, vectorArb) { u, v, w ->
+                val `v gte u` = v isGreaterThanOrEqual u
+                val `v + w gte u + w` = (v + w) isGreaterThanOrEqual (u + w)
+
+                `v gte u` shouldBe `v + w gte u + w`
+            }
+        }
+
+        it("is consistent with multiplication") {
+            checkAll(vectorArb, vectorArb, doubleArb()) { u, v, r ->
+                val k = abs(r)
+                withAssumptions(k > EPSILON) {
+                    val `v gte u` = v isGreaterThanOrEqual u
+                    val `kv gte ku` = (v * k) isGreaterThanOrEqual (u * k)
+
+                    `v gte u` shouldBe `kv gte ku`
+                }
+            }
+        }
+
+        it("is consistent with lessThan") {
+            checkAll(vectorArb, vectorArb) { u, v ->
+                val `v gte u` = v isGreaterThanOrEqual u
+                val `v lt u` = v isLessThan u
+
+                if (`v gte u`) {
+                    `v lt u` shouldBe false
+                }
+                if (`v lt u`) {
+                    `v gte u` shouldBe false
+                }
+            }
+        }
+
+        it("is consistent with isGreaterThan") {
+            checkAll(vectorArb, vectorArb) { u, v ->
+                val `v gt u` = v isGreaterThan u
+                val `v gte u` = v isGreaterThanOrEqual u
+
+                if (`v gt u`) {
+                    `v gte u` shouldBe true
+                }
+                if (!`v gte u`) {
+                    `v gt u` shouldBe false
+                }
+            }
+        }
+    }
+
+    describe("isGreaterThan ($d)") {
+        it("returns true when compared with predecessor") {
+            checkAll(vectorArb) { u ->
+                u isGreaterThan u - unit shouldBe true
+            }
+        }
+
+        it("is consistent with addition") {
+            checkAll(vectorArb, vectorArb, vectorArb) { u, v, w ->
+                val `v lt u` = v isGreaterThan u
+                val `v + w lt u + w` = (v + w) isGreaterThan (u + w)
+
+                `v lt u` shouldBe `v + w lt u + w`
+            }
+        }
+
+        it("is consistent with multiplication") {
+            checkAll(vectorArb, vectorArb, doubleArb()) { u, v, r ->
+                val k = abs(r)
+
+                withAssumptions(k > EPSILON) {
+                    val `v lt u` = v isGreaterThan u
+                    val `kv lt ku` = (v * k) isGreaterThan (u * k)
+
+                    `v lt u` shouldBe `kv lt ku`
+                }
+            }
+        }
+    }
+
+    describe("length ($d)") {
         it("scales with scalar multiplication: ‖u × x‖ = ‖u‖ × ‖x‖") {
             checkAll(vectorArb, doubleArb()) { u, x ->
                 val `‖u × x‖` = (u * x).length()
@@ -280,7 +470,7 @@ fun <D : Dimension> abstractVectorSpec(d: D) = describeSpec {
         }
     }
 
-    describe("squaredLength") {
+    describe("squaredLength ($d)") {
         it("scales with scalar multiplication: ‖u × x‖² = ‖u‖² × x²") {
             checkAll(vectorArb, doubleArb()) { u, x ->
                 val `‖u × x‖²` = (u * x).squaredLength()
@@ -316,7 +506,7 @@ fun <D : Dimension> abstractVectorSpec(d: D) = describeSpec {
         }
     }
 
-    describe("normalized") {
+    describe("normalized ($d)") {
         it("creates colinear vector: û = k×u") {
             checkAll(vectorArb) { u ->
                 withAssumptions(!u.isTooSmall()) {
@@ -355,13 +545,13 @@ fun <D : Dimension> abstractVectorSpec(d: D) = describeSpec {
         it("leaves aligned unit vectors untouched") {
             assertSoftly {
                 axes.forEach { axis ->
-                    axis.normalized() shouldBeCloseTo axis
+                    axis.normalized() should beCloseTo(axis)
                 }
             }
         }
     }
 
-    describe("dot product") {
+    describe("dot product ($d)") {
         it("is commutative: u · v = v · u") {
             checkAll(vectorArb, vectorArb) { u, v ->
                 val `u · v` = u dot v
@@ -399,7 +589,7 @@ fun <D : Dimension> abstractVectorSpec(d: D) = describeSpec {
         }
     }
 
-    describe("floor") {
+    describe("floor ($d)") {
         it("returns vector below original vector: ⌊u⌋ ≤ u") {
             checkAll(vectorArb) { u ->
                 val `⌊u⌋` = u.floor()
@@ -425,7 +615,7 @@ fun <D : Dimension> abstractVectorSpec(d: D) = describeSpec {
         }
     }
 
-    describe("ceil") {
+    describe("ceil ($d)") {
         it("returns vector below original vector: ⌈u⌉ ≥ u") {
             checkAll(vectorArb) { u ->
                 val `⌊u⌋` = u.ceil()
@@ -451,7 +641,7 @@ fun <D : Dimension> abstractVectorSpec(d: D) = describeSpec {
         }
     }
 
-    describe("abs") {
+    describe("abs ($d)") {
         it("preserves length: ‖|u|‖ = ‖u‖") {
             checkAll(vectorArb) { u ->
                 val `‖_u_‖` = u.abs().length()
@@ -466,12 +656,12 @@ fun <D : Dimension> abstractVectorSpec(d: D) = describeSpec {
                 val _u_ = u.abs()
                 val `_-u_` = (-u).abs()
 
-                _u_ shouldBeCloseTo `_-u_`
+                _u_ should beCloseTo(`_-u_`)
             }
         }
     }
 
-    describe("reflect") {
+    describe("reflect ($d)") {
         it("keeps the original vector's length: ‖r‖ = ‖u‖") {
             checkAll(vectorArb, vectorArb) { u, n ->
                 withAssumptions(!(u.isTooSmall() || n.isTooSmall())) {
@@ -484,9 +674,12 @@ fun <D : Dimension> abstractVectorSpec(d: D) = describeSpec {
 
         it("reflects to the normal when co-linear") {
             checkAll(vectorArb) { u ->
-                val r = u.reflect(-u.normalized())
+                withAssumptions(!u.isTooSmall()) {
+                    val normal = -(u.normalized())
+                    val r = u.reflect(normal)
 
-                r shouldBeCloseTo -u
+                    r should beCloseTo(-u)
+                }
             }
         }
 
@@ -507,12 +700,12 @@ fun <D : Dimension> abstractVectorSpec(d: D) = describeSpec {
         }
     }
 
-    describe("components") {
+    describe("components ($d)") {
         it("is consistent with constructor") {
             checkAll(vectorArb) { u ->
                 val copy = Vector<D>(u.components().toDoubleArray())
 
-                copy shouldBeCloseTo u
+                copy should beCloseTo(u)
             }
         }
 
@@ -528,110 +721,7 @@ fun <D : Dimension> abstractVectorSpec(d: D) = describeSpec {
         }
     }
 
-    /*
-    describe("xy") {
-        it("returns a Vector2 with X and Y components") {
-            checkAll(vector2Arb(), doubleArb(), doubleArb()) { u, z, w ->
-                val v = Vector4(u.x, u.y, z, w)
-
-                v.xy shouldBeCloseTo u
-            }
-        }
-    }
-
-    describe("xz") {
-        it("returns a Vector2 with X and Z components") {
-            checkAll(vector2Arb(), doubleArb(), doubleArb()) { u, y, w ->
-                val v = Vector4(u.x, y, u.y, w)
-
-                v.xz shouldBeCloseTo u
-            }
-        }
-    }
-
-    describe("xw") {
-        it("returns a Vector2 with X and W components") {
-            checkAll(vector2Arb(), doubleArb(), doubleArb()) { u, y, z ->
-                val v = Vector4(u.x, y, z, u.y)
-
-                v.xw shouldBeCloseTo u
-            }
-        }
-    }
-
-    describe("yz") {
-        it("returns a Vector2 with Y and Z components") {
-            checkAll(vector2Arb(), doubleArb(), doubleArb()) { u, x, w ->
-                val v = Vector4(x, u.x, u.y, w)
-
-                v.yz shouldBeCloseTo u
-            }
-        }
-    }
-
-    describe("yw") {
-        it("returns a Vector2 with Y and W components") {
-            checkAll(vector2Arb(), doubleArb(), doubleArb()) { u, x, z ->
-                val v = Vector4(x, u.x, z, u.y)
-
-                v.yw shouldBeCloseTo u
-            }
-        }
-    }
-
-    describe("zw") {
-        it("returns a Vector2 with Z and W components") {
-            checkAll(vector2Arb(), doubleArb(), doubleArb()) { u, x, y ->
-                val v = Vector4(x, y, u.x, u.y)
-
-                v.zw shouldBeCloseTo u
-            }
-        }
-    }
-
-    describe("xyz") {
-        it("returns a Vector3 with X, Y and Z components") {
-            checkAll(vector3Arb(), doubleArb()) { u, w ->
-                val v = Vector4(u.x, u.y, u.z, w)
-
-                v.xyz shouldBeCloseTo u
-            }
-        }
-    }
-
-    describe("xyw") {
-        it("returns a Vector3 with X, Y and W components") {
-            checkAll(vector3Arb(), doubleArb()) { u, z ->
-                val v = Vector4(u.x, u.y, z, u.z)
-
-                v.xyw shouldBeCloseTo u
-            }
-        }
-    }
-
-    describe("xzw") {
-        it("returns a Vector3 with X, Z and W components") {
-            checkAll(vector3Arb(), doubleArb()) { u, y ->
-                val v = Vector4(u.x, y, u.y, u.z)
-
-                v.xzw shouldBeCloseTo u
-            }
-        }
-    }
-
-    describe("yzw") {
-        it("returns a Vector3 with Y, Z and W components") {
-            checkAll(vector3Arb(), doubleArb()) { u, x ->
-                val v = Vector4(x, u.x, u.y, u.z)
-
-                v.yzw shouldBeCloseTo u
-            }
-        }
-    }
-
-     */
-
-    describe("isNaN") {
+    describe("isNaN ($d)") {
         it("returns false for non-NaN values") {
             checkAll(
                 vectorArb,
@@ -656,6 +746,36 @@ fun <D : Dimension> abstractVectorSpec(d: D) = describeSpec {
                     },
                 ) { v ->
                     v.isNaN() shouldBe true
+                }
+            }
+        }
+    }
+
+    describe("isInifinite ($d)") {
+        it("returns false for non-inifinite values") {
+            checkAll(
+                vectorArb,
+            ) { v ->
+                v.isInfinite() shouldBe false
+            }
+        }
+
+        d.range.forEach { i ->
+            it("returns true if one component is infinite") {
+                checkAll(
+                    arbitrary {
+                        Vector<D>(
+                            DoubleArray(d.size) {
+                                if (it == i) {
+                                    doubleInfiniteArb().bind()
+                                } else {
+                                    doubleArb().bind()
+                                }
+                            },
+                        )
+                    },
+                ) { v ->
+                    v.isInfinite() shouldBe true
                 }
             }
         }

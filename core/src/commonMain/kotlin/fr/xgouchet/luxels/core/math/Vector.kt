@@ -142,6 +142,59 @@ class Vector<D : Dimension> internal constructor(
         return data.any { it.isInfinite() }
     }
 
+    /**
+     * @param other a vector to compare to
+     * @return true if at all components of this vector are less than the components in the other vector
+     */
+    infix fun isLessThan(other: Vector<D>): Boolean {
+        return data.zip(other.data) { a, b -> a < b }.all { it }
+    }
+
+    /**
+     * @param other a vector to compare to
+     * @return true if at all components of this vector are less than or equal the components in the other vector
+     */
+    infix fun isLessThanOrEqual(other: Vector<D>): Boolean {
+        return data.zip(other.data) { a, b -> a <= b }.all { it }
+    }
+
+    /**
+     * @param other a vector to compare to
+     * @return true if at all components of this vector are greater than the components in the other vector
+     */
+    infix fun isGreaterThan(other: Vector<D>): Boolean {
+        return data.zip(other.data) { a, b -> a > b }.all { it }
+    }
+
+    /**
+     * @param other a vector to compare to
+     * @return true if at all components of this vector are greater than or equal the components in the other vector
+     */
+    infix fun isGreaterThanOrEqual(other: Vector<D>): Boolean {
+        return data.zip(other.data) { a, b -> a >= b }.all { it }
+    }
+
+    // endregion
+
+    // region Object
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || this::class != other::class) return false
+
+        other as Vector<*>
+
+        return data.contentEquals(other.data)
+    }
+
+    override fun hashCode(): Int {
+        return data.contentHashCode()
+    }
+
+    override fun toString(): String {
+        return "Vector [${data.joinToString()}]"
+    }
+
     // endregion
 
     companion object {
@@ -163,6 +216,16 @@ class Vector<D : Dimension> internal constructor(
 
         @JvmStatic
         fun `4D`(x: Double, y: Double, z: Double, w: Double): Vector<Dimension.D4> {
+            return Vector(arrayOf(x, y, z, w))
+        }
+
+        @JvmStatic
+        fun `5D`(x: Double, y: Double, z: Double, w: Double): Vector<Dimension.D5> {
+            return Vector(arrayOf(x, y, z, w))
+        }
+
+        @JvmStatic
+        fun `6D`(x: Double, y: Double, z: Double, w: Double): Vector<Dimension.D6> {
             return Vector(arrayOf(x, y, z, w))
         }
 

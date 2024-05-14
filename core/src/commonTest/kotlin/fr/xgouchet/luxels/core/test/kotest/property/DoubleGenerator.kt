@@ -13,3 +13,5 @@ fun doublePositiveArb() = Arb.double(0.0, LARGE_DOUBLE, false)
 fun doubleSmallArb() = Arb.double(-SMALL_DOUBLE, SMALL_DOUBLE, false)
 
 fun doubleNaNArb() = Arb.of(Double.NaN)
+
+fun doubleInfiniteArb() = Arb.of(Double.POSITIVE_INFINITY, Double.NEGATIVE_INFINITY)
