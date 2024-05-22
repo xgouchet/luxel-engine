@@ -55,7 +55,7 @@ class LayeredFilmTest : DescribeSpec({
             }
         }
 
-        it("throws an error ig merging a film with a different size") {
+        it("throws an error if merging a film with a different size") {
             checkAll(
                 resolutionArb(),
                 resolutionArb(),

@@ -20,10 +20,7 @@ class MemoryGuardExtension : BeforeEachListener, AfterEachListener {
 
     @Suppress("ExplicitGarbageCollectionCall")
     private fun cleanupMemory() {
-        val runtime = Runtime.getRuntime()
-        println(" pre-GC / free:${runtime.freeMemory()} total:${runtime.totalMemory()} max:${runtime.maxMemory()}")
         System.gc()
-        println("post-GC / free:${runtime.freeMemory()} total:${runtime.totalMemory()} max:${runtime.maxMemory()}")
     }
 
     // endregion

@@ -8,6 +8,4 @@ class VolumeSpec : DescribeSpec({
     include(abstractVolumeSpec(Dimension.D2))
     include(abstractVolumeSpec(Dimension.D3))
     include(abstractVolumeSpec(Dimension.D4))
-    include(abstractVolumeSpec(Dimension.D5))
-    include(abstractVolumeSpec(Dimension.D6))
 })

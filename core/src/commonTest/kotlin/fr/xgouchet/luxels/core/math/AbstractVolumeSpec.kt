@@ -1,16 +1,14 @@
 package fr.xgouchet.luxels.core.math
 
-import fr.xgouchet.luxels.core.test.kotest.assertions.beCloseTo
-import fr.xgouchet.luxels.core.test.kotest.assertions.beIn
 import fr.xgouchet.luxels.core.test.kotest.assertions.shouldBeCloseTo
+import fr.xgouchet.luxels.core.test.kotest.assertions.shouldBeIn
+import fr.xgouchet.luxels.core.test.kotest.assertions.shouldNotBeIn
 import fr.xgouchet.luxels.core.test.kotest.property.doubleArb
 import fr.xgouchet.luxels.core.test.kotest.property.rectangleArb
 import fr.xgouchet.luxels.core.test.kotest.property.vectorArb
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.common.ExperimentalKotest
 import io.kotest.core.spec.style.describeSpec
-import io.kotest.matchers.should
-import io.kotest.matchers.shouldNot
 import io.kotest.property.PropTestConfig
 import io.kotest.property.checkAll
 import io.kotest.property.withAssumptions
@@ -49,7 +47,7 @@ fun <D : Dimension> abstractVolumeSpec(d: D) = describeSpec {
 
                 val volume = Volume(min, max)
 
-                volume.size should beCloseTo(size)
+                volume.size shouldBeCloseTo size
             }
         }
 
@@ -57,14 +55,14 @@ fun <D : Dimension> abstractVolumeSpec(d: D) = describeSpec {
             checkAll(vectorArb) { u ->
                 val volume = Volume(u, u)
 
-                volume.size should beCloseTo(nulVector)
+                volume.size shouldBeCloseTo nulVector
             }
         }
 
         it("returns unit for unit rectangle ") {
             val volume = unitVolume
 
-            volume.size should beCloseTo(unitVector)
+            volume.size shouldBeCloseTo unitVector
         }
     }
 
@@ -77,7 +75,7 @@ fun <D : Dimension> abstractVolumeSpec(d: D) = describeSpec {
 
                 val volume = Volume(min, max)
 
-                volume.center should beCloseTo(center)
+                volume.center shouldBeCloseTo center
             }
         }
 
@@ -85,7 +83,7 @@ fun <D : Dimension> abstractVolumeSpec(d: D) = describeSpec {
             checkAll(vectorArb) { u ->
                 val volume = Volume(u, u)
 
-                volume.center should beCloseTo(u)
+                volume.center shouldBeCloseTo u
             }
         }
     }
@@ -98,7 +96,7 @@ fun <D : Dimension> abstractVolumeSpec(d: D) = describeSpec {
 
                 val volume = Volume(min, max)
 
-                min should beIn(volume)
+                min shouldBeIn volume
             }
         }
 
@@ -109,7 +107,7 @@ fun <D : Dimension> abstractVolumeSpec(d: D) = describeSpec {
 
                 val volume = Volume(min, max)
 
-                max should beIn(volume)
+                max shouldBeIn volume
             }
         }
 
@@ -120,7 +118,7 @@ fun <D : Dimension> abstractVolumeSpec(d: D) = describeSpec {
 
                 val volume = Volume(min, max)
 
-                volume.center should beIn(volume)
+                volume.center shouldBeIn volume
             }
         }
 
@@ -132,7 +130,7 @@ fun <D : Dimension> abstractVolumeSpec(d: D) = describeSpec {
                 val volume = Volume(min, max)
                 val belowMin = min - unitVector
 
-                belowMin shouldNot beIn(volume)
+                belowMin shouldNotBeIn volume
             }
         }
 
@@ -144,7 +142,7 @@ fun <D : Dimension> abstractVolumeSpec(d: D) = describeSpec {
                 val volume = Volume(min, max)
                 val aboveMax = max + unitVector
 
-                aboveMax shouldNot beIn(volume)
+                aboveMax shouldNotBeIn volume
             }
         }
     }

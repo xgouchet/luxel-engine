@@ -174,6 +174,30 @@ class Vector<D : Dimension> internal constructor(
         return data.zip(other.data) { a, b -> a >= b }.all { it }
     }
 
+    /**
+     * Converts this vector into an horizontal matrix.
+     * @return the matrix with in row of n values
+     */
+    fun asHorizontalMatrix(): Matrix<D, Dimension.D1> {
+        return Matrix(
+            data = data.copyOf(),
+            width = data.size,
+            height = 1,
+        )
+    }
+
+    /**
+     * Converts this vector into an vertical matrix.
+     * @return the matrix with in column of n values
+     */
+    fun asVerticalMatrix(): Matrix<Dimension.D1, D> {
+        return Matrix(
+            data = data.copyOf(),
+            width = 1,
+            height = data.size,
+        )
+    }
+
     // endregion
 
     // region Object
@@ -192,42 +216,12 @@ class Vector<D : Dimension> internal constructor(
     }
 
     override fun toString(): String {
-        return "Vector [${data.joinToString()}]"
+        return "Vector<${data.size}> [${data.joinToString()}]"
     }
 
     // endregion
 
     companion object {
-
-        @JvmStatic
-        fun `1D`(x: Double): Vector<Dimension.D1> {
-            return Vector(arrayOf(x))
-        }
-
-        @JvmStatic
-        fun `2D`(x: Double, y: Double): Vector<Dimension.D2> {
-            return Vector(arrayOf(x, y))
-        }
-
-        @JvmStatic
-        fun `3D`(x: Double, y: Double, z: Double): Vector<Dimension.D3> {
-            return Vector(arrayOf(x, y))
-        }
-
-        @JvmStatic
-        fun `4D`(x: Double, y: Double, z: Double, w: Double): Vector<Dimension.D4> {
-            return Vector(arrayOf(x, y, z, w))
-        }
-
-        @JvmStatic
-        fun `5D`(x: Double, y: Double, z: Double, w: Double): Vector<Dimension.D5> {
-            return Vector(arrayOf(x, y, z, w))
-        }
-
-        @JvmStatic
-        fun `6D`(x: Double, y: Double, z: Double, w: Double): Vector<Dimension.D6> {
-            return Vector(arrayOf(x, y, z, w))
-        }
 
         @JvmStatic
         fun <D : Dimension> axes(d: D): List<Vector<D>> {

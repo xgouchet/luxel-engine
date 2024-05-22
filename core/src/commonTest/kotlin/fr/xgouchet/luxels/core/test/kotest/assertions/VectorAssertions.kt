@@ -5,6 +5,8 @@ import fr.xgouchet.luxels.core.math.Vector
 import fr.xgouchet.luxels.core.math.Volume
 import io.kotest.matchers.Matcher
 import io.kotest.matchers.MatcherResult
+import io.kotest.matchers.should
+import io.kotest.matchers.shouldNot
 import kotlin.math.abs
 
 fun <D : Dimension> Vector<D>.isTooSmall(): Boolean {
@@ -27,10 +29,25 @@ fun <D : Dimension> beCloseTo(other: Vector<D>) = Matcher<Vector<D>> { value ->
     )
 }
 
+infix fun <D : Dimension> Vector<D>.shouldBeCloseTo(other: Vector<D>): Vector<D> {
+    this should beCloseTo(other)
+    return this
+}
+
 fun <D : Dimension> beIn(volume: Volume<D>) = Matcher<Vector<D>> { value ->
     MatcherResult(
         (value in volume),
         { "Vector $value should be in volume $volume" },
         { "Vector $value should not be in volume $volume" },
     )
+}
+
+infix fun <D : Dimension> Vector<D>.shouldBeIn(other: Volume<D>): Vector<D> {
+    this should beIn(other)
+    return this
+}
+
+infix fun <D : Dimension> Vector<D>.shouldNotBeIn(other: Volume<D>): Vector<D> {
+    this shouldNot beIn(other)
+    return this
 }
