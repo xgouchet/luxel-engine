@@ -28,7 +28,11 @@ class SDRRasterData(
 
     // region MutableRasterData
 
-    override fun setColor(x: Int, y: Int, c: Color) {
+    override fun setColor(
+        x: Int,
+        y: Int,
+        c: Color,
+    ) {
         pixels[index(x, y)] = c.asSDR()
     }
 

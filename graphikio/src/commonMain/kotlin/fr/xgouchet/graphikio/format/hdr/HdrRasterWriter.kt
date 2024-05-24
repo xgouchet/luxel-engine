@@ -54,7 +54,11 @@ class HdrRasterWriter : AbstractRasterWriter(HdrImageFormat) {
         return rgbeData
     }
 
-    private fun writeHeader(out: BufferedSink, width: Int, height: Int) {
+    private fun writeHeader(
+        out: BufferedSink,
+        width: Int,
+        height: Int,
+    ) {
         out.writeUtf8(HEADER_ID)
         out.writeUtf8(HEADER_SEP)
         out.writeUtf8(HEADER_FORMAT)
@@ -84,7 +88,11 @@ class HdrRasterWriter : AbstractRasterWriter(HdrImageFormat) {
 
     // TODO rewrite the RLE algorithm
     @Suppress("NestedBlockDepth", "CognitiveComplexMethod")
-    private fun writeDataRLE(out: BufferedSink, rgbeData: ByteArray, scanlineWidth: Int) {
+    private fun writeDataRLE(
+        out: BufferedSink,
+        rgbeData: ByteArray,
+        scanlineWidth: Int,
+    ) {
         val scanlineHeader = byteArrayOf(
             2,
             2,
@@ -144,7 +152,12 @@ class HdrRasterWriter : AbstractRasterWriter(HdrImageFormat) {
         }
     }
 
-    private fun writeHDR(rgbeData: ByteArray, width: Int, height: Int, out: BufferedSink) {
+    private fun writeHDR(
+        rgbeData: ByteArray,
+        width: Int,
+        height: Int,
+        out: BufferedSink,
+    ) {
         writeHeader(out, width, height)
         if (width in 8..32767) {
             writeDataRLE(out, rgbeData, width)
@@ -153,7 +166,12 @@ class HdrRasterWriter : AbstractRasterWriter(HdrImageFormat) {
         }
     }
 
-    private fun float2rgbe(rgbeData: ByteArray, color: HDRColor, off: Int, separation: Int) {
+    private fun float2rgbe(
+        rgbeData: ByteArray,
+        color: HDRColor,
+        off: Int,
+        separation: Int,
+    ) {
         var v = max(color.r, (max(color.g, color.b)))
 
         if (v < 1.0E-32f) {

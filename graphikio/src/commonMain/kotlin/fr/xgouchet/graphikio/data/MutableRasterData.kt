@@ -9,5 +9,9 @@ interface MutableRasterData : RasterData {
      * @param y the row (0-based) index of the pixel
      * @param c the color to set
      */
-    fun setColor(x: Int, y: Int, c: Color)
+    fun setColor(
+        x: Int,
+        y: Int,
+        c: Color,
+    )
 }

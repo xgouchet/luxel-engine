@@ -31,7 +31,11 @@ class VoronoiNoiseGenerator : DimensionalNoiseGenerator {
 
     // region Internal
 
-    private fun distanceToClosestCenter(tile: List<Int>, positionInTile: List<Double>, hash: Int): Double {
+    private fun distanceToClosestCenter(
+        tile: List<Int>,
+        positionInTile: List<Double>,
+        hash: Int,
+    ): Double {
         val path = IntArray(tile.size) { 0 }.toList()
         return distanceToClosestCenter(
             tile,
@@ -73,7 +77,11 @@ class VoronoiNoiseGenerator : DimensionalNoiseGenerator {
         return sqrt(sum)
     }
 
-    private fun centerPosition(tile: List<Int>, path: List<Int>, hash: Int): List<Double> {
+    private fun centerPosition(
+        tile: List<Int>,
+        path: List<Int>,
+        hash: Int,
+    ): List<Double> {
         val seed = tile.foldIndexed(0L) { i, acc, it ->
             (acc * primeFactors[i]) + (it + path[i])
         }

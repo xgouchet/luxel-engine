@@ -71,7 +71,11 @@ class PerlinNoiseGenerator(
         }
     }
 
-    private fun lerp(aList: List<Double>, bList: List<Double>, t: Double): List<Double> {
+    private fun lerp(
+        aList: List<Double>,
+        bList: List<Double>,
+        t: Double,
+    ): List<Double> {
         check(aList.size == bList.size)
 
         return aList.zip(bList) { a, b ->
@@ -79,7 +83,11 @@ class PerlinNoiseGenerator(
         }
     }
 
-    private fun gradient(hash: Int, values: List<Double>, outputSize: Int): List<Double> {
+    private fun gradient(
+        hash: Int,
+        values: List<Double>,
+        outputSize: Int,
+    ): List<Double> {
         return DoubleArray(outputSize) {
             (gradient(hash + it, values) + 1.0) / 2.0
         }.toList()

@@ -56,7 +56,12 @@ object GraphikIO {
      * @param directoryPath the path to the directory where the image should be written
      * @param baseName the base name of the output image file (without the extension)
      */
-    fun write(rasterData: RasterData, constraints: ImageFormatConstraints, directoryPath: Path, baseName: String) {
+    fun write(
+        rasterData: RasterData,
+        constraints: ImageFormatConstraints,
+        directoryPath: Path,
+        baseName: String,
+    ) {
         val writer = writers.firstOrNull { writer -> writer.supportsFormatConstraints(constraints) }
         if (writer == null) {
             throw IllegalArgumentException("No writer found to write the provided image")
@@ -76,7 +81,11 @@ object GraphikIO {
      * @param constraints the desired image format
      * @param sink the sink to write to
      */
-    fun write(rasterData: RasterData, constraints: ImageFormatConstraints, sink: Sink) {
+    fun write(
+        rasterData: RasterData,
+        constraints: ImageFormatConstraints,
+        sink: Sink,
+    ) {
         val writer = writers.firstOrNull { writer -> writer.supportsFormatConstraints(constraints) }
         if (writer == null) {
             throw IllegalArgumentException("No writer found to write the provided image")
@@ -100,7 +109,7 @@ object GraphikIO {
         val source = fileSystem.source(filePath)
         return try {
             reader.read(source)
-        } catch (e : Exception){
+        } catch (e: Exception) {
             throw IllegalStateException("Unable to read image from path $filePath", e)
         }
     }
@@ -112,7 +121,7 @@ object GraphikIO {
         }
         return try {
             reader.read(source)
-        } catch (e : Exception){
+        } catch (e: Exception) {
             throw IllegalStateException("Unable to read image from source", e)
         }
     }

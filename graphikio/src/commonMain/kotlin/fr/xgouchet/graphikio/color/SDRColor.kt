@@ -140,7 +140,12 @@ data class SDRColor(
 
         // region Internal
 
-        internal fun bindInRange(r: Double, g: Double, b: Double, a: Double): SDRColor {
+        internal fun bindInRange(
+            r: Double,
+            g: Double,
+            b: Double,
+            a: Double,
+        ): SDRColor {
             return bindInRange(
                 r.roundToInt(),
                 g.roundToInt(),
@@ -149,7 +154,12 @@ data class SDRColor(
             )
         }
 
-        internal fun bindInRange(r: Int, g: Int, b: Int, a: Int): SDRColor {
+        internal fun bindInRange(
+            r: Int,
+            g: Int,
+            b: Int,
+            a: Int,
+        ): SDRColor {
             var isCoerced = false
             val ri = if (r in CHANNEL_RANGE) {
                 r

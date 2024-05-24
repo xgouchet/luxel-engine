@@ -64,7 +64,13 @@ open class EMSColorSource(
         }
     }
 
-    private fun lerpWithin(x: Double, min: Double, plateauMin: Double, plateauMax: Double, max: Double): Double {
+    private fun lerpWithin(
+        x: Double,
+        min: Double,
+        plateauMin: Double,
+        plateauMax: Double,
+        max: Double,
+    ): Double {
         return when {
             x < min -> 0.0
             x < plateauMin -> (x - min) / (plateauMin - min)

@@ -60,7 +60,11 @@ open class Curve<V : Vector>(
         return lerp(step1P0, step1P1, t)
     }
 
-    private fun lerp(p0: List<Double>, p1: List<Double>, t: Double): List<Double> {
+    private fun lerp(
+        p0: List<Double>,
+        p1: List<Double>,
+        t: Double,
+    ): List<Double> {
         return p0.zip(p1) { c0, c1 -> c0 + ((c1 - c0) * t) }
     }
 

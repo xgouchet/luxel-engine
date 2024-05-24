@@ -1,4 +1,12 @@
 [*.{kt,kts}]
 ktlint_code_style = intellij_idea
+ktlint_function_signature_body_expression_wrapping = always
+ktlint_function_signature_rule_force_multiline_when_parameter_count_greater_or_equal_than = 3
 ij_kotlin_imports_layout=*,java.**,javax.**,kotlin.**,^
 max_line_length = 120
+
+[**/*Ext.kt]
+ktlint_standard_function-naming = disabled
+
+[**Test/**/*.kt]
+ktlint_function_signature_body_expression_wrapping = default
