@@ -1,11 +1,14 @@
 package fr.xgouchet.luxels.core.render.exposure
 
 import fr.xgouchet.luxels.core.configuration.Resolution
-import fr.xgouchet.luxels.core.math.geometry.Vector2
+import fr.xgouchet.luxels.core.math.Dimension
+import fr.xgouchet.luxels.core.math.Vector2
+import fr.xgouchet.luxels.core.math.x
+import fr.xgouchet.luxels.core.math.y
 import fr.xgouchet.luxels.core.test.kotest.assertions.shouldBeCloseTo
 import fr.xgouchet.luxels.core.test.kotest.property.colorArb
 import fr.xgouchet.luxels.core.test.kotest.property.resolutionArb
-import fr.xgouchet.luxels.core.test.kotest.property.vector2Arb
+import fr.xgouchet.luxels.core.test.kotest.property.vectorArb
 import fr.xgouchet.luxels.core.test.stub.StubFilm
 import io.kotest.assertions.throwables.shouldThrowAny
 import io.kotest.core.spec.style.DescribeSpec
@@ -17,6 +20,7 @@ import io.kotest.property.checkAll
 
 class LayeredFilmTest : DescribeSpec({
 
+    val vector2Arb = { vectorArb(Dimension.D2) }
     include(abstractFilmTest(false) { resolution -> LayeredFilm(resolution) })
 
     describe("expose") {

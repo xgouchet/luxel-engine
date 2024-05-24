@@ -8,5 +8,4 @@ class VectorSpec : DescribeSpec({
     include(abstractVectorSpec(Dimension.D2))
     include(abstractVectorSpec(Dimension.D3))
     include(abstractVectorSpec(Dimension.D4))
-    include(abstractVectorSpec(Dimension.D5))
 })

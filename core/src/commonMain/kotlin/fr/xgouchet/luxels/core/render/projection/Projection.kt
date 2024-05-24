@@ -1,26 +1,26 @@
 package fr.xgouchet.luxels.core.render.projection
 
-import fr.xgouchet.luxels.core.math.geometry.Space2
-import fr.xgouchet.luxels.core.math.geometry.Space3
-import fr.xgouchet.luxels.core.math.geometry.Vector2
-import fr.xgouchet.luxels.core.math.geometry.Vector3
+import fr.xgouchet.luxels.core.math.Dimension
+import fr.xgouchet.luxels.core.math.Vector
+import fr.xgouchet.luxels.core.math.Volume
 import fr.xgouchet.luxels.core.model.Luxel
 import fr.xgouchet.luxels.core.render.exposure.Film
 
 /**
- * A Projection converts the position of a [Luxel] into a 2D position on a [Film].
+ * A Projection converts the position of a [Luxel] in simuletion into a position on a [Film].
  */
-interface Projection {
+interface Projection<D : Dimension> {
+
     /** The simulation space. */
-    abstract val simulationSpace: Space3
+    abstract val simulationSpace: Volume<D>
 
     /** The film space. */
-    abstract val filmSpace: Space2
+    abstract val filmSpace: Volume<Dimension.D2>
 
     /**
-     * Converts a 3D, simulation space position to a 2D film space position.
+     * Converts a simulation space position to a film space position.
      * @param position a simulation-space position
      * @return the converted film-space position
      */
-    fun convertPosition(position: Vector3): Vector2
+    fun convertPosition(position: Vector<D>): Vector<Dimension.D2>
 }

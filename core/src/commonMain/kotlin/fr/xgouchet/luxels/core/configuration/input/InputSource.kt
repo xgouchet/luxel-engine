@@ -2,16 +2,18 @@ package fr.xgouchet.luxels.core.configuration.input
 
 /**
  * Provides a collection of input data for a simulation run.
- * @param D the type of data used as input
+ * @param I the type of data used as input
  */
-abstract class InputSource<D : Any> : Iterable<InputData<D>> {
+abstract class InputSource<I : Any> : Iterable<InputData<I>> {
 
     /** The list of inputs. */
-    protected abstract val inputDataList: List<InputData<D>>
+    protected abstract val inputDataList: List<InputData<I>>
 
     // region Iterable
 
-    override fun iterator(): Iterator<InputData<D>> = inputDataList.iterator()
+    override fun iterator(): Iterator<InputData<I>> {
+        return inputDataList.iterator()
+    }
 
     // endregion
 

@@ -641,19 +641,19 @@ fun <D : Dimension> abstractVectorSpec(d: D) = describeSpec {
     describe("abs ($d)") {
         it("preserves length: ‖|u|‖ = ‖u‖") {
             checkAll(vectorArb) { u ->
-                val `‖_u_‖` = u.abs().length()
+                val `‖❘u❘‖` = u.abs().length()
                 val `‖u‖` = u.length()
 
-                `‖_u_‖` shouldBeCloseTo `‖u‖`
+                `‖❘u❘‖` shouldBeCloseTo `‖u‖`
             }
         }
 
         it("returns same result from opposite vectors: |u| = |-u|") {
             checkAll(vectorArb) { u ->
-                val _u_ = u.abs()
-                val `_-u_` = (-u).abs()
+                val `❘u❘` = u.abs()
+                val `❘-u❘` = (-u).abs()
 
-                _u_ shouldBeCloseTo `_-u_`
+                `❘u❘` shouldBeCloseTo `❘-u❘`
             }
         }
     }

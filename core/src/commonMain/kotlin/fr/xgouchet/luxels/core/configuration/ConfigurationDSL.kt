@@ -11,7 +11,9 @@ import fr.xgouchet.luxels.core.io.BmpImageFixer
 import fr.xgouchet.luxels.core.io.HdrImageFixer
 import fr.xgouchet.luxels.core.io.ImageFixer
 import fr.xgouchet.luxels.core.io.NoOpFixer
-import fr.xgouchet.luxels.core.math.geometry.Space3
+import fr.xgouchet.luxels.core.math.Dimension
+import fr.xgouchet.luxels.core.math.Vector
+import fr.xgouchet.luxels.core.math.Volume
 import okio.Path
 import okio.Path.Companion.toPath
 import kotlin.reflect.KType
@@ -19,34 +21,45 @@ import kotlin.time.Duration
 
 /**
  * Creates a Luxel configuration with a single Unit Input.
+ * @param D the dimension of the space luxels evolve in
+ * @param dimension the dimension instance to build the space
  * @param configure the configuration block
  */
-fun configuration(configure: ConfigurationBuilder<Unit>.() -> Unit): Configuration<Unit> {
-    return configurationWithInputSource(InputSource.Default, configure)
+fun <D : Dimension> configuration(
+    dimension: D,
+    configure: ConfigurationBuilder<D, Unit>.() -> Unit,
+): Configuration<D, Unit> {
+    return configurationWithInputSource(dimension, InputSource.Default, configure)
 }
 
 /**
  * Creates a Luxel configuration with a set of random seeds as inputs.
+ * @param D the dimension of the space luxels evolve in
+ * @param dimension the dimension instance to build the space
  * @param count the number of random seeds to use (default:  10)
  * @param configure the configuration block
  */
-fun configurationWithRandomSeeds(
+fun <D : Dimension> configurationWithRandomSeeds(
+    dimension: D,
     count: Int = 10,
-    configure: ConfigurationBuilder<Long>.() -> Unit,
-): Configuration<Long> {
-    return configurationWithInputSource(RandomSeedsInputSource(count), configure)
+    configure: ConfigurationBuilder<D, Long>.() -> Unit,
+): Configuration<D, Long> {
+    return configurationWithInputSource(dimension, RandomSeedsInputSource(count), configure)
 }
 
 /**
  * Creates a Luxel configuration with a set of Long seeds as inputs.
+ * @param D the dimension of the space luxels evolve in
+ * @param dimension the dimension instance to build the space
  * @param seeds the seeds to use (each seed will generate one full simulation)
  * @param configure the configuration block
  */
-fun configurationWithFixedSeeds(
+fun <D : Dimension> configurationWithFixedSeeds(
+    dimension: D,
     vararg seeds: Long,
-    configure: ConfigurationBuilder<Long>.() -> Unit,
-): Configuration<Long> {
-    return configurationWithInputSource(FixedSeedsInputSource(seeds.toList()), configure)
+    configure: ConfigurationBuilder<D, Long>.() -> Unit,
+): Configuration<D, Long> {
+    return configurationWithInputSource(dimension, FixedSeedsInputSource(seeds.toList()), configure)
 }
 
 // TODO KMM
@@ -56,39 +69,49 @@ fun configurationWithFixedSeeds(
 
 /**
  * Creates a Luxel configuration with all values from an enum as inputs.
+ * @param D the dimension of the space luxels evolve in
  * @param E the type of enum to use
+ * @param dimension the dimension instance to build the space
  * @param enumType the [KType] of enum to use (each value of the enum will generate one full simulation)
  * @param configure the configuration block
  */
-fun <E : Enum<E>> configurationWithEnum(
+fun <D : Dimension, E : Enum<E>> configurationWithEnum(
+    dimension: D,
     enumType: KType,
-    configure: ConfigurationBuilder<E>.() -> Unit,
-): Configuration<E> {
-    return configurationWithInputSource(EnumInputSource(enumType), configure)
+    configure: ConfigurationBuilder<D, E>.() -> Unit,
+): Configuration<D, E> {
+    return configurationWithInputSource(dimension, EnumInputSource(enumType), configure)
 }
 
 /**
  * Creates a Luxel configuration with all files from a directory.
+ * @param D the dimension of the space luxels evolve in
+ * @param dimension the dimension instance to build the space
+ * @param inputDir the input directory path
  * @param configure the configuration block
  */
-fun configurationWithFilesFrom(
+fun <D : Dimension> configurationWithFilesFrom(
+    dimension: D,
     inputDir: Path,
-    configure: ConfigurationBuilder<Path>.() -> Unit,
-): Configuration<Path> {
-    return configurationWithInputSource(FilesInputSource(inputDir), configure)
+    configure: ConfigurationBuilder<D, Path>.() -> Unit,
+): Configuration<D, Path> {
+    return configurationWithInputSource(dimension, FilesInputSource(inputDir), configure)
 }
 
 /**
  * Creates a Luxel configuration with a custom input source.
- * @param D the type of data used as Input source
+ * @param D the dimension of the space luxels evolve in
+ * @param I the type of data used as Input source
+ * @param dimension the dimension instance to build the space
  * @param inputSource the source of inputs to use
  * @param configure the configuration block
  */
-fun <D : Any> configurationWithInputSource(
-    inputSource: InputSource<D>,
-    configure: ConfigurationBuilder<D>.() -> Unit,
-): Configuration<D> {
-    val builder = ConfigurationBuilder(inputSource)
+fun <D : Dimension, I : Any> configurationWithInputSource(
+    dimension: D,
+    inputSource: InputSource<I>,
+    configure: ConfigurationBuilder<D, I>.() -> Unit,
+): Configuration<D, I> {
+    val builder = ConfigurationBuilder(dimension, inputSource)
 
     builder.configure()
 
@@ -98,19 +121,20 @@ fun <D : Any> configurationWithInputSource(
 /**
  *  A builder DSL for the [Configuration] type.
  */
-class ConfigurationBuilder<D : Any> internal constructor(
-    inputSource: InputSource<D>,
+class ConfigurationBuilder<D : Dimension, I : Any> internal constructor(
+    private val dimension: D,
+    inputSource: InputSource<I>,
 ) {
-    private var input: Configuration.Input<D> = Configuration.Input(inputSource)
-    private var simulation: Configuration.Simulation = Configuration.Simulation()
+    private var input: Configuration.Input<I> = Configuration.Input(inputSource)
+    private var simulation: Configuration.Simulation<D> = Configuration.Simulation(Volume.unit(dimension))
     private var render: Configuration.Render = Configuration.Render()
     private var animation: Configuration.Animation = Configuration.Animation()
 
     /**
      * Configure the simulation options.
      */
-    fun simulation(configure: SimulationConfigBuilder.() -> Unit) {
-        val simulationConfigBuilder = SimulationConfigBuilder()
+    fun simulation(configure: SimulationConfigBuilder<D>.() -> Unit) {
+        val simulationConfigBuilder = SimulationConfigBuilder(dimension)
 
         simulationConfigBuilder.configure()
 
@@ -139,16 +163,21 @@ class ConfigurationBuilder<D : Any> internal constructor(
         animation = animationConfigBuilder.build()
     }
 
-    internal fun build(): Configuration<D> {
-        return Configuration(input, simulation, render, animation)
+    internal fun build(): Configuration<D, I> {
+        return Configuration(dimension, input, simulation, render, animation)
     }
 }
 
 /**
  *  A builder DSL for the [Configuration.Simulation] type.
+ * @param D the dimension of the space luxels evolve in
+ * @property dimension the dimension instance to build the space
  */
-class SimulationConfigBuilder internal constructor() {
-    private var simulation = Configuration.Simulation()
+class SimulationConfigBuilder<D : Dimension> internal constructor(
+    val dimension: D,
+) {
+
+    private var simulation = Configuration.Simulation(Volume.unit(dimension))
 
     /**
      * Sets the quality of the simulation.
@@ -160,10 +189,10 @@ class SimulationConfigBuilder internal constructor() {
 
     /**
      * Sets the range of the simulation.
-     * @param space3 the simulation range (default: [Space3.UNIT])
+     * @param volume the simulation range (default: unit volume)
      */
-    fun space(space3: Space3) {
-        simulation = simulation.copy(space = space3)
+    fun space(volume: Volume<D>) {
+        simulation = simulation.copy(space = volume)
     }
 
     /**
@@ -173,7 +202,18 @@ class SimulationConfigBuilder internal constructor() {
      */
     fun space(resolution: Resolution, density: Double = 1.0) {
         simulation = simulation.copy(
-            space = resolution.asSpace3() * density,
+            space = Volume(
+                min = Vector.nul(dimension),
+                max = Vector(
+                    DoubleArray(dimension.size) {
+                        if (it % 2 == 0) {
+                            resolution.width * density
+                        } else {
+                            resolution.height * density
+                        }
+                    },
+                ),
+            ),
         )
     }
 
@@ -198,7 +238,7 @@ class SimulationConfigBuilder internal constructor() {
         simulation = simulation.copy(passType = type)
     }
 
-    internal fun build(): Configuration.Simulation {
+    internal fun build(): Configuration.Simulation<D> {
         return simulation
     }
 }

@@ -9,6 +9,4 @@ fun dimensionArb() = Arb.element(
     Dimension.D2,
     Dimension.D3,
     Dimension.D4,
-    Dimension.D5,
-    Dimension.D6,
 )

@@ -3,6 +3,7 @@ package fr.xgouchet.luxels.core
 import fr.xgouchet.luxels.core.concurrent.mainDispatcher
 import fr.xgouchet.luxels.core.configuration.Configuration
 import fr.xgouchet.luxels.core.configuration.input.InputData
+import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.math.random.RndGen
 import fr.xgouchet.luxels.core.model.Luxel
 import fr.xgouchet.luxels.core.render.exposure.Film
@@ -26,12 +27,16 @@ import kotlin.time.Duration.Companion.seconds
 object LuxelEngine {
     /**
      * Runs the simulation, using the provided simulator and configuration.
+     * @param D the dimension of the space luxels evolve in
      * @param L the type of [Luxel] to simulate
      * @param I the type of data used as [InputData] for the simulation
      * @param simulator the simulator determining the behavior of luxels
      * @param configuration the configuration detailing the input, simulation, animation and rendering options
      */
-    fun <L : Luxel, I : Any> runSimulation(simulator: Simulator<L, I>, configuration: Configuration<I>) {
+    fun <D : Dimension, L : Luxel<D>, I : Any> runSimulation(
+        simulator: Simulator<D, L, I>,
+        configuration: Configuration<D, I>,
+    ) {
         val mainJob = CoroutineScope(mainDispatcher).launch {
             configuration.input.source.forEach {
                 runSimulationWithInput(simulator, configuration, it)
@@ -46,9 +51,9 @@ object LuxelEngine {
 
     // region Internal
 
-    private suspend fun <L : Luxel, I : Any> runSimulationWithInput(
-        simulator: Simulator<L, I>,
-        configuration: Configuration<I>,
+    private suspend fun <D : Dimension, L : Luxel<D>, I : Any> runSimulationWithInput(
+        simulator: Simulator<D, L, I>,
+        configuration: Configuration<D, I>,
         inputData: InputData<I>,
     ) {
         RndGen.resetSeed(inputData.seed)
@@ -63,9 +68,9 @@ object LuxelEngine {
         }
     }
 
-    private suspend fun <L : Luxel, I : Any> simulateFrame(
-        simulator: Simulator<L, I>,
-        configuration: Configuration<I>,
+    private suspend fun <D : Dimension, L : Luxel<D>, I : Any> simulateFrame(
+        simulator: Simulator<D, L, I>,
+        configuration: Configuration<D, I>,
         inputData: InputData<*>,
         frameInfo: FrameInfo,
     ) {
@@ -79,9 +84,9 @@ object LuxelEngine {
     }
 
     @OptIn(DelicateCoroutinesApi::class, ExperimentalCoroutinesApi::class)
-    private suspend fun <L : Luxel, I : Any> simulateFrameParallel(
-        simulator: Simulator<L, I>,
-        configuration: Configuration<I>,
+    private suspend fun <D : Dimension, L : Luxel<D>, I : Any> simulateFrameParallel(
+        simulator: Simulator<D, L, I>,
+        configuration: Configuration<D, I>,
         frameInfo: FrameInfo,
         layeredFilm: LayeredFilm,
     ) {
@@ -117,8 +122,8 @@ object LuxelEngine {
     // region Internal/Utils
 
     private fun getFilename(
-        simulator: Simulator<*, *>,
-        configuration: Configuration<*>,
+        simulator: Simulator<*, *, *>,
+        configuration: Configuration<*, *>,
         inputData: InputData<*>,
         frameInfo: FrameInfo,
     ): String {

@@ -1,12 +1,14 @@
 package fr.xgouchet.luxels.core.math.random
 
-import fr.xgouchet.luxels.core.math.geometry.Space3
-import fr.xgouchet.luxels.core.math.geometry.Vector3
+import fr.xgouchet.luxels.core.math.Dimension
+import fr.xgouchet.luxels.core.math.Vector
+import fr.xgouchet.luxels.core.math.Volume
 
 /**
- * @param space3 a 3D space
- * @return a random 3D vector within the bounds of the given box
+ * @param D the dimension of the vector / volume space
+ * @param volume the volume in which to generate the vector
+ * @return a random vector within the bounds of the given volume
  */
-fun RandomGenerator<Vector3>.inBox(space3: Space3): Vector3 {
-    return inRange(space3.min, space3.max)
+fun <D : Dimension> RandomGenerator<Vector<D>>.inVolume(volume: Volume<D>): Vector<D> {
+    return inRange(volume.min, volume.max)
 }

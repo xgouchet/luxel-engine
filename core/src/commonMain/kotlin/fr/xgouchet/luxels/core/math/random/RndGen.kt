@@ -1,8 +1,7 @@
 package fr.xgouchet.luxels.core.math.random
 
-import fr.xgouchet.luxels.core.math.geometry.Vector2
-import fr.xgouchet.luxels.core.math.geometry.Vector3
-import fr.xgouchet.luxels.core.math.geometry.Vector4
+import fr.xgouchet.luxels.core.math.Dimension
+import fr.xgouchet.luxels.core.math.Vector
 import kotlin.random.Random
 
 /**
@@ -41,19 +40,19 @@ object RndGen {
     /**
      * @return a [RandomGenerator] generating 2D vectors
      */
-    var vector2: RandomGenerator<Vector2> = Vector2RandomGenerator()
+    var vector2: RandomGenerator<Vector<Dimension.D2>> = VectorRandomGenerator(Dimension.D2)
         private set
 
     /**
      * @return a [RandomGenerator] generating 3D vectors
      */
-    var vector3: RandomGenerator<Vector3> = Vector3RandomGenerator()
+    var vector3: RandomGenerator<Vector<Dimension.D3>> = VectorRandomGenerator(Dimension.D3)
         private set
 
     /**
      * @return a [RandomGenerator] generating 4D vectors
      */
-    var vector4: RandomGenerator<Vector4> = Vector4RandomGenerator()
+    var vector4: RandomGenerator<Vector<Dimension.D4>> = VectorRandomGenerator(Dimension.D4)
         private set
 
 //  TODO  inline fun <reified E : Enum<E>> enum() = EnumRandomGenerator(E::class)

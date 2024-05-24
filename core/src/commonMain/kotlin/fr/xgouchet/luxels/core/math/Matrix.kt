@@ -2,6 +2,15 @@ package fr.xgouchet.luxels.core.math
 
 import kotlin.math.abs
 
+/**
+ * Represents a m×n Matrix representation.
+ * @param C the dimension corresponding to the width (i.e.: the number of columns)
+ * @param R the dimension corresponding to the height (i.e.: the number of rows)
+ * @property data the internal representation of the matrix's cells
+ * @property width the width of the matrix
+ * @property height the height of the matrix
+ */
+@Suppress("TooManyFunctions")
 class Matrix<C : Dimension, R : Dimension> internal constructor(
     internal val data: DoubleArray,
     internal val width: Int,
@@ -18,6 +27,10 @@ class Matrix<C : Dimension, R : Dimension> internal constructor(
 
     // region Operators
 
+    /**
+     * @return a matrix with each component as the negated value
+     * of the matching component in this matrix
+     */
     operator fun unaryMinus(): Matrix<C, R> {
         return Matrix(
             data = data.map { -it }.toDoubleArray(),
@@ -26,6 +39,11 @@ class Matrix<C : Dimension, R : Dimension> internal constructor(
         )
     }
 
+    /**
+     * @param matrix the matrix to add to this matrix
+     * @return a matrix with each component as the component in this matrix
+     * plus the matching component in the given input
+     */
     operator fun plus(matrix: Matrix<C, R>): Matrix<C, R> {
         check((matrix.width == width) and (matrix.height == height))
 
@@ -36,6 +54,11 @@ class Matrix<C : Dimension, R : Dimension> internal constructor(
         )
     }
 
+    /**
+     * @param matrix the matrix to subtract from this matrix
+     * @return a matrix with each component as the component in this matrix
+     * minus the matching component in the given input
+     */
     operator fun minus(matrix: Matrix<C, R>): Matrix<C, R> {
         check((matrix.width == width) and (matrix.height == height))
         return Matrix(
@@ -45,6 +68,10 @@ class Matrix<C : Dimension, R : Dimension> internal constructor(
         )
     }
 
+    /**
+     * @param scale the factor by which to multiply the matrix
+     * @return a matrix with each component multiplied by the given input
+     */
     operator fun times(scale: Double): Matrix<C, R> {
         return Matrix(
             data = data.map { it * scale }.toDoubleArray(),
@@ -53,6 +80,12 @@ class Matrix<C : Dimension, R : Dimension> internal constructor(
         )
     }
 
+    /**
+     * @param X the number of columns in the matrix to multiply with
+     * @param matrix a matrix to multiply with. Note that the number of rows must match the
+     * number of columns in this matrix.
+     * @return a matrix as the result of the matrix multiplication of this with the input
+     */
     operator fun <X : Dimension> times(matrix: Matrix<X, C>): Matrix<X, R> {
         check(matrix.height == width)
         val result = Matrix<X, R>(
@@ -80,6 +113,9 @@ class Matrix<C : Dimension, R : Dimension> internal constructor(
 
     // region Math
 
+    /**
+     * @return the transpose of this matrix (i.e. the matrix flipped across the diagonal)
+     */
     fun transpose(): Matrix<R, C> {
         return Matrix(
             data = DoubleArray(data.size) { idx ->
@@ -92,6 +128,17 @@ class Matrix<C : Dimension, R : Dimension> internal constructor(
         )
     }
 
+    /**
+     * @return the determinant of this matrix, or null if this matrix isn't square.
+     */
+    fun determinantOrNull(): Double? {
+        return if (width != height) null else determinant()
+    }
+
+    /**
+     * @return the determinant of this matrix.
+     * @throws UnsupportedOperationException when called on a non square matrix
+     */
     fun determinant(): Double {
         if (width != height) {
             throw UnsupportedOperationException("Cannot compute the determinant of a non square matrix")
@@ -100,6 +147,9 @@ class Matrix<C : Dimension, R : Dimension> internal constructor(
         return determinant(data, width)
     }
 
+    /**
+     * @return true if this matrix is square and can be inverted
+     */
     fun isInvertible(): Boolean {
         return if (width != height) {
             false
@@ -108,6 +158,18 @@ class Matrix<C : Dimension, R : Dimension> internal constructor(
         }
     }
 
+    /**
+     * @return the inverse of this matrix, or null if this matrix can't be inverted.
+     */
+    fun inverseOrNull(): Matrix<R, C>? {
+        return if (isInvertible()) inverse() else null
+    }
+
+    /**
+     * @return the inverse of this matrix
+     * @throws UnsupportedOperationException when called on a non square matrix
+     */
+    @Suppress("CyclomaticComplexMethod", "CognitiveComplexMethod", "NestedBlockDepth")
     fun inverse(): Matrix<R, C> {
         if (width != height) {
             throw UnsupportedOperationException("Cannot compute the inverse of a non square matrix")
@@ -197,7 +259,11 @@ class Matrix<C : Dimension, R : Dimension> internal constructor(
      * @param j the index of the row
      * @param value the new value
      */
-    fun set(i: Int, j: Int, value: Double) {
+    fun set(
+        i: Int,
+        j: Int,
+        value: Double,
+    ) {
         check(i < width) { "Can't access column $i in set($j, $i) in $this" }
         check(j < height) { "Can't access row $j in set($j, $i) in $this" }
         data[(j * width) + i] = value
@@ -205,7 +271,7 @@ class Matrix<C : Dimension, R : Dimension> internal constructor(
 
     // endregion
 
-    // region Object
+    // region Any
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -233,10 +299,15 @@ class Matrix<C : Dimension, R : Dimension> internal constructor(
 
     // endregion
 
-    // region Internal
-
     companion object {
 
+        /**
+         * @param C the column dimension
+         * @param R the row dimension
+         * @param cols the column dimension
+         * @param rows the row dimension
+         * @return a matrix filled with 0
+         */
         fun <C : Dimension, R : Dimension> zero(cols: C, rows: R): Matrix<C, R> {
             return Matrix(
                 data = DoubleArray(cols.size * rows.size) { 0.0 },
@@ -245,6 +316,13 @@ class Matrix<C : Dimension, R : Dimension> internal constructor(
             )
         }
 
+        /**
+         * @param C the column dimension
+         * @param R the row dimension
+         * @param cols the column dimension
+         * @param rows the row dimension
+         * @return a matrix filled with 1
+         */
         fun <C : Dimension, R : Dimension> one(cols: C, rows: R): Matrix<C, R> {
             return Matrix(
                 data = DoubleArray(cols.size * rows.size) { 1.0 },
@@ -253,6 +331,13 @@ class Matrix<C : Dimension, R : Dimension> internal constructor(
             )
         }
 
+        /**
+         * @param C the column dimension
+         * @param R the row dimension
+         * @param cols the column dimension
+         * @param rows the row dimension
+         * @return an identity matrix
+         */
         fun <C : Dimension, R : Dimension> identity(cols: C, rows: R): Matrix<C, R> {
             return Matrix(
                 data = DoubleArray(cols.size * rows.size) { idx ->
@@ -267,10 +352,9 @@ class Matrix<C : Dimension, R : Dimension> internal constructor(
             )
         }
 
-        private fun determinant(
-            data: DoubleArray,
-            size: Int,
-        ): Double {
+        // region Internal
+
+        private fun determinant(data: DoubleArray, size: Int): Double {
             // Simplest case
             if (size == 1) return data[0]
 
@@ -313,5 +397,7 @@ class Matrix<C : Dimension, R : Dimension> internal constructor(
 
             return result
         }
+
+        // endregion
     }
 }

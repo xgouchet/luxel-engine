@@ -35,8 +35,8 @@ fun <R : Dimension, C : Dimension> beCloseTo(other: Matrix<R, C>) = Matcher<Matr
     MatcherResult(
         mismatchedIndices.isEmpty(),
         {
-            val displayMismatched = mismatchedIndices.joinToString() { "[${it.first}, ${it.second}]" }
-            "Matrix $value should be close to $other, but indices mismatched at $displayMismatched"
+//            val displayMismatched = mismatchedIndices.joinToString { "[${it.first}, ${it.second}]" }
+            "Matrix $value should be close to $other, but indices mismatched at $mismatchedIndices"
         },
         { "Matrix $value should not be close to $other" },
     )

@@ -1,9 +1,8 @@
 package fr.xgouchet.luxels.core.configuration
 
-import fr.xgouchet.luxels.core.math.geometry.Space2
-import fr.xgouchet.luxels.core.math.geometry.Space3
-import fr.xgouchet.luxels.core.math.geometry.Vector2
-import fr.xgouchet.luxels.core.math.geometry.Vector3
+import fr.xgouchet.luxels.core.math.Dimension
+import fr.xgouchet.luxels.core.math.Vector
+import fr.xgouchet.luxels.core.math.Vector2
 
 /**
  * The resolution of the film capturing the simulation rendering.
@@ -72,25 +71,8 @@ enum class Resolution(val width: Int, val height: Int) {
     /**
      * @return the resolution as a [Vector2]
      */
-    fun asVector2(): Vector2 {
+    fun asVector2(): Vector<Dimension.D2> {
         return Vector2(width.toDouble(), height.toDouble())
-    }
-
-    /**
-     * @return the resolution as a [Space2]
-     */
-    fun asSpace2(): Space2 {
-        return Space2(Vector2.NULL, asVector2())
-    }
-
-    /**
-     * @return the resolution as a [Space3]
-     */
-    fun asSpace3(): Space3 {
-        return Space3(
-            Vector3.NULL,
-            Vector3(width.toDouble(), height.toDouble(), width.toDouble()),
-        )
     }
 
     // region Any

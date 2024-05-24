@@ -3,8 +3,6 @@ package fr.xgouchet.luxels.core.math
 import fr.xgouchet.luxels.core.test.kotest.assertions.shouldBeCloseTo
 import fr.xgouchet.luxels.core.test.kotest.assertions.shouldBeIn
 import fr.xgouchet.luxels.core.test.kotest.assertions.shouldNotBeIn
-import fr.xgouchet.luxels.core.test.kotest.property.doubleArb
-import fr.xgouchet.luxels.core.test.kotest.property.rectangleArb
 import fr.xgouchet.luxels.core.test.kotest.property.vectorArb
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.common.ExperimentalKotest
@@ -19,8 +17,7 @@ import kotlin.math.abs
 fun <D : Dimension> abstractVolumeSpec(d: D) = describeSpec {
     val nulVector = Vector.nul(d)
     val unitVector = Vector.unit(d)
-    val unitVolume = Volume(nulVector, unitVector)
-    val axes = Vector.axes(d)
+    val unitVolume = Volume.unit(d)
     val vectorArb = vectorArb(d)
 
     describe("init ($d)") {
@@ -143,28 +140,6 @@ fun <D : Dimension> abstractVolumeSpec(d: D) = describeSpec {
                 val aboveMax = max + unitVector
 
                 aboveMax shouldNotBeIn volume
-            }
-        }
-    }
-
-    describe("expanded ($d)") {
-        it("keeps the center point") {
-            checkAll(rectangleArb(), doubleArb()) { b, s ->
-                val scale = abs(s)
-
-                val expanded = b.expanded(scale)
-
-                expanded.center shouldBeCloseTo b.center
-            }
-        }
-
-        it("increases the size by the given factor") {
-            checkAll(rectangleArb(), doubleArb()) { b, s ->
-                val scale = abs(s)
-
-                val expanded = b.expanded(scale)
-
-                expanded.size shouldBeCloseTo b.size * scale
             }
         }
     }

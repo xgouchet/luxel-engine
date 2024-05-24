@@ -1,20 +1,23 @@
 package fr.xgouchet.luxels.core.math
 
-import kotlin.jvm.JvmStatic
 import kotlin.math.abs
 import kotlin.math.ceil
 import kotlin.math.floor
 import kotlin.math.sqrt
 
+/**
+ * Represents a vector in an n-dimensional space coordinates.
+ * @param D the dimension of the vector
+ * @property data the internal representation of the vector
+ */
+@Suppress("TooManyFunctions")
 class Vector<D : Dimension> internal constructor(
     val data: DoubleArray,
 ) {
 
-    internal constructor(data: Array<Double>) : this(data.toDoubleArray())
-
     internal constructor(data: Collection<Double>) : this(data.toDoubleArray())
 
-    // region components
+    // region Access
 
     /**
      * @return the components as a list of Double
@@ -27,34 +30,70 @@ class Vector<D : Dimension> internal constructor(
 
     // region Operators
 
+    /**
+     * @param vector the vector to add to this vector
+     * @return a vector with each component as the component in this vector
+     * plus the matching component in the given input
+     */
     operator fun plus(vector: Vector<D>): Vector<D> {
         return Vector(data.zip(vector.data) { a, b -> a + b })
     }
 
+    /**
+     * @param vector the vector to subtract from this vector
+     * @return a vector with each component as the component in this vector
+     * minus the matching component in the given input
+     */
     operator fun minus(vector: Vector<D>): Vector<D> {
         return Vector(data.zip(vector.data) { a, b -> a - b })
     }
 
+    /**
+     * @return a vector with each component as the negated value
+     * of the matching component in this vector
+     */
     operator fun unaryMinus(): Vector<D> {
         return Vector(data.map { -it })
     }
 
+    /**
+     * @param vector the vector factor by which to multiply the vector
+     * @return a vector with each component as the component in this vector
+     * multiplied by the matching component in the given input
+     */
     operator fun times(vector: Vector<D>): Vector<D> {
         return Vector(data.zip(vector.data) { a, b -> a * b })
     }
 
+    /**
+     * @param scale the factor by which to multiply the vector
+     * @return a vector with each component multiplied by the given input
+     */
     operator fun times(scale: Double): Vector<D> {
         return Vector(data.map { it * scale })
     }
 
+    /**
+     * @param vector the vector factor by which to divide the vector
+     * @return a vector with each component as the component in this vector
+     * divided by the matching component in the given input
+     */
     operator fun div(vector: Vector<D>): Vector<D> {
         return Vector(data.zip(vector.data) { a, b -> a / b })
     }
 
+    /**
+     * @param scale the factor by which to divide the vector
+     * @return a vector with each component divided by the given input
+     */
     operator fun div(scale: Double): Vector<D> {
         return Vector(data.map { it / scale })
     }
 
+    /**
+     * @param i the index of a component in this vector
+     * @return the component at index i
+     */
     operator fun get(i: Int): Double {
         require(i < data.size)
         return data[i]
@@ -200,7 +239,7 @@ class Vector<D : Dimension> internal constructor(
 
     // endregion
 
-    // region Object
+    // region Any
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -223,19 +262,34 @@ class Vector<D : Dimension> internal constructor(
 
     companion object {
 
-        @JvmStatic
+        /**
+         * Create the axes vectors corresponding to the provided dimension.
+         * @param D the dimension of the vectors
+         * @param d an instance of the dimension
+         * @return a list of base axes vectors
+         */
         fun <D : Dimension> axes(d: D): List<Vector<D>> {
             return d.range.map { i ->
                 Vector(DoubleArray(d.size) { if (it == i) 1.0 else 0.0 })
             }
         }
 
-        @JvmStatic
+        /**
+         * Create a nul vector.
+         * @param D the dimension of the vectors
+         * @param d an instance of the dimension
+         * @return a vector with all components set to 0
+         */
         fun <D : Dimension> nul(d: D): Vector<D> {
             return Vector(DoubleArray(d.size) { 0.0 })
         }
 
-        @JvmStatic
+        /**
+         * Create a unit vector.
+         * @param D the dimension of the vectors
+         * @param d an instance of the dimension
+         * @return a vector with all components set to 1
+         */
         fun <D : Dimension> unit(d: D): Vector<D> {
             return Vector(DoubleArray(d.size) { 1.0 })
         }

@@ -2,7 +2,10 @@ package fr.xgouchet.luxels.core.render.exposure
 
 import fr.xgouchet.graphikio.color.Color
 import fr.xgouchet.luxels.core.configuration.Resolution
-import fr.xgouchet.luxels.core.math.geometry.Vector2
+import fr.xgouchet.luxels.core.math.Dimension
+import fr.xgouchet.luxels.core.math.Vector
+import fr.xgouchet.luxels.core.math.x
+import fr.xgouchet.luxels.core.math.y
 import kotlin.math.PI
 import kotlin.math.acos
 import kotlin.math.asin
@@ -18,7 +21,7 @@ internal class CleanFilm(
 ) : AbstractFilm(resolution) {
     // region Film
 
-    override fun expose(position: Vector2, color: Color) {
+    override fun expose(position: Vector<Dimension.D2>, color: Color) {
         val x1 = floor(position.x).toInt()
         val x2 = x1 + 1
         val y1 = floor(position.y).toInt()

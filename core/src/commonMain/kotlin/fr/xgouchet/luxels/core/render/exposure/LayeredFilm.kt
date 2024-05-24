@@ -2,7 +2,8 @@ package fr.xgouchet.luxels.core.render.exposure
 
 import fr.xgouchet.graphikio.color.Color
 import fr.xgouchet.luxels.core.configuration.Resolution
-import fr.xgouchet.luxels.core.math.geometry.Vector2
+import fr.xgouchet.luxels.core.math.Dimension
+import fr.xgouchet.luxels.core.math.Vector
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 
@@ -11,7 +12,7 @@ internal class LayeredFilm(resolution: Resolution) : AbstractFilm(resolution) {
 
     // region Film
 
-    override fun expose(position: Vector2, color: Color) {
+    override fun expose(position: Vector<Dimension.D2>, color: Color) {
         error("Operation not supported")
     }
 

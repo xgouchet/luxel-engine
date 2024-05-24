@@ -29,7 +29,12 @@ internal abstract class AbstractFilm(
 
     // region Internal
 
-    internal fun expose(i: Int, j: Int, color: Color, intensity: Double) {
+    internal fun expose(
+        i: Int,
+        j: Int,
+        color: Color,
+        intensity: Double,
+    ) {
         val inColor = color.asHDR()
         if (i in 0..<resolution.width && j in 0..<resolution.height) {
             val index = pixelIndex(i, j)

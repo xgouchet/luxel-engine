@@ -2,7 +2,8 @@ package fr.xgouchet.luxels.core.render.exposure
 
 import fr.xgouchet.graphikio.color.Color
 import fr.xgouchet.graphikio.color.HDRColor
-import fr.xgouchet.luxels.core.math.geometry.Vector2
+import fr.xgouchet.luxels.core.math.Dimension
+import fr.xgouchet.luxels.core.math.Vector
 
 /**
  * A Film which can be exposed to luxels, to render a simulation.
@@ -20,7 +21,7 @@ interface Film {
      * otherwise no color will be exposed)
      * @param color the color to expose.
      */
-    fun expose(position: Vector2, color: Color)
+    fun expose(position: Vector<Dimension.D2>, color: Color)
 
     /**
      * Gets the color of a pixel.

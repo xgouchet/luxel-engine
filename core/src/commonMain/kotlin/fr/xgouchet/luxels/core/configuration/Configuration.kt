@@ -4,8 +4,10 @@ import fr.xgouchet.luxels.core.FrameInfo
 import fr.xgouchet.luxels.core.configuration.input.InputSource
 import fr.xgouchet.luxels.core.io.ImageFixer
 import fr.xgouchet.luxels.core.io.NoOpFixer
-import fr.xgouchet.luxels.core.math.geometry.Space2
-import fr.xgouchet.luxels.core.math.geometry.Space3
+import fr.xgouchet.luxels.core.math.Dimension
+import fr.xgouchet.luxels.core.math.Vector
+import fr.xgouchet.luxels.core.math.Volume
+import fr.xgouchet.luxels.core.math.random.VectorRandomGenerator
 import fr.xgouchet.luxels.core.model.Luxel
 import fr.xgouchet.luxels.core.render.exposure.Film
 import fr.xgouchet.luxels.core.simulation.Simulator
@@ -21,33 +23,42 @@ import kotlin.time.Duration.Companion.seconds
 
 /**
  * The configuration for the simulation run.
+ * @param D the dimension of the space luxels evolve in
+ * @param I the type of data used as input
+ * @param dimension the dimension instance to build the space
+ * @param input the input configuration
+ * @param simulation the simulation configuration
+ * @param render the render configuration
+ * @param animation the animation configuration
  */
 @Suppress("CommentRegions")
-class Configuration<I : Any> internal constructor(
+class Configuration<D : Dimension, I : Any> internal constructor(
+    internal val dimension: D,
     internal val input: Input<I>,
-    internal val simulation: Simulation,
+    internal val simulation: Simulation<D>,
     internal val render: Render,
     internal val animation: Animation,
 ) {
     /**
      * The input options for the simulation run.
-     * @param D the type of data used as input
+     * @param I the type of data used as input
      * @property source the source providing the inputs
      */
-    data class Input<D : Any>(
-        val source: InputSource<D>,
+    data class Input<I : Any>(
+        val source: InputSource<I>,
     )
 
     /**
      * The simulation options for the simulation run.
+     * @param D the dimension of the space luxels evolve in
+     * @property space the bounds of the simulation 3D space
      * @property quality the quality of the simulation (default: [Quality.DEBUG])
-     * @property space the bounds of the simulation 3D space (default [Space3.UNIT])
      * @property threadCount the number of threads to use in parallel for each computation (default: 4)
      * @property passType the kind of rendering to perform based on the simulation (default: [PassType.RENDER])
      */
-    data class Simulation(
+    data class Simulation<D : Dimension>(
+        val space: Volume<D>,
         val quality: Quality = Quality.DEBUG,
-        val space: Space3 = Space3.UNIT,
         val threadCount: Int = 4,
         val passType: PassType = PassType.RENDER,
     ) {
@@ -71,7 +82,7 @@ class Configuration<I : Any> internal constructor(
         }
 
         /** The film space as a [Space2] instance. */
-        val filmSpace: Space2 = resolution.asSpace2()
+        val filmSpace: Volume<Dimension.D2> = Volume(Vector.nul(Dimension.D2), resolution.asVector2())
     }
 
     /**
@@ -95,8 +106,8 @@ class Configuration<I : Any> internal constructor(
         }
     }
 
-    internal fun <L : Luxel, I : Any> createWorker(
-        simulator: Simulator<L, I>,
+    internal fun <L : Luxel<D>, I : Any> createWorker(
+        simulator: Simulator<D, L, I>,
         film: Film,
         frameInfo: FrameInfo,
     ): SimulationWorker {
@@ -146,6 +157,7 @@ class Configuration<I : Any> internal constructor(
                     simulation = simulation,
                     projection = projection,
                     time = frameInfo.frameTime,
+                    rng = VectorRandomGenerator(dimension),
                 )
         }
     }

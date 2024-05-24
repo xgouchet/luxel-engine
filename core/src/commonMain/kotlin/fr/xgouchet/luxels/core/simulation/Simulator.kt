@@ -5,27 +5,27 @@ import fr.xgouchet.graphikio.color.HDRColor
 import fr.xgouchet.luxels.core.configuration.Configuration
 import fr.xgouchet.luxels.core.configuration.PassType
 import fr.xgouchet.luxels.core.configuration.input.InputData
-import fr.xgouchet.luxels.core.math.geometry.Space2
-import fr.xgouchet.luxels.core.math.geometry.Space3
-import fr.xgouchet.luxels.core.math.geometry.Vector3
+import fr.xgouchet.luxels.core.math.Dimension
+import fr.xgouchet.luxels.core.math.Vector
+import fr.xgouchet.luxels.core.math.Volume
 import fr.xgouchet.luxels.core.model.Luxel
-import fr.xgouchet.luxels.core.render.projection.FlatXYProjection
 import fr.xgouchet.luxels.core.render.projection.Projection
 import kotlin.time.Duration
 
 /**
  * The main class describing the behavior of luxels and the environment they're going to be simulated in.
+ * @param D the dimension of the space luxels evolve in
  * @param L the type of simulated Luxels
  * @param I the expected Input
  */
-interface Simulator<L : Luxel, I : Any> {
+interface Simulator<D : Dimension, L : Luxel<D>, I : Any> {
     /**
      * TODO ensure called always on the main thread !
      * Called once per input to initialize the environment.
      * @param simulation the simulation options
      * @param inputData the input for the simulation
      */
-    fun initEnvironment(simulation: Configuration.Simulation, inputData: InputData<I>) {}
+    fun initEnvironment(simulation: Configuration.Simulation<D>, inputData: InputData<I>) {}
 
     /**
      * Called whenever a projection needs to be created.
@@ -34,9 +34,11 @@ interface Simulator<L : Luxel, I : Any> {
      * @param time the current time within the simulated animation
      * @return the type of projection to convert luxel position from simulation space to film space
      */
-    fun getProjection(simulationSpace: Space3, filmSpace: Space2, time: Duration): Projection {
-        return FlatXYProjection(simulationSpace, filmSpace)
-    }
+    fun getProjection(
+        simulationSpace: Volume<D>,
+        filmSpace: Volume<Dimension.D2>,
+        time: Duration,
+    ): Projection<D>
 
     /**
      * Called once when a new frame starts.
@@ -45,7 +47,7 @@ interface Simulator<L : Luxel, I : Any> {
      * @param animationDuration the total duration of the current animation
      */
     fun onFrameStart(
-        simulation: Configuration.Simulation,
+        simulation: Configuration.Simulation<D>,
         time: Duration,
         animationDuration: Duration,
     ) {
@@ -63,7 +65,7 @@ interface Simulator<L : Luxel, I : Any> {
      * @param simulation the simulation options
      * @param time the current time within the simulated animation
      */
-    fun spawnLuxel(simulation: Configuration.Simulation, time: Duration): L
+    fun spawnLuxel(simulation: Configuration.Simulation<D>, time: Duration): L
 
     /**
      * Updates the given [Luxel].
@@ -82,7 +84,7 @@ interface Simulator<L : Luxel, I : Any> {
      * @param luxel the [Luxel] to expose
      * @param filmExposition a lambda taking the 3D position to expose and the color to use
      */
-    fun exposeLuxel(luxel: L, filmExposition: (Vector3, Color) -> Unit) {
+    fun exposeLuxel(luxel: L, filmExposition: (Vector<D>, Color) -> Unit) {
         filmExposition(luxel.position(), luxel.color())
     }
 
@@ -98,5 +100,7 @@ interface Simulator<L : Luxel, I : Any> {
      * @param time the current time within the simulated animation
      * @return the color of the environment based on the given inputs
      */
-    fun environmentColor(position: Vector3, time: Duration): HDRColor = HDRColor.WHITE
+    fun environmentColor(position: Vector<D>, time: Duration): HDRColor {
+        return HDRColor.WHITE
+    }
 }

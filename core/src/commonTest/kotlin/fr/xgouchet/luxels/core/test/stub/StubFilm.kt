@@ -4,7 +4,8 @@ import fr.xgouchet.graphikio.color.Color
 import fr.xgouchet.graphikio.color.HDRColor
 import fr.xgouchet.graphikio.color.asHDR
 import fr.xgouchet.luxels.core.configuration.Resolution
-import fr.xgouchet.luxels.core.math.geometry.Vector2
+import fr.xgouchet.luxels.core.math.Dimension
+import fr.xgouchet.luxels.core.math.Vector
 import fr.xgouchet.luxels.core.render.exposure.Film
 
 class StubFilm(resolution: Resolution) : Film {
@@ -13,7 +14,7 @@ class StubFilm(resolution: Resolution) : Film {
 
     private val stubbedColor = mutableMapOf<Pair<Int, Int>, HDRColor>()
 
-    override fun expose(position: Vector2, color: Color) {
+    override fun expose(position: Vector<Dimension.D2>, color: Color) {
         TODO("Not yet implemented")
     }
 
@@ -21,7 +22,11 @@ class StubFilm(resolution: Resolution) : Film {
         return stubbedColor[i to j] ?: HDRColor.TRANSPARENT
     }
 
-    fun stubColor(i: Int, j: Int, color: Color) {
+    fun stubColor(
+        i: Int,
+        j: Int,
+        color: Color,
+    ) {
         stubbedColor[i to j] = color.asHDR()
     }
 }
