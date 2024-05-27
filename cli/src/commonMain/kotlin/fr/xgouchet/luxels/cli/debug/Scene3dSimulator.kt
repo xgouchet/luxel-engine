@@ -1,21 +1,26 @@
 package fr.xgouchet.luxels.cli.debug
 
 import fr.xgouchet.graphikio.color.HDRColor
+import fr.xgouchet.luxels.components.render.projection.PerspectiveProjection
 import fr.xgouchet.luxels.core.configuration.Configuration
-import fr.xgouchet.luxels.core.math.geometry.Space2
-import fr.xgouchet.luxels.core.math.geometry.Space3
-import fr.xgouchet.luxels.core.math.geometry.Vector3
+import fr.xgouchet.luxels.core.math.Dimension
+import fr.xgouchet.luxels.core.math.Vector
+import fr.xgouchet.luxels.core.math.Vector3
+import fr.xgouchet.luxels.core.math.Volume
 import fr.xgouchet.luxels.core.math.random.RndGen
-import fr.xgouchet.luxels.core.render.projection.PerspectiveProjection
 import fr.xgouchet.luxels.core.render.projection.Projection
 import fr.xgouchet.luxels.core.simulation.Simulator
 import kotlin.time.Duration
 
-internal class Scene3dSimulator : Simulator<DebugLuxel, Long> {
+internal class Scene3dSimulator : Simulator<Dimension.D3, DebugLuxel, Long> {
 
     // region Simulator
 
-    override fun getProjection(simulationSpace: Space3, filmSpace: Space2, time: Duration): Projection {
+    override fun getProjection(
+        simulationSpace: Volume<Dimension.D3>,
+        filmSpace: Volume<Dimension.D2>,
+        time: Duration,
+    ): Projection<Dimension.D3> {
         return PerspectiveProjection(
             simulationSpace,
             filmSpace,
@@ -25,7 +30,7 @@ internal class Scene3dSimulator : Simulator<DebugLuxel, Long> {
     }
 
     @Suppress("CyclomaticComplexMethod")
-    override fun spawnLuxel(simulation: Configuration.Simulation, time: Duration): DebugLuxel {
+    override fun spawnLuxel(simulation: Configuration.Simulation<Dimension.D3>, time: Duration): DebugLuxel {
         val t = RndGen.double.inRange(-1.0, 1.0)
         val edge = RndGen.int.uniform() % 12
 
@@ -45,7 +50,7 @@ internal class Scene3dSimulator : Simulator<DebugLuxel, Long> {
             10 -> Vector3(1.0, -1.0, t)
             11 -> Vector3(1.0, 1.0, t)
 
-            else -> Vector3.NULL
+            else -> Vector.nul(Dimension.D3)
         }
 
         val c = t + 1.0

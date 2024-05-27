@@ -1,4 +1,4 @@
-package fr.xgouchet.luxels.core.render.projection
+package fr.xgouchet.luxels.components.render.projection
 
 import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.math.Matrix
@@ -14,6 +14,7 @@ import fr.xgouchet.luxels.core.math.x
 import fr.xgouchet.luxels.core.math.xy
 import fr.xgouchet.luxels.core.math.y
 import fr.xgouchet.luxels.core.math.z
+import fr.xgouchet.luxels.core.render.projection.Projection
 import kotlin.math.tan
 
 /**

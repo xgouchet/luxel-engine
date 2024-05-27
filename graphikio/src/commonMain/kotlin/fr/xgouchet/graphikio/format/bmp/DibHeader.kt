@@ -52,13 +52,14 @@ internal sealed class DibHeader(
             internal val DIB_HEADER_SIZE: Int = 12
 
             fun read(size: Int, source: BufferedSource): BitmapCoreHeader {
+                check(size >= DIB_HEADER_SIZE)
                 // Unlike all other DIB headers width and height are stored as unsigned short
                 val width = source.readShortLe().toInt()
                 val height = source.readShortLe().toInt()
 
                 val colorPlaneCount = source.readShortLe().toInt()
                 check(colorPlaneCount == 1) {
-                    "Bitmap file uses unsupported multiple color planes ($colorPlaneCount)"
+                    "Bitmap file Core header uses unsupported multiple color planes ($colorPlaneCount)"
                 }
 
                 val bitPerPixel = source.readShortLe().toInt()
@@ -68,6 +69,7 @@ internal sealed class DibHeader(
         }
     }
 
+    @Suppress("LongParameterList")
     class BitmapInfoHeader(
         width: Int,
         height: Int,
@@ -114,19 +116,20 @@ internal sealed class DibHeader(
             internal const val DEFAULT_IMPORTANT_COLOR_COUNT = 0
 
             fun read(size: Int, source: BufferedSource): BitmapInfoHeader {
+                check(size >= BitmapCoreHeader.DIB_HEADER_SIZE)
                 // Unlike all other DIB headers width and height are stored as unsigned short
                 val width = source.readIntLe()
                 val height = source.readIntLe()
 
                 val colorPlaneCount = source.readShortLe().toInt()
                 check(colorPlaneCount == 1) {
-                    "Bitmap file uses unsupported multiple color planes ($colorPlaneCount)"
+                    "Bitmap file Info header uses unsupported multiple color planes ($colorPlaneCount)"
                 }
                 val bitPerPixel = source.readShortLe().toInt()
 
                 val compression = source.readIntLe()
                 check(compression == BmpImageFormat.COMPRESSION_BI_RGB) {
-                    "Bitmap file uses an unsupported compression flag: $compression"
+                    "Bitmap file Info header uses an unsupported compression flag: $compression"
                 }
 
                 source.readIntLe() // Image Size, unused
@@ -138,19 +141,20 @@ internal sealed class DibHeader(
                 val importantColorCount = source.readIntLe()
 
                 return BitmapInfoHeader(
-                    width,
-                    height,
-                    bitPerPixel,
-                    colorPlaneCount,
-                    xPPM,
-                    yPPM,
-                    paletteSize,
-                    importantColorCount,
+                    width = width,
+                    height = height,
+                    bitPerPixel = bitPerPixel,
+                    colorPlaneCount = colorPlaneCount,
+                    horizontalResolutionPPM = xPPM,
+                    verticalResolutionPPM = yPPM,
+                    colorPaletteSize = paletteSize,
+                    importantColorCount = importantColorCount,
                 )
             }
         }
     }
 
+    @Suppress("LongParameterList")
     class BitmapInfoHeaderV5(
         width: Int,
         height: Int,
@@ -197,19 +201,20 @@ internal sealed class DibHeader(
             internal const val DEFAULT_IMPORTANT_COLOR_COUNT = 0
 
             fun read(size: Int, source: BufferedSource): BitmapInfoHeaderV5 {
+                check(size >= fr.xgouchet.graphikio.format.bmp.DibHeader.BitmapCoreHeader.DIB_HEADER_SIZE)
                 // Unlike all other DIB headers width and height are stored as unsigned short
                 val width = source.readIntLe()
                 val height = source.readIntLe()
 
                 val colorPlaneCount = source.readShortLe().toInt()
                 check(colorPlaneCount == 1) {
-                    "Bitmap file uses unsupported multiple color planes ($colorPlaneCount)"
+                    "Bitmap file Header v5 uses unsupported multiple color planes ($colorPlaneCount)"
                 }
                 val bitPerPixel = source.readShortLe().toInt()
 
                 val compression = source.readIntLe()
                 check(compression == BmpImageFormat.COMPRESSION_BI_RGB) {
-                    "Bitmap file uses an unsupported compression flag: $compression"
+                    "Bitmap file Header v5 uses an unsupported compression flag: $compression"
                 }
 
                 source.readIntLe() // Image Size, unused
@@ -227,7 +232,6 @@ internal sealed class DibHeader(
                 }
 
                 val colorSpaceType = source.readIntLe()
-
                 val cieXYZEndpoints = DoubleArray(9)
 
                 for (i in cieXYZEndpoints.indices) {
@@ -243,17 +247,30 @@ internal sealed class DibHeader(
                 val intent = source.readIntLe() // TODO: Verify if this is same as ICC intent
                 val profileData = source.readIntLe().toLong() and 0xffffffffL
                 val profileSize = source.readIntLe().toLong() and 0xffffffffL
-                source.readIntLe() // Reserved
+                val reserved = source.readIntLe() // Reserved
+
+                print(
+                    buildString {
+                        append("Some attributes are not fully used in this reader : ")
+                        append("colorSpaceType:$colorSpaceType,")
+                        append("cieXYZEndpoints:[${cieXYZEndpoints.joinToString()}],")
+                        append("gamma:[${gamma.joinToString()}],")
+                        append("intent:$intent,")
+                        append("profileData:$profileData,")
+                        append("profileSize:$profileSize,")
+                        append("reserved:$reserved,")
+                    },
+                )
 
                 return BitmapInfoHeaderV5(
-                    width,
-                    height,
-                    bitPerPixel,
-                    colorPlaneCount,
-                    xPPM,
-                    yPPM,
-                    paletteSize,
-                    importantColorCount,
+                    width = width,
+                    height = height,
+                    bitPerPixel = bitPerPixel,
+                    colorPlaneCount = colorPlaneCount,
+                    horizontalResolutionPPM = xPPM,
+                    verticalResolutionPPM = yPPM,
+                    colorPaletteSize = paletteSize,
+                    importantColorCount = importantColorCount,
                 )
             }
         }

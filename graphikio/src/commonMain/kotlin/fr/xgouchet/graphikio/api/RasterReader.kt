@@ -4,6 +4,9 @@ import fr.xgouchet.graphikio.data.RasterData
 import fr.xgouchet.graphikio.format.ImageFormat
 import okio.Source
 
+/**
+ * A class able to write a [RasterData] image from a [Source].
+ */
 interface RasterReader {
 
     /**

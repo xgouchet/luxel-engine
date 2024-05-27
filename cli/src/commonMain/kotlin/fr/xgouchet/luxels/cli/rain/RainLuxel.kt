@@ -2,17 +2,18 @@ package fr.xgouchet.luxels.cli.rain
 
 import fr.xgouchet.luxels.components.color.EMSColorSource
 import fr.xgouchet.luxels.components.position.InertiaPositionSource
-import fr.xgouchet.luxels.core.math.geometry.Vector3
+import fr.xgouchet.luxels.core.math.Dimension
+import fr.xgouchet.luxels.core.math.Vector
 import fr.xgouchet.luxels.core.model.AgeingLifespanSource
 import fr.xgouchet.luxels.core.model.PrincipledLuxel
 
 internal class RainLuxel(
     lifespan: Int,
     waveLength: Double,
-    initialPosition: Vector3,
-    initialSpeed: Vector3,
+    initialPosition: Vector<Dimension.D2>,
+    initialSpeed: Vector<Dimension.D2>,
     var refractionIndex: Double,
-) : PrincipledLuxel<EMSColorSource, InertiaPositionSource, AgeingLifespanSource>(
+) : PrincipledLuxel<Dimension.D2, EMSColorSource, InertiaPositionSource<Dimension.D2>, AgeingLifespanSource>(
     EMSColorSource(waveLength),
     InertiaPositionSource(initialPosition, initialSpeed),
     AgeingLifespanSource(lifespan),

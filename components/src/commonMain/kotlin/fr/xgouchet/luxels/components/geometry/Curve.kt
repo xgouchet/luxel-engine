@@ -1,27 +1,24 @@
 package fr.xgouchet.luxels.components.geometry
 
 import fr.xgouchet.luxels.core.collections.zip
-import fr.xgouchet.luxels.core.math.geometry.Vector
+import fr.xgouchet.luxels.core.math.Dimension
+import fr.xgouchet.luxels.core.math.Vector
 import kotlin.math.floor
 import kotlin.math.max
 import kotlin.math.min
 
 /**
  * An abstract Curve described by a list of control points.
- * @param V the type of the control points
+ * @param D the dimension of the vector that make the control points of the curve
  * @param points the control points describing the curve
- * @param vectorBuilder the [Vector.Builder] to build interpolated positions
  */
-open class Curve<V : Vector>(
-    private val points: List<V>,
-    private val vectorBuilder: Vector.Builder<V>,
-) {
+open class Curve<D : Dimension>(private val points: List<Vector<D>>) {
 
     /**
      * @param t the progress along the curve (0..1)
      * @return the position on the curve
      */
-    fun getPosition(t: Double): V {
+    fun getPosition(t: Double): Vector<D> {
         val stepIndex = t.coerceIn(0.0, 1.0) * (points.size - 1)
 
         val i = floor(stepIndex).toInt()
@@ -38,7 +35,7 @@ open class Curve<V : Vector>(
         val ot = zip(n, o, p) { prev, current, next -> current - ((next - prev) / 4.0) }
 
         val resolvedComponents = bezier(n, nt, ot, o, stepProgress)
-        return vectorBuilder.buildFromComponents(resolvedComponents)
+        return Vector(resolvedComponents)
     }
 
     // region Internal

@@ -10,6 +10,7 @@ import fr.xgouchet.graphikio.format.bmp.BmpRasterReader
 import fr.xgouchet.graphikio.format.bmp.BmpRasterWriter
 import fr.xgouchet.graphikio.format.hdr.HdrImageFormat
 import fr.xgouchet.graphikio.format.hdr.HdrRasterWriter
+import okio.IOException
 import okio.Path
 import okio.Sink
 import okio.Source
@@ -99,6 +100,7 @@ object GraphikIO {
      * @param filePath the path to the image which should be read
      * @return the read [RasterData]
      */
+    @Suppress("TooGenericExceptionCaught")
     fun read(filePath: Path): RasterData {
         val fileExtension = filePath.name.substringAfterLast('.')
         val reader = readers.firstOrNull { reader -> reader.supportsFileExtension(fileExtension) }
@@ -109,11 +111,20 @@ object GraphikIO {
         val source = fileSystem.source(filePath)
         return try {
             reader.read(source)
-        } catch (e: Exception) {
+        } catch (e: IOException) {
+            throw IllegalStateException("Unable to read image from path $filePath", e)
+        } catch (e: RuntimeException) {
             throw IllegalStateException("Unable to read image from path $filePath", e)
         }
     }
 
+    /**
+     * Reads the image from the given source.
+     * @param imageFormat the format to read the image in
+     * @param source the source input stream
+     * @return the read [RasterData]
+     */
+    @Suppress("TooGenericExceptionCaught")
     fun read(imageFormat: ImageFormat, source: Source): RasterData {
         val reader = readers.firstOrNull { reader -> imageFormat in reader.supportedFormats() }
         if (reader == null) {
@@ -121,7 +132,9 @@ object GraphikIO {
         }
         return try {
             reader.read(source)
-        } catch (e: Exception) {
+        } catch (e: IOException) {
+            throw IllegalStateException("Unable to read image from source", e)
+        } catch (e: RuntimeException) {
             throw IllegalStateException("Unable to read image from source", e)
         }
     }

@@ -6,6 +6,7 @@ import fr.xgouchet.luxels.core.configuration.PassType
 import fr.xgouchet.luxels.core.configuration.Quality
 import fr.xgouchet.luxels.core.configuration.Resolution
 import fr.xgouchet.luxels.core.configuration.configurationWithFixedSeeds
+import fr.xgouchet.luxels.core.math.Dimension
 import okio.Path.Companion.toPath
 
 /** Main. */
@@ -33,7 +34,8 @@ fun main() {
         0xe40e4ddc,
     )
 
-    val configuration = configurationWithFixedSeeds(*seeds) {
+    @Suppress("SpreadOperator")
+    val configuration = configurationWithFixedSeeds(Dimension.D3, *seeds) {
 //    val configuration = configurationWithRandomSeeds() {
 
         simulation {

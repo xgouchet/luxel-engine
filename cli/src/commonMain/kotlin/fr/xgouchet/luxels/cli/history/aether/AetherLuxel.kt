@@ -4,26 +4,27 @@ import fr.xgouchet.graphikio.color.HDRColor
 import fr.xgouchet.luxels.components.color.EMSColorSource
 import fr.xgouchet.luxels.components.color.WavelengthNanometer
 import fr.xgouchet.luxels.components.geometry.Curve
+import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.math.TAU
-import fr.xgouchet.luxels.core.math.geometry.Vector3
+import fr.xgouchet.luxels.core.math.Vector
 import fr.xgouchet.luxels.core.model.AgeingLifespanSource
 import fr.xgouchet.luxels.core.model.PrincipledLuxel
 import fr.xgouchet.luxels.core.position.SimplePositionSource
 import kotlin.math.cos
 
 internal class AetherLuxel(
-    val curve3: Curve<Vector3>,
+    private val curve3: Curve<Dimension.D3>,
     waveLength: WavelengthNanometer,
     lifespan: Int,
-) : PrincipledLuxel<EMSColorSource, SimplePositionSource, AgeingLifespanSource>(
+) : PrincipledLuxel<Dimension.D3, EMSColorSource, SimplePositionSource<Dimension.D3>, AgeingLifespanSource>(
     EMSColorSource(waveLength),
-    SimplePositionSource(Vector3.NULL),
+    SimplePositionSource(Vector.nul(Dimension.D3)),
     AgeingLifespanSource(lifespan),
 ) {
 
     // region Luxel
 
-    override fun position(): Vector3 {
+    override fun position(): Vector<Dimension.D3> {
         val progress = lifespanSource.progression
         return curve3.getPosition(progress)
     }

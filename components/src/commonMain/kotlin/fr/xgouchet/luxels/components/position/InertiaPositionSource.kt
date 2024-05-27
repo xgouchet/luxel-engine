@@ -5,9 +5,10 @@ import fr.xgouchet.luxels.core.math.Vector
 import fr.xgouchet.luxels.core.position.UpdatablePositionSource
 
 /**
- * A [PositionSource] based on Newton's First Law of Motion.
+ * An [UpdatablePositionSource] (loosely) based on Newton's First Law of Motion.
  *
  * This class keeps track of the momentum of the luxel, and allows applying forces to it.
+ * @param D the dimension of the space luxels evolve in
  * @param initialPosition the initial position of the luxel
  * @param initialSpeed the speed position of the luxel
  */

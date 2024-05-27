@@ -1,6 +1,7 @@
 package fr.xgouchet.graphikio.format.bmp
 
 import fr.xgouchet.graphikio.api.AbstractRasterReader
+import fr.xgouchet.graphikio.api.RasterReader
 import fr.xgouchet.graphikio.color.SDRColor
 import fr.xgouchet.graphikio.data.RasterData
 import fr.xgouchet.graphikio.data.SDRRasterData
@@ -10,6 +11,9 @@ import okio.BufferedSource
 import okio.Source
 import okio.buffer
 
+/**
+ * A [RasterReader] to read standard Bitmap files.
+ */
 class BmpRasterReader : AbstractRasterReader(BmpImageFormat) {
 
     // region RasterReader
@@ -27,7 +31,7 @@ class BmpRasterReader : AbstractRasterReader(BmpImageFormat) {
         val bytesPerRow = BYTES_PER_PIXEL * dibHeader.width
         val modulo = bytesPerRow.mod(BmpImageFormat.BYTE_ALIGN_COUNT)
         val bytesPerPadding = if (modulo == 0) 0 else (BmpImageFormat.BYTE_ALIGN_COUNT - modulo)
-        val bytesPerRowPadded = bytesPerRow + bytesPerPadding
+//        val bytesPerRowPadded = bytesPerRow + bytesPerPadding
 
         val rasterData = SDRRasterData(dibHeader.width, dibHeader.height)
 
@@ -66,7 +70,4 @@ class BmpRasterReader : AbstractRasterReader(BmpImageFormat) {
     }
 
     // endregion
-
-    companion object {
-    }
 }

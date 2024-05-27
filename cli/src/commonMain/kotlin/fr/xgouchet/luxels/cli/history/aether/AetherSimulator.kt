@@ -1,32 +1,32 @@
 package fr.xgouchet.luxels.cli.history.aether
 
 import fr.xgouchet.luxels.components.color.EMSColorSource
-import fr.xgouchet.luxels.components.geometry.Curve3
+import fr.xgouchet.luxels.components.geometry.Curve
+import fr.xgouchet.luxels.components.render.projection.PerspectiveProjection
 import fr.xgouchet.luxels.core.configuration.Configuration
 import fr.xgouchet.luxels.core.configuration.input.InputData
-import fr.xgouchet.luxels.core.math.geometry.Space2
-import fr.xgouchet.luxels.core.math.geometry.Space3
-import fr.xgouchet.luxels.core.math.geometry.Vector3
+import fr.xgouchet.luxels.core.math.Dimension
+import fr.xgouchet.luxels.core.math.Volume
+import fr.xgouchet.luxels.core.math.fromSpherical
 import fr.xgouchet.luxels.core.math.random.RndGen
-import fr.xgouchet.luxels.core.math.random.inBox
-import fr.xgouchet.luxels.core.render.projection.PerspectiveProjection
+import fr.xgouchet.luxels.core.math.random.inVolume
 import fr.xgouchet.luxels.core.render.projection.Projection
 import fr.xgouchet.luxels.core.simulation.Simulator
 import kotlin.math.PI
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
 
-internal class AetherSimulator : Simulator<AetherLuxel, Long> {
+internal class AetherSimulator : Simulator<Dimension.D3, AetherLuxel, Long> {
 
     private var gaussianRange = 0
-    private var curves: List<Curve3> = emptyList()
+    private var curves: List<Curve<Dimension.D3>> = emptyList()
     private var luxelLifespan = 1024
     private var successiveStep = 0.0001
     private var frameCenterP: Double = 0.0
 
     // region Simulator
 
-    override fun initEnvironment(simulation: Configuration.Simulation, inputData: InputData<Long>) {
+    override fun initEnvironment(simulation: Configuration.Simulation<Dimension.D3>, inputData: InputData<Long>) {
         super.initEnvironment(simulation, inputData)
         luxelLifespan = 0x2000
         gaussianRange = (simulation.luxelPerThread / 2).toInt()
@@ -35,11 +35,15 @@ internal class AetherSimulator : Simulator<AetherLuxel, Long> {
         val curveCount = RndGen.int.inRange(5, 8)
         val pointCount = RndGen.int.inRange(4, 8)
         curves = List(curveCount) {
-            Curve3(List(pointCount) { RndGen.vector3.inBox(simulation.space) })
+            Curve(List(pointCount) { RndGen.vector3.inVolume(simulation.space) })
         }
     }
 
-    override fun onFrameStart(simulation: Configuration.Simulation, time: Duration, animationDuration: Duration) {
+    override fun onFrameStart(
+        simulation: Configuration.Simulation<Dimension.D3>,
+        time: Duration,
+        animationDuration: Duration,
+    ) {
         super.onFrameStart(simulation, time, animationDuration)
         if (animationDuration > 16.milliseconds) {
             frameCenterP = (time / animationDuration)
@@ -48,18 +52,22 @@ internal class AetherSimulator : Simulator<AetherLuxel, Long> {
         }
     }
 
-    override fun spawnLuxel(simulation: Configuration.Simulation, time: Duration): AetherLuxel {
+    override fun spawnLuxel(simulation: Configuration.Simulation<Dimension.D3>, time: Duration): AetherLuxel {
         val offsetP = RndGen.int.gaussian(0, gaussianRange) * successiveStep
         val p = frameCenterP + offsetP
 
         val t = (p * WL_RANGE) + WL_MIN
-        val curve = Curve3(curves.map { it.getPosition(p) })
+        val curve = Curve(curves.map { it.getPosition(p) })
         return AetherLuxel(curve, t, luxelLifespan)
     }
 
-    override fun getProjection(simulationSpace: Space3, filmSpace: Space2, time: Duration): Projection {
+    override fun getProjection(
+        simulationSpace: Volume<Dimension.D3>,
+        filmSpace: Volume<Dimension.D2>,
+        time: Duration,
+    ): Projection<Dimension.D3> {
         val angle = (time.inWholeMilliseconds / 1000.0) * (PI / 2.0)
-        val offset = Vector3.fromSpherical(angle, 0.0, simulationSpace.size.length())
+        val offset = fromSpherical(angle, 0.0, simulationSpace.size.length())
         return PerspectiveProjection(
             simulationSpace,
             filmSpace,

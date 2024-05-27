@@ -4,6 +4,7 @@ import fr.xgouchet.luxels.core.math.Dimension
 
 /**
  * A generic way to make a position updatable.
+ * @param D the dimension of the space luxels evolve in
  */
 interface UpdatablePositionSource<D : Dimension> : PositionSource<D> {
     /**

@@ -38,7 +38,11 @@ class SDRRasterData(
 
     // endregion
 
+    // region Internal
+
     private fun index(x: Int, y: Int): Int {
         return x + (y * width)
     }
+
+    // endregion
 }

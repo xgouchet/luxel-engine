@@ -35,9 +35,9 @@ object BmpImageFormat : ImageFormat(
     internal const val COLOR_PALETTE_SIZE = 0
     internal const val IMPORTANT_COLOR_COUNT = 0
 
-    /** Value for the Compression header field, means no compression */
+    /** Value for the Compression header field, means no compression. */
     internal const val COMPRESSION_BI_RGB = 0
 
-    /** Print resolution in Pixel per Meter. 72 ppi ~ 2835 ppm */
+    /** Print resolution in Pixel per Meter. 72 ppi ~ 2835 ppm. */
     internal const val PRINT_RESOLUTION_PPM = 2835
 }

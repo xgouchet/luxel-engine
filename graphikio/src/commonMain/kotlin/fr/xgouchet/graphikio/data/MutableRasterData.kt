@@ -2,6 +2,9 @@ package fr.xgouchet.graphikio.data
 
 import fr.xgouchet.graphikio.color.Color
 
+/**
+ * An interface for rasterized image data, allowing edition of the pixel content.
+ */
 interface MutableRasterData : RasterData {
     /**
      * Set the color of a pixel.

@@ -34,6 +34,23 @@ data class Volume<D : Dimension>(
 
     // endregion
 
+    // region Geometry
+
+    /**
+     * @param scale the scale by which to multiply this volume's size
+     * @return a new space as an expanded version of this space. The center of the result space is the same as this
+     * volume, and the size of the result space is the size of this space times the provided scale.
+     */
+    fun expanded(scale: Double): Volume<D> {
+        val halfSize = size * scale / 2.0
+        return Volume(
+            center - halfSize,
+            center + halfSize,
+        )
+    }
+
+    // endregion
+
     companion object {
         /**
          * Create a volume of size 1.

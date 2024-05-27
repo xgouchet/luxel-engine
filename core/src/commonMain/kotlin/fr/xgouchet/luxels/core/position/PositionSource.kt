@@ -5,6 +5,7 @@ import fr.xgouchet.luxels.core.math.Vector
 
 /**
  * An interface providing a position information for a Luxel.
+ * @param D the dimension of the space luxels evolve in
  */
 fun interface PositionSource<D : Dimension> {
     /**

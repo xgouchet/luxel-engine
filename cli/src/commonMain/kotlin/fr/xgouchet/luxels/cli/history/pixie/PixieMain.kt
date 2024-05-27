@@ -6,6 +6,7 @@ import fr.xgouchet.luxels.core.configuration.PassType
 import fr.xgouchet.luxels.core.configuration.Quality
 import fr.xgouchet.luxels.core.configuration.Resolution
 import fr.xgouchet.luxels.core.configuration.configurationWithFilesFrom
+import fr.xgouchet.luxels.core.math.Dimension
 import okio.Path.Companion.toPath
 
 /** Main. */
@@ -13,7 +14,7 @@ fun main() {
     val outputPath = "../output".toPath()
     val inputPath = "../input".toPath()
 
-    val configuration = configurationWithFilesFrom(inputPath) {
+    val configuration = configurationWithFilesFrom(Dimension.D2, inputPath) {
         simulation {
             quality(Quality.DRAFT)
             threadCount(10)

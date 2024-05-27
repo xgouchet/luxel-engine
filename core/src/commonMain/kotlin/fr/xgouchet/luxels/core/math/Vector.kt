@@ -15,7 +15,7 @@ class Vector<D : Dimension> internal constructor(
     val data: DoubleArray,
 ) {
 
-    internal constructor(data: Collection<Double>) : this(data.toDoubleArray())
+    constructor(data: Collection<Double>) : this(data.toDoubleArray())
 
     // region Access
 
@@ -140,6 +140,25 @@ class Vector<D : Dimension> internal constructor(
      */
     fun reflect(normal: Vector<D>): Vector<D> {
         return this - (normal * dot(normal) * 2.0)
+    }
+
+    /**
+     * Refracts this vector through a surface.
+     * @param normal the normal vector of the surface through which the vector should be refracted
+     * @param sourceIndex the source medium refraction index
+     * @param destinationIndex the destination medium refraction index
+     * @param refractionFactor the refraction factor
+     */
+    fun refract(
+        normal: Vector<D>,
+        sourceIndex: Double,
+        destinationIndex: Double,
+        refractionFactor: Double,
+    ): Vector<D> {
+        val r = (sourceIndex / destinationIndex) * refractionFactor
+        val c = -(normal.dot(this))
+        val k = r * c - sqrt(kotlin.math.abs(1.0 - (r * r * (1.0 - c * c))))
+        return (this * r) + (normal * k)
     }
 
     // endregion

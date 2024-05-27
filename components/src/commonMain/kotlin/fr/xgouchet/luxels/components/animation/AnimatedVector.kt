@@ -1,33 +1,31 @@
 package fr.xgouchet.luxels.components.animation
 
 import fr.xgouchet.luxels.components.geometry.Curve
-import fr.xgouchet.luxels.core.math.geometry.Vector
+import fr.xgouchet.luxels.core.math.Dimension
+import fr.xgouchet.luxels.core.math.Vector
 import kotlin.time.Duration
 
 /**
  * A [Vector] animated through time.
- * @param V the type of the control points
+ * @param D the dimension of the vector to animate
  * @property duration the duration of the animation
  * @param points the key frames (regularly spread through the animation duration)
- * @param vectorBuilder the [Vector.Builder] to build interpolated positions
  */
-open class AnimatedVector<V : Vector>(
+open class AnimatedVector<D : Dimension>(
     val duration: Duration,
-    points: List<V>,
-    vectorBuilder: Vector.Builder<V>,
-) : Animated<V> {
+    points: List<Vector<D>>,
+) : Animated<Vector<D>> {
 
     constructor(
         duration: Duration,
-        vararg points: V,
-        vectorBuilder: Vector.Builder<V>,
-    ) : this(duration, listOf(*points), vectorBuilder)
+        vararg points: Vector<D>,
+    ) : this(duration, listOf(*points))
 
-    internal val curve = Curve(points, vectorBuilder)
+    internal val curve = Curve(points)
 
     // region Animated
 
-    override fun getValue(time: Duration): V {
+    override fun getValue(time: Duration): Vector<D> {
         val progress = time.inWholeNanoseconds.toDouble() / duration.inWholeNanoseconds.toDouble()
         return curve.getPosition(progress)
     }

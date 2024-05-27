@@ -1,6 +1,7 @@
 package fr.xgouchet.graphikio
 
 import com.goncalossilva.resources.Resource
+import fr.xgouchet.graphikio.color.SDRColor
 import fr.xgouchet.graphikio.color.asSDR
 import fr.xgouchet.graphikio.test.stub.StubRasterData
 import io.kotest.assertions.withClue
@@ -51,9 +52,9 @@ class GraphikIOSpec : DescribeSpec({
 
     describe("reading data") {
 
-        it("reads from a file") {
-            checkAll(Arb.element(GraphikIO.writeableFormats)) { format ->
-                if (format in GraphikIO.readableFormats) {
+        GraphikIO.writeableFormats.forEach { format ->
+            if (format in GraphikIO.readableFormats) {
+                it("reads from a ${format.fileNameExtension} file") {
                     val outputFileName = "$baseName.${format.fileNameExtension}"
                     val outputFile = tempOutputDirPath / outputFileName
 
@@ -63,21 +64,24 @@ class GraphikIOSpec : DescribeSpec({
 
                     readRaster.width shouldBe stubRaster.width
                     readRaster.height shouldBe stubRaster.height
-                    // TODO adapt assertion to type of format (SDR vs HDR, Alpha, …)
+
                     for (i in 0..<readRaster.width) {
                         for (j in 0..<readRaster.height) {
                             withClue("Unexpected pixel color at [$i, $j]") {
-                                readRaster.getColor(i, j).asSDR() shouldBe stubRaster.getColor(i, j).asSDR()
+                                val readColor = readRaster.getColor(i, j).asSDR()
+                                val expectedColor = stubRaster.getColor(i, j).asSDR()
+
+                                if (format.constraints.isTransparencySupported) {
+                                    readColor shouldBe expectedColor
+                                } else {
+                                    readColor shouldBe expectedColor.copy(a = SDRColor.MAX_VALUE)
+                                }
                             }
                         }
                     }
                 }
-            }
-        }
 
-        it("reads from a source") {
-            checkAll(Arb.element(GraphikIO.writeableFormats)) { format ->
-                if (format in GraphikIO.readableFormats) {
+                it("reads from a ${format.fileNameExtension} source") {
                     val buffer = Buffer()
 
                     GraphikIO.write(stubRaster, format.constraints, buffer)
@@ -87,7 +91,14 @@ class GraphikIOSpec : DescribeSpec({
                     readRaster.height shouldBe stubRaster.height
                     for (i in 0..<readRaster.width) {
                         for (j in 0..<readRaster.height) {
-                            readRaster.getColor(i, j).asSDR() shouldBe stubRaster.getColor(i, j).asSDR()
+                            val readColor = readRaster.getColor(i, j).asSDR()
+                            val expectedColor = stubRaster.getColor(i, j).asSDR()
+
+                            if (format.constraints.isTransparencySupported) {
+                                readColor shouldBe expectedColor
+                            } else {
+                                readColor shouldBe expectedColor.copy(a = SDRColor.MAX_VALUE)
+                            }
                         }
                     }
                 }

@@ -1,5 +1,8 @@
 package fr.xgouchet.luxels.core.math
 
+import kotlin.math.cos
+import kotlin.math.sin
+
 // region Init
 
 /** Creates a 1D vector. */
@@ -132,6 +135,39 @@ infix fun Vector<Dimension.D3>.cross(other: Vector<Dimension.D3>): Vector<Dimens
         (y * other.z) - (z * other.y),
         (z * other.x) - (x * other.z),
         (x * other.y) - (y * other.x),
+    )
+}
+
+// endregion
+
+// region alternate coordinate systems
+
+/**
+ * @param polar (between 0 and 2π)
+ * @param radius (between 0 and ∞)
+ */
+fun fromCircular(polar: Double, radius: Double = 1.0): Vector<Dimension.D2> {
+    return Vector2(
+        radius * cos(polar),
+        radius * sin(polar),
+    )
+}
+
+/**
+ * @param polar (between 0 and 2π)
+ * @param azimuth (between -π/2 and π/2)
+ * @param radius (between 0 and ∞)
+ */
+fun fromSpherical(
+    polar: Double,
+    azimuth: Double = 0.0,
+    radius: Double = 1.0,
+): Vector<Dimension.D3> {
+    val cosA = cos(azimuth)
+    return Vector3(
+        radius * cos(polar) * cosA,
+        radius * sin(azimuth),
+        radius * sin(polar) * cosA,
     )
 }
 
