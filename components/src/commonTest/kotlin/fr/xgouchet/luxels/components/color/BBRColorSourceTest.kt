@@ -1,7 +1,7 @@
 package fr.xgouchet.luxels.components.color
 
+import fr.xgouchet.graphikio.color.HDRColor
 import fr.xgouchet.luxels.components.test.kotest.assertions.shouldBeCloseTo
-import fr.xgouchet.luxels.core.color.Color
 import fr.xgouchet.luxels.core.math.EPSILON
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.doubles.shouldBeGreaterThanOrEqual
@@ -18,19 +18,19 @@ class BBRColorSourceTest : DescribeSpec({
         it("is transparent red at absolute zero") {
             val color = BBRColorSource(0.0).color()
 
-            color shouldBeCloseTo Color.RED.copy(a = 0.0)
+            color shouldBeCloseTo HDRColor.RED.copy(a = 0.0)
         }
 
         it("is bright white at 6600K") {
             val color = BBRColorSource(6600.0).color()
 
-            color shouldBeCloseTo Color.WHITE
+            color shouldBeCloseTo HDRColor.WHITE
         }
 
         it("is infinite blue at High' temperature") {
             val color = BBRColorSource(100000.0).color()
 
-            color shouldBeCloseTo Color(0.51945, 0.67378, 1.0)
+            color shouldBeCloseTo HDRColor(0.51945, 0.67378, 1.0)
         }
 
         it("has full red for temperature below 6600k") {

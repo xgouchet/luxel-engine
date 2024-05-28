@@ -1,11 +1,11 @@
 package fr.xgouchet.luxels.components.test.kotest.assertions
 
-import fr.xgouchet.luxels.core.color.Color
+import fr.xgouchet.graphikio.color.HDRColor
 import io.kotest.matchers.Matcher
 import io.kotest.matchers.MatcherResult
 import io.kotest.matchers.should
 
-fun beCloseTo(other: Color) = Matcher<Color> { value ->
+fun beCloseTo(other: HDRColor) = Matcher<HDRColor> { value ->
     val passed = (value.r isCloseTo other.r) &&
         (value.g isCloseTo other.g) &&
         (value.b isCloseTo other.b) &&
@@ -18,7 +18,7 @@ fun beCloseTo(other: Color) = Matcher<Color> { value ->
     )
 }
 
-infix fun Color.shouldBeCloseTo(other: Color): Color {
+infix fun HDRColor.shouldBeCloseTo(other: HDRColor): HDRColor {
     this should beCloseTo(other)
     return this
 }

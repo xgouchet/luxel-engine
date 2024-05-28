@@ -13,4 +13,4 @@ const val HALF_PI: Double = 1.5707963267948966
 /**
  * Arbitrary small value very close to 0.
  */
-const val EPSILON = 2.0E-12
+const val EPSILON = 2.0E-9

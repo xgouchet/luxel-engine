@@ -1,10 +1,10 @@
 [versions]
 
 # Commons
-kotlin = "1.9.23"
-kotlinxDateTime = "0.5.0"
+kotlin = "2.0.0"
+kotlinxDateTime = "0.6.0"
 kotlinxSerialization = "1.6.3"
-kotlinxCoroutines = "1.8.0"
+kotlinxCoroutines = "1.8.1"
 
 # Okio
 okio = "3.9.0"
@@ -16,14 +16,14 @@ imageIo = "3.10.1"
 detekt = "1.23.6"
 
 # Tests Tools
-kotest = "5.8.1"
+kotest = "5.9.0"
 mockk = "1.13.9"
 
 # Plugins
 versionsGradlePlugin = "0.46.0"
 nexusPublishGradlePlugin = "1.1.0"
 ktlintGradlePlugin = "12.1.0"
-detektGradlePlugin = "1.23.4"
+detektGradlePlugin = "1.23.6"
 dokkaGradlePlugin = "1.6.10"
 pitestGradlePlugin = "1.15.0"
 koverGradlePlugin = "0.7.6"

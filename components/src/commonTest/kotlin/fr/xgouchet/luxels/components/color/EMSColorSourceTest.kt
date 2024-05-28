@@ -1,5 +1,6 @@
 package fr.xgouchet.luxels.components.color
 
+import fr.xgouchet.graphikio.color.HDRColor
 import fr.xgouchet.luxels.components.color.EMSColorSource.Companion.MAX_IR_LIGHT
 import fr.xgouchet.luxels.components.color.EMSColorSource.Companion.MAX_VISIBLE_LIGHT
 import fr.xgouchet.luxels.components.color.EMSColorSource.Companion.MIN_UV_LIGHT
@@ -12,7 +13,6 @@ import fr.xgouchet.luxels.components.color.EMSColorSource.Companion.PURE_VIOLET
 import fr.xgouchet.luxels.components.color.EMSColorSource.Companion.PURE_YELLOW
 import fr.xgouchet.luxels.components.test.kotest.assertions.shouldBeCloseTo
 import fr.xgouchet.luxels.components.test.kotest.assertions.shouldBeInRange
-import fr.xgouchet.luxels.core.color.Color
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb
@@ -26,7 +26,7 @@ class EMSColorSourceTest : DescribeSpec({
             checkAll(Arb.double(max = MIN_UV_LIGHT)) { w ->
                 val color = EMSColorSource(w).color()
 
-                color shouldBeCloseTo Color.TRANSPARENT
+                color shouldBeCloseTo HDRColor.TRANSPARENT
             }
         }
 
@@ -34,7 +34,7 @@ class EMSColorSourceTest : DescribeSpec({
             checkAll(Arb.double(min = MAX_IR_LIGHT)) { w ->
                 val color = EMSColorSource(w).color()
 
-                color shouldBeCloseTo Color.TRANSPARENT
+                color shouldBeCloseTo HDRColor.TRANSPARENT
             }
         }
 
@@ -125,11 +125,11 @@ class EMSColorSourceTest : DescribeSpec({
 
         it("is has expected components for pure colors") {
 //            EMSColorSource(PURE_VIOLET).color() shouldBeCloseTo Color.VIOLET
-            EMSColorSource(PURE_BLUE).color() shouldBeCloseTo Color.BLUE
-            EMSColorSource(PURE_TEAL).color() shouldBeCloseTo Color.TEAL
-            EMSColorSource(PURE_GREEN).color() shouldBeCloseTo Color.GREEN
-            EMSColorSource(PURE_YELLOW).color() shouldBeCloseTo Color.YELLOW
-            EMSColorSource(PURE_RED).color() shouldBeCloseTo Color.RED
+            EMSColorSource(PURE_BLUE).color() shouldBeCloseTo HDRColor.BLUE
+            EMSColorSource(PURE_TEAL).color() shouldBeCloseTo HDRColor.TEAL
+            EMSColorSource(PURE_GREEN).color() shouldBeCloseTo HDRColor.GREEN
+            EMSColorSource(PURE_YELLOW).color() shouldBeCloseTo HDRColor.YELLOW
+            EMSColorSource(PURE_RED).color() shouldBeCloseTo HDRColor.RED
         }
     }
 })

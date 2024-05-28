@@ -9,7 +9,6 @@ import fr.xgouchet.luxels.core.configuration.Resolution
 import fr.xgouchet.luxels.core.configuration.configuration
 import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.math.Volume
-import okio.Path.Companion.toPath
 
 /** Main. */
 fun main() {
