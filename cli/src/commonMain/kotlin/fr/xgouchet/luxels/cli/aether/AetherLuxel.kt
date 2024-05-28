@@ -1,4 +1,4 @@
-package fr.xgouchet.luxels.cli.history.aether
+package fr.xgouchet.luxels.cli.aether
 
 import fr.xgouchet.graphikio.color.HDRColor
 import fr.xgouchet.luxels.components.color.EMSColorSource

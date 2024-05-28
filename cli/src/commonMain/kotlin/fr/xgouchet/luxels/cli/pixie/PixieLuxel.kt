@@ -1,4 +1,4 @@
-package fr.xgouchet.luxels.cli.history.pixie
+package fr.xgouchet.luxels.cli.pixie
 
 import fr.xgouchet.graphikio.color.HDRColor
 import fr.xgouchet.graphikio.data.RasterData

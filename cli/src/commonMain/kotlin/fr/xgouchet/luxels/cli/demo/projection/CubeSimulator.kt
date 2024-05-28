@@ -1,6 +1,7 @@
-package fr.xgouchet.luxels.cli.debug
+package fr.xgouchet.luxels.cli.demo.projection
 
 import fr.xgouchet.graphikio.color.HDRColor
+import fr.xgouchet.luxels.cli.demo.DemoLuxel
 import fr.xgouchet.luxels.components.render.projection.PerspectiveProjection
 import fr.xgouchet.luxels.core.configuration.Configuration
 import fr.xgouchet.luxels.core.math.Dimension
@@ -12,7 +13,7 @@ import fr.xgouchet.luxels.core.render.projection.Projection
 import fr.xgouchet.luxels.core.simulation.Simulator
 import kotlin.time.Duration
 
-internal class Scene3dSimulator : Simulator<Dimension.D3, DebugLuxel, Long> {
+internal class CubeSimulator : Simulator<Dimension.D3, DemoLuxel<Dimension.D3>, Unit> {
 
     // region Simulator
 
@@ -30,7 +31,10 @@ internal class Scene3dSimulator : Simulator<Dimension.D3, DebugLuxel, Long> {
     }
 
     @Suppress("CyclomaticComplexMethod")
-    override fun spawnLuxel(simulation: Configuration.Simulation<Dimension.D3>, time: Duration): DebugLuxel {
+    override fun spawnLuxel(
+        simulation: Configuration.Simulation<Dimension.D3>,
+        time: Duration,
+    ): DemoLuxel<Dimension.D3> {
         val t = RndGen.double.inRange(-1.0, 1.0)
         val edge = RndGen.int.uniform() % 12
 
@@ -74,11 +78,12 @@ internal class Scene3dSimulator : Simulator<Dimension.D3, DebugLuxel, Long> {
         }
 
         val position = (p * simulation.space.size * 0.1) + simulation.space.center
-        return DebugLuxel(position, color)
+
+        return DemoLuxel(position, color)
     }
 
     override fun outputName(): String {
-        return "scene_3d"
+        return "cube"
     }
 
     // endregion

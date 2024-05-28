@@ -37,3 +37,11 @@ echo " ··· Test [jvm]"
 ./gradlew :cli:jvmTest
 echo "   ✔ Test [jvm]"
 echo ""
+
+echo " ··· Dependency upgrades"
+./gradlew :graphikio:dependencyUpdates
+./gradlew :core:dependencyUpdates
+./gradlew :components:dependencyUpdates
+./gradlew :cli:dependencyUpdates
+echo "   ✔ Dependency upgrades"
+echo ""

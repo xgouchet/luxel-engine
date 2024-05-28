@@ -1,5 +1,6 @@
 package fr.xgouchet.luxels.cli.rain
 
+import fr.xgouchet.luxels.cli.common.baseOutputPath
 import fr.xgouchet.luxels.core.LuxelEngine
 import fr.xgouchet.luxels.core.configuration.FilmType
 import fr.xgouchet.luxels.core.configuration.PassType
@@ -13,7 +14,8 @@ import okio.Path.Companion.toPath
  * Main entry point.
  */
 fun main() {
-    val outputPath = "../output".toPath()
+    val outputPath = baseOutputPath / "rain"
+
     val configuration = configurationWithFixedSeeds(Dimension.D2, 13L) {
         simulation {
             quality(Quality.ROUGH)

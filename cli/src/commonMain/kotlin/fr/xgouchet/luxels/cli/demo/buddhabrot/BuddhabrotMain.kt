@@ -1,4 +1,4 @@
-package fr.xgouchet.luxels.cli.aurora
+package fr.xgouchet.luxels.cli.demo.buddhabrot
 
 import fr.xgouchet.luxels.cli.common.baseOutputPath
 import fr.xgouchet.luxels.core.LuxelEngine
@@ -6,32 +6,32 @@ import fr.xgouchet.luxels.core.configuration.FilmType
 import fr.xgouchet.luxels.core.configuration.PassType
 import fr.xgouchet.luxels.core.configuration.Quality
 import fr.xgouchet.luxels.core.configuration.Resolution
-import fr.xgouchet.luxels.core.configuration.configurationWithFixedSeeds
+import fr.xgouchet.luxels.core.configuration.configuration
 import fr.xgouchet.luxels.core.math.Dimension
+import fr.xgouchet.luxels.core.math.Volume
 import okio.Path.Companion.toPath
 
-/**
- * Main entry point.
- */
+/** Main. */
 fun main() {
-    val outputPath = baseOutputPath / "aurora"
+    val outputPath = baseOutputPath / "buddhabrot"
 
-    val configuration = configurationWithFixedSeeds(Dimension.D3, 13L) {
+    val configuration = configuration(Dimension.D2) {
         simulation {
-            quality(Quality.ROUGH)
+            quality(Quality.GOOD)
             threadCount(10)
             passType(PassType.RENDER)
-            space(Resolution.FHD_1080, 1.0)
+            space(Volume.unit(Dimension.D2).expanded(3.0))
         }
 
         render {
-            resolution(Resolution.FHD_1080)
+            resolution(Resolution.SQUARE_2880)
             filmType(FilmType.ROUGH)
             hdrFixer(outputPath)
         }
     }
 
-    val simulator = AuroraSimulator()
-
-    LuxelEngine.runSimulation(simulator, configuration)
+    LuxelEngine.runSimulation(
+        simulator = BuddhabrotSimulator(0x10_000),
+        configuration = configuration,
+    )
 }

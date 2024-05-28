@@ -1,4 +1,4 @@
-package fr.xgouchet.luxels.cli.buddhabrot
+package fr.xgouchet.luxels.cli.demo.buddhabrot
 
 import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.math.Vector
@@ -53,7 +53,7 @@ internal class BuddhabrotPositionSource(maxSteps: Int) : UpdatablePositionSource
     }
 
     fun isAlive(): Boolean {
-        return Companion.isAlive(complexPosition)
+        return isAlive(complexPosition)
     }
 
     // endregion

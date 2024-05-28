@@ -1,4 +1,4 @@
-package fr.xgouchet.luxels.cli.buddhabrot
+package fr.xgouchet.luxels.cli.demo.buddhabrot
 
 import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.math.Vector

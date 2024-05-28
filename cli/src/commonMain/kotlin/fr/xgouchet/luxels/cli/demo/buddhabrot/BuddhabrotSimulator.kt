@@ -1,4 +1,4 @@
-package fr.xgouchet.luxels.cli.buddhabrot
+package fr.xgouchet.luxels.cli.demo.buddhabrot
 
 import fr.xgouchet.graphikio.color.HDRColor
 import fr.xgouchet.luxels.components.render.projection.Flat2DProjection
@@ -12,8 +12,11 @@ import fr.xgouchet.luxels.core.render.projection.Projection
 import fr.xgouchet.luxels.core.simulation.Simulator
 import kotlin.time.Duration
 
-internal class BuddhabrotSimulator : Simulator<Dimension.D2, BuddhabrotLuxel, Unit> {
-    var simulationSpace: Volume<Dimension.D2> = Volume.unit(Dimension.D2)
+internal class BuddhabrotSimulator(
+    private val iterations: Int = 0x1_000,
+) : Simulator<Dimension.D2, BuddhabrotLuxel, Unit> {
+
+    private var simulationSpace: Volume<Dimension.D2> = Volume.unit(Dimension.D2)
 
     // region Simulator
 
@@ -31,9 +34,9 @@ internal class BuddhabrotSimulator : Simulator<Dimension.D2, BuddhabrotLuxel, Un
 
     override fun spawnLuxel(simulation: Configuration.Simulation<Dimension.D2>, time: Duration): BuddhabrotLuxel {
         val (color, lifespan) = when (RndGen.int.inRange(0, 3)) {
-            0 -> HDRColor.RED to 0x4_000
-            1 -> HDRColor.GREEN to 0x2_000
-            2 -> HDRColor.BLUE to 0x1_000
+            0 -> HDRColor.RED to (iterations * 4)
+            1 -> HDRColor.GREEN to (iterations * 3)
+            2 -> HDRColor.BLUE to (iterations * 2)
             else -> HDRColor.TRANSPARENT to 1
         }
 

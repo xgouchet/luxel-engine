@@ -1,5 +1,6 @@
-package fr.xgouchet.luxels.cli.history.aether
+package fr.xgouchet.luxels.cli.aether
 
+import fr.xgouchet.luxels.cli.common.baseOutputPath
 import fr.xgouchet.luxels.core.LuxelEngine
 import fr.xgouchet.luxels.core.configuration.FilmType
 import fr.xgouchet.luxels.core.configuration.PassType
@@ -11,7 +12,7 @@ import okio.Path.Companion.toPath
 
 /** Main. */
 fun main() {
-    val outputPath = "../output".toPath()
+    val outputPath = baseOutputPath / "aether"
 
     val seeds = longArrayOf(
 //        0xfbfbf1f2,

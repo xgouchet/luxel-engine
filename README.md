@@ -11,5 +11,8 @@
 - [x] Write KDoc for all public data (add detekt checks there)
 - [ ] Use clues in KoTest
 - [x] Migrate to KMM
-  - [ ] Validate on Mac OS
   - [ ] Validate on Linux
+  - [ ] Validate on Mac OS
+  - [ ] Validate in JS
+- [ ] Misc
+  - [ ] Test custom Detekt rules

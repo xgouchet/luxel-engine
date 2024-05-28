@@ -245,7 +245,7 @@ exceptions:
     active: true
     excludes: ['**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/androidUnitTest/**', '**/androidInstrumentedTest/**', '**/jsTest/**', '**/iosTest/**']
   NotImplementedDeclaration:
-    active: true
+    active: false
   ObjectExtendsThrowable:
     active: true
   PrintStackTrace:

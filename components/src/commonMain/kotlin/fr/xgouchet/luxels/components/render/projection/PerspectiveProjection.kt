@@ -52,7 +52,7 @@ class PerspectiveProjection(
 
     override fun convertPosition(position: Vector<Dimension.D3>): Vector<Dimension.D2> {
         val worldPos = position.asPosition()
-        val viewPos = viewMatrix * worldPos.asVerticalMatrix()
+        val viewPos = viewMatrix * worldPos
         val screenPos = (projectionMatrix * viewPos).asVector()
         val screenPosNormalized = screenPos.xy / screenPos.z
         return (screenPosNormalized * filmSpace.size) + filmSpace.center
@@ -62,15 +62,13 @@ class PerspectiveProjection(
 
     // region Internal
 
-    private fun Vector<Dimension.D3>.asPosition(): Vector<Dimension.D4> {
-        return Vector4(x, y, z, 1.0)
+    private fun Vector<Dimension.D3>.asPosition(): Matrix<Dimension.D1, Dimension.D4> {
+        return Vector4(x, y, z, 1.0).asVerticalMatrix()
     }
 
     // endregion
 
     companion object {
-
-        internal const val SIZE_4X4 = 16
 
         /**
          * Creates a Matrix representing the position and orientation of a target camera in a 3D space.
