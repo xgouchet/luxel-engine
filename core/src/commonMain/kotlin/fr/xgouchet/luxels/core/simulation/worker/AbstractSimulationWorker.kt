@@ -16,6 +16,7 @@ internal abstract class AbstractSimulationWorker<D : Dimension, L : Luxel<D>, I 
     protected val simulation: Configuration.Simulation<D>,
     protected val projection: Projection<D>,
     protected val time: Duration,
+    protected val luxelCountPerThread: Long,
 ) : SimulationWorker {
 
     // region AbstractSimulationWorker
@@ -35,7 +36,7 @@ internal abstract class AbstractSimulationWorker<D : Dimension, L : Luxel<D>, I 
         print("\r  Worker starting on thread (TODO Thread ID)")
 
         try {
-            for (i in 0..simulation.luxelPerThread) {
+            for (i in 0..luxelCountPerThread) {
                 simulateSingleLuxel(i)
             }
         } catch (t: Throwable) {

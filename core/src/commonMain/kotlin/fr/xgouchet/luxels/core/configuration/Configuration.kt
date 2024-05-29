@@ -53,18 +53,15 @@ class Configuration<D : Dimension, I : Any> internal constructor(
      * @param D the dimension of the space luxels evolve in
      * @property volume the bounds of the simulation space
      * @property quality the quality of the simulation (default: [Quality.DEBUG])
-     * @property threadCount the number of threads to use in parallel for each computation (default: 4)
+     * @property maxThreadCount the number of threads to use in parallel for each computation (default: 4)
      * @property passType the kind of rendering to perform based on the simulation (default: [PassType.RENDER])
      */
     data class Simulation<D : Dimension>(
         val volume: Volume<D>,
         val quality: Quality = Quality.DEBUG,
-        val threadCount: Int = 4,
+        val maxThreadCount: Int = 4,
         val passType: PassType = PassType.RENDER,
-    ) {
-        /** The number of luxels computed on each thread. */
-        val luxelPerThread = (quality.count / threadCount)
-    }
+    )
 
     /**
      * The rendering options for the simulation run.
@@ -110,6 +107,7 @@ class Configuration<D : Dimension, I : Any> internal constructor(
         simulator: Simulator<D, L, I>,
         film: Film,
         frameInfo: FrameInfo,
+        luxelCountPerThread: Long,
     ): SimulationWorker {
         val projection = simulator.getProjection(simulation.volume, render.filmSpace, frameInfo.frameTime)
 
@@ -121,6 +119,7 @@ class Configuration<D : Dimension, I : Any> internal constructor(
                     simulation = simulation,
                     projection = projection,
                     time = frameInfo.frameTime,
+                    luxelCountPerThread = luxelCountPerThread,
                 )
 
             PassType.SPAWN ->
@@ -130,6 +129,7 @@ class Configuration<D : Dimension, I : Any> internal constructor(
                     simulation = simulation,
                     projection = projection,
                     time = frameInfo.frameTime,
+                    luxelCountPerThread = luxelCountPerThread,
                 )
 
             PassType.PATH ->
@@ -139,6 +139,7 @@ class Configuration<D : Dimension, I : Any> internal constructor(
                     simulation = simulation,
                     projection = projection,
                     time = frameInfo.frameTime,
+                    luxelCountPerThread = luxelCountPerThread,
                 )
 
             PassType.DEATH ->
@@ -148,6 +149,7 @@ class Configuration<D : Dimension, I : Any> internal constructor(
                     simulation = simulation,
                     projection = projection,
                     time = frameInfo.frameTime,
+                    luxelCountPerThread = luxelCountPerThread,
                 )
 
             PassType.ENV ->
@@ -157,6 +159,7 @@ class Configuration<D : Dimension, I : Any> internal constructor(
                     simulation = simulation,
                     projection = projection,
                     time = frameInfo.frameTime,
+                    luxelCountPerThread = luxelCountPerThread,
                     rng = VectorRandomGenerator(dimension),
                 )
         }

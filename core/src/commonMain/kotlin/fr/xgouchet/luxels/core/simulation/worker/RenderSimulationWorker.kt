@@ -18,10 +18,11 @@ internal class RenderSimulationWorker<D : Dimension, L : Luxel<D>, I : Any>(
     simulation: Configuration.Simulation<D>,
     projection: Projection<D>,
     time: Duration,
-) : AbstractSimulationWorker<D, L, I>(film, simulator, simulation, projection, time) {
+    luxelCountPerThread: Long,
+) : AbstractSimulationWorker<D, L, I>(film, simulator, simulation, projection, time, luxelCountPerThread) {
     private val frameStart = Clock.System.now()
 
-    private val progressNotif = max(floor(simulation.luxelPerThread / 1000.0).toLong(), 1)
+    private val progressNotif = max(floor(luxelCountPerThread / 1000.0).toLong(), 1)
 
     // region AbstractSimulationWorker
 
@@ -47,9 +48,9 @@ internal class RenderSimulationWorker<D : Dimension, L : Luxel<D>, I : Any>(
 
     private fun onLuxelRan(i: Long) {
         if (i % progressNotif == 0L) {
-            val progress = (i * 1000.0) / simulation.luxelPerThread
+            val progress = (i * 1000.0) / luxelCountPerThread
             val elapsed = Clock.System.now() - frameStart
-            val totalDuration = (elapsed * simulation.luxelPerThread.toDouble()) / i.toDouble()
+            val totalDuration = (elapsed * luxelCountPerThread.toDouble()) / i.toDouble()
             val remaining = totalDuration - elapsed
             print("\r    … ${progress.roundToInt()}‰ [thread#(TODO Thread ID)] - $remaining remaining")
         }

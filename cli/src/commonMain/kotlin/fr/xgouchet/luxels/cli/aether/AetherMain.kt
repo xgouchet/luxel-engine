@@ -3,18 +3,17 @@ package fr.xgouchet.luxels.cli.aether
 import fr.xgouchet.luxels.cli.common.baseOutputPath
 import fr.xgouchet.luxels.core.LuxelEngine
 import fr.xgouchet.luxels.core.configuration.FilmType
-import fr.xgouchet.luxels.core.configuration.PassType
 import fr.xgouchet.luxels.core.configuration.Quality
 import fr.xgouchet.luxels.core.configuration.Resolution
 import fr.xgouchet.luxels.core.configuration.configurationWithFixedSeeds
 import fr.xgouchet.luxels.core.math.Dimension
-import fr.xgouchet.luxels.core.system.printSystemMemInfo
+import fr.xgouchet.luxels.core.system.SystemInfo
 
 /** Main. */
 fun main() {
     val outputPath = baseOutputPath / "aether"
 
-    printSystemMemInfo()
+    SystemInfo.printSystemInfo()
 
     val seeds = longArrayOf(
         0xfbfbf1f2,
@@ -43,7 +42,6 @@ fun main() {
 
         simulation {
             quality(Quality.DRAFT)
-            maximumThreadCount(4)
         }
 
         render {

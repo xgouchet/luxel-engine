@@ -75,7 +75,7 @@ class PerspectiveProjection(
          * @param cameraPosition the position of the camera
          * @param targetPosition the position the camera is pointed at
          */
-        fun view(
+        private fun view(
             cameraPosition: Vector<Dimension.D3>,
             targetPosition: Vector<Dimension.D3>,
         ): Matrix<Dimension.D4, Dimension.D4> {
@@ -113,7 +113,7 @@ class PerspectiveProjection(
          * @param nearPlane the distance from the camera to the near plane
          * @param farPlane the distance from the camera to the far plane
          */
-        fun projection(
+        private fun projection(
             width: Double,
             height: Double,
             fov: Double,

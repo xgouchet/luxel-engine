@@ -10,18 +10,15 @@
 ### Core
 
 - [ ] Implement better logging with slf4j or alternatives
-- [x] Migrate to KMM
+- [x] Migrate to KMM*
   - [ ] Validate on Linux
   - [ ] Validate on Mac OS
   - [ ] Validate in JS
-- [ ] Detect best thread config
-  - [ ] Number of available CPU cores
-  - [ ] Available Memory
   
 ### Art
 
 - [ ] Rewrite Old Series
-  - [ ] ⣿⣿⣿⣿⣿⣿⣿⣀⣀⣀ Aether 
+  - [x] ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿ Aether 
   - [ ] ⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀ Pixie Dust
   - [ ] ⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀ Gravity
   - [ ] ⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀ Spectre

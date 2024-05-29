@@ -227,7 +227,7 @@ class SimulationConfigBuilder<D : Dimension> internal constructor(
      * @param count the number of threads to use (default: 4)
      */
     fun maximumThreadCount(count: Int) {
-        simulation = simulation.copy(threadCount = count)
+        simulation = simulation.copy(maxThreadCount = count)
     }
 
     /**

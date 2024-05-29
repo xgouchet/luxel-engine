@@ -18,7 +18,6 @@ fun main() {
     val configuration = configuration(Dimension.D2) {
         simulation {
             quality(Quality.DRAFT)
-            maximumThreadCount(4)
         }
 
         render {

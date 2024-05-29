@@ -17,8 +17,9 @@ internal class EnvSimulationWorker<D : Dimension, L : Luxel<D>, I : Any>(
     simulation: Configuration.Simulation<D>,
     projection: Projection<D>,
     time: Duration,
+    luxelCountPerThread: Long,
     val rng: RandomGenerator<Vector<D>>,
-) : AbstractSimulationWorker<D, L, I>(film, simulator, simulation, projection, time) {
+) : AbstractSimulationWorker<D, L, I>(film, simulator, simulation, projection, time, luxelCountPerThread) {
     // region AbstractSimulationWorker
 
     override fun simulateSingleLuxel(i: Long) {

@@ -29,8 +29,8 @@ internal class AetherSimulator(
 
     override fun initEnvironment(simulation: Configuration.Simulation<Dimension.D3>, inputData: InputData<Long>) {
         super.initEnvironment(simulation, inputData)
-        gaussianRange = (simulation.luxelPerThread / 2).toInt()
-        successiveStep = 0.1 / simulation.luxelPerThread
+        gaussianRange = (simulation.quality.count shr 3).toInt()
+        successiveStep = 0.1 / (simulation.quality.count shr 2)
 
         val curveCount = RndGen.int.inRange(5, 8)
         val pointCount = RndGen.int.inRange(4, 8)
