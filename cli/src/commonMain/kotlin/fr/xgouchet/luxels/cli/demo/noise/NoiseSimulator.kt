@@ -36,7 +36,7 @@ internal class NoiseSimulator(
         simulation: Configuration.Simulation<Dimension.D2>,
         time: Duration,
     ): DemoLuxel<Dimension.D2> {
-        val position = RndGen.vector2.inVolume(simulation.space)
+        val position = RndGen.vector2.inVolume(simulation.volume)
         val noise = noiseSource.noise((position * noiseScale))
         val color = HDRColor(noise, noise, noise)
 

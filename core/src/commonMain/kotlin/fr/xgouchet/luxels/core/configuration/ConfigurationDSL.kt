@@ -130,6 +130,8 @@ class ConfigurationBuilder<D : Dimension, I : Any> internal constructor(
     private var render: Configuration.Render = Configuration.Render()
     private var animation: Configuration.Animation = Configuration.Animation()
 
+    private var simulationSpaceDensity: Double? = null
+
     /**
      * Configure the simulation options.
      */
@@ -163,7 +165,32 @@ class ConfigurationBuilder<D : Dimension, I : Any> internal constructor(
         animation = animationConfigBuilder.build()
     }
 
+    /**
+     * Sets the simulation space volume based on the resolution and a given density.
+     * @param density the density (i.e.: the number of units per pixel)
+     */
+    fun simulationSpaceDensity(density: Double) {
+        simulationSpaceDensity = density
+    }
+
     internal fun build(): Configuration<D, I> {
+        val densityVolume = simulationSpaceDensity?.let { density ->
+            Volume(
+                min = Vector.nul(dimension),
+                max = Vector(
+                    DoubleArray(dimension.size) {
+                        if (it % 2 == 0) {
+                            render.resolution.width * density
+                        } else {
+                            render.resolution.height * density
+                        }
+                    },
+                ),
+            )
+        }
+        if (densityVolume != null) {
+            simulation = simulation.copy(volume = densityVolume)
+        }
         return Configuration(dimension, input, simulation, render, animation)
     }
 }
@@ -192,43 +219,16 @@ class SimulationConfigBuilder<D : Dimension> internal constructor(
      * @param volume the simulation range (default: unit volume)
      */
     fun space(volume: Volume<D>) {
-        simulation = simulation.copy(space = volume)
-    }
-
-    /**
-     * Sets the range of the simulation based on the resolution and a density.
-     * @param resolution the film resolution
-     * @param density the density (i.e.: the number of units per pixel)
-     */
-    fun space(resolution: Resolution, density: Double = 1.0) {
-        simulation = simulation.copy(
-            space = Volume(
-                min = Vector.nul(dimension),
-                max = Vector(
-                    DoubleArray(dimension.size) {
-                        if (it % 2 == 0) {
-                            resolution.width * density
-                        } else {
-                            resolution.height * density
-                        }
-                    },
-                ),
-            ),
-        )
+        simulation = simulation.copy(volume = volume)
     }
 
     /**
      * Sets the number of threads to use in parallel for each computation.
      * @param count the number of threads to use (default: 4)
      */
-    fun threadCount(count: Int) {
+    fun maximumThreadCount(count: Int) {
         simulation = simulation.copy(threadCount = count)
     }
-
-    // TODO KMM availableProcessors
-//    fun threadCountMatchingCpuCores() {
-//        simulationConfig = simulationConfig.copy(threadCount = Runtime.getRuntime().availableProcessors())
-//    }
 
     /**
      * Sets the kind of rendering to perform based on the simulation.
@@ -275,7 +275,7 @@ class RenderConfigBuilder internal constructor() {
 
     /**
      * Uses a BMP image fixer.
-     * @param iso the iso sensitivity of the fixer (the lower the darker the image, the higher the brighter, default is 400)
+     * @param iso the iso sensitivity of the fixer (the lower, the darker the image, the higher the brighter, default is 400)
      * @param path the output directory path (default is "./output")
      */
     fun bmpFixer(iso: Double = 400.0, path: Path = "output".toPath()) {

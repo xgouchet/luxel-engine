@@ -4,7 +4,6 @@ import fr.xgouchet.graphikio.color.Color
 import fr.xgouchet.graphikio.color.HDRColor
 import fr.xgouchet.graphikio.color.asHDR
 import fr.xgouchet.luxels.core.configuration.Resolution
-import fr.xgouchet.luxels.core.system.printSystemMemInfo
 
 internal abstract class AbstractFilm(
     val resolution: Resolution,

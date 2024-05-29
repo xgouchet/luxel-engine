@@ -2,17 +2,32 @@
 
 ## TODO 
 
-- [ ] Setup CI with 
-  - [ ] Detekt Static Analysis
-    - [ ] create sensible detekt config
-  - [ ] KtLint formatting checks
-  - [ ] Kotest runs
-- [ ] Implement better logging with slf4j or alternatives
-- [x] Write KDoc for all public data (add detekt checks there)
+### CI
+
 - [ ] Use clues in KoTest
+- [ ] Test custom Detekt rules
+
+### Core
+
+- [ ] Implement better logging with slf4j or alternatives
 - [x] Migrate to KMM
   - [ ] Validate on Linux
   - [ ] Validate on Mac OS
   - [ ] Validate in JS
-- [ ] Misc
-  - [ ] Test custom Detekt rules
+- [ ] Detect best thread config
+  - [ ] Number of available CPU cores
+  - [ ] Available Memory
+  
+### Art
+
+- [ ] Rewrite Old Series
+  - [ ] ⣿⣿⣿⣿⣿⣿⣿⣀⣀⣀ Aether 
+  - [ ] ⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀ Pixie Dust
+  - [ ] ⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀ Gravity
+  - [ ] ⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀ Spectre
+  - [ ] ⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀ Aura
+  - [ ] ⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀ Smoke
+- [ ] New ideas
+  - [ ] ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣀ Rain
+  - [ ] ⣿⣿⣿⣀⣀⣀⣀⣀⣀⣀ Aurora
+  - [ ] ⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀ 4D Metaballs

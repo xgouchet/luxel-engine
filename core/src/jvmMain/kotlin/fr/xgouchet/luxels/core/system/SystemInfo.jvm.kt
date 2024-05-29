@@ -1,7 +1,7 @@
 package fr.xgouchet.luxels.core.system
 
 /**
- * Prints the system memory information
+ * Prints the system memory information.
  */
 actual fun printSystemMemInfo() {
     val runtime = Runtime.getRuntime()

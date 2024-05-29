@@ -77,7 +77,7 @@ internal class CubeSimulator : Simulator<Dimension.D3, DemoLuxel<Dimension.D3>, 
             else -> HDRColor.BLACK
         }
 
-        val position = (p * simulation.space.size * 0.1) + simulation.space.center
+        val position = (p * simulation.volume.size * 0.1) + simulation.volume.center
 
         return DemoLuxel(position, color)
     }

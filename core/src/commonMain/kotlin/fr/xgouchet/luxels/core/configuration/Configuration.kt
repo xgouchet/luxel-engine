@@ -51,13 +51,13 @@ class Configuration<D : Dimension, I : Any> internal constructor(
     /**
      * The simulation options for the simulation run.
      * @param D the dimension of the space luxels evolve in
-     * @property space the bounds of the simulation 3D space
+     * @property volume the bounds of the simulation space
      * @property quality the quality of the simulation (default: [Quality.DEBUG])
      * @property threadCount the number of threads to use in parallel for each computation (default: 4)
      * @property passType the kind of rendering to perform based on the simulation (default: [PassType.RENDER])
      */
     data class Simulation<D : Dimension>(
-        val space: Volume<D>,
+        val volume: Volume<D>,
         val quality: Quality = Quality.DEBUG,
         val threadCount: Int = 4,
         val passType: PassType = PassType.RENDER,
@@ -111,7 +111,7 @@ class Configuration<D : Dimension, I : Any> internal constructor(
         film: Film,
         frameInfo: FrameInfo,
     ): SimulationWorker {
-        val projection = simulator.getProjection(simulation.space, render.filmSpace, frameInfo.frameTime)
+        val projection = simulator.getProjection(simulation.volume, render.filmSpace, frameInfo.frameTime)
 
         return when (simulation.passType) {
             PassType.RENDER ->

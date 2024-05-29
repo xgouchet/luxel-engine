@@ -58,8 +58,8 @@ internal class RainSimulator : Simulator<Dimension.D2, RainLuxel, Long> {
     }
 
     override fun initEnvironment(simulation: Configuration.Simulation<Dimension.D2>, inputData: InputData<Long>) {
-        extendedRange = simulation.space.expanded(2.0)
-        safeRange = simulation.space.expanded(1.2)
+        extendedRange = simulation.volume.expanded(2.0)
+        safeRange = simulation.volume.expanded(1.2)
 
         noiseOffset = RndGen.vector2.inVolume(noiseOffsetVolume)
 
@@ -71,12 +71,12 @@ internal class RainSimulator : Simulator<Dimension.D2, RainLuxel, Long> {
         directionalRainSpeed = Vector2(RndGen.double.inRange(-2.0, 2.0), 1.0).normalized()
 
         spotRainPosition = Vector2(
-            RndGen.double.inRange(simulation.space.min.x, simulation.space.max.x),
-            simulation.space.min.y - 200,
+            RndGen.double.inRange(simulation.volume.min.x, simulation.volume.max.x),
+            simulation.volume.min.y - 200,
         )
 
         bounceThreshold = RndGen.double.inRange(75.0, 100.0)
-        simulationRange = simulation.space
+        simulationRange = simulation.volume
 
         animationDirection = (RndGen.vector2.uniform() + RndGen.vector2.uniform()).normalized()
     }

@@ -73,9 +73,9 @@ internal class AuroraSimulator : Simulator<Dimension.D3, AuroraLuxel, Long> {
         strandCount = (element.number % 3) + 1
         strandInput = RndGen.double.inRange(-1000.0, 1000.0)
         strandOffsets = (0..<strandCount).map {
-            RndGen.vector3.inVolume(simulation.space)
+            RndGen.vector3.inVolume(simulation.volume)
         }
-        skyOffset = Vector3(0.0, simulation.space.size.y, 0.0) * 2.0
+        skyOffset = Vector3(0.0, simulation.volume.size.y, 0.0) * 2.0
     }
 
     override fun spawnLuxel(simulation: Configuration.Simulation<Dimension.D3>, time: Duration): AuroraLuxel {
@@ -84,7 +84,7 @@ internal class AuroraSimulator : Simulator<Dimension.D3, AuroraLuxel, Long> {
         val input = (time.toDouble(DurationUnit.SECONDS) + element.number + strandInput) * 10.0
         val t = (RndGen.double.gaussian() * 0.5) + input + strandOffset
 
-        val initialPosition = (noisePosition.noise(t) * simulation.space.size) + strandOffsets[strandIndex] - skyOffset
+        val initialPosition = (noisePosition.noise(t) * simulation.volume.size) + strandOffsets[strandIndex] - skyOffset
         val randomVector3 = RndGen.vector3.uniform().normalized()
         val tangent = tangent(t)
         val initialSpeed = (tangent cross randomVector3)

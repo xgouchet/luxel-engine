@@ -13,8 +13,15 @@ plugins {
 // region JUnit
 
 project.afterEvaluate {
-    tasks.findByPath("jvmTest")?.apply {
+    tasks.findByName("jvmTest")?.apply {
         (this as? Test)?.useJUnitPlatform()
+    }
+
+    tasks.create("checkJvm") {
+        group = "verification"
+        this.dependsOn("ktlintCheck")
+        this.dependsOn("detektJvmMain")
+        this.dependsOn("jvmTest")
     }
 }
 

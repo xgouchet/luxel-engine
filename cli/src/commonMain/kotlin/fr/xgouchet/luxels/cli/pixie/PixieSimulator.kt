@@ -38,12 +38,12 @@ internal class PixieSimulator : Simulator<Dimension.D2, PixieLuxel, Path> {
     override fun initEnvironment(simulation: Configuration.Simulation<Dimension.D2>, inputData: InputData<Path>) {
         super.initEnvironment(simulation, inputData)
         imageRasterData = GraphikIO.read(inputData.data)
-        simSpace = simulation.space
+        simSpace = simulation.volume
     }
 
     override fun spawnLuxel(simulation: Configuration.Simulation<Dimension.D2>, time: Duration): PixieLuxel {
         val uv = Vector2(RndGen.double.uniform(), RndGen.double.uniform())
-        val position = (uv * simulation.space.size) + simulation.space.min
+        val position = (uv * simulation.volume.size) + simulation.volume.min
 
         val (colorMask, iteration) = when (RndGen.int.uniform() % 3) {
             0 -> (HDRColor.RED * 0.05) to 20

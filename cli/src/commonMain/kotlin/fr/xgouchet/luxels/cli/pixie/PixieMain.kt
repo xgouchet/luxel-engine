@@ -18,16 +18,16 @@ fun main() {
     val configuration = configurationWithFilesFrom(Dimension.D2, inputPath) {
         simulation {
             quality(Quality.DRAFT)
-            threadCount(4)
-            passType(PassType.RENDER)
-            space(Resolution.UHD_4K, 2.0)
+            maximumThreadCount(4)
         }
 
         render {
             resolution(Resolution.UHD_4K)
             filmType(FilmType.CLEAN)
-            hdrFixer(outputPath)
+            bmpFixer(path = outputPath)
         }
+
+        simulationSpaceDensity(2.0)
     }
 
     LuxelEngine.runSimulation(PixieSimulator(), configuration)

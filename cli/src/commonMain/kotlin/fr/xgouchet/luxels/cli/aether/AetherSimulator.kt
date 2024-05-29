@@ -16,11 +16,12 @@ import kotlin.math.PI
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
 
-internal class AetherSimulator : Simulator<Dimension.D3, AetherLuxel, Long> {
+internal class AetherSimulator(
+    private val luxelLifespan: Int = 0x1000
+) : Simulator<Dimension.D3, AetherLuxel, Long> {
 
     private var gaussianRange = 0
     private var curves: List<Curve<Dimension.D3>> = emptyList()
-    private var luxelLifespan = 1024
     private var successiveStep = 0.0001
     private var frameCenterP: Double = 0.0
 
@@ -28,14 +29,13 @@ internal class AetherSimulator : Simulator<Dimension.D3, AetherLuxel, Long> {
 
     override fun initEnvironment(simulation: Configuration.Simulation<Dimension.D3>, inputData: InputData<Long>) {
         super.initEnvironment(simulation, inputData)
-        luxelLifespan = 0x2000
         gaussianRange = (simulation.luxelPerThread / 2).toInt()
         successiveStep = 0.1 / simulation.luxelPerThread
 
         val curveCount = RndGen.int.inRange(5, 8)
         val pointCount = RndGen.int.inRange(4, 8)
         curves = List(curveCount) {
-            Curve(List(pointCount) { RndGen.vector3.inVolume(simulation.space) })
+            Curve(List(pointCount) { RndGen.vector3.inVolume(simulation.volume) })
         }
     }
 
@@ -45,10 +45,10 @@ internal class AetherSimulator : Simulator<Dimension.D3, AetherLuxel, Long> {
         animationDuration: Duration,
     ) {
         super.onFrameStart(simulation, time, animationDuration)
-        if (animationDuration > 16.milliseconds) {
-            frameCenterP = (time / animationDuration)
+        frameCenterP = if (animationDuration > 16.milliseconds) {
+            (time / animationDuration)
         } else {
-            frameCenterP = RndGen.double.inRange(0.25, 0.75)
+            RndGen.double.inRange(0.25, 0.75)
         }
     }
 

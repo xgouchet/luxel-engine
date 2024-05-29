@@ -18,16 +18,15 @@ fun main() {
     val configuration = configuration(Dimension.D2) {
         simulation {
             quality(Quality.DRAFT)
-            threadCount(4)
-            passType(PassType.RENDER)
-            space(Resolution.SQUARE_2880, 1.0)
+            maximumThreadCount(4)
         }
 
         render {
             resolution(Resolution.SQUARE_2880)
-            filmType(FilmType.ROUGH)
-            hdrFixer(outputPath)
+            bmpFixer(path = outputPath)
         }
+
+        simulationSpaceDensity(1.0)
     }
 
     val baseNoise = PerlinNoiseGenerator()

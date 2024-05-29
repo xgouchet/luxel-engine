@@ -29,7 +29,7 @@ internal class BuddhabrotSimulator(
     }
 
     override fun initEnvironment(simulation: Configuration.Simulation<Dimension.D2>, inputData: InputData<Unit>) {
-        this.simulationSpace = simulation.space
+        this.simulationSpace = simulation.volume
     }
 
     override fun spawnLuxel(simulation: Configuration.Simulation<Dimension.D2>, time: Duration): BuddhabrotLuxel {

@@ -18,16 +18,15 @@ fun main() {
     val configuration = configurationWithFixedSeeds(Dimension.D2, 13L) {
         simulation {
             quality(Quality.DRAFT)
-            threadCount(4)
-            passType(PassType.RENDER)
-            space(Resolution.FHD_1080, 1.0)
+            maximumThreadCount(4)
         }
 
         render {
             resolution(Resolution.FHD_1080)
-            filmType(FilmType.ROUGH)
-            hdrFixer(outputPath)
+            bmpFixer(path = outputPath)
         }
+
+        simulationSpaceDensity(1.0)
     }
 
     val simulator = RainSimulator()

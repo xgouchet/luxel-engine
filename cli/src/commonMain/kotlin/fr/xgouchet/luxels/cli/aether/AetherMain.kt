@@ -8,18 +8,21 @@ import fr.xgouchet.luxels.core.configuration.Quality
 import fr.xgouchet.luxels.core.configuration.Resolution
 import fr.xgouchet.luxels.core.configuration.configurationWithFixedSeeds
 import fr.xgouchet.luxels.core.math.Dimension
+import fr.xgouchet.luxels.core.system.printSystemMemInfo
 
 /** Main. */
 fun main() {
     val outputPath = baseOutputPath / "aether"
 
+    printSystemMemInfo()
+
     val seeds = longArrayOf(
-//        0xfbfbf1f2,
-//        0x4ca8c1be,
-//        0x5b6e7596,
-//        0x6f3339e7,
-//        0x7c8a19b4,
-//        0x10f0e0635,
+        0xfbfbf1f2,
+        0x4ca8c1be,
+        0x5b6e7596,
+        0x6f3339e7,
+        0x7c8a19b4,
+        0x10f0e0635,
         0x11db0c4e2,
         0x891ee65a,
         0x1057a0d82,
@@ -40,22 +43,17 @@ fun main() {
 
         simulation {
             quality(Quality.DRAFT)
-            threadCount(4)
-            passType(PassType.RENDER)
-            space(Resolution.UHD_4K, 2.0)
+            maximumThreadCount(4)
         }
 
         render {
-            resolution(Resolution.UHD_4K)
+            resolution(Resolution.FHD_1080)
             filmType(FilmType.CLEAN)
-            hdrFixer(outputPath)
+            bmpFixer(path = outputPath)
         }
 
-//        animation {
-//            duration(1.seconds)
-//            fps(100)
-//        }
+        simulationSpaceDensity(2.0)
     }
 
-    LuxelEngine.runSimulation(AetherSimulator(), configuration)
+    LuxelEngine.runSimulation(AetherSimulator(0x100), configuration)
 }

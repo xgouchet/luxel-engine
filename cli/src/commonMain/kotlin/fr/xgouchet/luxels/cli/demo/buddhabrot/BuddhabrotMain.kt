@@ -17,15 +17,13 @@ fun main() {
     val configuration = configuration(Dimension.D2) {
         simulation {
             quality(Quality.DRAFT)
-            threadCount(4)
-            passType(PassType.RENDER)
+            maximumThreadCount(4)
             space(Volume.unit(Dimension.D2).expanded(3.0))
         }
 
         render {
             resolution(Resolution.SQUARE_2880)
-            filmType(FilmType.ROUGH)
-            hdrFixer(outputPath)
+            bmpFixer(path = outputPath)
         }
     }
 
