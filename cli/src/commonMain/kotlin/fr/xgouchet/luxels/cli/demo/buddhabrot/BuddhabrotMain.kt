@@ -16,8 +16,8 @@ fun main() {
 
     val configuration = configuration(Dimension.D2) {
         simulation {
-            quality(Quality.GOOD)
-            threadCount(10)
+            quality(Quality.DRAFT)
+            threadCount(4)
             passType(PassType.RENDER)
             space(Volume.unit(Dimension.D2).expanded(3.0))
         }
@@ -30,7 +30,7 @@ fun main() {
     }
 
     LuxelEngine.runSimulation(
-        simulator = BuddhabrotSimulator(0x10_000),
+        simulator = BuddhabrotSimulator(0x1_000),
         configuration = configuration,
     )
 }

@@ -19,7 +19,6 @@ data class Volume<D : Dimension>(
 
     init {
         check(min isLessThanOrEqual max)
-        print("$min < $max ")
     }
 
     // region Operators

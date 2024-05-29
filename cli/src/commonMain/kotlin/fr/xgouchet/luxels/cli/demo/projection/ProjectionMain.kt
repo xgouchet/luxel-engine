@@ -16,7 +16,7 @@ fun main() {
     val configuration = configuration(Dimension.D3) {
         simulation {
             quality(Quality.DRAFT)
-            threadCount(10)
+            threadCount(4)
             passType(PassType.RENDER)
             space(Resolution.SQUARE_2880, 1.0)
         }

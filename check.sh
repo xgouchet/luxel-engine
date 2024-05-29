@@ -6,14 +6,6 @@ echo "  ┏━━━━━━━━━━━━┓"
 echo "  ┃   LUXELS   ┃"
 echo "  ┗━━━━━━━━━━━━┛"
 
-echo " ··· Clean"
-./gradlew :graphikio:clean
-./gradlew :core:clean
-./gradlew :components:clean
-./gradlew :cli:clean
-echo "   ✔ Clean"
-echo ""
-
 echo " ··· KtLint"
 ./gradlew :graphikio:ktlintCheck
 ./gradlew :core:ktlintCheck

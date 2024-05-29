@@ -6,10 +6,11 @@ build/
 
 # IntelliJ
 *.iml
-.idea/**
+.idea/
 
 # Kotlin KMM
 kotlin-js-store
+.kotlin
 
 # Output data
 output/

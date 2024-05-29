@@ -17,8 +17,8 @@ fun main() {
 
     val configuration = configurationWithFixedSeeds(Dimension.D2, 13L) {
         simulation {
-            quality(Quality.ROUGH)
-            threadCount(10)
+            quality(Quality.DRAFT)
+            threadCount(4)
             passType(PassType.RENDER)
             space(Resolution.FHD_1080, 1.0)
         }

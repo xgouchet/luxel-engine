@@ -81,7 +81,7 @@ class Configuration<D : Dimension, I : Any> internal constructor(
             return filmType.create(resolution)
         }
 
-        /** The film space as a [Space2] instance. */
+        /** The film space as a [Volume] instance. */
         val filmSpace: Volume<Dimension.D2> = Volume(Vector.nul(Dimension.D2), resolution.asVector2())
     }
 

@@ -18,7 +18,7 @@ fun main() {
     val configuration = configurationWithFilesFrom(Dimension.D2, inputPath) {
         simulation {
             quality(Quality.DRAFT)
-            threadCount(10)
+            threadCount(4)
             passType(PassType.RENDER)
             space(Resolution.UHD_4K, 2.0)
         }
