@@ -1,4 +1,4 @@
-package fr.xgouchet.luxels.cli.demo.buddhabrot
+package fr.xgouchet.luxels.cli.demo.mandelbrot
 
 import fr.xgouchet.luxels.core.color.ColorSource
 import fr.xgouchet.luxels.core.math.Dimension
