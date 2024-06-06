@@ -1,21 +1,6 @@
 # Luxels
 
-## TODO 
-
-### CI
-
-- [ ] Use clues in KoTest
-- [ ] Test custom Detekt rules
-
-### Core
-
-- [ ] Implement better logging with slf4j or alternatives
-- [x] Migrate to KMM*
-  - [ ] Validate on Linux
-  - [ ] Validate on Mac OS
-  - [ ] Validate in JS
-  
-### Art
+## TODO
 
 - [ ] Rewrite Old Series
   - [x] ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿ Aether 
@@ -24,6 +9,7 @@
   - [ ] ⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀ Spectre
   - [ ] ⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀ Aura
   - [ ] ⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀ Smoke
+
 - [ ] New ideas
   - [ ] ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣀ Rain
   - [ ] ⣿⣿⣿⣀⣀⣀⣀⣀⣀⣀ Aurora

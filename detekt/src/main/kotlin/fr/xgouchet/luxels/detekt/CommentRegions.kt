@@ -27,6 +27,7 @@ import org.jetbrains.kotlin.types.typeUtil.supertypes
 /**
  * A rule to detekt comment code regions.
  * @active
+ * TODO add unit tests
  */
 @RequiresTypeResolution
 class CommentRegions(
