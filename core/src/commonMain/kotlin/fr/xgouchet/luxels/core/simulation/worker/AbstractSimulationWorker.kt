@@ -8,6 +8,8 @@ import fr.xgouchet.luxels.core.model.Luxel
 import fr.xgouchet.luxels.core.render.exposure.Film
 import fr.xgouchet.luxels.core.render.projection.Projection
 import fr.xgouchet.luxels.core.simulation.Simulator
+import kotlinx.datetime.Clock
+import kotlinx.datetime.Instant
 import kotlin.time.Duration
 
 internal abstract class AbstractSimulationWorker<D : Dimension, L : Luxel<D>, I : Any>(
@@ -18,6 +20,9 @@ internal abstract class AbstractSimulationWorker<D : Dimension, L : Luxel<D>, I 
     protected val time: Duration,
     protected val luxelCountPerThread: Long,
 ) : SimulationWorker {
+
+    protected var frameStart: Instant = Instant.DISTANT_PAST
+        private set
 
     // region AbstractSimulationWorker
 
@@ -34,7 +39,7 @@ internal abstract class AbstractSimulationWorker<D : Dimension, L : Luxel<D>, I 
     @Suppress("TooGenericExceptionCaught")
     final override fun work() {
         print("\r  Worker starting on thread (TODO Thread ID)")
-
+        frameStart = Clock.System.now()
         try {
             for (i in 0..luxelCountPerThread) {
                 simulateSingleLuxel(i)

@@ -122,10 +122,16 @@ object LuxelEngine {
         val frameStart = Clock.System.now()
         val luxelsPerThread = configuration.simulation.quality.count / threadCount
 
+        val projection = simulator.getProjection(
+            configuration.simulation.volume,
+            configuration.render.filmSpace,
+            frameInfo.frameTime
+        )
+
         // Start all workers
         repeat(threadCount) {
             val layer = configuration.render.createFilm()
-            val worker = configuration.createWorker(simulator, layer, frameInfo, luxelsPerThread)
+            val worker = configuration.createWorker(simulator, layer, frameInfo, luxelsPerThread, projection)
 
             val workerJob = CoroutineScope(newSingleThreadContext("worker-$it")).launch {
                 worker.work()
@@ -142,6 +148,7 @@ object LuxelEngine {
         val elapsed = Clock.System.now() - frameStart
         simulator.onFrameEnd(frameInfo.frameTime, configuration.animation.duration)
         println("\r    ✔ Frame $frameInfo simulation complete in $elapsed")
+        SystemInfo.gc()
     }
 
     // endregion

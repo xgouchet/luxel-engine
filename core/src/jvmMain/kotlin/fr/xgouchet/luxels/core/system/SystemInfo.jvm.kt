@@ -14,6 +14,13 @@ actual object SystemInfo {
     }
 
     /**
+     * @return the free memory size remaining for the current process
+     */
+    actual fun getFreeMemory(): Long {
+        return Runtime.getRuntime().freeMemory()
+    }
+
+    /**
      * @return the global memory size dedicated to the current process
      */
     actual fun getAvailableMemory(): Long {
@@ -30,6 +37,13 @@ actual object SystemInfo {
         println(" Free Memory: ${byteToMb(runtime.freeMemory())} Mb")
         println("  Max Memory: ${byteToMb(runtime.maxMemory())} Mb")
         println("Total Memory: ${byteToMb(runtime.totalMemory())} Mb")
+    }
+
+    /**
+     * Triggers the Garbage Collection if any.
+     */
+    actual fun gc(){
+        System.gc()
     }
 
     private fun byteToMb(value: Long): Long {

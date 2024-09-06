@@ -14,6 +14,8 @@ import kotlin.time.Duration
 
 /**
  * The main class describing the behavior of luxels and the environment they're going to be simulated in.
+ * The instance is shared across threads when using parallel computation.
+ *
  * @param D the dimension of the space luxels evolve in
  * @param L the type of simulated Luxels
  * @param I the expected Input
@@ -28,7 +30,7 @@ interface Simulator<D : Dimension, L : Luxel<D>, I : Any> {
     fun initEnvironment(simulation: Configuration.Simulation<D>, inputData: InputData<I>) {}
 
     /**
-     * Called whenever a projection needs to be created.
+     * Called whenever a projection needs to be created (called once per frame).
      * @param simulationSpace the simulation space
      * @param filmSpace the target film space
      * @param time the current time within the simulated animation

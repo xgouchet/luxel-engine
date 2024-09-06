@@ -10,6 +10,13 @@ actual object SystemInfo {
     }
 
     /**
+     * @return the free memory size remaining for the current process
+     */
+    actual fun getFreeMemory(): Long {
+        TODO("Not yet implemented")
+    }
+
+    /**
      * @return the global memory size dedicated to the current process
      */
     actual fun getAvailableMemory(): Long {
@@ -19,7 +26,10 @@ actual object SystemInfo {
     /**
      * Prints the system information.
      */
-    actual fun printSystemInfo() {
-    }
+    actual fun printSystemInfo() {}
 
+    /**
+     * Triggers the Garbage Collection if any.
+     */
+    actual fun gc() {}
 }

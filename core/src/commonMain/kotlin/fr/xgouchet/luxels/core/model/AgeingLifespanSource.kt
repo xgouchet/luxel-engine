@@ -14,7 +14,7 @@ class AgeingLifespanSource(
         private set
 
     /**
-     * The progression of the luxel according to its lifespan.
+     * The progression of the luxel according to its lifespan (in a 0..1 range).
      */
     var progression: Double = 0.0
         get() = age.toDouble() / lifespan

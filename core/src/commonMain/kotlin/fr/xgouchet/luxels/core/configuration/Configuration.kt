@@ -10,6 +10,7 @@ import fr.xgouchet.luxels.core.math.Volume
 import fr.xgouchet.luxels.core.math.random.VectorRandomGenerator
 import fr.xgouchet.luxels.core.model.Luxel
 import fr.xgouchet.luxels.core.render.exposure.Film
+import fr.xgouchet.luxels.core.render.projection.Projection
 import fr.xgouchet.luxels.core.simulation.Simulator
 import fr.xgouchet.luxels.core.simulation.worker.DeathSimulationWorker
 import fr.xgouchet.luxels.core.simulation.worker.EnvSimulationWorker
@@ -108,8 +109,8 @@ class Configuration<D : Dimension, I : Any> internal constructor(
         film: Film,
         frameInfo: FrameInfo,
         luxelCountPerThread: Long,
+        projection: Projection<D>
     ): SimulationWorker {
-        val projection = simulator.getProjection(simulation.volume, render.filmSpace, frameInfo.frameTime)
 
         return when (simulation.passType) {
             PassType.RENDER ->
