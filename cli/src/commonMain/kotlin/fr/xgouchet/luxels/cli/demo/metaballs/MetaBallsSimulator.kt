@@ -5,6 +5,7 @@ import fr.xgouchet.luxels.cli.demo.DemoLuxel
 import fr.xgouchet.luxels.components.render.projection.PerspectiveProjection
 import fr.xgouchet.luxels.core.configuration.Configuration
 import fr.xgouchet.luxels.core.configuration.input.InputData
+import fr.xgouchet.luxels.core.log.Logger
 import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.math.Vector
 import fr.xgouchet.luxels.core.math.Volume
@@ -40,8 +41,11 @@ internal class MetaBallsSimulator : Simulator<Dimension.D3, Luxel<Dimension.D3>,
         )
     }
 
-    override fun initEnvironment(simulation: Configuration.Simulation<Dimension.D3>, inputData: InputData<Unit>) {
-        super.initEnvironment(simulation, inputData)
+    override fun initEnvironment(
+        simulation: Configuration.Simulation<Dimension.D3>,
+        inputData: InputData<Unit>,
+        logger: Logger
+    ) {
         metaballs = List(6) {
             val scale = RndGen.double.uniform() * 4.0 / 10.0
             MetaBall(
@@ -51,7 +55,7 @@ internal class MetaBallsSimulator : Simulator<Dimension.D3, Luxel<Dimension.D3>,
         }
     }
 
-    override fun spawnLuxel(simulation: Configuration.Simulation<Dimension.D3>, time: Duration): Luxel<Dimension.D3> {
+    override suspend fun spawnLuxel(simulation: Configuration.Simulation<Dimension.D3>, time: Duration): Luxel<Dimension.D3> {
         val position = RndGen.vector3.inVolume(simulation.volume.expanded(2.0))
         val metaBallField = metaBallField(position)
         val color = max(0.0 , (1.0 - (20.0 * abs( 1.0 - metaBallField))))

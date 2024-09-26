@@ -249,7 +249,7 @@ exceptions:
   ObjectExtendsThrowable:
     active: true
   PrintStackTrace:
-    active: false # TODO true when propper logging is in place
+    active: true
   RethrowCaughtException:
     active: true
   ReturnFromFinally:

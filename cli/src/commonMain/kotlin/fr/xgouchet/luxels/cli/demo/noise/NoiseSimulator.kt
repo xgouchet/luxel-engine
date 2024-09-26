@@ -32,7 +32,7 @@ internal class NoiseSimulator(
         return Flat2DProjection(simulationSpace, filmSpace)
     }
 
-    override fun spawnLuxel(
+    override suspend fun spawnLuxel(
         simulation: Configuration.Simulation<Dimension.D2>,
         time: Duration,
     ): DemoLuxel<Dimension.D2> {

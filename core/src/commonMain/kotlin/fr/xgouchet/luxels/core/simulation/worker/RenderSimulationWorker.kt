@@ -1,12 +1,15 @@
 package fr.xgouchet.luxels.core.simulation.worker
 
 import fr.xgouchet.luxels.core.configuration.Configuration
+import fr.xgouchet.luxels.core.log.Logger
 import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.model.Luxel
 import fr.xgouchet.luxels.core.render.exposure.Film
 import fr.xgouchet.luxels.core.render.projection.Projection
 import fr.xgouchet.luxels.core.simulation.Simulator
+import kotlinx.coroutines.CoroutineName
 import kotlinx.datetime.Clock
+import kotlin.coroutines.coroutineContext
 import kotlin.math.floor
 import kotlin.math.max
 import kotlin.math.roundToInt
@@ -19,13 +22,22 @@ internal class RenderSimulationWorker<D : Dimension, L : Luxel<D>, I : Any>(
     projection: Projection<D>,
     time: Duration,
     luxelCountPerThread: Long,
-) : AbstractSimulationWorker<D, L, I>(film, simulator, simulation, projection, time, luxelCountPerThread) {
+    logger: Logger,
+) : AbstractSimulationWorker<D, L, I>(
+    film = film,
+    simulator = simulator,
+    simulation = simulation,
+    projection = projection,
+    time = time,
+    luxelCountPerThread = luxelCountPerThread,
+    logger = logger
+) {
 
     private val progressNotification = max(floor(luxelCountPerThread / 1000.0).toLong(), 1)
 
     // region AbstractSimulationWorker
 
-    override fun simulateSingleLuxel(i: Long) {
+    override suspend fun simulateSingleLuxel(i: Long) {
         val luxel = simulator.spawnLuxel(simulation, time)
         luxel.onStart()
 
@@ -45,15 +57,16 @@ internal class RenderSimulationWorker<D : Dimension, L : Luxel<D>, I : Any>(
 
     // region Internal
 
-    private fun onLuxelRan(i: Long) {
+    private suspend fun onLuxelRan(i: Long) {
         if (i % progressNotification == 0L) {
-            val progress = (i * 1000.0) / luxelCountPerThread
+            val progress = i.toDouble() / luxelCountPerThread
             val now = Clock.System.now()
             val elapsed = now - frameStart
             val durationPerLuxel = elapsed / i.toDouble()
             val totalDuration = (elapsed * luxelCountPerThread.toDouble()) / i.toDouble()
             val remaining = totalDuration - elapsed
-            print("\r    … ${progress.roundToInt()}‰ [thread#(TODO Thread ID)] - $remaining remaining ($durationPerLuxel / luxel)")
+            val workerName = coroutineContext[CoroutineName]?.name ?: "???"
+            logger.progress(progress, "[$workerName] - $remaining remaining ($durationPerLuxel / luxel)")
         }
     }
 

@@ -13,8 +13,6 @@ import fr.xgouchet.luxels.core.system.SystemInfo
 fun main() {
     val outputPath = baseOutputPath / "aether"
 
-    SystemInfo.printSystemInfo()
-
     val seeds = longArrayOf(
         0xfbfbf1f2,
         0x4ca8c1be,

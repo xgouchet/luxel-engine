@@ -31,7 +31,7 @@ internal class CubeSimulator : Simulator<Dimension.D3, DemoLuxel<Dimension.D3>, 
     }
 
     @Suppress("CyclomaticComplexMethod")
-    override fun spawnLuxel(
+    override suspend fun spawnLuxel(
         simulation: Configuration.Simulation<Dimension.D3>,
         time: Duration,
     ): DemoLuxel<Dimension.D3> {

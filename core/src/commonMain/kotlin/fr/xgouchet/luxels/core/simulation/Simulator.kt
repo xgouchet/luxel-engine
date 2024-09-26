@@ -5,6 +5,7 @@ import fr.xgouchet.graphikio.color.HDRColor
 import fr.xgouchet.luxels.core.configuration.Configuration
 import fr.xgouchet.luxels.core.configuration.PassType
 import fr.xgouchet.luxels.core.configuration.input.InputData
+import fr.xgouchet.luxels.core.log.Logger
 import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.math.Vector
 import fr.xgouchet.luxels.core.math.Volume
@@ -26,8 +27,9 @@ interface Simulator<D : Dimension, L : Luxel<D>, I : Any> {
      * Called once per input to initialize the environment.
      * @param simulation the simulation options
      * @param inputData the input for the simulation
+     * @param logger the logger to use if need be
      */
-    fun initEnvironment(simulation: Configuration.Simulation<D>, inputData: InputData<I>) {}
+    fun initEnvironment(simulation: Configuration.Simulation<D>, inputData: InputData<I>, logger: Logger) {}
 
     /**
      * Called whenever a projection needs to be created (called once per frame).
@@ -67,7 +69,7 @@ interface Simulator<D : Dimension, L : Luxel<D>, I : Any> {
      * @param simulation the simulation options
      * @param time the current time within the simulated animation
      */
-    fun spawnLuxel(simulation: Configuration.Simulation<D>, time: Duration): L
+    suspend fun spawnLuxel(simulation: Configuration.Simulation<D>, time: Duration): L
 
     /**
      * Updates the given [Luxel].

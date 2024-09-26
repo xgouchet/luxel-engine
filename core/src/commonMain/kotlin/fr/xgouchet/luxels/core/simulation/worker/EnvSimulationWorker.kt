@@ -1,6 +1,7 @@
 package fr.xgouchet.luxels.core.simulation.worker
 
 import fr.xgouchet.luxels.core.configuration.Configuration
+import fr.xgouchet.luxels.core.log.Logger
 import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.math.Vector
 import fr.xgouchet.luxels.core.math.random.RandomGenerator
@@ -18,11 +19,20 @@ internal class EnvSimulationWorker<D : Dimension, L : Luxel<D>, I : Any>(
     projection: Projection<D>,
     time: Duration,
     luxelCountPerThread: Long,
+    logger: Logger,
     val rng: RandomGenerator<Vector<D>>,
-) : AbstractSimulationWorker<D, L, I>(film, simulator, simulation, projection, time, luxelCountPerThread) {
+) : AbstractSimulationWorker<D, L, I>(
+    film = film,
+    simulator = simulator,
+    simulation = simulation,
+    projection = projection,
+    time = time,
+    luxelCountPerThread = luxelCountPerThread,
+    logger = logger
+) {
     // region AbstractSimulationWorker
 
-    override fun simulateSingleLuxel(i: Long) {
+    override suspend fun simulateSingleLuxel(i: Long) {
         val simulationPosition = rng.inVolume(simulation.volume)
 
         val color = simulator.environmentColor(simulationPosition, time)

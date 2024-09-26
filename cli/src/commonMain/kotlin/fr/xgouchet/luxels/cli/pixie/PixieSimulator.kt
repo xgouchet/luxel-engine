@@ -8,6 +8,7 @@ import fr.xgouchet.graphikio.data.SDRRasterData
 import fr.xgouchet.luxels.components.render.projection.Flat2DProjection
 import fr.xgouchet.luxels.core.configuration.Configuration
 import fr.xgouchet.luxels.core.configuration.input.InputData
+import fr.xgouchet.luxels.core.log.Logger
 import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.math.Vector
 import fr.xgouchet.luxels.core.math.Vector2
@@ -35,13 +36,16 @@ internal class PixieSimulator : Simulator<Dimension.D2, PixieLuxel, Path> {
         return Flat2DProjection(simulationSpace, filmSpace)
     }
 
-    override fun initEnvironment(simulation: Configuration.Simulation<Dimension.D2>, inputData: InputData<Path>) {
-        super.initEnvironment(simulation, inputData)
+    override fun initEnvironment(
+        simulation: Configuration.Simulation<Dimension.D2>,
+        inputData: InputData<Path>,
+        logger: Logger
+    ) {
         imageRasterData = GraphikIO.read(inputData.data)
         simSpace = simulation.volume
     }
 
-    override fun spawnLuxel(simulation: Configuration.Simulation<Dimension.D2>, time: Duration): PixieLuxel {
+    override suspend fun spawnLuxel(simulation: Configuration.Simulation<Dimension.D2>, time: Duration): PixieLuxel {
         val uv = Vector2(RndGen.double.uniform(), RndGen.double.uniform())
         val position = (uv * simulation.volume.size) + simulation.volume.min
 

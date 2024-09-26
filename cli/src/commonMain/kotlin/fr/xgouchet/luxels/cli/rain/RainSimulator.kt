@@ -7,6 +7,7 @@ import fr.xgouchet.luxels.components.noise.wrapper.VectorNoiseGenerator
 import fr.xgouchet.luxels.components.render.projection.Flat2DProjection
 import fr.xgouchet.luxels.core.configuration.Configuration
 import fr.xgouchet.luxels.core.configuration.input.InputData
+import fr.xgouchet.luxels.core.log.Logger
 import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.math.EPSILON
 import fr.xgouchet.luxels.core.math.TAU
@@ -57,7 +58,11 @@ internal class RainSimulator : Simulator<Dimension.D2, RainLuxel, Long> {
         return Flat2DProjection(simulationSpace, filmSpace)
     }
 
-    override fun initEnvironment(simulation: Configuration.Simulation<Dimension.D2>, inputData: InputData<Long>) {
+    override fun initEnvironment(
+        simulation: Configuration.Simulation<Dimension.D2>,
+        inputData: InputData<Long>,
+        logger: Logger
+    ) {
         extendedRange = simulation.volume.expanded(2.0)
         safeRange = simulation.volume.expanded(1.2)
 
@@ -89,7 +94,7 @@ internal class RainSimulator : Simulator<Dimension.D2, RainLuxel, Long> {
         animationOffset = animationDirection * time.inWholeMilliseconds.toDouble() * 0.25
     }
 
-    override fun spawnLuxel(simulation: Configuration.Simulation<Dimension.D2>, time: Duration): RainLuxel {
+    override suspend fun spawnLuxel(simulation: Configuration.Simulation<Dimension.D2>, time: Duration): RainLuxel {
         val randomSpeed: Vector<Dimension.D2>
         val randomPosition: Vector<Dimension.D2>
         if (isDirectional) {

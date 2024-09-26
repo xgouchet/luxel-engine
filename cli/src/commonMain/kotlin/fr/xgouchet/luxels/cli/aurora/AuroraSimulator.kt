@@ -10,6 +10,7 @@ import fr.xgouchet.luxels.components.noise.wrapper.VectorToDoubleNoiseGenerator
 import fr.xgouchet.luxels.components.render.projection.PerspectiveProjection
 import fr.xgouchet.luxels.core.configuration.Configuration
 import fr.xgouchet.luxels.core.configuration.input.InputData
+import fr.xgouchet.luxels.core.log.Logger
 import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.math.Vector
 import fr.xgouchet.luxels.core.math.Vector3
@@ -67,7 +68,11 @@ internal class AuroraSimulator : Simulator<Dimension.D3, AuroraLuxel, Long> {
         )
     }
 
-    override fun initEnvironment(simulation: Configuration.Simulation<Dimension.D3>, inputData: InputData<Long>) {
+    override fun initEnvironment(
+        simulation: Configuration.Simulation<Dimension.D3>,
+        inputData: InputData<Long>,
+        logger: Logger
+    ) {
         element = elements[RndGen.int.inRange(0, elements.size)]
         println("Aurora with element ${element.name}")
         strandCount = (element.number % 3) + 1
@@ -78,7 +83,7 @@ internal class AuroraSimulator : Simulator<Dimension.D3, AuroraLuxel, Long> {
         skyOffset = Vector3(0.0, simulation.volume.size.y, 0.0) * 2.0
     }
 
-    override fun spawnLuxel(simulation: Configuration.Simulation<Dimension.D3>, time: Duration): AuroraLuxel {
+    override suspend fun spawnLuxel(simulation: Configuration.Simulation<Dimension.D3>, time: Duration): AuroraLuxel {
         val strandIndex = RndGen.int.inRange(0, strandCount)
         val strandOffset = strandIndex * element.number * 1337.0
         val input = (time.toDouble(DurationUnit.SECONDS) + element.number + strandInput) * 10.0

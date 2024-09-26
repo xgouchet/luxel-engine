@@ -4,6 +4,7 @@ import fr.xgouchet.luxels.core.FrameInfo
 import fr.xgouchet.luxels.core.configuration.input.InputSource
 import fr.xgouchet.luxels.core.io.ImageFixer
 import fr.xgouchet.luxels.core.io.NoOpFixer
+import fr.xgouchet.luxels.core.log.Logger
 import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.math.Vector
 import fr.xgouchet.luxels.core.math.Volume
@@ -109,7 +110,8 @@ class Configuration<D : Dimension, I : Any> internal constructor(
         film: Film,
         frameInfo: FrameInfo,
         luxelCountPerThread: Long,
-        projection: Projection<D>
+        projection: Projection<D>,
+        logger: Logger
     ): SimulationWorker {
 
         return when (simulation.passType) {
@@ -121,6 +123,7 @@ class Configuration<D : Dimension, I : Any> internal constructor(
                     projection = projection,
                     time = frameInfo.frameTime,
                     luxelCountPerThread = luxelCountPerThread,
+                    logger = logger,
                 )
 
             PassType.SPAWN ->
@@ -131,6 +134,7 @@ class Configuration<D : Dimension, I : Any> internal constructor(
                     projection = projection,
                     time = frameInfo.frameTime,
                     luxelCountPerThread = luxelCountPerThread,
+                    logger = logger,
                 )
 
             PassType.PATH ->
@@ -141,6 +145,7 @@ class Configuration<D : Dimension, I : Any> internal constructor(
                     projection = projection,
                     time = frameInfo.frameTime,
                     luxelCountPerThread = luxelCountPerThread,
+                    logger = logger
                 )
 
             PassType.DEATH ->
@@ -151,6 +156,7 @@ class Configuration<D : Dimension, I : Any> internal constructor(
                     projection = projection,
                     time = frameInfo.frameTime,
                     luxelCountPerThread = luxelCountPerThread,
+                    logger = logger
                 )
 
             PassType.ENV ->
@@ -161,6 +167,7 @@ class Configuration<D : Dimension, I : Any> internal constructor(
                     projection = projection,
                     time = frameInfo.frameTime,
                     luxelCountPerThread = luxelCountPerThread,
+                    logger = logger,
                     rng = VectorRandomGenerator(dimension),
                 )
         }

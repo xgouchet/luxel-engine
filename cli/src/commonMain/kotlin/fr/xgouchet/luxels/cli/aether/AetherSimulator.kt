@@ -5,6 +5,7 @@ import fr.xgouchet.luxels.components.geometry.Curve
 import fr.xgouchet.luxels.components.render.projection.PerspectiveProjection
 import fr.xgouchet.luxels.core.configuration.Configuration
 import fr.xgouchet.luxels.core.configuration.input.InputData
+import fr.xgouchet.luxels.core.log.Logger
 import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.math.Volume
 import fr.xgouchet.luxels.core.math.fromSpherical
@@ -27,8 +28,12 @@ internal class AetherSimulator(
 
     // region Simulator
 
-    override fun initEnvironment(simulation: Configuration.Simulation<Dimension.D3>, inputData: InputData<Long>) {
-        super.initEnvironment(simulation, inputData)
+    override fun initEnvironment(
+        simulation: Configuration.Simulation<Dimension.D3>,
+        inputData: InputData<Long>,
+        logger: Logger
+    ) {
+        super.initEnvironment(simulation, inputData, logger)
         gaussianRange = (simulation.quality.count shr 3).toInt()
         successiveStep = 0.1 / (simulation.quality.count shr 2)
 
@@ -52,7 +57,7 @@ internal class AetherSimulator(
         }
     }
 
-    override fun spawnLuxel(simulation: Configuration.Simulation<Dimension.D3>, time: Duration): AetherLuxel {
+    override suspend fun spawnLuxel(simulation: Configuration.Simulation<Dimension.D3>, time: Duration): AetherLuxel {
         val offsetP = RndGen.int.gaussian(0, gaussianRange) * successiveStep
         val p = frameCenterP + offsetP
 

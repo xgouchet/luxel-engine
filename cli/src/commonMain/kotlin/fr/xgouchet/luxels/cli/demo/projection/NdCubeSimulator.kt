@@ -21,7 +21,7 @@ internal abstract class NdCubeSimulator<D : Dimension> : Simulator<D, DemoLuxel<
     }
 
     @Suppress("CyclomaticComplexMethod")
-    override fun spawnLuxel(simulation: Configuration.Simulation<D>, time: Duration): DemoLuxel<D> {
+    override suspend fun spawnLuxel(simulation: Configuration.Simulation<D>, time: Duration): DemoLuxel<D> {
         TODO()
     }
 

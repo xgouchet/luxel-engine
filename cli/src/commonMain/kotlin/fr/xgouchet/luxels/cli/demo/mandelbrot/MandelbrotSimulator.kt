@@ -4,6 +4,7 @@ import fr.xgouchet.graphikio.color.HDRColor
 import fr.xgouchet.luxels.components.render.projection.Flat2DProjection
 import fr.xgouchet.luxels.core.configuration.Configuration
 import fr.xgouchet.luxels.core.configuration.input.InputData
+import fr.xgouchet.luxels.core.log.Logger
 import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.math.Volume
 import fr.xgouchet.luxels.core.math.random.RndGen
@@ -30,11 +31,15 @@ internal class MandelbrotSimulator(
         return Flat2DProjection(simulationSpace, filmSpace)
     }
 
-    override fun initEnvironment(simulation: Configuration.Simulation<Dimension.D2>, inputData: InputData<Unit>) {
+    override fun initEnvironment(
+        simulation: Configuration.Simulation<Dimension.D2>,
+        inputData: InputData<Unit>,
+        logger: Logger
+    ) {
         this.simulationSpace = simulation.volume
     }
 
-    override fun spawnLuxel(simulation: Configuration.Simulation<Dimension.D2>, time: Duration): MandelbrotLuxel {
+    override suspend fun spawnLuxel(simulation: Configuration.Simulation<Dimension.D2>, time: Duration): MandelbrotLuxel {
         val vec = RndGen.vector2.inVolume(simulationSpace)
         val (col, iter) = when (RndGen.int.inRange(0, 3)) {
             0 -> HDRColor.RED to iterations * 2

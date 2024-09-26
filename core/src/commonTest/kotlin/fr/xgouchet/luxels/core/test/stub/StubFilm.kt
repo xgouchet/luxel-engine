@@ -15,7 +15,7 @@ class StubFilm(resolution: Resolution) : Film {
     private val stubbedColor = mutableMapOf<Pair<Int, Int>, HDRColor>()
 
     override fun expose(position: Vector<Dimension.D2>, color: Color) {
-        TODO("Not yet implemented")
+        error("Not Implemented")
     }
 
     override fun getColor(i: Int, j: Int): HDRColor {

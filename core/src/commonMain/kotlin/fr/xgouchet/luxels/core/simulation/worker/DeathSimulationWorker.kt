@@ -2,6 +2,7 @@ package fr.xgouchet.luxels.core.simulation.worker
 
 import fr.xgouchet.graphikio.color.HDRColor
 import fr.xgouchet.luxels.core.configuration.Configuration
+import fr.xgouchet.luxels.core.log.Logger
 import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.model.Luxel
 import fr.xgouchet.luxels.core.render.exposure.Film
@@ -16,11 +17,20 @@ internal class DeathSimulationWorker<D : Dimension, L : Luxel<D>, I : Any>(
     projection: Projection<D>,
     time: Duration,
     luxelCountPerThread: Long,
-) : AbstractSimulationWorker<D, L, I>(film, simulator, simulation, projection, time, luxelCountPerThread) {
+    logger: Logger
+) : AbstractSimulationWorker<D, L, I>(
+    film = film,
+    simulator = simulator,
+    simulation = simulation,
+    projection = projection,
+    time = time,
+    luxelCountPerThread = luxelCountPerThread,
+    logger = logger
+) {
 
     // region AbstractSimulationWorker
 
-    override fun simulateSingleLuxel(i: Long) {
+    override suspend fun simulateSingleLuxel(i: Long) {
         val luxel = simulator.spawnLuxel(simulation, time)
         luxel.onStart()
 
