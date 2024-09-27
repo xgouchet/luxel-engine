@@ -17,11 +17,17 @@ project.afterEvaluate {
         (this as? Test)?.useJUnitPlatform()
     }
 
+
+    tasks.findByName("koverXmlReport")?.apply {
+        this.dependsOn("jvmTest")
+    }
+
     tasks.create("checkJvm") {
         group = "verification"
         this.dependsOn("ktlintCheck")
         this.dependsOn("detektJvmMain")
         this.dependsOn("jvmTest")
+        this.dependsOn("koverXmlReport")
     }
 }
 
