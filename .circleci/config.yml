@@ -6,6 +6,9 @@ executors:
     docker:
       - image: cimg/openjdk:17.0
 
+orbs:
+  codecov: codecov/codecov@4.0.1
+
 jobs:
   run-checks-jvm:
     executor: jvm-executor
@@ -43,14 +46,23 @@ jobs:
       - store_test_results:
           path: ~/test-results
 
-      - store_artifacts:
-          path: core/build/reports/kover/report.xml
-      - store_artifacts:
-          path: components/build/reports/kover/report.xml
-      - store_artifacts:
-          path: graphikio/build/reports/kover/report.xml
-      - store_artifacts:
-          path: cli/build/reports/kover/report.xml
+      - codecov/upload:
+          file: core/build/reports/kover/report.xml
+      - codecov/upload:
+          file: components/build/reports/kover/report.xml
+      - codecov/upload:
+          file: graphikio/build/reports/kover/report.xml
+      - codecov/upload:
+          file: cil/build/reports/kover/report.xml
+
+#      - store_artifacts:
+#          path: core/build/reports/kover/report.xml
+#      - store_artifacts:
+#          path: components/build/reports/kover/report.xml
+#      - store_artifacts:
+#          path: graphikio/build/reports/kover/report.xml
+#      - store_artifacts:
+#          path: cli/build/reports/kover/report.xml
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/workflows/ & https://circleci.com/docs/configuration-reference/#workflows
