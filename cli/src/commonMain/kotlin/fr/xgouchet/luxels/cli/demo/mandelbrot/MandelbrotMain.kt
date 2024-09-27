@@ -20,7 +20,7 @@ fun main() {
                 Volume(
                     min = Vector2(-0.75, -0.25),
                     max = Vector2(-0.69, -0.19),
-                )
+                ),
             )
         }
 

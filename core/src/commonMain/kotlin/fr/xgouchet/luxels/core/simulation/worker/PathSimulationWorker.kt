@@ -10,6 +10,7 @@ import fr.xgouchet.luxels.core.render.projection.Projection
 import fr.xgouchet.luxels.core.simulation.Simulator
 import kotlin.time.Duration
 
+@Suppress("LongParameterList")
 internal class PathSimulationWorker<D : Dimension, L : Luxel<D>, I : Any>(
     film: Film,
     simulator: Simulator<D, L, I>,
@@ -25,7 +26,7 @@ internal class PathSimulationWorker<D : Dimension, L : Luxel<D>, I : Any>(
     projection = projection,
     time = time,
     luxelCountPerThread = luxelCountPerThread,
-    logger = logger
+    logger = logger,
 ) {
 
     // region AbstractSimulationWorker

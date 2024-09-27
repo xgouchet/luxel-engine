@@ -29,7 +29,11 @@ interface Simulator<D : Dimension, L : Luxel<D>, I : Any> {
      * @param inputData the input for the simulation
      * @param logger the logger to use if need be
      */
-    fun initEnvironment(simulation: Configuration.Simulation<D>, inputData: InputData<I>, logger: Logger) {}
+    fun initEnvironment(
+        simulation: Configuration.Simulation<D>,
+        inputData: InputData<I>,
+        logger: Logger,
+    ) {}
 
     /**
      * Called whenever a projection needs to be created (called once per frame).

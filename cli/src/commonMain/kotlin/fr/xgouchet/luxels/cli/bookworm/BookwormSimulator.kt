@@ -17,27 +17,31 @@ import fr.xgouchet.luxels.core.simulation.Simulator
 import okio.Path
 import kotlin.time.Duration
 
-class BookwormSimulator(
+internal class BookwormSimulator(
     val luxelLifespan: Int = 0X80,
-    val interpolation: Interpolation = Interpolation.Linear
+    val interpolation: Interpolation = Interpolation.Linear,
 ) : Simulator<Dimension.D3, BookwormLuxel, Path> {
 
     val inputReader = BookwormInputReader()
 
     val rng = VectorRandomGenerator(Dimension.D3)
 
+    @Suppress("LateinitUsage")
     lateinit var input: BookwormInput
 
+    @Suppress("LateinitUsage")
     lateinit var logger: Logger
 
     // region Simulator
 
-    override fun outputName(): String = "bookworm"
+    override fun outputName(): String {
+        return "bookworm"
+    }
 
     override fun initEnvironment(
         simulation: Configuration.Simulation<Dimension.D3>,
         inputData: InputData<Path>,
-        logger: Logger
+        logger: Logger,
     ) {
         super.initEnvironment(simulation, inputData, logger)
         this.input = inputReader.getInput(inputData.data, logger)
@@ -48,23 +52,22 @@ class BookwormSimulator(
         val sentence = input.nextSentence()
         val wavelengthProgress = sentence.sentenceIndex.toDouble() / input.getSentenceCount()
 
-
         return BookwormLuxel(
             rng,
             sentence,
             interpolation.interpolate(
                 EMSColorSource.MIN_VISIBLE_LIGHT,
                 EMSColorSource.MAX_VISIBLE_LIGHT,
-                wavelengthProgress
+                wavelengthProgress,
             ),
-            luxelLifespan
+            luxelLifespan,
         )
     }
 
     override fun getProjection(
         simulationSpace: Volume<Dimension.D3>,
         filmSpace: Volume<Dimension.D2>,
-        time: Duration
+        time: Duration,
     ): Projection<Dimension.D3> {
         // For now a 3D projection rotation around the Y axis, 1 full rotation / sec
         // TODO something better ?

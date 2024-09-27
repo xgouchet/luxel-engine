@@ -22,8 +22,6 @@ import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import kotlinx.datetime.Clock
-import kotlin.coroutines.ContinuationInterceptor
-import kotlin.math.log
 import kotlin.time.Duration.Companion.seconds
 
 /**
@@ -75,7 +73,7 @@ object LuxelEngine {
         val threadCount = minOf(
             configuration.simulation.maxThreadCount,
             parallelThreads,
-            layerCapacity - 1
+            layerCapacity - 1,
         )
         logger.info("Running simulation on $threadCount threads")
         logger.endSection()
@@ -134,14 +132,21 @@ object LuxelEngine {
         val projection = simulator.getProjection(
             configuration.simulation.volume,
             configuration.render.filmSpace,
-            frameInfo.frameTime
+            frameInfo.frameTime,
         )
 
         // Start all workers
         logger.startProgress()
         repeat(threadCount) { workerIdx ->
             val layer = configuration.render.createFilm()
-            val worker = configuration.createWorker(simulator, layer, frameInfo, luxelsPerThread, projection, logger)
+            val worker = configuration.createWorker(
+                simulator = simulator,
+                film = layer,
+                frameInfo = frameInfo,
+                luxelCountPerThread = luxelsPerThread,
+                projection = projection,
+                logger = logger,
+            )
 
             val name = "worker-$workerIdx"
             val workerJob = CoroutineScope(newSingleThreadContext(name)).launch {
@@ -162,16 +167,12 @@ object LuxelEngine {
         val elapsed = Clock.System.now() - frameStart
         simulator.onFrameEnd(frameInfo.frameTime, configuration.animation.duration)
         logger.info("✔ Frame $frameInfo simulation complete in $elapsed")
-        SystemInfo.gc()
+        SystemInfo.clearMemory()
     }
 
     // endregion
 
     // region Internal/Utils
-
-    private fun chooseThreadCount() {
-
-    }
 
     private fun getFilename(
         simulator: Simulator<*, *, *>,

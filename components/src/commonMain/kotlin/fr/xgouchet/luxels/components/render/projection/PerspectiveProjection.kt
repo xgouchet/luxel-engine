@@ -70,6 +70,8 @@ class PerspectiveProjection(
 
     companion object {
 
+        // region Internal
+
         /**
          * Creates a Matrix representing the position and orientation of a target camera in a 3D space.
          * @param cameraPosition the position of the camera
@@ -136,5 +138,7 @@ class PerspectiveProjection(
 
             return result
         }
+
+        // endregion
     }
 }

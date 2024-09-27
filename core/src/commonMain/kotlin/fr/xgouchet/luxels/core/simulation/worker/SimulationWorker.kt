@@ -7,5 +7,5 @@ internal interface SimulationWorker {
     /**
      * Perform some work.
      */
-   suspend fun work()
+    suspend fun work()
 }

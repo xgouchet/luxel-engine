@@ -1,0 +1,51 @@
+
+version: 2.1
+
+executors:
+  jvm-executor:
+    docker:
+      - image: cimg/openjdk:17.0
+
+jobs:
+  run-checks-jvm:
+    executor: jvm-executor
+
+    environment:
+      JVM_OPTS: -Xmx3200m
+      TERM: dumb
+
+    steps:
+      - checkout
+
+      - run:
+          name: Run checks on core
+          command : ./gradlew :core:checkJvm
+
+      - run:
+          name: Run checks on components
+          command : ./gradlew :components:checkJvm
+
+      - run:
+          name: Run checks on graphikio
+          command : ./gradlew :graphikio:checkJvm
+
+      - run:
+          name: Run checks on cli
+          command : ./gradlew :cli:checkJvm
+
+      - run:
+          name: Save test results
+          command: |
+            mkdir -p ~/test-results/junit/
+            find . -type f -regex ".*/build/test-results/.*xml" -exec cp {} ~/test-results/junit/ \;
+          when: always
+
+      - store_test_results:
+          path: ~/test-results
+
+# Orchestrate jobs using workflows
+# See: https://circleci.com/docs/workflows/ & https://circleci.com/docs/configuration-reference/#workflows
+workflows:
+  ci:
+    jobs:
+      - run-checks-jvm

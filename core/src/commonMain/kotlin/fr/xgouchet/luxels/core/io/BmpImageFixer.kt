@@ -1,7 +1,6 @@
 package fr.xgouchet.luxels.core.io
 
 import fr.xgouchet.graphikio.format.bmp.BmpImageFormat
-import fr.xgouchet.graphikio.format.hdr.HdrImageFormat
 import okio.Path
 
 /**

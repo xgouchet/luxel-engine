@@ -7,7 +7,6 @@ import fr.xgouchet.luxels.core.configuration.Quality
 import fr.xgouchet.luxels.core.configuration.Resolution
 import fr.xgouchet.luxels.core.configuration.configurationWithFixedSeeds
 import fr.xgouchet.luxels.core.math.Dimension
-import fr.xgouchet.luxels.core.system.SystemInfo
 
 /** Main. */
 fun main() {

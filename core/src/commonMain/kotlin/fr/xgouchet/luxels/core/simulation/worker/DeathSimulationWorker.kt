@@ -10,6 +10,7 @@ import fr.xgouchet.luxels.core.render.projection.Projection
 import fr.xgouchet.luxels.core.simulation.Simulator
 import kotlin.time.Duration
 
+@Suppress("LongParameterList")
 internal class DeathSimulationWorker<D : Dimension, L : Luxel<D>, I : Any>(
     film: Film,
     simulator: Simulator<D, L, I>,
@@ -17,7 +18,7 @@ internal class DeathSimulationWorker<D : Dimension, L : Luxel<D>, I : Any>(
     projection: Projection<D>,
     time: Duration,
     luxelCountPerThread: Long,
-    logger: Logger
+    logger: Logger,
 ) : AbstractSimulationWorker<D, L, I>(
     film = film,
     simulator = simulator,
@@ -25,7 +26,7 @@ internal class DeathSimulationWorker<D : Dimension, L : Luxel<D>, I : Any>(
     projection = projection,
     time = time,
     luxelCountPerThread = luxelCountPerThread,
-    logger = logger
+    logger = logger,
 ) {
 
     // region AbstractSimulationWorker

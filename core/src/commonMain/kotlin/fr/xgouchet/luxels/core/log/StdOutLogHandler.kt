@@ -3,30 +3,38 @@ package fr.xgouchet.luxels.core.log
 import fr.xgouchet.luxels.core.log.LogHandler.Companion.INDENTATIONS
 import kotlin.math.roundToInt
 
+/**
+ * A [LogHandler] that prints the logs in the standard output.
+ */
 class StdOutLogHandler : LogHandler {
-
 
     private var sectionLevel: Int = 0
 
     private val backlog = mutableListOf<Log>()
 
-    private var wip: Boolean = false
+    private var isShowingProgress: Boolean = false
 
     // region LogHandler
 
     override fun onLog(log: Log) {
-        if (wip) {
-            if (log is Log.EndProgress) {
-                wip = false
-                handleBacklog()
-            } else if (log is Log.Progress) {
-                handleProgress(log)
-            } else {
-                backlog.add(log)
+        if (isShowingProgress) {
+            when (log) {
+                is Log.EndProgress -> {
+                    isShowingProgress = false
+                    handleBacklog()
+                }
+
+                is Log.Progress -> {
+                    handleProgress(log)
+                }
+
+                else -> {
+                    backlog.add(log)
+                }
             }
         } else {
             when (log) {
-                is Log.StartProgress -> wip = true
+                is Log.StartProgress -> isShowingProgress = true
 
                 is Log.StartSection -> {
                     printLine("-", log.title)
@@ -43,6 +51,10 @@ class StdOutLogHandler : LogHandler {
             }
         }
     }
+
+    // endregion
+
+    // region Internal
 
     private fun handleProgress(progress: Log.Progress) {
         val perThousand = progress.progress * 1000.0
@@ -61,5 +73,4 @@ class StdOutLogHandler : LogHandler {
     }
 
     // endregion
-
 }

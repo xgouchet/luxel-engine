@@ -34,12 +34,15 @@ internal class MandelbrotSimulator(
     override fun initEnvironment(
         simulation: Configuration.Simulation<Dimension.D2>,
         inputData: InputData<Unit>,
-        logger: Logger
+        logger: Logger,
     ) {
         this.simulationSpace = simulation.volume
     }
 
-    override suspend fun spawnLuxel(simulation: Configuration.Simulation<Dimension.D2>, time: Duration): MandelbrotLuxel {
+    override suspend fun spawnLuxel(
+        simulation: Configuration.Simulation<Dimension.D2>,
+        time: Duration,
+    ): MandelbrotLuxel {
         val vec = RndGen.vector2.inVolume(simulationSpace)
         val (col, iter) = when (RndGen.int.inRange(0, 3)) {
             0 -> HDRColor.RED to iterations * 2
@@ -51,7 +54,7 @@ internal class MandelbrotSimulator(
         return MandelbrotLuxel(
             Complex(vec.x, vec.y),
             col,
-            iter
+            iter,
         )
     }
 
