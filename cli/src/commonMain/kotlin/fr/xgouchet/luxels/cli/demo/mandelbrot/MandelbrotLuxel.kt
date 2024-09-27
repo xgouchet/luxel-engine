@@ -26,16 +26,25 @@ internal class MandelbrotLuxel(
         iterationBeforeEscape = if (i < maxIterations) i else 0
     }
 
+    // region ColorSource
+
     override fun color(): HDRColor {
         return baseColor * iterationBeforeEscape.toDouble()
     }
+
+    // endregion
+
+    // region PositionSource
 
     override fun position(): Vector<Dimension.D2> {
         return c.asVector()
     }
 
-    override fun onStart() {
+    // endregion
 
+    // region LifespanSource
+
+    override fun onStart() {
     }
 
     override fun onStep(step: Int) {
@@ -47,6 +56,8 @@ internal class MandelbrotLuxel(
 
     override fun onEnd() {
     }
+
+    // endregion
 
     companion object {
 

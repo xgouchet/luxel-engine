@@ -18,7 +18,7 @@ import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
 
 internal class AetherSimulator(
-    private val luxelLifespan: Int = 0x1000
+    private val luxelLifespan: Int = 0x1000,
 ) : Simulator<Dimension.D3, AetherLuxel, Long> {
 
     private var gaussianRange = 0
@@ -31,7 +31,7 @@ internal class AetherSimulator(
     override fun initEnvironment(
         simulation: Configuration.Simulation<Dimension.D3>,
         inputData: InputData<Long>,
-        logger: Logger
+        logger: Logger,
     ) {
         super.initEnvironment(simulation, inputData, logger)
         gaussianRange = (simulation.quality.count shr 3).toInt()

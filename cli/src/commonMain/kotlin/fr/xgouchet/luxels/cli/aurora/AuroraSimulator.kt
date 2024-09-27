@@ -71,7 +71,7 @@ internal class AuroraSimulator : Simulator<Dimension.D3, AuroraLuxel, Long> {
     override fun initEnvironment(
         simulation: Configuration.Simulation<Dimension.D3>,
         inputData: InputData<Long>,
-        logger: Logger
+        logger: Logger,
     ) {
         element = elements[RndGen.int.inRange(0, elements.size)]
         println("Aurora with element ${element.name}")

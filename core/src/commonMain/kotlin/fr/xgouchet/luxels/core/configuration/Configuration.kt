@@ -105,15 +105,15 @@ class Configuration<D : Dimension, I : Any> internal constructor(
         }
     }
 
+    @Suppress("LongParameterList")
     internal fun <L : Luxel<D>, I : Any> createWorker(
         simulator: Simulator<D, L, I>,
         film: Film,
         frameInfo: FrameInfo,
         luxelCountPerThread: Long,
         projection: Projection<D>,
-        logger: Logger
+        logger: Logger,
     ): SimulationWorker {
-
         return when (simulation.passType) {
             PassType.RENDER ->
                 RenderSimulationWorker(
@@ -145,7 +145,7 @@ class Configuration<D : Dimension, I : Any> internal constructor(
                     projection = projection,
                     time = frameInfo.frameTime,
                     luxelCountPerThread = luxelCountPerThread,
-                    logger = logger
+                    logger = logger,
                 )
 
             PassType.DEATH ->
@@ -156,7 +156,7 @@ class Configuration<D : Dimension, I : Any> internal constructor(
                     projection = projection,
                     time = frameInfo.frameTime,
                     luxelCountPerThread = luxelCountPerThread,
-                    logger = logger
+                    logger = logger,
                 )
 
             PassType.ENV ->

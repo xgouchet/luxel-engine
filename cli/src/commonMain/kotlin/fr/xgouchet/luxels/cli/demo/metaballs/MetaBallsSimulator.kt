@@ -44,25 +44,28 @@ internal class MetaBallsSimulator : Simulator<Dimension.D3, Luxel<Dimension.D3>,
     override fun initEnvironment(
         simulation: Configuration.Simulation<Dimension.D3>,
         inputData: InputData<Unit>,
-        logger: Logger
+        logger: Logger,
     ) {
         metaballs = List(6) {
             val scale = RndGen.double.uniform() * 4.0 / 10.0
             MetaBall(
                 RndGen.vector3.inVolume(simulation.volume),
-                simulation.volume.size.length() * scale
+                simulation.volume.size.length() * scale,
             )
         }
     }
 
-    override suspend fun spawnLuxel(simulation: Configuration.Simulation<Dimension.D3>, time: Duration): Luxel<Dimension.D3> {
+    override suspend fun spawnLuxel(
+        simulation: Configuration.Simulation<Dimension.D3>,
+        time: Duration,
+    ): Luxel<Dimension.D3> {
         val position = RndGen.vector3.inVolume(simulation.volume.expanded(2.0))
         val metaBallField = metaBallField(position)
-        val color = max(0.0 , (1.0 - (20.0 * abs( 1.0 - metaBallField))))
+        val color = max(0.0, (1.0 - (20.0 * abs(1.0 - metaBallField))))
 
         return DemoLuxel(
             position,
-            (HDRColor.RED * color)// + HDRColor.WHITE
+            (HDRColor.RED * color), // + HDRColor.WHITE
         )
     }
 

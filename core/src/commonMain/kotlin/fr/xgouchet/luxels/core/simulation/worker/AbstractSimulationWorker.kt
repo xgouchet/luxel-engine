@@ -10,12 +10,12 @@ import fr.xgouchet.luxels.core.render.exposure.Film
 import fr.xgouchet.luxels.core.render.projection.Projection
 import fr.xgouchet.luxels.core.simulation.Simulator
 import kotlinx.coroutines.CoroutineName
-import kotlinx.coroutines.job
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlin.coroutines.coroutineContext
 import kotlin.time.Duration
 
+@Suppress("LongParameterList")
 internal abstract class AbstractSimulationWorker<D : Dimension, L : Luxel<D>, I : Any>(
     protected val film: Film,
     protected val simulator: Simulator<D, L, I>,
@@ -52,7 +52,6 @@ internal abstract class AbstractSimulationWorker<D : Dimension, L : Luxel<D>, I 
             }
         } catch (t: Throwable) {
             logger.error("Error while simulating Luxel on Worker [$name]: ${t.message ?: t::class.simpleName}")
-            t.printStackTrace()
         }
 
         logger.debug("\r  Worker [$name] stopping")

@@ -14,7 +14,6 @@ import kotlin.time.Duration.Companion.seconds
 
 /** Bookworm. */
 fun main() {
-
     val outputPath = baseOutputPath / "bookworm"
     val inputPath = baseInputPath / "bookworm"
 
@@ -25,8 +24,8 @@ fun main() {
             space(
                 Volume(
                     Vector.nul(Dimension.D3),
-                    Vector.unit(Dimension.D3)
-                )
+                    Vector.unit(Dimension.D3),
+                ),
             )
 
             maximumThreadCount(2)

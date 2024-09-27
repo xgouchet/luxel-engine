@@ -12,9 +12,9 @@ import kotlinx.datetime.Clock
 import kotlin.coroutines.coroutineContext
 import kotlin.math.floor
 import kotlin.math.max
-import kotlin.math.roundToInt
 import kotlin.time.Duration
 
+@Suppress("LongParameterList")
 internal class RenderSimulationWorker<D : Dimension, L : Luxel<D>, I : Any>(
     film: Film,
     simulator: Simulator<D, L, I>,
@@ -30,7 +30,7 @@ internal class RenderSimulationWorker<D : Dimension, L : Luxel<D>, I : Any>(
     projection = projection,
     time = time,
     luxelCountPerThread = luxelCountPerThread,
-    logger = logger
+    logger = logger,
 ) {
 
     private val progressNotification = max(floor(luxelCountPerThread / 1000.0).toLong(), 1)

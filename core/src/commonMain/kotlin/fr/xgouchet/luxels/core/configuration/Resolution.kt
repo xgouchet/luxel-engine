@@ -10,8 +10,6 @@ import fr.xgouchet.luxels.core.math.Vector2
  * @property height the height of the film (in pixels)
  */
 enum class Resolution(val width: Int, val height: Int) {
-
-
     /** A square of 720×720 (518'400) pixels. */
     SQUARE_720(720, 720),
 

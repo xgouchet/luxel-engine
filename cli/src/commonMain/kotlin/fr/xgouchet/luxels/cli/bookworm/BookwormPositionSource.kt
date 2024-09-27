@@ -5,13 +5,12 @@ import fr.xgouchet.luxels.core.math.Vector
 import fr.xgouchet.luxels.core.math.random.RandomGenerator
 import fr.xgouchet.luxels.core.position.PositionSource
 
-class BookwormPositionSource(
+internal class BookwormPositionSource(
     val rng: RandomGenerator<Vector<Dimension.D3>>,
     val sentence: BookwormSentence,
 ) : PositionSource<Dimension.D3> {
 
     var progression: Double = 0.0
-
 
     // region PositionSource
 

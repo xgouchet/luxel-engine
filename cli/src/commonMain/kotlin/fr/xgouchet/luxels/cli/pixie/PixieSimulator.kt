@@ -39,7 +39,7 @@ internal class PixieSimulator : Simulator<Dimension.D2, PixieLuxel, Path> {
     override fun initEnvironment(
         simulation: Configuration.Simulation<Dimension.D2>,
         inputData: InputData<Path>,
-        logger: Logger
+        logger: Logger,
     ) {
         imageRasterData = GraphikIO.read(inputData.data)
         simSpace = simulation.volume

@@ -6,9 +6,13 @@ import okio.Path
 import okio.buffer
 import okio.use
 
-// TODO pre process input text into a precomputed curves format
-class BookwormInputReader {
+// TODO pre process input text into a precomputed curves format ?
+internal class BookwormInputReader {
 
+    // region BookwormInputReader
+
+    // TODO split and refactor this method
+    @Suppress("CyclomaticComplexMethod", "CognitiveComplexMethod", "NestedBlockDepth")
     fun getInput(path: Path, logger: Logger): BookwormInput {
         var longestSentenceSize = 0
 
@@ -19,6 +23,7 @@ class BookwormInputReader {
         val sentences = mutableListOf<BookwormSentence>()
         // TODO assumption: a sentence is not spread across multiple lines
 
+        @Suppress("DoubleMutabilityForCollection")
         var ongoingSentence = mutableListOf<BookwormToken>()
         var ongoingToken = ""
 
@@ -78,17 +83,22 @@ class BookwormInputReader {
         return BookwormInput(sentences)
     }
 
+    // endregion
+
+    // region Internal
+
+    @Suppress("NestedBlockDepth")
     private fun readLines(path: Path): List<String> {
         val lines = mutableListOf<String>()
 
         // TODO make sure everything is closed and memory freed !!!!!
         fileSystem.source(path).use { fileSource ->
             fileSource.buffer().use { buffer ->
-                var eof = false
-                while (!eof) {
+                var isEof = false
+                while (!isEof) {
                     val line = buffer.readUtf8Line()
                     if (line == null) {
-                        eof = true
+                        isEof = true
                     } else if (line.isNotBlank()) {
                         lines.add(line.lowercase())
                     }
@@ -96,14 +106,18 @@ class BookwormInputReader {
             }
         }
 
-
         return lines
     }
 
+    // endregion
+
     companion object {
-        val endOfSentenceChars = arrayOf('.', '!', '?', '…')
-        val endOfTokenChars = arrayOf(' ', '', '\n', '\t', '’', '\'', ',', ':', ';', '(', ')', '«', '»', '–', '—', '“', '”')
-        val midTokenChars = arrayOf('-')
+        val endOfSentenceChars = charArrayOf('.', '!', '?', '…')
+        val endOfTokenChars = charArrayOf(
+            ' ', '', '\n', '\t', '’', '\'', ',', ':',
+            ';', '(', ')', '«', '»', '–', '—', '“', '”',
+        )
+        val midTokenChars = charArrayOf('-')
 
         val missingChars = mutableMapOf<Char, Int>()
     }

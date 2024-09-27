@@ -61,7 +61,7 @@ internal class RainSimulator : Simulator<Dimension.D2, RainLuxel, Long> {
     override fun initEnvironment(
         simulation: Configuration.Simulation<Dimension.D2>,
         inputData: InputData<Long>,
-        logger: Logger
+        logger: Logger,
     ) {
         extendedRange = simulation.volume.expanded(2.0)
         safeRange = simulation.volume.expanded(1.2)

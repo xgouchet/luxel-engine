@@ -11,31 +11,27 @@ import fr.xgouchet.luxels.core.model.PrincipledLuxel
 import fr.xgouchet.luxels.core.position.PositionSource
 import fr.xgouchet.luxels.core.position.SimplePositionSource
 
-class BookwormLuxel(
+internal class BookwormLuxel(
     val rng: RandomGenerator<Vector<Dimension.D3>>,
     val sentence: BookwormSentence,
     wavelength: WavelengthNanometer,
-    lifespan: Int
+    lifespan: Int,
 ) : PrincipledLuxel<Dimension.D3, EMSColorSource, PositionSource<Dimension.D3>, AgeingLifespanSource>(
     EMSColorSource(wavelength),
     SimplePositionSource(Vector.unit(Dimension.D3)),
-    AgeingLifespanSource(lifespan)
+    AgeingLifespanSource(lifespan),
 ) {
 
-    // region PositionSource
+    // region Luxel
 
     override fun position(): Vector<Dimension.D3> {
         return sentence.getPosition(lifespanSource.progression) + (rng.gaussian() * 0.00025)
     }
 
-    // endregion
-
-    // region ColorSource
-
     override fun color(): HDRColor {
         colorSource.intensity = sentence.getIntensity(lifespanSource.progression)
         return colorSource.color()
     }
-    // endregion
 
+    // endregion
 }

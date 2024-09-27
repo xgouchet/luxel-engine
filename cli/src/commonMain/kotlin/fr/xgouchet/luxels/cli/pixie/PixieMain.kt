@@ -4,7 +4,6 @@ import fr.xgouchet.luxels.cli.common.baseInputPath
 import fr.xgouchet.luxels.cli.common.baseOutputPath
 import fr.xgouchet.luxels.core.LuxelEngine
 import fr.xgouchet.luxels.core.configuration.FilmType
-import fr.xgouchet.luxels.core.configuration.PassType
 import fr.xgouchet.luxels.core.configuration.Quality
 import fr.xgouchet.luxels.core.configuration.Resolution
 import fr.xgouchet.luxels.core.configuration.configurationWithFilesFrom

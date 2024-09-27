@@ -2,13 +2,11 @@ package fr.xgouchet.luxels.cli.bookworm
 
 import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.math.Vector
-import fr.xgouchet.luxels.core.math.Vector1
 import fr.xgouchet.luxels.core.math.Vector2
 import fr.xgouchet.luxels.core.math.Vector3
 import kotlin.math.pow
-import kotlin.math.sqrt
 
-data class BookwormToken(
+internal data class BookwormToken(
     val value: String, // lorem
     val initialPosInSentence: Int, // 0
 ) {
@@ -28,7 +26,7 @@ data class BookwormToken(
     }
 
     val scrabbleRank by lazy {
-        value.map { SCRABBLE[it] ?: 0.0 }.sum()
+        value.map { scrabblePoints[it] ?: 0.0 }.sum()
     }
 
     val lengthRank = value.length / MAX_WORD_SIZE
@@ -39,11 +37,13 @@ data class BookwormToken(
         if (scrabbleRank > MAX_SCRABBLE_POINTS) println("$value -> $scrabbleRank")
     }
 
+    // region BookwormToken
+
     fun getPosition(): Vector<Dimension.D3> {
         return Vector3(
             x = alphaRank,
             y = (scrabbleRank / MAX_SCRABBLE_POINTS),
-            z = lengthRank
+            z = lengthRank,
             // lengthRank
             // initialPosInSentence / MAX_SENTENCE_SIZE
         )
@@ -58,9 +58,15 @@ data class BookwormToken(
         }
     }
 
+    // endregion
+
+    // region Any
+
     override fun toString(): String {
         return value
     }
+
+    // endregion
 
     companion object {
         const val MAX_SENTENCE_SIZE = 64.0
@@ -69,7 +75,7 @@ data class BookwormToken(
 
         const val RANK_FACTOR = 32.0
 
-        private var SCRABBLE = mapOf(
+        private var scrabblePoints = mapOf(
             'a' to 1.0 / 0.0747,
             'b' to 1.0 / 0.0114,
             'c' to 1.0 / 0.0324,
@@ -100,7 +106,7 @@ data class BookwormToken(
 
         val KEYWORDS = arrayOf(
             "capitaine", "nemo", "nautilus", "monstre", "ned", "land", "conseil", "aronnax", "pacifique", "atlantide",
-            "poulpe", "calmar", "scotia", "chaperon", "rouge", "grandmere", "loup", "chasseur"
+            "poulpe", "calmar", "scotia", "chaperon", "rouge", "grandmere", "loup", "chasseur",
         )
     }
 }

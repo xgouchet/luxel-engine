@@ -1,5 +1,6 @@
-package fr.xgouchet.luxels.core.system
+@file:Suppress("MatchingDeclarationName")
 
+package fr.xgouchet.luxels.core.system
 
 actual object SystemInfo {
     /***
@@ -29,7 +30,7 @@ actual object SystemInfo {
     actual fun printSystemInfo() {}
 
     /**
-     * Triggers the Garbage Collection if any.
+     * Trigger a sanitization of the used memory.
      */
-    actual fun gc() {}
+    actual fun clearMemory() {}
 }

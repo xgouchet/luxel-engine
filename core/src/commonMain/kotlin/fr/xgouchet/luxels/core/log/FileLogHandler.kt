@@ -7,9 +7,14 @@ import okio.SYSTEM
 import okio.buffer
 import okio.use
 
+/**
+ * A [LogHandler] that prints the logs into a file on disk.
+ * @param outputLogPath the path to the output log file
+ * @param minLevel the minimum visibility level to print
+ */
 class FileLogHandler(
     val outputLogPath: Path,
-    val minLevel: Log.Level
+    val minLevel: Log.Level,
 ) : LogHandler {
 
     private var sectionLevel: Int = 0
@@ -43,10 +48,7 @@ class FileLogHandler(
 
     // region Internal
 
-    private fun append(
-        prefix: String,
-        message: String
-    ) {
+    private fun append(prefix: String, message: String) {
         val indentation = INDENTATIONS[sectionLevel]
         FileSystem.SYSTEM.appendingSink(outputLogPath, mustExist = false)
             .use { fileSink ->
@@ -55,7 +57,6 @@ class FileLogHandler(
                 }
                 fileSink.flush()
             }
-
     }
 
     // endregion
