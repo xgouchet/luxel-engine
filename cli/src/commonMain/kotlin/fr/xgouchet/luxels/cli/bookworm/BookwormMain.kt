@@ -3,6 +3,7 @@ package fr.xgouchet.luxels.cli.bookworm
 import fr.xgouchet.luxels.cli.bookworm.BookwormInputReader.Companion.missingChars
 import fr.xgouchet.luxels.cli.common.baseInputPath
 import fr.xgouchet.luxels.cli.common.baseOutputPath
+import fr.xgouchet.luxels.components.configuration.hdrFixer
 import fr.xgouchet.luxels.core.LuxelEngine
 import fr.xgouchet.luxels.core.configuration.Quality
 import fr.xgouchet.luxels.core.configuration.Resolution
@@ -19,7 +20,7 @@ fun main() {
 
     val configuration = configurationWithFilesFrom(Dimension.D3, inputPath) {
         simulation {
-            quality(Quality.PREVIEW)
+            quality(Quality.SAMPLE)
 
             space(
                 Volume(

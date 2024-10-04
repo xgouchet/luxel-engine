@@ -1,6 +1,7 @@
 package fr.xgouchet.luxels.cli.demo.projection
 
 import fr.xgouchet.luxels.cli.common.baseOutputPath
+import fr.xgouchet.luxels.components.configuration.bmpFixer
 import fr.xgouchet.luxels.core.LuxelEngine
 import fr.xgouchet.luxels.core.configuration.Quality
 import fr.xgouchet.luxels.core.configuration.Resolution

@@ -17,29 +17,28 @@ detekt = "1.23.6"
 
 # Tests Tools
 kotest = "5.9.0"
-mockk = "1.13.9"
 
 # Plugins
-versionsGradlePlugin = "0.46.0"
-nexusPublishGradlePlugin = "1.1.0"
-ktlintGradlePlugin = "12.1.0"
 detektGradlePlugin = "1.23.6"
 dokkaGradlePlugin = "1.6.10"
-pitestGradlePlugin = "1.15.0"
 koverGradlePlugin = "0.7.6"
+ktlintGradlePlugin = "12.1.0"
+nexusPublishGradlePlugin = "1.1.0"
+pitestGradlePlugin = "1.15.0"
+versionsGradlePlugin = "0.46.0"
 
 [libraries]
 
 # Classpaths
-kotlinGradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
-dokkaGradlePlugin = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokkaGradlePlugin" }
 detektGradlePlugin = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detektGradlePlugin" }
-versionsGradlePlugin = { module = "com.github.ben-manes:gradle-versions-plugin", version.ref = "versionsGradlePlugin" }
+dokkaGradlePlugin = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokkaGradlePlugin" }
+kotestGradlePlugin = { module = "io.kotest:kotest-framework-multiplatform-plugin-gradle", version.ref = "kotest" }
+kotlinGradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+koverGradlePlugin = { module = "org.jetbrains.kotlinx:kover-gradle-plugin", version.ref = "koverGradlePlugin" }
 ktlintGradlePlugin = { module = "org.jlleitschuh.gradle:ktlint-gradle", version.ref = "ktlintGradlePlugin" }
 nexusPublishGradlePlugin = { module = "io.github.gradle-nexus:publish-plugin", version.ref = "nexusPublishGradlePlugin" }
 pitestGradlePlugin = { module = "info.solidsoft.pitest:info.solidsoft.pitest.gradle.plugin", version.ref = "pitestGradlePlugin" }
-koverGradlePlugin = { module = "org.jetbrains.kotlinx:kover-gradle-plugin", version.ref = "koverGradlePlugin" }
-kotestGradlePlugin = { module = "io.kotest:kotest-framework-multiplatform-plugin-gradle", version.ref = "kotest" }
+versionsGradlePlugin = { module = "com.github.ben-manes:gradle-versions-plugin", version.ref = "versionsGradlePlugin" }
 
 # Common
 kotlin = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
@@ -73,9 +72,6 @@ kotestJunit5 = { module = "io.kotest:kotest-runner-junit5-jvm", version.ref = "k
 kotestFrameworkEngine = { module = "io.kotest:kotest-framework-engine", version.ref = "kotest" }
 kotestAssertions = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
 kotestProperty = { module = "io.kotest:kotest-property", version.ref = "kotest" }
-
-# Mockk
-mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 
 [bundles]
 

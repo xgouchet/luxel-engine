@@ -7,15 +7,12 @@ import fr.xgouchet.luxels.core.configuration.input.FilesInputSource
 import fr.xgouchet.luxels.core.configuration.input.FixedSeedsInputSource
 import fr.xgouchet.luxels.core.configuration.input.InputSource
 import fr.xgouchet.luxels.core.configuration.input.RandomSeedsInputSource
-import fr.xgouchet.luxels.core.io.BmpImageFixer
-import fr.xgouchet.luxels.core.io.HdrImageFixer
 import fr.xgouchet.luxels.core.io.ImageFixer
 import fr.xgouchet.luxels.core.io.NoOpFixer
 import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.math.Vector
 import fr.xgouchet.luxels.core.math.Volume
 import okio.Path
-import okio.Path.Companion.toPath
 import kotlin.reflect.KType
 import kotlin.time.Duration
 
@@ -263,23 +260,6 @@ class RenderConfigBuilder internal constructor() {
      */
     fun resolution(resolution: Resolution) {
         render = render.copy(resolution = resolution)
-    }
-
-    /**
-     * Uses an HDR image fixer.
-     * @param path the output directory path (default is "./output")
-     */
-    fun hdrFixer(path: Path = "output".toPath()) {
-        render = render.copy(fixer = HdrImageFixer(path))
-    }
-
-    /**
-     * Uses a BMP image fixer.
-     * @param iso the iso sensitivity of the fixer (the lower, the darker the image, the higher the brighter, default is 400)
-     * @param path the output directory path (default is "./output")
-     */
-    fun bmpFixer(iso: Double = 400.0, path: Path = "output".toPath()) {
-        render = render.copy(fixer = BmpImageFixer(path, iso))
     }
 
     /**
