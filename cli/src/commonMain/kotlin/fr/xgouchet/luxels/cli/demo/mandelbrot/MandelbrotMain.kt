@@ -1,6 +1,7 @@
 package fr.xgouchet.luxels.cli.demo.mandelbrot
 
 import fr.xgouchet.luxels.cli.common.baseOutputPath
+import fr.xgouchet.luxels.components.configuration.hdrFixer
 import fr.xgouchet.luxels.core.LuxelEngine
 import fr.xgouchet.luxels.core.configuration.Quality
 import fr.xgouchet.luxels.core.configuration.Resolution

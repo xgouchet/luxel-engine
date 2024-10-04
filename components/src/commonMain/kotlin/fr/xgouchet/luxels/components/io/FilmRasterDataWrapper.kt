@@ -1,4 +1,4 @@
-package fr.xgouchet.luxels.core.io
+package fr.xgouchet.luxels.components.io
 
 import fr.xgouchet.graphikio.color.Color
 import fr.xgouchet.graphikio.data.MetadataAttribute

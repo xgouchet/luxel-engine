@@ -7,10 +7,11 @@ import fr.xgouchet.luxels.core.test.kotest.property.vectorArb
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.common.ExperimentalKotest
 import io.kotest.core.spec.style.describeSpec
+import io.kotest.property.Arb
 import io.kotest.property.PropTestConfig
+import io.kotest.property.arbitrary.double
 import io.kotest.property.checkAll
 import io.kotest.property.withAssumptions
-import kotlin.math.abs
 
 @OptIn(ExperimentalKotest::class)
 @Suppress("LocalVariableName", "NonAsciiCharacters")
@@ -140,6 +141,59 @@ fun <D : Dimension> abstractVolumeSpec(d: D) = describeSpec {
                 val aboveMax = max + unitVector
 
                 aboveMax shouldNotBeIn volume
+            }
+        }
+    }
+
+    describe("expanded") {
+        it("contains initial volume boundaries (when size >= 1)") {
+            checkAll(vectorArb, vectorArb, Arb.double(1.0, 100.0)) { min, s, factor ->
+                val size = s.abs()
+                val max = min + size
+
+                val volume = Volume(min, max)
+                val expanded = volume.expanded(factor)
+
+                volume.min shouldBeIn expanded
+                volume.max shouldBeIn expanded
+                volume.center shouldBeIn expanded
+            }
+        }
+        it("be contained in initial volume boundaries (when size < 1)") {
+            checkAll(vectorArb, vectorArb, Arb.double(0.01, 0.99)) { min, s, factor ->
+                val size = s.abs()
+                val max = min + size
+
+                val volume = Volume(min, max)
+                val expanded = volume.expanded(factor)
+
+                expanded.min shouldBeIn volume
+                expanded.max shouldBeIn volume
+                expanded.center shouldBeIn volume
+            }
+        }
+
+        it("has same center") {
+            checkAll(vectorArb, vectorArb, Arb.double(0.01, 100.0)) { min, s, factor ->
+                val size = s.abs()
+                val max = min + size
+
+                val volume = Volume(min, max)
+                val expanded = volume.expanded(factor)
+
+                volume.center shouldBeCloseTo expanded.center
+            }
+        }
+
+        it("has scaled size") {
+            checkAll(vectorArb, vectorArb, Arb.double(0.01, 100.0)) { min, s, factor ->
+                val size = s.abs()
+                val max = min + size
+
+                val volume = Volume(min, max)
+                val expanded = volume.expanded(factor)
+
+                expanded.size shouldBeCloseTo (volume.size * factor)
             }
         }
     }

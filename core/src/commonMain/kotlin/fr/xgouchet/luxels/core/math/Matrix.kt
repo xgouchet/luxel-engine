@@ -129,15 +129,8 @@ class Matrix<C : Dimension, R : Dimension> internal constructor(
     }
 
     /**
-     * @return the determinant of this matrix, or null if this matrix isn't square.
-     */
-    fun determinantOrNull(): Double? {
-        return if (width != height) null else determinant()
-    }
-
-    /**
      * @return the determinant of this matrix.
-     * @throws UnsupportedOperationException when called on a non square matrix
+     * @throws UnsupportedOperationException when called on a non-square matrix
      */
     fun determinant(): Double {
         if (width != height) {
@@ -156,13 +149,6 @@ class Matrix<C : Dimension, R : Dimension> internal constructor(
         } else {
             abs(determinant()) > EPSILON
         }
-    }
-
-    /**
-     * @return the inverse of this matrix, or null if this matrix can't be inverted.
-     */
-    fun inverseOrNull(): Matrix<R, C>? {
-        return if (isInvertible()) inverse() else null
     }
 
     /**

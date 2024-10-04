@@ -1,6 +1,7 @@
 package fr.xgouchet.luxels.cli.demo.noise
 
 import fr.xgouchet.luxels.cli.common.baseOutputPath
+import fr.xgouchet.luxels.components.configuration.bmpFixer
 import fr.xgouchet.luxels.components.noise.PerlinNoiseGenerator
 import fr.xgouchet.luxels.components.noise.wrapper.VectorToDoubleNoiseGenerator
 import fr.xgouchet.luxels.core.LuxelEngine
