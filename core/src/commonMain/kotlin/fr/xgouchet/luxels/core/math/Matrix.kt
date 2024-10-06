@@ -1,6 +1,7 @@
 package fr.xgouchet.luxels.core.math
 
 import kotlin.math.abs
+import kotlin.math.min
 
 /**
  * Represents a m×n Matrix representation.
@@ -235,8 +236,8 @@ class Matrix<C : Dimension, R : Dimension> internal constructor(
      * @param j the index of the row
      */
     fun get(i: Int, j: Int): Double {
-        check(i < width) { "Can't access column $i in get($j, $i) in $this" }
-        check(j < height) { "Can't access row $j in get($j, $i) in $this" }
+        check(i in 0..<width) { "Can't access column $i in get($j, $i) in $this" }
+        check(j in 0..<height) { "Can't access row $j in get($j, $i) in $this" }
         return data[(j * width) + i]
     }
 
@@ -250,8 +251,8 @@ class Matrix<C : Dimension, R : Dimension> internal constructor(
         j: Int,
         value: Double,
     ) {
-        check(i < width) { "Can't access column $i in set($j, $i) in $this" }
-        check(j < height) { "Can't access row $j in set($j, $i) in $this" }
+        check(i in 0..<width) { "Can't access column $i in set($j, $i) in $this" }
+        check(j in 0..<height) { "Can't access row $j in set($j, $i) in $this" }
         data[(j * width) + i] = value
     }
 
@@ -325,17 +326,15 @@ class Matrix<C : Dimension, R : Dimension> internal constructor(
          * @return an identity matrix
          */
         fun <C : Dimension, R : Dimension> identity(cols: C, rows: R): Matrix<C, R> {
-            return Matrix(
-                data = DoubleArray(cols.size * rows.size) { idx ->
-                    if (idx.mod(cols.size + 1) == 0) {
-                        1.0
-                    } else {
-                        0.0
-                    }
-                },
+            return Matrix<C, R>(
+                data = DoubleArray(cols.size * rows.size),
                 width = cols.size,
                 height = rows.size,
-            )
+            ).apply {
+                for (i in 0 until min(cols.size, rows.size)) {
+                    set(i, i, 1.0)
+                }
+            }
         }
 
         // region Internal
