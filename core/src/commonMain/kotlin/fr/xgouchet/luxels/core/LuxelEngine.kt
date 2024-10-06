@@ -8,6 +8,7 @@ import fr.xgouchet.luxels.core.log.StdOutLogHandler
 import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.math.random.RndGen
 import fr.xgouchet.luxels.core.model.Luxel
+import fr.xgouchet.luxels.core.render.FrameInfo
 import fr.xgouchet.luxels.core.render.exposure.Film
 import fr.xgouchet.luxels.core.render.exposure.LayeredFilm
 import fr.xgouchet.luxels.core.simulation.Simulator

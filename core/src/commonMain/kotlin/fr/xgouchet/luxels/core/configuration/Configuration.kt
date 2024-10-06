@@ -1,6 +1,5 @@
 package fr.xgouchet.luxels.core.configuration
 
-import fr.xgouchet.luxels.core.FrameInfo
 import fr.xgouchet.luxels.core.configuration.input.InputSource
 import fr.xgouchet.luxels.core.io.ImageFixer
 import fr.xgouchet.luxels.core.io.NoOpFixer
@@ -10,6 +9,7 @@ import fr.xgouchet.luxels.core.math.Vector
 import fr.xgouchet.luxels.core.math.Volume
 import fr.xgouchet.luxels.core.math.random.VectorRandomGenerator
 import fr.xgouchet.luxels.core.model.Luxel
+import fr.xgouchet.luxels.core.render.FrameInfo
 import fr.xgouchet.luxels.core.render.exposure.Film
 import fr.xgouchet.luxels.core.render.projection.Projection
 import fr.xgouchet.luxels.core.simulation.Simulator

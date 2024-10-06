@@ -1,4 +1,4 @@
-package fr.xgouchet.luxels.core
+package fr.xgouchet.luxels.core.render
 
 import kotlin.time.Duration
 
