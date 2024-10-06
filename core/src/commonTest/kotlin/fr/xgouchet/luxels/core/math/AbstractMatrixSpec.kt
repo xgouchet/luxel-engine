@@ -6,6 +6,9 @@ import fr.xgouchet.luxels.core.test.kotest.property.matrixArb
 import io.kotest.assertions.assertSoftly
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.describeSpec
+import io.kotest.matchers.shouldBe
+import io.kotest.property.Arb
+import io.kotest.property.arbitrary.int
 import io.kotest.property.checkAll
 import io.kotest.property.withAssumptions
 import kotlin.math.abs
@@ -80,6 +83,18 @@ fun <C : Dimension, R : Dimension> abstractMatrixSpec(cols: C, rows: R) = descri
                 }
             }
         }
+
+        @Suppress("UNCHECKED_CAST")
+        if (rows != cols) {
+            checkAll(matrixArb, compatMatrixArb) { a, b ->
+                shouldThrow<IllegalStateException> {
+                    val uncheckedA = a as Matrix<Dimension, Dimension>
+                    val uncheckedB = b as Matrix<Dimension, Dimension>
+
+                    uncheckedB + uncheckedA
+                }
+            }
+        }
     }
 
     describe("subtraction ($cols×$rows)") {
@@ -116,6 +131,18 @@ fun <C : Dimension, R : Dimension> abstractMatrixSpec(cols: C, rows: R) = descri
                             `a - one`.get(i, j) shouldBeCloseTo a.get(i, j) - 1.0
                         }
                     }
+                }
+            }
+        }
+
+        @Suppress("UNCHECKED_CAST")
+        if (rows != cols) {
+            checkAll(matrixArb, compatMatrixArb) { a, b ->
+                shouldThrow<IllegalStateException> {
+                    val uncheckedA = a as Matrix<Dimension, Dimension>
+                    val uncheckedB = b as Matrix<Dimension, Dimension>
+
+                    uncheckedB - uncheckedA
                 }
             }
         }
@@ -220,6 +247,18 @@ fun <C : Dimension, R : Dimension> abstractMatrixSpec(cols: C, rows: R) = descri
                 `_a × b_T` shouldBeCloseTo `bT × aT`
             }
         }
+
+        @Suppress("UNCHECKED_CAST")
+        if (rows != cols) {
+            checkAll(matrixArb, matrixArb) { a, b ->
+                shouldThrow<IllegalStateException> {
+                    val uncheckedA = a as Matrix<Dimension, Dimension>
+                    val uncheckedB = b as Matrix<Dimension, Dimension>
+
+                    uncheckedB * uncheckedA
+                }
+            }
+        }
     }
 
     describe("transpose ($cols×$rows)") {
@@ -299,6 +338,30 @@ fun <C : Dimension, R : Dimension> abstractMatrixSpec(cols: C, rows: R) = descri
         }
     }
 
+    describe("isInvertible ($cols×$rows)") {
+        if (rows != cols) {
+            it("is false for a non square matrix") {
+                checkAll(matrixArb) { a ->
+                    a.isInvertible() shouldBe false
+                }
+            }
+        }
+
+        if (rows == cols) {
+            it("is true for identity") {
+                identity.isInvertible() shouldBe true
+            }
+
+            it("is consistent with determinent") {
+                checkAll(matrixArb) { a ->
+                    val `∣a∣` = a.determinant()
+
+                    a.isInvertible() shouldBe (abs(`∣a∣`) > EPSILON)
+                }
+            }
+        }
+    }
+
     describe("inverse ($cols×$rows)") {
         if (rows != cols) {
             it("is not defined on a non square matrix") {
@@ -345,6 +408,113 @@ fun <C : Dimension, R : Dimension> abstractMatrixSpec(cols: C, rows: R) = descri
                         val `∣a∣` = a.determinant()
 
                         `∣aT∣` shouldBeCloseTo `∣a∣`
+                    }
+                }
+            }
+        }
+    }
+
+    describe("set ($cols×$rows)") {
+        it("should fail for invalid row index") {
+            checkAll(matrixArb, doubleArb(), Arb.int(cols.range), Arb.int()) { a, v, i, j ->
+                if (j !in rows.range) {
+                    shouldThrow<IllegalStateException> {
+                        a.set(i, j, v)
+                    }
+                }
+            }
+        }
+
+        it("should fail for invalid column index") {
+            checkAll(matrixArb, doubleArb(), Arb.int(), Arb.int(rows.range)) { a, v, i, j ->
+                if (i !in cols.range) {
+                    shouldThrow<IllegalStateException> {
+                        a.set(i, j, v)
+                    }
+                }
+            }
+        }
+    }
+    describe("get ($cols×$rows)") {
+        it("should be consistent on identity") {
+            checkAll(Arb.int(cols.range), Arb.int(rows.range)) { i, j ->
+                val expected = if (i == j) 1.0 else 0.0
+
+                identity.get(i, j) shouldBe expected
+            }
+        }
+
+        it("should be consistent with set") {
+            checkAll(matrixArb, doubleArb(), Arb.int(cols.range), Arb.int(rows.range)) { a, v, i, j ->
+                a.set(i, j, v)
+
+                a.get(i, j) shouldBe v
+            }
+        }
+
+        it("should fail for invalid row index") {
+            checkAll(matrixArb, Arb.int(cols.range), Arb.int()) { a, i, j ->
+                if (j !in rows.range) {
+                    shouldThrow<IllegalStateException> {
+                        a.get(i, j)
+                    }
+                }
+            }
+        }
+
+        it("should fail for invalid column index") {
+            checkAll(matrixArb, Arb.int(), Arb.int(rows.range)) { a, i, j ->
+                if (i !in cols.range) {
+                    shouldThrow<IllegalStateException> {
+                        a.get(i, j)
+                    }
+                }
+            }
+        }
+    }
+
+    describe("equals") {
+        it("is always true with self") {
+            checkAll(matrixArb) { a ->
+                (a == a) shouldBe true
+            }
+        }
+
+        it("is always true with copy of self") {
+            checkAll(matrixArb) { a ->
+                val b = a * 1.0
+
+                (a == b) shouldBe true
+            }
+        }
+
+        it("is always false when one value is different") {
+            checkAll(matrixArb, Arb.int(cols.range), Arb.int(rows.range)) { a, i, j ->
+                val b = a * 1.0
+                b.set(i, j, b.get(i, j) * b.get(i, j) + 1)
+
+                (a == b) shouldBe false
+            }
+        }
+
+        if (cols != rows) {
+            it("is always false when matrix has different size") {
+                checkAll(matrixArb, compatMatrixArb) { a, b ->
+                    (a == b) shouldBe false
+                }
+            }
+        }
+    }
+
+    if (cols is Dimension.D1) {
+        @Suppress("UNCHECKED_CAST")
+        describe("asVector") {
+            it("converts a Matrix to a Vector") {
+                checkAll(matrixArb) { a ->
+                    val v = (a as Matrix<Dimension.D1, *>).asVector()
+
+                    for (j in rows.range) {
+                        v[j] shouldBe a.get(0, j)
                     }
                 }
             }
