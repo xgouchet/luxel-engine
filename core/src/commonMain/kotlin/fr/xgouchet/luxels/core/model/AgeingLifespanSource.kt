@@ -7,6 +7,11 @@ package fr.xgouchet.luxels.core.model
 class AgeingLifespanSource(
     val lifespan: Int,
 ) : LifespanSource {
+
+    init {
+        require(lifespan > 0) { "lifespan should be greater than 0" }
+    }
+
     /**
      * The current age of the luxel.
      */
@@ -29,16 +34,16 @@ class AgeingLifespanSource(
 
     // region LifespanSource
 
+    override fun isAlive(): Boolean {
+        return age <= lifespan // Discuss strict inequality ?
+    }
+
     override fun onStart() {
         age = 0
     }
 
     override fun onStep(step: Int) {
         age = step
-    }
-
-    override fun isAlive(): Boolean {
-        return age <= lifespan // Discuss strict inequality ?
     }
 
     override fun onEnd() {}
