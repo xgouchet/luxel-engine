@@ -10,7 +10,9 @@ internal abstract class AbstractFilm(
 ) : Film {
 
     private val pixelCount = resolution.pixelCount
-    private val exposure: Array<MutableColor> = Array(pixelCount) { MutableColor(0.0, 0.0, 0.0, 0.0) }
+    private val exposure: Array<MutableColor> by lazy {
+        Array(pixelCount) { MutableColor(0.0, 0.0, 0.0, 0.0) }
+    }
 
     // region Film
 

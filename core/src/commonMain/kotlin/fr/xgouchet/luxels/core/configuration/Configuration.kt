@@ -21,6 +21,7 @@ import fr.xgouchet.luxels.core.simulation.worker.SimulationWorker
 import fr.xgouchet.luxels.core.simulation.worker.SpawnSimulationWorker
 import kotlin.math.roundToInt
 import kotlin.time.Duration
+import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
 /**
@@ -91,17 +92,21 @@ class Configuration<D : Dimension, I : Any> internal constructor(
      */
     data class Animation(
         val duration: Duration = 0.seconds,
-        val fps: Int = 60,
+        val fps: Int = 24,
     ) {
-        private val timeStep = 1.seconds / fps
+        internal val timeStep = 1.seconds / fps
 
         internal val frameCount = (duration / timeStep).roundToInt() + 1
 
-        internal fun increment(frameInfo: FrameInfo): FrameInfo {
-            return FrameInfo(
+        internal var frameInfo: FrameInfo = FrameInfo(0, 0.milliseconds)
+            private set
+
+        internal fun increment(): FrameInfo {
+            frameInfo = FrameInfo(
                 frameInfo.frameIndex + 1,
                 frameInfo.frameTime + timeStep,
             )
+            return frameInfo
         }
     }
 

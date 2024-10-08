@@ -14,5 +14,5 @@ class FilesInputSource(private val inputDir: Path) : InputSource<Path>() {
             it.name.hashCode().toLong(),
             it,
         )
-    }
+    }.sortedBy { it.data.toString() }
 }

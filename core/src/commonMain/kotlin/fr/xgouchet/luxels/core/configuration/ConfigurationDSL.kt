@@ -291,7 +291,7 @@ class AnimationConfigBuilder {
 
     /**
      * Sets the number of frame per second for the animation.
-     * @param fps the fps for the animation (default: 60)
+     * @param fps the fps for the animation (default: 24)
      */
     fun fps(fps: Int) {
         animation = animation.copy(fps = fps)

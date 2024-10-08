@@ -18,3 +18,5 @@ output/
 # Input data
 input/
 
+# Temp / test data
+temp/

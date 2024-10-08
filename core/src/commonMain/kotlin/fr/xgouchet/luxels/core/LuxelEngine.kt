@@ -23,7 +23,6 @@ import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import kotlinx.datetime.Clock
-import kotlin.time.Duration.Companion.seconds
 
 /**
  * The main engine driving the Luxel simulation.
@@ -90,12 +89,13 @@ object LuxelEngine {
         RndGen.resetSeed(inputData.seed)
         simulator.initEnvironment(configuration.simulation, inputData, logger)
 
-        var frameInfo = FrameInfo(0, 0.seconds)
+        var frameInfo = configuration.animation.frameInfo
 
         while (frameInfo.frameTime <= configuration.animation.duration) {
             logger.startSection("FRAME $frameInfo")
             simulateFrame(simulator, configuration, threadCount, inputData, frameInfo)
-            frameInfo = configuration.animation.increment(frameInfo)
+            configuration.animation.increment()
+            frameInfo = configuration.animation.frameInfo
             logger.endSection()
         }
     }
