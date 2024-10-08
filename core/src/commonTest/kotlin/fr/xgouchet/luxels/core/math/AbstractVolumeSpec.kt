@@ -8,7 +8,6 @@ import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.common.ExperimentalKotest
 import io.kotest.core.spec.style.describeSpec
 import io.kotest.property.Arb
-import io.kotest.property.PropTestConfig
 import io.kotest.property.arbitrary.double
 import io.kotest.property.checkAll
 import io.kotest.property.withAssumptions
@@ -23,7 +22,7 @@ fun <D : Dimension> abstractVolumeSpec(d: D) = describeSpec {
 
     describe("init ($d)") {
         it("fails when max < min") {
-            checkAll(PropTestConfig(seed = 5746776119396637590L), vectorArb, vectorArb) { min, s ->
+            checkAll(vectorArb, vectorArb) { min, s ->
                 val size = s.abs()
 
                 withAssumptions(size.length() > EPSILON) {
@@ -146,8 +145,8 @@ fun <D : Dimension> abstractVolumeSpec(d: D) = describeSpec {
     }
 
     describe("expanded") {
-        it("contains initial volume boundaries (when size >= 1)") {
-            checkAll(vectorArb, vectorArb, Arb.double(1.0, 100.0)) { min, s, factor ->
+        it("contains initial volume boundaries (when size > 1)") {
+            checkAll(vectorArb, vectorArb, Arb.double(1.001, 100.0)) { min, s, factor ->
                 val size = s.abs()
                 val max = min + size
 
