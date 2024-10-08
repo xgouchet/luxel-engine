@@ -17,13 +17,13 @@ import kotlin.time.Duration
 
 @Suppress("LongParameterList")
 internal abstract class AbstractSimulationWorker<D : Dimension, L : Luxel<D>, I : Any>(
-    protected val film: Film,
-    protected val simulator: Simulator<D, L, I>,
-    protected val simulation: Configuration.Simulation<D>,
-    protected val projection: Projection<D>,
-    protected val time: Duration,
-    protected val luxelCountPerThread: Long,
-    protected val logger: Logger,
+    internal val film: Film,
+    internal val simulator: Simulator<D, L, I>,
+    internal val simulation: Configuration.Simulation<D>,
+    internal val projection: Projection<D>,
+    internal val time: Duration,
+    internal val luxelCountPerThread: Long,
+    internal val logger: Logger,
 ) : SimulationWorker {
 
     protected var frameStart: Instant = Instant.DISTANT_PAST

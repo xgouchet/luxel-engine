@@ -23,7 +23,7 @@ abstract class InputSource<I : Any> : Iterable<InputData<I>> {
     object Default : InputSource<Unit>() {
         override val inputDataList: List<InputData<Unit>> = listOf(
             InputData(
-                id = "default",
+                id = "",
                 seed = 0L,
                 data = Unit,
             ),
