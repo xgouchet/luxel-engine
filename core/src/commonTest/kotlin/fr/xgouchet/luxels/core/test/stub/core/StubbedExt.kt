@@ -9,9 +9,10 @@ fun Stub.verifyCall(
 }
 
 fun <O : Any?> Stub.handleCallWithReturn(name: String, params: Map<String, Any?> = emptyMap()): O {
-    callRecorder.recordCall(CallIdentifier(name, params))
+    val callIdentifier = CallIdentifier(name, params)
+    callRecorder.recordCall(callIdentifier)
 
-    val response = responseHandler.getResponse(CallIdentifier(name, params))
+    val response = responseHandler.getResponse(callIdentifier)
 
     @Suppress("UNCHECKED_CAST")
     when (response) {
@@ -19,7 +20,9 @@ fun <O : Any?> Stub.handleCallWithReturn(name: String, params: Map<String, Any?>
 
         is CallResponse.ThrowException -> throw response.exception
 
-        else -> TODO()
+        null -> error("No response stubbed for call $callIdentifier")
+
+        else -> error("Unknown response $response for call $callIdentifier")
     }
 }
 

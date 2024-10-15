@@ -5,6 +5,8 @@ import fr.xgouchet.luxels.cli.demo.DemoLuxel
 import fr.xgouchet.luxels.components.noise.NoiseGenerator
 import fr.xgouchet.luxels.components.render.projection.Flat2DProjection
 import fr.xgouchet.luxels.core.configuration.Configuration
+import fr.xgouchet.luxels.core.configuration.input.InputData
+import fr.xgouchet.luxels.core.log.Logger
 import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.math.Vector
 import fr.xgouchet.luxels.core.math.Vector2
@@ -32,6 +34,23 @@ internal class NoiseSimulator(
         return Flat2DProjection(simulationSpace, filmSpace)
     }
 
+    override fun initEnvironment(
+        simulation: Configuration.Simulation<Dimension.D2>,
+        inputData: InputData<Unit>,
+        logger: Logger,
+    ) {
+    }
+
+    override fun onFrameStart(
+        simulation: Configuration.Simulation<Dimension.D2>,
+        time: Duration,
+        animationDuration: Duration,
+    ) {
+    }
+
+    override fun onFrameEnd(time: Duration, animationDuration: Duration) {
+    }
+
     override suspend fun spawnLuxel(
         simulation: Configuration.Simulation<Dimension.D2>,
         time: Duration,
@@ -41,6 +60,9 @@ internal class NoiseSimulator(
         val color = HDRColor(noise, noise, noise)
 
         return DemoLuxel(position, color)
+    }
+
+    override fun updateLuxel(luxel: DemoLuxel<Dimension.D2>, time: Duration) {
     }
 
     override fun outputName(): String {
