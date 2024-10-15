@@ -4,29 +4,39 @@ import fr.xgouchet.graphikio.color.HDRColor
 import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.math.Vector
 import fr.xgouchet.luxels.core.model.Luxel
+import fr.xgouchet.luxels.core.test.stub.core.SimpleCallRecorder
+import fr.xgouchet.luxels.core.test.stub.core.SimpleResponseHandler
+import fr.xgouchet.luxels.core.test.stub.core.Stub
+import fr.xgouchet.luxels.core.test.stub.core.handleCallWithReturn
+import fr.xgouchet.luxels.core.test.stub.core.handleUnitCall
 
-class StubLuxel<D : Dimension> : Luxel<D> {
+class StubLuxel<D : Dimension> : Luxel<D>, Stub {
+
+    override val callRecorder = SimpleCallRecorder()
+
+    override val responseHandler = SimpleResponseHandler()
+
     override fun color(): HDRColor {
-        TODO("Not yet implemented")
+        return handleCallWithReturn("color")
     }
 
     override fun position(): Vector<D> {
-        TODO("Not yet implemented")
+        return handleCallWithReturn("position")
     }
 
     override fun onStart() {
-        TODO("Not yet implemented")
+        handleUnitCall("onStart")
     }
 
     override fun onStep(step: Int) {
-        TODO("Not yet implemented")
-    }
-
-    override fun isAlive(): Boolean {
-        TODO("Not yet implemented")
+        handleUnitCall("onStep", mapOf("step" to step))
     }
 
     override fun onEnd() {
-        TODO("Not yet implemented")
+        handleUnitCall("onEnd")
+    }
+
+    override fun isAlive(): Boolean {
+        return handleCallWithReturn("isAlive")
     }
 }

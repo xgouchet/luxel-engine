@@ -4,6 +4,8 @@ import fr.xgouchet.graphikio.color.HDRColor
 import fr.xgouchet.luxels.cli.demo.DemoLuxel
 import fr.xgouchet.luxels.components.render.projection.PerspectiveProjection
 import fr.xgouchet.luxels.core.configuration.Configuration
+import fr.xgouchet.luxels.core.configuration.input.InputData
+import fr.xgouchet.luxels.core.log.Logger
 import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.math.Vector
 import fr.xgouchet.luxels.core.math.Vector3
@@ -28,6 +30,23 @@ internal class CubeSimulator : Simulator<Dimension.D3, DemoLuxel<Dimension.D3>, 
             simulationSpace.center + (Vector3(1.0, 0.2, 0.5) * simulationSpace.size.length()),
             simulationSpace.center,
         )
+    }
+
+    override fun initEnvironment(
+        simulation: Configuration.Simulation<Dimension.D3>,
+        inputData: InputData<Unit>,
+        logger: Logger,
+    ) {
+    }
+
+    override fun onFrameStart(
+        simulation: Configuration.Simulation<Dimension.D3>,
+        time: Duration,
+        animationDuration: Duration,
+    ) {
+    }
+
+    override fun onFrameEnd(time: Duration, animationDuration: Duration) {
     }
 
     @Suppress("CyclomaticComplexMethod")
@@ -80,6 +99,9 @@ internal class CubeSimulator : Simulator<Dimension.D3, DemoLuxel<Dimension.D3>, 
         val position = (p * simulation.volume.size * 0.1) + simulation.volume.center
 
         return DemoLuxel(position, color)
+    }
+
+    override fun updateLuxel(luxel: DemoLuxel<Dimension.D3>, time: Duration) {
     }
 
     override fun outputName(): String {

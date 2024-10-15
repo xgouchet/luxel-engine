@@ -55,6 +55,16 @@ internal class MetaBallsSimulator : Simulator<Dimension.D3, Luxel<Dimension.D3>,
         }
     }
 
+    override fun onFrameStart(
+        simulation: Configuration.Simulation<Dimension.D3>,
+        time: Duration,
+        animationDuration: Duration,
+    ) {
+    }
+
+    override fun onFrameEnd(time: Duration, animationDuration: Duration) {
+    }
+
     override suspend fun spawnLuxel(
         simulation: Configuration.Simulation<Dimension.D3>,
         time: Duration,
@@ -67,6 +77,9 @@ internal class MetaBallsSimulator : Simulator<Dimension.D3, Luxel<Dimension.D3>,
             position,
             (HDRColor.RED * color), // + HDRColor.WHITE
         )
+    }
+
+    override fun updateLuxel(luxel: Luxel<Dimension.D3>, time: Duration) {
     }
 
     override fun outputName(): String {

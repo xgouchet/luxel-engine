@@ -43,7 +43,6 @@ internal class BookwormSimulator(
         inputData: InputData<Path>,
         logger: Logger,
     ) {
-        super.initEnvironment(simulation, inputData, logger)
         this.input = inputReader.getInput(inputData.data, logger)
         this.logger = logger
     }
@@ -64,6 +63,9 @@ internal class BookwormSimulator(
         )
     }
 
+    override fun updateLuxel(luxel: BookwormLuxel, time: Duration) {
+    }
+
     override fun getProjection(
         simulationSpace: Volume<Dimension.D3>,
         filmSpace: Volume<Dimension.D2>,
@@ -80,6 +82,16 @@ internal class BookwormSimulator(
             simulationSpace.center,
             fov = 70.0,
         )
+    }
+
+    override fun onFrameStart(
+        simulation: Configuration.Simulation<Dimension.D3>,
+        time: Duration,
+        animationDuration: Duration,
+    ) {
+    }
+
+    override fun onFrameEnd(time: Duration, animationDuration: Duration) {
     }
 
     // endregion

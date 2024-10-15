@@ -1,7 +1,6 @@
 package fr.xgouchet.luxels.cli.pixie
 
 import fr.xgouchet.graphikio.GraphikIO
-import fr.xgouchet.graphikio.color.Color
 import fr.xgouchet.graphikio.color.HDRColor
 import fr.xgouchet.graphikio.data.RasterData
 import fr.xgouchet.graphikio.data.SDRRasterData
@@ -66,8 +65,6 @@ internal class PixieSimulator : Simulator<Dimension.D2, PixieLuxel, Path> {
     }
 
     override fun updateLuxel(luxel: PixieLuxel, time: Duration) {
-        super.updateLuxel(luxel, time)
-
         val color = luxel.colorSource.color()
 
         val homogenousPos = (luxel.position() - simSpace.center) / simSpace.size
@@ -79,18 +76,31 @@ internal class PixieSimulator : Simulator<Dimension.D2, PixieLuxel, Path> {
         luxel.positionSource.position = (newPosition * simSpace.size) + simSpace.center
     }
 
-    override fun exposeLuxel(luxel: PixieLuxel, filmExposition: (Vector<Dimension.D2>, Color) -> Unit) {
-        val basePosition = luxel.position() + RndGen.vector2.gaussian()
-        val baseColor = luxel.color()
-        for (i in 0..<5) {
-            val color = baseColor * (5.0 - i)
-            val offset = i * 3.0
-            filmExposition(basePosition + (xAxis * offset), color)
-            filmExposition(basePosition - (xAxis * offset), color)
-            filmExposition(basePosition + (yAxis * offset), color)
-            filmExposition(basePosition - (yAxis * offset), color)
-        }
+    override fun onFrameStart(
+        simulation: Configuration.Simulation<Dimension.D2>,
+        time: Duration,
+        animationDuration: Duration,
+    ) {
+        TODO("Not yet implemented")
     }
+
+    override fun onFrameEnd(time: Duration, animationDuration: Duration) {
+        TODO("Not yet implemented")
+    }
+
+    // TODO Create render simulation worker exposing more
+//    override fun exposeLuxel(luxel: PixieLuxel, filmExposition: (Vector<Dimension.D2>, Color) -> Unit) {
+//        val basePosition = luxel.position() + RndGen.vector2.gaussian()
+//        val baseColor = luxel.color()
+//        for (i in 0..<5) {
+//            val color = baseColor * (5.0 - i)
+//            val offset = i * 3.0
+//            filmExposition(basePosition + (xAxis * offset), color)
+//            filmExposition(basePosition - (xAxis * offset), color)
+//            filmExposition(basePosition + (yAxis * offset), color)
+//            filmExposition(basePosition - (yAxis * offset), color)
+//        }
+//    }
 
     override fun outputName(): String {
         return "pixie"

@@ -37,20 +37,20 @@ internal class RenderSimulationWorker<D : Dimension, L : Luxel<D>, I : Any>(
 
     // region AbstractSimulationWorker
 
-    override suspend fun simulateSingleLuxel(i: Long) {
+    override suspend fun simulateSingleLuxel(luxelIndex: Long) {
         val luxel = simulator.spawnLuxel(simulation, time)
         luxel.onStart()
 
         var step = 0
         do {
             luxel.onStep(step)
-            simulator.exposeLuxel(luxel) { position, color -> expose(position, color) }
+            expose(luxel.position(), luxel.color())
             simulator.updateLuxel(luxel, time)
             step++
         } while (luxel.isAlive())
 
         luxel.onEnd()
-        onLuxelRan(i)
+        onLuxelRan(luxelIndex)
     }
 
     // endregion

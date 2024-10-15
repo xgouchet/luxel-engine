@@ -31,7 +31,7 @@ internal class SpawnSimulationWorker<D : Dimension, L : Luxel<D>, I : Any>(
 
     // region AbstractSimulationWorker
 
-    override suspend fun simulateSingleLuxel(i: Long) {
+    override suspend fun simulateSingleLuxel(luxelIndex: Long) {
         val luxel = simulator.spawnLuxel(simulation, time)
         luxel.onStart()
         expose(luxel.position(), SPAWN_COLOR)

@@ -94,6 +94,9 @@ internal class RainSimulator : Simulator<Dimension.D2, RainLuxel, Long> {
         animationOffset = animationDirection * time.inWholeMilliseconds.toDouble() * 0.25
     }
 
+    override fun onFrameEnd(time: Duration, animationDuration: Duration) {
+    }
+
     override suspend fun spawnLuxel(simulation: Configuration.Simulation<Dimension.D2>, time: Duration): RainLuxel {
         val randomSpeed: Vector<Dimension.D2>
         val randomPosition: Vector<Dimension.D2>

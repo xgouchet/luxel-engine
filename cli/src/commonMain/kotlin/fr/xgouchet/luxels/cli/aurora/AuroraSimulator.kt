@@ -50,6 +50,13 @@ internal class AuroraSimulator : Simulator<Dimension.D3, AuroraLuxel, Long> {
 
     // region Simulator
 
+    override fun onFrameStart(
+        simulation: Configuration.Simulation<Dimension.D3>,
+        time: Duration,
+        animationDuration: Duration,
+    ) {
+    }
+
     override fun onFrameEnd(time: Duration, animationDuration: Duration) {
         println("minIntensity:$minIntensity")
         println("maxIntensity:$maxIntensity")

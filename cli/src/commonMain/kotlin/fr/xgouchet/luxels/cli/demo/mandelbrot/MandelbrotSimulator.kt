@@ -39,6 +39,16 @@ internal class MandelbrotSimulator(
         this.simulationSpace = simulation.volume
     }
 
+    override fun onFrameStart(
+        simulation: Configuration.Simulation<Dimension.D2>,
+        time: Duration,
+        animationDuration: Duration,
+    ) {
+    }
+
+    override fun onFrameEnd(time: Duration, animationDuration: Duration) {
+    }
+
     override suspend fun spawnLuxel(
         simulation: Configuration.Simulation<Dimension.D2>,
         time: Duration,

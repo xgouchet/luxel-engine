@@ -12,4 +12,8 @@ data class CallIdentifier(
         }
         return matchName && matchParams
     }
+
+    override fun toString(): String {
+        return "$name(${params.entries.joinToString { "${it.key}: ${it.value}" }})"
+    }
 }

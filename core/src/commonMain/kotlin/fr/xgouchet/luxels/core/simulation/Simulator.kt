@@ -1,6 +1,5 @@
 package fr.xgouchet.luxels.core.simulation
 
-import fr.xgouchet.graphikio.color.Color
 import fr.xgouchet.graphikio.color.HDRColor
 import fr.xgouchet.luxels.core.configuration.Configuration
 import fr.xgouchet.luxels.core.configuration.PassType
@@ -33,7 +32,7 @@ interface Simulator<D : Dimension, L : Luxel<D>, I : Any> {
         simulation: Configuration.Simulation<D>,
         inputData: InputData<I>,
         logger: Logger,
-    ) {}
+    )
 
     /**
      * Called whenever a projection needs to be created (called once per frame).
@@ -58,15 +57,14 @@ interface Simulator<D : Dimension, L : Luxel<D>, I : Any> {
         simulation: Configuration.Simulation<D>,
         time: Duration,
         animationDuration: Duration,
-    ) {
-    }
+    )
 
     /**
      * Called once when a frame ends.
      * @param time the current time within the simulated animation
      * @param animationDuration the total duration of the current animation
      */
-    fun onFrameEnd(time: Duration, animationDuration: Duration) {}
+    fun onFrameEnd(time: Duration, animationDuration: Duration)
 
     /**
      * Spawns a [Luxel] in the simulator.
@@ -83,18 +81,7 @@ interface Simulator<D : Dimension, L : Luxel<D>, I : Any> {
      * @param time the current time within the simulated animation
      * @see [Luxel.isAlive]
      */
-    fun updateLuxel(luxel: L, time: Duration) {}
-
-    /**
-     * Exposes the given [Luxel] with a lambda.
-     * By default the exposition uses the luxel's position and color, but simulators can
-     * override this function to apply effects.
-     * @param luxel the [Luxel] to expose
-     * @param filmExposition a lambda taking the 3D position to expose and the color to use
-     */
-    fun exposeLuxel(luxel: L, filmExposition: (Vector<D>, Color) -> Unit) {
-        filmExposition(luxel.position(), luxel.color())
-    }
+    fun updateLuxel(luxel: L, time: Duration)
 
     /**
      * @return the name of this simulator (used to tag output image files)

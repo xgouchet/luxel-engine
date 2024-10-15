@@ -31,7 +31,10 @@ internal abstract class AbstractSimulationWorker<D : Dimension, L : Luxel<D>, I 
 
     // region AbstractSimulationWorker
 
-    abstract suspend fun simulateSingleLuxel(i: Long)
+    /**
+     * Simulates a single Luxel.
+     */
+    abstract suspend fun simulateSingleLuxel(luxelIndex: Long)
 
     fun expose(position: Vector<D>, color: Color) {
         film.expose(projection.convertPosition(position), color)

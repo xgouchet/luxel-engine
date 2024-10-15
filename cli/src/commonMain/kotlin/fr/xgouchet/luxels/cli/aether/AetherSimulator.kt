@@ -33,7 +33,6 @@ internal class AetherSimulator(
         inputData: InputData<Long>,
         logger: Logger,
     ) {
-        super.initEnvironment(simulation, inputData, logger)
         gaussianRange = (simulation.quality.count shr 3).toInt()
         successiveStep = 0.1 / (simulation.quality.count shr 2)
 
@@ -49,12 +48,14 @@ internal class AetherSimulator(
         time: Duration,
         animationDuration: Duration,
     ) {
-        super.onFrameStart(simulation, time, animationDuration)
         frameCenterP = if (animationDuration > 16.milliseconds) {
             (time / animationDuration)
         } else {
             RndGen.double.inRange(0.25, 0.75)
         }
+    }
+
+    override fun onFrameEnd(time: Duration, animationDuration: Duration) {
     }
 
     override suspend fun spawnLuxel(simulation: Configuration.Simulation<Dimension.D3>, time: Duration): AetherLuxel {
@@ -64,6 +65,9 @@ internal class AetherSimulator(
         val t = (p * WL_RANGE) + WL_MIN
         val curve = Curve(curves.map { it.getPosition(p) })
         return AetherLuxel(curve, t, luxelLifespan)
+    }
+
+    override fun updateLuxel(luxel: AetherLuxel, time: Duration) {
     }
 
     override fun getProjection(
