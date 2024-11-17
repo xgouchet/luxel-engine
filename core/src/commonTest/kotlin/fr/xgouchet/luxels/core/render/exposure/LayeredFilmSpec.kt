@@ -20,11 +20,11 @@ import io.kotest.property.arbitrary.double
 import io.kotest.property.assume
 import io.kotest.property.checkAll
 
-class LayeredFilmTest : DescribeSpec(
+class LayeredFilmSpec : DescribeSpec(
     {
 
         val vector2Arb = { vectorArb(Dimension.D2) }
-        include(abstractFilmTest(false) { resolution -> LayeredFilm(resolution) })
+        include(abstractFilmSpec(false) { resolution -> LayeredFilm(resolution) })
 
         describe("expose") {
             it("should throw") {

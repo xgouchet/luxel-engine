@@ -9,7 +9,7 @@ import io.kotest.matchers.shouldBe
 import io.kotest.property.checkAll
 import kotlin.math.min
 
-class CollectionExtTest : DescribeSpec(
+class CollectionExtSpec : DescribeSpec(
     {
 
         describe("three-way zip (on string collections)") {

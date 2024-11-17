@@ -2,40 +2,40 @@ package fr.xgouchet.luxels.components.noise
 
 import io.kotest.core.spec.style.DescribeSpec
 
-class FractalNoiseGeneratorTest : DescribeSpec({
+class FractalNoiseGeneratorSpec : DescribeSpec({
 
     include(
-        abstractDelegatedNoiseGeneratorTest("Fractal") {
+        abstractDelegatedNoiseGeneratorSpec("Fractal") {
             FractalNoiseGenerator(it, 4)
         },
     )
 
     include(
-        abstractDelegatedNoiseGeneratorTest("Fractal-White") {
+        abstractDelegatedNoiseGeneratorSpec("Fractal-White") {
             FractalNoiseGenerator.whiteNoise(it)
         },
     )
 
     include(
-        abstractDelegatedNoiseGeneratorTest("Fractal-Pink") {
+        abstractDelegatedNoiseGeneratorSpec("Fractal-Pink") {
             FractalNoiseGenerator.pinkNoise(it)
         },
     )
 
     include(
-        abstractDelegatedNoiseGeneratorTest("Fractal-Brown") {
+        abstractDelegatedNoiseGeneratorSpec("Fractal-Brown") {
             FractalNoiseGenerator.brownNoise(it)
         },
     )
 
     include(
-        abstractDelegatedNoiseGeneratorTest("Fractal-Blue") {
+        abstractDelegatedNoiseGeneratorSpec("Fractal-Blue") {
             FractalNoiseGenerator.blueNoise(it)
         },
     )
 
     include(
-        abstractDelegatedNoiseGeneratorTest("Fractal-Violet") {
+        abstractDelegatedNoiseGeneratorSpec("Fractal-Violet") {
             FractalNoiseGenerator.violetNoise(it)
         },
     )

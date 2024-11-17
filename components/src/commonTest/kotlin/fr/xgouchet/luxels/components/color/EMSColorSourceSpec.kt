@@ -19,7 +19,7 @@ import io.kotest.property.Arb
 import io.kotest.property.arbitrary.double
 import io.kotest.property.checkAll
 
-class EMSColorSourceTest : DescribeSpec({
+class EMSColorSourceSpec : DescribeSpec({
 
     describe("color") {
         it("is transparent beyond ultraviolet") {

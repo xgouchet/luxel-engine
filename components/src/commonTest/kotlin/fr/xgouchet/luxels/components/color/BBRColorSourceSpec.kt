@@ -11,7 +11,7 @@ import io.kotest.property.Arb
 import io.kotest.property.arbitrary.double
 import io.kotest.property.checkAll
 
-class BBRColorSourceTest : DescribeSpec({
+class BBRColorSourceSpec : DescribeSpec({
 
     describe("color") {
 

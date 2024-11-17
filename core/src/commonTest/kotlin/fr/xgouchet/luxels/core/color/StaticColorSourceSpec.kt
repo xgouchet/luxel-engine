@@ -5,7 +5,7 @@ import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.property.checkAll
 
-class StaticColorSourceTest : DescribeSpec({
+class StaticColorSourceSpec : DescribeSpec({
     describe("color") {
         it("returns the constructor color") {
             checkAll(colorArb()) { c ->

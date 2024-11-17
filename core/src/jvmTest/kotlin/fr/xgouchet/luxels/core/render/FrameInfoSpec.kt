@@ -7,7 +7,7 @@ import io.kotest.property.Arb
 import io.kotest.property.arbitrary.int
 import io.kotest.property.checkAll
 
-class FrameInfoTest : DescribeSpec(
+class FrameInfoSpec : DescribeSpec(
     {
 
         describe("a FrameInfo") {

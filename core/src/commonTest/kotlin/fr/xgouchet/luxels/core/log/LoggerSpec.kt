@@ -10,7 +10,7 @@ import io.kotest.property.arbitrary.double
 import io.kotest.property.arbitrary.string
 import io.kotest.property.checkAll
 
-class LoggerTest : DescribeSpec(
+class LoggerSpec : DescribeSpec(
     {
         describe("a logger handling messages") {
             it("forwards verbose log to handler") {

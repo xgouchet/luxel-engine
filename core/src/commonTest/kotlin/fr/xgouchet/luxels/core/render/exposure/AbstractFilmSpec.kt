@@ -17,7 +17,7 @@ import kotlin.math.ceil
 import kotlin.math.floor
 
 @OptIn(ExperimentalKotest::class)
-internal fun abstractFilmTest(supportsDirectExposure: Boolean = true, filmProvider: (Resolution) -> AbstractFilm) =
+internal fun abstractFilmSpec(supportsDirectExposure: Boolean = true, filmProvider: (Resolution) -> AbstractFilm) =
     describeSpec {
         describe("exposeLuxel (int)") {
             it("does nothing when exposing outside the bounds of the film (-x)") {

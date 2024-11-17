@@ -13,7 +13,7 @@ import io.kotest.property.arbitrary.list
 import io.kotest.property.checkAll
 import kotlin.math.abs
 
-fun abstractNoiseGeneratorTest(description: String, noiseProvider: () -> DimensionalNoiseGenerator) = describeSpec {
+fun abstractNoiseGeneratorSpec(description: String, noiseProvider: () -> DimensionalNoiseGenerator) = describeSpec {
     describe("generic noise [$description]") {
         it("returns a value with the expected dimensions") {
             checkAll(Arb.list(doubleArb(), 1..8), Arb.int(1, 8)) { input, outputSize ->
