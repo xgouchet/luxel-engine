@@ -11,30 +11,17 @@ import fr.xgouchet.luxels.core.math.w
 import fr.xgouchet.luxels.core.math.x
 import fr.xgouchet.luxels.core.math.y
 import fr.xgouchet.luxels.core.math.z
-import fr.xgouchet.luxels.core.render.FrameInfo
 import fr.xgouchet.luxels.core.render.exposure.CleanFilm
 import fr.xgouchet.luxels.core.render.exposure.Film
 import fr.xgouchet.luxels.core.render.exposure.RoughFilm
-import fr.xgouchet.luxels.core.simulation.worker.AbstractSimulationWorker
-import fr.xgouchet.luxels.core.simulation.worker.DeathSimulationWorker
-import fr.xgouchet.luxels.core.simulation.worker.EnvSimulationWorker
-import fr.xgouchet.luxels.core.simulation.worker.PathSimulationWorker
-import fr.xgouchet.luxels.core.simulation.worker.RenderSimulationWorker
-import fr.xgouchet.luxels.core.simulation.worker.SpawnSimulationWorker
 import fr.xgouchet.luxels.core.test.kotest.property.durationArb
 import fr.xgouchet.luxels.core.test.kotest.property.volumeArb
-import fr.xgouchet.luxels.core.test.stub.StubFilm
-import fr.xgouchet.luxels.core.test.stub.StubLogHandler
-import fr.xgouchet.luxels.core.test.stub.StubProjection
-import fr.xgouchet.luxels.core.test.stub.StubSimulator
 import io.kotest.core.spec.style.describeSpec
 import io.kotest.matchers.shouldBe
-import io.kotest.matchers.types.shouldBeSameInstanceAs
 import io.kotest.property.Arb
 import io.kotest.property.Exhaustive
 import io.kotest.property.arbitrary.double
 import io.kotest.property.arbitrary.int
-import io.kotest.property.arbitrary.long
 import io.kotest.property.checkAll
 import io.kotest.property.exhaustive.enum
 import kotlin.math.max
@@ -114,8 +101,6 @@ fun <D : Dimension, I : Any> abstractConfigurationSpec(
                     configuration.simulation.maxThreadCount shouldBe count
                 }
             }
-
-
         }
 
         describe("render") {

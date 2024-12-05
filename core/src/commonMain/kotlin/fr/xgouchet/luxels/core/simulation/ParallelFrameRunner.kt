@@ -29,6 +29,8 @@ internal class ParallelFrameRunner(
     private val workerProvider: WorkerProvider = DefaultWorkerProvider(),
 ) : FrameRunner {
 
+    // region FrameRunner
+
     override suspend fun <D : Dimension, L : Luxel<D>, I : Any> simulateFrame(
         simulator: Simulator<D, L, I>,
         configuration: Configuration<D, I>,
@@ -53,7 +55,9 @@ internal class ParallelFrameRunner(
         SystemInfo.clearMemory()
     }
 
-    // region Internal/Utils
+    // endregion
+
+    // region Internal
 
     @OptIn(DelicateCoroutinesApi::class, ExperimentalCoroutinesApi::class)
     private suspend fun <D : Dimension, L : Luxel<D>, I : Any> spawnAndRunWorkers(
@@ -65,7 +69,6 @@ internal class ParallelFrameRunner(
     ) {
         val jobs = mutableMapOf<Job, Film>()
         val luxelsPerThread = configuration.simulation.quality.count / threadCount
-
 
         repeat(threadCount) { workerIdx ->
             val layer = configuration.render.createFilm()

@@ -98,5 +98,4 @@ class Configuration<D : Dimension, I : Any> internal constructor(
             return frameInfo
         }
     }
-
 }

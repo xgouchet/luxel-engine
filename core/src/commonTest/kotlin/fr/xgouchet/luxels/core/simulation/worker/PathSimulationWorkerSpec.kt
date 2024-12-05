@@ -40,7 +40,10 @@ class PathSimulationWorkerSpec : DescribeSpec(
                     stubLuxel.stubResponse("color").withValue(luxelColor)
                     stubLuxel.stubResponse("isAlive").withValues(true, true, true, true, false)
                     val stubSimulator = StubSimulator<Dimension.D3, Unit>()
-                    stubSimulator.stubResponse("spawnLuxel", mapOf("simulation" to configuration.simulation, "time" to frameTime),)
+                    stubSimulator.stubResponse(
+                        "spawnLuxel",
+                        mapOf("simulation" to configuration.simulation, "time" to frameTime),
+                    )
                         .withValue(stubLuxel)
                     val stubFilm = StubFilm(resolution)
                     val stubProjection = StubProjection<Dimension.D3>()

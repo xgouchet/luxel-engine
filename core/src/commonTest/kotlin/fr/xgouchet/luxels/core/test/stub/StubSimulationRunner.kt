@@ -30,10 +30,8 @@ class StubSimulationRunner : SimulationRunner, Stub {
                 "simulator" to simulator,
                 "configuration" to configuration,
                 "threadCount" to threadCount,
-                "inputData" to inputData
+                "inputData" to inputData,
             ),
         )
     }
-
-
 }

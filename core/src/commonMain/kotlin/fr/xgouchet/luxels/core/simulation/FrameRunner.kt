@@ -15,5 +15,4 @@ internal interface FrameRunner {
         inputData: InputData<I>,
         frameInfo: FrameInfo,
     )
-
 }

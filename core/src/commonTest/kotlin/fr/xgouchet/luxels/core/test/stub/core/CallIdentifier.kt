@@ -18,8 +18,8 @@ data class CallIdentifier(
     }
 
     fun getParamsDiff(callIdentifier: CallIdentifier): String {
-        return callIdentifier.params.mapNotNull { (k,v) ->
-            if (params[k] == callIdentifier.params[k]){
+        return callIdentifier.params.mapNotNull { (k, v) ->
+            if (params[k] == callIdentifier.params[k]) {
                 null
             } else {
                 "[$k]: ${params[k]} != ${callIdentifier.params[k]}"

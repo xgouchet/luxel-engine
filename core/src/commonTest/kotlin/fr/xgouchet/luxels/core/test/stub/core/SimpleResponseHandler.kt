@@ -23,6 +23,5 @@ class SimpleResponseHandler : ResponseHandler {
         }
 
         return usedMatchingResponse
-
     }
 }

@@ -11,6 +11,10 @@ import fr.xgouchet.luxels.core.render.exposure.Film
 import fr.xgouchet.luxels.core.simulation.Simulator
 
 internal class DefaultWorkerProvider : WorkerProvider {
+
+    // region WorkerProvider
+
+    @Suppress("LongMethod")
     override fun <D : Dimension, L : Luxel<D>, I : Any> createWorker(
         simulator: Simulator<D, L, I>,
         film: Film,
@@ -19,8 +23,6 @@ internal class DefaultWorkerProvider : WorkerProvider {
         configuration: Configuration<D, I>,
         logHandler: LogHandler,
     ): SimulationWorker {
-
-
         val projection = simulator.getProjection(
             configuration.simulation.volume,
             configuration.render.filmSpace,
@@ -85,4 +87,6 @@ internal class DefaultWorkerProvider : WorkerProvider {
                 )
         }
     }
+
+    // endregion
 }
