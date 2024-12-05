@@ -1,6 +1,5 @@
 package fr.xgouchet.luxels.core.log
 
-
 /**
  * Log a verbose info.
  * @param message the message to log

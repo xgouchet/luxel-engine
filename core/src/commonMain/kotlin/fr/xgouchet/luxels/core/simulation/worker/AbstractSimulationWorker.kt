@@ -25,7 +25,7 @@ internal abstract class AbstractSimulationWorker<D : Dimension, L : Luxel<D>, I 
     internal val projection: Projection<D>,
     internal val time: Duration,
     internal val luxelCountPerThread: Long,
-    internal val logHandler: LogHandler
+    internal val logHandler: LogHandler,
 ) : SimulationWorker {
 
     protected var frameStart: Instant = Instant.DISTANT_PAST

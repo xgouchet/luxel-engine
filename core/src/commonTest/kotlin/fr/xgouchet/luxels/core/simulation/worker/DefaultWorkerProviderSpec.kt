@@ -165,7 +165,6 @@ class DefaultWorkerProviderSpec : DescribeSpec(
                         stubLogHandler,
                     ) as AbstractSimulationWorker<*, *, *>
 
-
                     (worker is PathSimulationWorker<*, *, *>) shouldBe true
                     worker.film shouldBeSameInstanceAs stubFilm
                     worker.simulator shouldBeSameInstanceAs stubSimulator

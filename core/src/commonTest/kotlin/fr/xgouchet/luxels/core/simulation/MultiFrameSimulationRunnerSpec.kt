@@ -5,7 +5,6 @@ import fr.xgouchet.luxels.core.log.Log
 import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.math.random.RndGen
 import fr.xgouchet.luxels.core.render.FrameInfo
-import fr.xgouchet.luxels.core.simulation.MultiFrameSimulationRunner
 import fr.xgouchet.luxels.core.test.stub.StubFrameRunner
 import fr.xgouchet.luxels.core.test.stub.StubLogHandler
 import fr.xgouchet.luxels.core.test.stub.StubSimulator
@@ -114,7 +113,7 @@ class MultiFrameSimulationRunnerSpec : DescribeSpec(
                                 "configuration" to stubConfig,
                                 "threadCount" to threadCount,
                                 "inputData" to stubInput,
-                                "frameInfo" to frameInfo
+                                "frameInfo" to frameInfo,
                             ),
                         )
                         stubLogHandler.verifyCall("onLog", mapOf("log" to Log.EndSection))

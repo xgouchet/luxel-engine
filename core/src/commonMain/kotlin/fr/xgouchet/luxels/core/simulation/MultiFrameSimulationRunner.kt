@@ -14,6 +14,8 @@ internal class MultiFrameSimulationRunner(
     val frameRunner: FrameRunner = ParallelFrameRunner(logHandler),
 ) : SimulationRunner {
 
+    // region SimulationRunner
+
     override suspend fun <D : Dimension, L : Luxel<D>, I : Any> runSimulationWithInput(
         simulator: Simulator<D, L, I>,
         configuration: Configuration<D, I>,
@@ -33,4 +35,6 @@ internal class MultiFrameSimulationRunner(
             logHandler.endSection()
         }
     }
+
+    // endregion
 }

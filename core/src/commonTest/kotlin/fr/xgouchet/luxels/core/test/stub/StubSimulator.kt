@@ -47,8 +47,8 @@ class StubSimulator<D : Dimension, I : Any>() : Simulator<D, StubLuxel<D>, I>, S
             mapOf(
                 "simulationSpace" to simulationSpace,
                 "filmSpace" to filmSpace,
-                "frameTime" to frameTime
-            )
+                "frameTime" to frameTime,
+            ),
         )
     }
 
