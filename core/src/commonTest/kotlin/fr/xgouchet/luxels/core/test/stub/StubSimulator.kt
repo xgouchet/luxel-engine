@@ -2,7 +2,7 @@ package fr.xgouchet.luxels.core.test.stub
 
 import fr.xgouchet.luxels.core.configuration.Configuration
 import fr.xgouchet.luxels.core.configuration.input.InputData
-import fr.xgouchet.luxels.core.log.Logger
+import fr.xgouchet.luxels.core.log.LogHandler
 import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.math.Volume
 import fr.xgouchet.luxels.core.render.projection.Projection
@@ -25,17 +25,31 @@ class StubSimulator<D : Dimension, I : Any>() : Simulator<D, StubLuxel<D>, I>, S
     override fun initEnvironment(
         simulation: Configuration.Simulation<D>,
         inputData: InputData<I>,
-        logger: Logger,
+        logHandler: LogHandler,
     ) {
-        TODO("Not yet implemented")
+        handleUnitCall(
+            "initEnvironment",
+            mapOf(
+                "simulation" to simulation,
+                "inputData" to inputData,
+                "logHandler" to logHandler,
+            ),
+        )
     }
 
     override fun getProjection(
         simulationSpace: Volume<D>,
         filmSpace: Volume<Dimension.D2>,
-        time: Duration,
+        frameTime: Duration,
     ): Projection<D> {
-        TODO("Not yet implemented")
+        return handleCallWithReturn(
+            "getProjection",
+            mapOf(
+                "simulationSpace" to simulationSpace,
+                "filmSpace" to filmSpace,
+                "frameTime" to frameTime
+            )
+        )
     }
 
     override fun onFrameStart(
@@ -43,15 +57,21 @@ class StubSimulator<D : Dimension, I : Any>() : Simulator<D, StubLuxel<D>, I>, S
         time: Duration,
         animationDuration: Duration,
     ) {
-        TODO("Not yet implemented")
+        handleUnitCall(
+            "onFrameStart",
+            mapOf("simulation" to simulation, "time" to time, "animationDuration" to animationDuration),
+        )
     }
 
     override fun onFrameEnd(time: Duration, animationDuration: Duration) {
-        TODO("Not yet implemented")
+        handleUnitCall(
+            "onFrameEnd",
+            mapOf("time" to time, "animationDuration" to animationDuration),
+        )
     }
 
     override fun outputName(): String {
-        TODO("Not yet implemented")
+        return handleCallWithReturn("outputName", mapOf()) { "TODO" }
     }
 
     override fun updateLuxel(luxel: StubLuxel<D>, time: Duration) {

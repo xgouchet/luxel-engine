@@ -11,13 +11,18 @@ class SimpleResponseHandler : ResponseHandler {
 
     override fun getResponse(callIdentifier: CallIdentifier): CallResponse? {
         val matchingResponse = stubbedResponses.firstOrNull { response ->
-            !response.used && response.callIdentifier.matches(callIdentifier)
-        } ?: stubbedResponses.lastOrNull { response ->
-            response.callIdentifier.matches(callIdentifier)
+            !response.used && callIdentifier.matches(response.callIdentifier)
+        }
+        if (matchingResponse != null) {
+            matchingResponse.used = true
+            return matchingResponse
         }
 
-        matchingResponse?.used = true
+        val usedMatchingResponse = stubbedResponses.lastOrNull { response ->
+            callIdentifier.matches(response.callIdentifier)
+        }
 
-        return matchingResponse
+        return usedMatchingResponse
+
     }
 }

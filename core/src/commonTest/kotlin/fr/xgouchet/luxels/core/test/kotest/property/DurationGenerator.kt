@@ -8,3 +8,7 @@ import kotlin.time.Duration.Companion.milliseconds
 fun durationArb() = arbitrary {
     Arb.long(-Long.MAX_VALUE / 2, Long.MAX_VALUE / 2).bind().milliseconds
 }
+
+fun shortDurationArb() = arbitrary {
+    Arb.long(1, 1000).bind().milliseconds
+}

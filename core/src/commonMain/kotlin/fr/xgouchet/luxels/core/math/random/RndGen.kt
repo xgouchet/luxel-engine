@@ -8,7 +8,8 @@ import kotlin.random.Random
  * The basis Random Generator utility object.
  */
 object RndGen {
-    private var seed: Long = 0L
+    internal var seed: Long = 0L
+        private set
 
     private var random = Random(0L)
 

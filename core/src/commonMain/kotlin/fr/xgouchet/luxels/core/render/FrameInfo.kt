@@ -2,7 +2,7 @@ package fr.xgouchet.luxels.core.render
 
 import kotlin.time.Duration
 
-internal class FrameInfo(
+internal data class FrameInfo(
     val frameIndex: Int,
     val frameTime: Duration,
 ) {

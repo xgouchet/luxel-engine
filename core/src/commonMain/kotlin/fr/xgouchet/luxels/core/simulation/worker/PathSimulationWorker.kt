@@ -2,7 +2,7 @@ package fr.xgouchet.luxels.core.simulation.worker
 
 import fr.xgouchet.graphikio.color.HDRColor
 import fr.xgouchet.luxels.core.configuration.Configuration
-import fr.xgouchet.luxels.core.log.Logger
+import fr.xgouchet.luxels.core.log.LogHandler
 import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.model.Luxel
 import fr.xgouchet.luxels.core.render.exposure.Film
@@ -18,7 +18,7 @@ internal class PathSimulationWorker<D : Dimension, L : Luxel<D>, I : Any>(
     projection: Projection<D>,
     time: Duration,
     luxelCountPerThread: Long,
-    logger: Logger,
+    logHandler: LogHandler,
 ) : AbstractSimulationWorker<D, L, I>(
     film = film,
     simulator = simulator,
@@ -26,7 +26,7 @@ internal class PathSimulationWorker<D : Dimension, L : Luxel<D>, I : Any>(
     projection = projection,
     time = time,
     luxelCountPerThread = luxelCountPerThread,
-    logger = logger,
+    logHandler = logHandler,
 ) {
 
     // region AbstractSimulationWorker
