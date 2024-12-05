@@ -4,10 +4,10 @@ import fr.xgouchet.luxels.cli.common.baseOutputPath
 import fr.xgouchet.luxels.components.configuration.bmpFixer
 import fr.xgouchet.luxels.components.noise.PerlinNoiseGenerator
 import fr.xgouchet.luxels.components.noise.wrapper.VectorToDoubleNoiseGenerator
-import fr.xgouchet.luxels.core.LuxelEngine
 import fr.xgouchet.luxels.core.configuration.Quality
 import fr.xgouchet.luxels.core.configuration.Resolution
 import fr.xgouchet.luxels.core.configuration.configuration
+import fr.xgouchet.luxels.core.engine.LuxelEngine
 import fr.xgouchet.luxels.core.math.Dimension
 
 /** Main. */
@@ -30,7 +30,7 @@ fun main() {
     val baseNoise = PerlinNoiseGenerator()
     val sourceNoise = VectorToDoubleNoiseGenerator<Dimension.D2>(baseNoise)
 
-    LuxelEngine.runSimulation(
+    LuxelEngine().runSimulation(
         simulator = NoiseSimulator(sourceNoise),
         configuration = configuration,
     )

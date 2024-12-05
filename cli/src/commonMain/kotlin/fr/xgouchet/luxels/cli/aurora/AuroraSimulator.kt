@@ -10,7 +10,7 @@ import fr.xgouchet.luxels.components.noise.wrapper.VectorToDoubleNoiseGenerator
 import fr.xgouchet.luxels.components.render.projection.PerspectiveProjection
 import fr.xgouchet.luxels.core.configuration.Configuration
 import fr.xgouchet.luxels.core.configuration.input.InputData
-import fr.xgouchet.luxels.core.log.LogHandlerExt
+import fr.xgouchet.luxels.core.log.LogHandler
 import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.math.Vector
 import fr.xgouchet.luxels.core.math.Vector3
@@ -78,7 +78,7 @@ internal class AuroraSimulator : Simulator<Dimension.D3, AuroraLuxel, Long> {
     override fun initEnvironment(
         simulation: Configuration.Simulation<Dimension.D3>,
         inputData: InputData<Long>,
-        logger: LogHandlerExt,
+        logger: LogHandler,
     ) {
         element = elements[RndGen.int.inRange(0, elements.size)]
         println("Aurora with element ${element.name}")

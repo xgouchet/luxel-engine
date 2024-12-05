@@ -3,7 +3,7 @@ package fr.xgouchet.luxels.cli.demo.projection
 import fr.xgouchet.luxels.cli.demo.DemoLuxel
 import fr.xgouchet.luxels.core.configuration.Configuration
 import fr.xgouchet.luxels.core.configuration.input.InputData
-import fr.xgouchet.luxels.core.log.LogHandlerExt
+import fr.xgouchet.luxels.core.log.LogHandler
 import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.math.Volume
 import fr.xgouchet.luxels.core.render.projection.Projection
@@ -25,7 +25,7 @@ internal abstract class NdCubeSimulator<D : Dimension> : Simulator<D, DemoLuxel<
     override fun initEnvironment(
         simulation: Configuration.Simulation<D>,
         inputData: InputData<Long>,
-        logger: LogHandlerExt,
+        logger: LogHandler,
     ) {
         TODO()
     }
