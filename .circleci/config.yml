@@ -52,9 +52,6 @@ jobs:
           file: components/build/reports/kover/report.xml
       - codecov/upload:
           file: graphikio/build/reports/kover/report.xml
-      - codecov/upload:
-          file: cil/build/reports/kover/report.xml
-
 #      - store_artifacts:
 #          path: core/build/reports/kover/report.xml
 #      - store_artifacts:
