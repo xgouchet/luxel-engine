@@ -3,22 +3,11 @@ package fr.xgouchet.luxels.core.configuration
 import fr.xgouchet.luxels.core.configuration.input.InputSource
 import fr.xgouchet.luxels.core.io.ImageFixer
 import fr.xgouchet.luxels.core.io.NoOpFixer
-import fr.xgouchet.luxels.core.log.Logger
 import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.math.Vector
 import fr.xgouchet.luxels.core.math.Volume
-import fr.xgouchet.luxels.core.math.random.VectorRandomGenerator
-import fr.xgouchet.luxels.core.model.Luxel
 import fr.xgouchet.luxels.core.render.FrameInfo
 import fr.xgouchet.luxels.core.render.exposure.Film
-import fr.xgouchet.luxels.core.render.projection.Projection
-import fr.xgouchet.luxels.core.simulation.Simulator
-import fr.xgouchet.luxels.core.simulation.worker.DeathSimulationWorker
-import fr.xgouchet.luxels.core.simulation.worker.EnvSimulationWorker
-import fr.xgouchet.luxels.core.simulation.worker.PathSimulationWorker
-import fr.xgouchet.luxels.core.simulation.worker.RenderSimulationWorker
-import fr.xgouchet.luxels.core.simulation.worker.SimulationWorker
-import fr.xgouchet.luxels.core.simulation.worker.SpawnSimulationWorker
 import kotlin.math.roundToInt
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
@@ -110,71 +99,4 @@ class Configuration<D : Dimension, I : Any> internal constructor(
         }
     }
 
-    @Suppress("LongParameterList")
-    internal fun <L : Luxel<D>, I : Any> createWorker(
-        simulator: Simulator<D, L, I>,
-        film: Film,
-        frameInfo: FrameInfo,
-        luxelCountPerThread: Long,
-        projection: Projection<D>,
-        logger: Logger,
-    ): SimulationWorker {
-        return when (simulation.passType) {
-            PassType.RENDER ->
-                RenderSimulationWorker(
-                    film = film,
-                    simulator = simulator,
-                    simulation = simulation,
-                    projection = projection,
-                    time = frameInfo.frameTime,
-                    luxelCountPerThread = luxelCountPerThread,
-                    logger = logger,
-                )
-
-            PassType.SPAWN ->
-                SpawnSimulationWorker(
-                    film = film,
-                    simulator = simulator,
-                    simulation = simulation,
-                    projection = projection,
-                    time = frameInfo.frameTime,
-                    luxelCountPerThread = luxelCountPerThread,
-                    logger = logger,
-                )
-
-            PassType.PATH ->
-                PathSimulationWorker(
-                    film = film,
-                    simulator = simulator,
-                    simulation = simulation,
-                    projection = projection,
-                    time = frameInfo.frameTime,
-                    luxelCountPerThread = luxelCountPerThread,
-                    logger = logger,
-                )
-
-            PassType.DEATH ->
-                DeathSimulationWorker(
-                    film = film,
-                    simulator = simulator,
-                    simulation = simulation,
-                    projection = projection,
-                    time = frameInfo.frameTime,
-                    luxelCountPerThread = luxelCountPerThread,
-                    logger = logger,
-                )
-
-            PassType.ENV ->
-                EnvSimulationWorker(
-                    film = film,
-                    simulator = simulator,
-                    simulation = simulation,
-                    projection = projection,
-                    time = frameInfo.frameTime,
-                    luxelCountPerThread = luxelCountPerThread,
-                    logger = logger,
-                    rng = VectorRandomGenerator(dimension),
-                )
-        }
-    }
 }

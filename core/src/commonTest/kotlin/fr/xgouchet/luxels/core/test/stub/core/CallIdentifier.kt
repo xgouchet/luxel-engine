@@ -6,14 +6,24 @@ data class CallIdentifier(
 ) {
     fun matches(callIdentifier: CallIdentifier): Boolean {
         val matchName = callIdentifier.name == name
-        val matchParams = params.all {
+        val matchParams = callIdentifier.params.all {
             // TODO create advanced matchers
-            callIdentifier.params[it.key] == it.value
+            params[it.key] == it.value
         }
         return matchName && matchParams
     }
 
     override fun toString(): String {
         return "$name(${params.entries.joinToString { "${it.key}: ${it.value}" }})"
+    }
+
+    fun getParamsDiff(callIdentifier: CallIdentifier): String {
+        return callIdentifier.params.mapNotNull { (k,v) ->
+            if (params[k] == callIdentifier.params[k]){
+                null
+            } else {
+                "[$k]: ${params[k]} != ${callIdentifier.params[k]}"
+            }
+        }.joinToString()
     }
 }

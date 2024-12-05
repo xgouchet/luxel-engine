@@ -3,7 +3,6 @@ package fr.xgouchet.luxels.core.simulation.worker
 import fr.xgouchet.graphikio.color.HDRColor
 import fr.xgouchet.luxels.core.configuration.Resolution
 import fr.xgouchet.luxels.core.configuration.configuration
-import fr.xgouchet.luxels.core.log.Logger
 import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.test.kotest.property.colorArb
 import fr.xgouchet.luxels.core.test.kotest.property.durationArb
@@ -35,17 +34,18 @@ class PathSimulationWorkerSpec : DescribeSpec(
                     colorArb(),
                     vectorArb(Dimension.D2),
                 ) { resolution, frameTime, luxelCount, luxelIndex, luxelPos, luxelColor, filmPos ->
+                    val configuration = configuration(Dimension.D3) {}
                     val stubLuxel = StubLuxel<Dimension.D3>()
                     stubLuxel.stubResponse("position").withValue(luxelPos)
                     stubLuxel.stubResponse("color").withValue(luxelColor)
                     stubLuxel.stubResponse("isAlive").withValues(true, true, true, true, false)
                     val stubSimulator = StubSimulator<Dimension.D3, Unit>()
-                    stubSimulator.stubResponse("spawnLuxel").withValue(stubLuxel)
+                    stubSimulator.stubResponse("spawnLuxel", mapOf("simulation" to configuration.simulation, "time" to frameTime),)
+                        .withValue(stubLuxel)
                     val stubFilm = StubFilm(resolution)
                     val stubProjection = StubProjection<Dimension.D3>()
                     stubProjection.stubResponse("convertPosition", mapOf("position" to luxelPos)).withValue(filmPos)
-                    val logger = Logger(StubLogHandler())
-                    val configuration = configuration(Dimension.D3) {}
+                    val stubLogHandler = StubLogHandler()
                     val worker = PathSimulationWorker(
                         stubFilm,
                         stubSimulator,
@@ -53,7 +53,7 @@ class PathSimulationWorkerSpec : DescribeSpec(
                         stubProjection,
                         frameTime,
                         luxelCount,
-                        logger,
+                        stubLogHandler,
                     )
 
                     worker.simulateSingleLuxel(luxelIndex)

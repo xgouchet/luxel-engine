@@ -4,7 +4,7 @@ import fr.xgouchet.graphikio.color.HDRColor
 import fr.xgouchet.luxels.core.configuration.Configuration
 import fr.xgouchet.luxels.core.configuration.PassType
 import fr.xgouchet.luxels.core.configuration.input.InputData
-import fr.xgouchet.luxels.core.log.Logger
+import fr.xgouchet.luxels.core.log.LogHandler
 import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.math.Vector
 import fr.xgouchet.luxels.core.math.Volume
@@ -26,25 +26,25 @@ interface Simulator<D : Dimension, L : Luxel<D>, I : Any> {
      * Called once per input to initialize the environment.
      * @param simulation the simulation options
      * @param inputData the input for the simulation
-     * @param logger the logger to use if need be
+     * @param logHandler the logger to use if need be
      */
     fun initEnvironment(
         simulation: Configuration.Simulation<D>,
         inputData: InputData<I>,
-        logger: Logger,
+        logHandler: LogHandler,
     )
 
     /**
      * Called whenever a projection needs to be created (called once per frame).
      * @param simulationSpace the simulation space
      * @param filmSpace the target film space
-     * @param time the current time within the simulated animation
+     * @param frameTime the current time within the simulated animation
      * @return the type of projection to convert luxel position from simulation space to film space
      */
     fun getProjection(
         simulationSpace: Volume<D>,
         filmSpace: Volume<Dimension.D2>,
-        time: Duration,
+        frameTime: Duration,
     ): Projection<D>
 
     /**

@@ -33,6 +33,8 @@ class StubFilm(resolution: Resolution) : Film, Stub {
     }
 
     override fun getColor(i: Int, j: Int): HDRColor {
-        return handleCallWithReturn("getColor", mapOf("i" to i, "j" to j))
+        return handleCallWithReturn("getColor", mapOf("i" to i, "j" to j)) {
+            HDRColor.TRANSPARENT
+        }
     }
 }

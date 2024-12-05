@@ -10,15 +10,14 @@ import io.kotest.property.arbitrary.double
 import io.kotest.property.arbitrary.string
 import io.kotest.property.checkAll
 
-class LoggerSpec : DescribeSpec(
+class LogHandlerExtSpec : DescribeSpec(
     {
         describe("a logger handling messages") {
             it("forwards verbose log to handler") {
                 checkAll(Arb.string()) { msg ->
                     val stubLogHandler = StubLogHandler()
-                    val logger = Logger(stubLogHandler)
 
-                    logger.verbose(msg)
+                    stubLogHandler.verbose(msg)
 
                     val logs = stubLogHandler.getLogs()
                     logs should haveSize(1)
@@ -29,9 +28,8 @@ class LoggerSpec : DescribeSpec(
             it("forwards debug log to handler") {
                 checkAll(Arb.string()) { msg ->
                     val stubLogHandler = StubLogHandler()
-                    val logger = Logger(stubLogHandler)
 
-                    logger.debug(msg)
+                    stubLogHandler.debug(msg)
 
                     val logs = stubLogHandler.getLogs()
                     logs should haveSize(1)
@@ -42,9 +40,8 @@ class LoggerSpec : DescribeSpec(
             it("forwards info log to handler") {
                 checkAll(Arb.string()) { msg ->
                     val stubLogHandler = StubLogHandler()
-                    val logger = Logger(stubLogHandler)
 
-                    logger.info(msg)
+                    stubLogHandler.info(msg)
 
                     val logs = stubLogHandler.getLogs()
                     logs should haveSize(1)
@@ -55,9 +52,8 @@ class LoggerSpec : DescribeSpec(
             it("forwards warning log to handler") {
                 checkAll(Arb.string()) { msg ->
                     val stubLogHandler = StubLogHandler()
-                    val logger = Logger(stubLogHandler)
 
-                    logger.warning(msg)
+                    stubLogHandler.warning(msg)
 
                     val logs = stubLogHandler.getLogs()
                     logs should haveSize(1)
@@ -68,9 +64,8 @@ class LoggerSpec : DescribeSpec(
             it("forwards error log to handler") {
                 checkAll(Arb.string()) { msg ->
                     val stubLogHandler = StubLogHandler()
-                    val logger = Logger(stubLogHandler)
 
-                    logger.error(msg)
+                    stubLogHandler.error(msg)
 
                     val logs = stubLogHandler.getLogs()
                     logs should haveSize(1)
@@ -82,9 +77,8 @@ class LoggerSpec : DescribeSpec(
         describe("a logger handling progress") {
             it("forwards start progress to handler") {
                 val stubLogHandler = StubLogHandler()
-                val logger = Logger(stubLogHandler)
 
-                logger.startProgress()
+                stubLogHandler.startProgress()
 
                 val logs = stubLogHandler.getLogs()
                 logs should haveSize(1)
@@ -94,9 +88,8 @@ class LoggerSpec : DescribeSpec(
             it("forwards progress to handler") {
                 checkAll(Arb.double(0.0, 1.0), Arb.string()) { p, msg ->
                     val stubLogHandler = StubLogHandler()
-                    val logger = Logger(stubLogHandler)
 
-                    logger.progress(p, msg)
+                    stubLogHandler.progress(p, msg)
 
                     val logs = stubLogHandler.getLogs()
                     logs should haveSize(1)
@@ -106,9 +99,8 @@ class LoggerSpec : DescribeSpec(
 
             it("forwards end progress to handler") {
                 val stubLogHandler = StubLogHandler()
-                val logger = Logger(stubLogHandler)
 
-                logger.endProgress()
+                stubLogHandler.endProgress()
 
                 val logs = stubLogHandler.getLogs()
                 logs should haveSize(1)
@@ -120,9 +112,8 @@ class LoggerSpec : DescribeSpec(
             it("forwards section start to handler") {
                 checkAll(Arb.string()) { msg ->
                     val stubLogHandler = StubLogHandler()
-                    val logger = Logger(stubLogHandler)
 
-                    logger.startSection(msg)
+                    stubLogHandler.startSection(msg)
 
                     val logs = stubLogHandler.getLogs()
                     logs should haveSize(1)
@@ -132,9 +123,8 @@ class LoggerSpec : DescribeSpec(
 
             it("forwards section end to handler") {
                 val stubLogHandler = StubLogHandler()
-                val logger = Logger(stubLogHandler)
 
-                logger.endSection()
+                stubLogHandler.endSection()
 
                 val logs = stubLogHandler.getLogs()
                 logs should haveSize(1)

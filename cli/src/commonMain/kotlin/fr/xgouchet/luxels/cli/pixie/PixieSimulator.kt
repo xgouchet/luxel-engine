@@ -7,7 +7,7 @@ import fr.xgouchet.graphikio.data.SDRRasterData
 import fr.xgouchet.luxels.components.render.projection.Flat2DProjection
 import fr.xgouchet.luxels.core.configuration.Configuration
 import fr.xgouchet.luxels.core.configuration.input.InputData
-import fr.xgouchet.luxels.core.log.Logger
+import fr.xgouchet.luxels.core.log.LogHandlerExt
 import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.math.Vector
 import fr.xgouchet.luxels.core.math.Vector2
@@ -38,7 +38,7 @@ internal class PixieSimulator : Simulator<Dimension.D2, PixieLuxel, Path> {
     override fun initEnvironment(
         simulation: Configuration.Simulation<Dimension.D2>,
         inputData: InputData<Path>,
-        logger: Logger,
+        logger: LogHandlerExt,
     ) {
         imageRasterData = GraphikIO.read(inputData.data)
         simSpace = simulation.volume

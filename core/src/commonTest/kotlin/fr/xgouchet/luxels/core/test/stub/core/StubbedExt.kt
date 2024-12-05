@@ -8,7 +8,11 @@ fun Stub.verifyCall(
     callRecorder.verifyCall(CallIdentifier(name, params), times)
 }
 
-fun <O : Any?> Stub.handleCallWithReturn(name: String, params: Map<String, Any?> = emptyMap()): O {
+fun <O : Any?> Stub.handleCallWithReturn(
+    name: String,
+    params: Map<String, Any?> = emptyMap(),
+    default: (CallIdentifier) -> O = { error("No response stubbed for call $it") },
+): O {
     val callIdentifier = CallIdentifier(name, params)
     callRecorder.recordCall(callIdentifier)
 
@@ -20,7 +24,7 @@ fun <O : Any?> Stub.handleCallWithReturn(name: String, params: Map<String, Any?>
 
         is CallResponse.ThrowException -> throw response.exception
 
-        null -> error("No response stubbed for call $callIdentifier")
+        null -> return default(callIdentifier)
 
         else -> error("Unknown response $response for call $callIdentifier")
     }

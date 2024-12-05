@@ -4,7 +4,7 @@ import fr.xgouchet.graphikio.color.HDRColor
 import fr.xgouchet.luxels.components.render.projection.Flat2DProjection
 import fr.xgouchet.luxels.core.configuration.Configuration
 import fr.xgouchet.luxels.core.configuration.input.InputData
-import fr.xgouchet.luxels.core.log.Logger
+import fr.xgouchet.luxels.core.log.LogHandlerExt
 import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.math.Volume
 import fr.xgouchet.luxels.core.math.random.RndGen
@@ -34,7 +34,7 @@ internal class MandelbrotSimulator(
     override fun initEnvironment(
         simulation: Configuration.Simulation<Dimension.D2>,
         inputData: InputData<Unit>,
-        logger: Logger,
+        logger: LogHandlerExt,
     ) {
         this.simulationSpace = simulation.volume
     }

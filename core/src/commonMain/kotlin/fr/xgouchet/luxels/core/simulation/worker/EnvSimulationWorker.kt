@@ -1,7 +1,7 @@
 package fr.xgouchet.luxels.core.simulation.worker
 
 import fr.xgouchet.luxels.core.configuration.Configuration
-import fr.xgouchet.luxels.core.log.Logger
+import fr.xgouchet.luxels.core.log.LogHandler
 import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.math.Vector
 import fr.xgouchet.luxels.core.math.random.RandomGenerator
@@ -20,7 +20,7 @@ internal class EnvSimulationWorker<D : Dimension, L : Luxel<D>, I : Any>(
     projection: Projection<D>,
     time: Duration,
     luxelCountPerThread: Long,
-    logger: Logger,
+    logHandler: LogHandler,
     val rng: RandomGenerator<Vector<D>>,
 ) : AbstractSimulationWorker<D, L, I>(
     film = film,
@@ -29,7 +29,7 @@ internal class EnvSimulationWorker<D : Dimension, L : Luxel<D>, I : Any>(
     projection = projection,
     time = time,
     luxelCountPerThread = luxelCountPerThread,
-    logger = logger,
+    logHandler = logHandler,
 ) {
     // region AbstractSimulationWorker
 

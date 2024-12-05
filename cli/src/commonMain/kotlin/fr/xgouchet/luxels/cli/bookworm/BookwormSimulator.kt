@@ -4,7 +4,7 @@ import fr.xgouchet.luxels.components.color.EMSColorSource
 import fr.xgouchet.luxels.components.render.projection.PerspectiveProjection
 import fr.xgouchet.luxels.core.configuration.Configuration
 import fr.xgouchet.luxels.core.configuration.input.InputData
-import fr.xgouchet.luxels.core.log.Logger
+import fr.xgouchet.luxels.core.log.LogHandlerExt
 import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.math.HALF_PI
 import fr.xgouchet.luxels.core.math.Interpolation
@@ -30,7 +30,7 @@ internal class BookwormSimulator(
     lateinit var input: BookwormInput
 
     @Suppress("LateinitUsage")
-    lateinit var logger: Logger
+    lateinit var logger: LogHandlerExt
 
     // region Simulator
 
@@ -41,7 +41,7 @@ internal class BookwormSimulator(
     override fun initEnvironment(
         simulation: Configuration.Simulation<Dimension.D3>,
         inputData: InputData<Path>,
-        logger: Logger,
+        logger: LogHandlerExt,
     ) {
         this.input = inputReader.getInput(inputData.data, logger)
         this.logger = logger

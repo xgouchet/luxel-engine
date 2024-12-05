@@ -1,11 +1,13 @@
 package fr.xgouchet.luxels.core.test.stub.core
 
 import kotlinx.datetime.Clock
+import kotlin.jvm.Synchronized
 
 class SimpleCallRecorder : CallRecorder {
 
     private val calls = mutableListOf<CallRecord>()
 
+    @Synchronized
     override fun recordCall(callIdentifier: CallIdentifier) {
         calls.add(
             CallRecord(
@@ -26,9 +28,10 @@ class SimpleCallRecorder : CallRecorder {
                 matchingRecord.verified = true
             } else {
                 val mismatches = calls.filter { !it.verified }
+                    .map { it.callIdentifier.getParamsDiff(callIdentifier) }
                 error(
-                    "Can't find matching function call for $callIdentifier\n" +
-                        "found ${mismatches.size} other calls: ${mismatches.joinToString()}",
+                    "Can't find matching function call for \n\t$callIdentifier\n" +
+                        "found ${mismatches.size} other calls: \n\t${mismatches.joinToString(separator = "\n\t")}",
                 )
             }
         }

@@ -1,7 +1,7 @@
 package fr.xgouchet.luxels.cli.bookworm
 
 import fr.xgouchet.graphikio.fileSystem
-import fr.xgouchet.luxels.core.log.Logger
+import fr.xgouchet.luxels.core.log.LogHandlerExt
 import okio.Path
 import okio.buffer
 import okio.use
@@ -13,7 +13,7 @@ internal class BookwormInputReader {
 
     // TODO split and refactor this method
     @Suppress("CyclomaticComplexMethod", "CognitiveComplexMethod", "NestedBlockDepth")
-    fun getInput(path: Path, logger: Logger): BookwormInput {
+    fun getInput(path: Path, logger: LogHandlerExt): BookwormInput {
         var longestSentenceSize = 0
 
         // step 1 : read the file

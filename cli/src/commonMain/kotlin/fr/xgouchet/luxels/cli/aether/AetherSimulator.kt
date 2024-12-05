@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.components.geometry.Curve
 import fr.xgouchet.luxels.components.render.projection.PerspectiveProjection
 import fr.xgouchet.luxels.core.configuration.Configuration
 import fr.xgouchet.luxels.core.configuration.input.InputData
-import fr.xgouchet.luxels.core.log.Logger
+import fr.xgouchet.luxels.core.log.LogHandlerExt
 import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.math.Volume
 import fr.xgouchet.luxels.core.math.fromSpherical
@@ -31,7 +31,7 @@ internal class AetherSimulator(
     override fun initEnvironment(
         simulation: Configuration.Simulation<Dimension.D3>,
         inputData: InputData<Long>,
-        logger: Logger,
+        logger: LogHandlerExt,
     ) {
         gaussianRange = (simulation.quality.count shr 3).toInt()
         successiveStep = 0.1 / (simulation.quality.count shr 2)
