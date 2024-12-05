@@ -52,14 +52,6 @@ jobs:
           file: components/build/reports/kover/report.xml
       - codecov/upload:
           file: graphikio/build/reports/kover/report.xml
-#      - store_artifacts:
-#          path: core/build/reports/kover/report.xml
-#      - store_artifacts:
-#          path: components/build/reports/kover/report.xml
-#      - store_artifacts:
-#          path: graphikio/build/reports/kover/report.xml
-#      - store_artifacts:
-#          path: cli/build/reports/kover/report.xml
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/workflows/ & https://circleci.com/docs/configuration-reference/#workflows

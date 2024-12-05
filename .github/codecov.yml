@@ -1,0 +1,29 @@
+# ... previous config options...
+ignore:
+  - "cli/*"
+
+comment:
+  layout: "header, diff, flags, components"  # show component info in the PR comment
+
+component_management:
+  default_rules:
+    statuses:
+      - type: project
+        target: auto
+        threshold: 1%
+      - type: patch
+        target: 75%
+  individual_components:
+    - component_id: core
+      name: core
+      paths:
+        - core/**
+    - component_id: components
+      name: components
+      paths:
+        - components/**
+    - component_id: graphikio
+      name: graphikio
+      paths:
+        - graphikio/**
+
