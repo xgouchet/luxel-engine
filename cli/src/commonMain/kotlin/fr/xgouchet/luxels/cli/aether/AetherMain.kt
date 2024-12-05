@@ -2,11 +2,11 @@ package fr.xgouchet.luxels.cli.aether
 
 import fr.xgouchet.luxels.cli.common.baseOutputPath
 import fr.xgouchet.luxels.components.configuration.bmpFixer
-import fr.xgouchet.luxels.core.LuxelEngine
 import fr.xgouchet.luxels.core.configuration.FilmType
 import fr.xgouchet.luxels.core.configuration.Quality
 import fr.xgouchet.luxels.core.configuration.Resolution
 import fr.xgouchet.luxels.core.configuration.configurationWithFixedSeeds
+import fr.xgouchet.luxels.core.engine.LuxelEngine
 import fr.xgouchet.luxels.core.math.Dimension
 
 /** Main. */
@@ -51,5 +51,5 @@ fun main() {
         simulationSpaceDensity(2.0)
     }
 
-    LuxelEngine.runSimulation(AetherSimulator(0x100), configuration)
+    LuxelEngine().runSimulation(AetherSimulator(0x100), configuration)
 }

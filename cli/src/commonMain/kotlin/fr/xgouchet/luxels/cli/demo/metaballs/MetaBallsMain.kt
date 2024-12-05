@@ -2,10 +2,10 @@ package fr.xgouchet.luxels.cli.demo.metaballs
 
 import fr.xgouchet.luxels.cli.common.baseOutputPath
 import fr.xgouchet.luxels.components.configuration.hdrFixer
-import fr.xgouchet.luxels.core.LuxelEngine
 import fr.xgouchet.luxels.core.configuration.Quality
 import fr.xgouchet.luxels.core.configuration.Resolution
 import fr.xgouchet.luxels.core.configuration.configuration
+import fr.xgouchet.luxels.core.engine.LuxelEngine
 import fr.xgouchet.luxels.core.math.Dimension
 
 /** Main. */
@@ -25,7 +25,7 @@ fun main() {
         simulationSpaceDensity(1.0)
     }
 
-    LuxelEngine.runSimulation(
+    LuxelEngine().runSimulation(
         simulator = MetaBallsSimulator(),
         configuration = configuration,
     )

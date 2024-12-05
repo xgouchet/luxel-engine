@@ -3,7 +3,7 @@ package fr.xgouchet.luxels.cli.demo.mandelbrot
 import fr.xgouchet.luxels.components.render.projection.Flat2DProjection
 import fr.xgouchet.luxels.core.configuration.Configuration
 import fr.xgouchet.luxels.core.configuration.input.InputData
-import fr.xgouchet.luxels.core.log.LogHandlerExt
+import fr.xgouchet.luxels.core.log.LogHandler
 import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.math.Volume
 import fr.xgouchet.luxels.core.render.projection.Projection
@@ -29,7 +29,7 @@ internal class BuddhabrotSimulator(
     override fun initEnvironment(
         simulation: Configuration.Simulation<Dimension.D2>,
         inputData: InputData<Unit>,
-        logger: LogHandlerExt,
+        logger: LogHandler,
     ) {
         this.simulationSpace = simulation.volume
     }

@@ -5,7 +5,7 @@ import fr.xgouchet.luxels.cli.demo.DemoLuxel
 import fr.xgouchet.luxels.components.render.projection.PerspectiveProjection
 import fr.xgouchet.luxels.core.configuration.Configuration
 import fr.xgouchet.luxels.core.configuration.input.InputData
-import fr.xgouchet.luxels.core.log.LogHandlerExt
+import fr.xgouchet.luxels.core.log.LogHandler
 import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.math.Vector
 import fr.xgouchet.luxels.core.math.Volume
@@ -44,7 +44,7 @@ internal class MetaBallsSimulator : Simulator<Dimension.D3, Luxel<Dimension.D3>,
     override fun initEnvironment(
         simulation: Configuration.Simulation<Dimension.D3>,
         inputData: InputData<Unit>,
-        logger: LogHandlerExt,
+        logger: LogHandler,
     ) {
         metaballs = List(6) {
             val scale = RndGen.double.uniform() * 4.0 / 10.0

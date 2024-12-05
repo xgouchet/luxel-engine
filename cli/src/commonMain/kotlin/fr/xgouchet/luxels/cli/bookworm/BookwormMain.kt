@@ -4,10 +4,10 @@ import fr.xgouchet.luxels.cli.bookworm.BookwormInputReader.Companion.missingChar
 import fr.xgouchet.luxels.cli.common.baseInputPath
 import fr.xgouchet.luxels.cli.common.baseOutputPath
 import fr.xgouchet.luxels.components.configuration.hdrFixer
-import fr.xgouchet.luxels.core.LuxelEngine
 import fr.xgouchet.luxels.core.configuration.Quality
 import fr.xgouchet.luxels.core.configuration.Resolution
 import fr.xgouchet.luxels.core.configuration.configurationWithFilesFrom
+import fr.xgouchet.luxels.core.engine.LuxelEngine
 import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.math.Vector
 import fr.xgouchet.luxels.core.math.Volume
@@ -43,7 +43,7 @@ fun main() {
         }
     }
 
-    LuxelEngine.runSimulation(
+    LuxelEngine().runSimulation(
         simulator = BookwormSimulator(luxelLifespan = 0x1000),
         configuration = configuration,
     )

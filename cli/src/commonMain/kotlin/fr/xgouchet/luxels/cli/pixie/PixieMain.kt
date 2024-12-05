@@ -3,11 +3,11 @@ package fr.xgouchet.luxels.cli.pixie
 import fr.xgouchet.luxels.cli.common.baseInputPath
 import fr.xgouchet.luxels.cli.common.baseOutputPath
 import fr.xgouchet.luxels.components.configuration.bmpFixer
-import fr.xgouchet.luxels.core.LuxelEngine
 import fr.xgouchet.luxels.core.configuration.FilmType
 import fr.xgouchet.luxels.core.configuration.Quality
 import fr.xgouchet.luxels.core.configuration.Resolution
 import fr.xgouchet.luxels.core.configuration.configurationWithFilesFrom
+import fr.xgouchet.luxels.core.engine.LuxelEngine
 import fr.xgouchet.luxels.core.math.Dimension
 
 /** Main. */
@@ -29,5 +29,5 @@ fun main() {
         simulationSpaceDensity(2.0)
     }
 
-    LuxelEngine.runSimulation(PixieSimulator(), configuration)
+    LuxelEngine().runSimulation(PixieSimulator(), configuration)
 }
