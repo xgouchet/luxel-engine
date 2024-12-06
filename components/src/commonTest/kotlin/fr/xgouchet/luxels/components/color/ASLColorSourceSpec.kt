@@ -3,8 +3,8 @@ package fr.xgouchet.luxels.components.color
 import fr.xgouchet.luxels.components.color.EMSColorSource.Companion.MAX_IR_LIGHT
 import fr.xgouchet.luxels.components.color.EMSColorSource.Companion.MIN_UV_LIGHT
 import fr.xgouchet.luxels.components.color.atomic.ASLColorSource
+import fr.xgouchet.luxels.components.color.atomic.PeriodicTable
 import fr.xgouchet.luxels.components.test.kotest.assertions.shouldBeCloseTo
-import fr.xgouchet.luxels.components.test.kotest.property.atomicElementArb
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.doubles.shouldBeGreaterThanOrEqual
 import io.kotest.matchers.doubles.shouldBeLessThanOrEqual
@@ -17,8 +17,8 @@ import io.kotest.property.checkAll
 class ASLColorSourceSpec : DescribeSpec(
     {
         describe("spectralLines") {
-            it("only has visible wavelengths") {
-                checkAll(atomicElementArb()) { element ->
+            PeriodicTable.allElements.forEach { element ->
+                it("${element.name} only has visible wavelengths") {
                     element.spectralLines.forEach { line ->
                         line.waveLength shouldBeGreaterThanOrEqual MIN_UV_LIGHT
                         line.waveLength shouldBeLessThanOrEqual MAX_IR_LIGHT
@@ -26,6 +26,7 @@ class ASLColorSourceSpec : DescribeSpec(
                 }
             }
         }
+
         describe("color") {
             it("computes color from spectral lines ") {
                 checkAll(
