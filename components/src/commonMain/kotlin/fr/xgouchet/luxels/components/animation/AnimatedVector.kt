@@ -23,6 +23,10 @@ open class AnimatedVector<D : Dimension>(
 
     internal val curve = Curve(points)
 
+    init {
+        require(duration.inWholeNanoseconds > 0) { "Can't create a curve with duration zero" }
+    }
+
     // region Animated
 
     override fun getValue(time: Duration): Vector<D> {

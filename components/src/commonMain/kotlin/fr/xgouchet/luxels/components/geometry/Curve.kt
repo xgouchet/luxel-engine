@@ -2,6 +2,7 @@ package fr.xgouchet.luxels.components.geometry
 
 import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.math.Vector
+import fr.xgouchet.luxels.core.math.Volume
 import fr.xgouchet.luxels.core.utils.zip
 import kotlin.math.floor
 import kotlin.math.max
@@ -13,6 +14,25 @@ import kotlin.math.min
  * @param points the control points describing the curve
  */
 open class Curve<D : Dimension>(private val points: List<Vector<D>>) {
+
+    init {
+        require(points.isNotEmpty()) { "Can't create a curve with no points" }
+    }
+
+    /**
+     * The bounding volume in which the Curve resides.
+     */
+    val volume: Volume<D> by lazy {
+        var min = points.first()
+        var max = points.first()
+
+        points.forEach { vector ->
+            min = Vector(min.data.zip(vector.data) { a, b -> min(a, b) })
+            max = Vector(max.data.zip(vector.data) { a, b -> max(a, b) })
+        }
+
+        Volume(min, max)
+    }
 
     /**
      * @param t the progress along the curve (0..1)

@@ -14,7 +14,7 @@ open class AnimatedCurve<D : Dimension>(
 ) : Animated<Curve<D>> {
 
     init {
-        check(animatedPoints.size >= 2)
+        require(animatedPoints.isNotEmpty()) { "Can't create a curve with no points" }
     }
 
     // region Animated
