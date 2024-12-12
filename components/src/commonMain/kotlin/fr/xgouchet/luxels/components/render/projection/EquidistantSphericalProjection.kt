@@ -3,21 +3,21 @@ package fr.xgouchet.luxels.components.render.projection
 import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.math.Vector
 import fr.xgouchet.luxels.core.math.Volume
-import fr.xgouchet.luxels.core.render.projection.Projection
+import fr.xgouchet.luxels.engine.render.Projection
 
 /**
  * A [Projection] using an Equidistant Spherical 3D camera.
- * @property simulationSpace the simulation space
+ * @property simulationVolume the simulation space
  * @property filmSpace the film space
  */
 class EquidistantSphericalProjection(
-    override val simulationSpace: Volume<Dimension.D3>,
+    override val simulationVolume: Volume<Dimension.D3>,
     override val filmSpace: Volume<Dimension.D2>,
 ) : Projection<Dimension.D3> {
 
     // region Projection
 
-    override fun convertPosition(position: Vector<Dimension.D3>): Vector<Dimension.D2> {
+    override fun project(position: Vector<Dimension.D3>): List<Vector<Dimension.D2>> {
         /*
             PSEUDO CODE
             IN: vec3 point, float fov, float near, float far

@@ -10,6 +10,7 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformType
 buildscript {
     repositories {
         google()
+        gradlePluginPortal()
         mavenCentral()
         maven { setUrl("https://plugins.gradle.org/m2/") }
     }
@@ -22,6 +23,7 @@ buildscript {
         classpath(libs.ktlintGradlePlugin)
         classpath(libs.detektGradlePlugin)
         classpath(libs.kotestGradlePlugin)
+        classpath(libs.mokkeryGradlePlugin)
 
         classpath(libs.pitestGradlePlugin)
         classpath(libs.koverGradlePlugin)
@@ -42,8 +44,8 @@ allprojects {
             val kotlinExt = extensions.findByType(KotlinMultiplatformExtension::class.java)
             if (kotlinExt != null) {
 
-                val detektJvmMain = tasks.named("detektJvmMain").get() as? Detekt
-                val detektJvmTest = tasks.named("detektJvmTest").get() as? Detekt
+                val detektJvmMain = tasks.named("detektJvmMain").orNull as? Detekt
+                val detektJvmTest = tasks.named("detektJvmTest").orNull as? Detekt
 
                 val mainSourceSets = mutableListOf<FileTreeInternal>()
                 val testSourceSets = mutableListOf<FileTreeInternal>()

@@ -3,7 +3,7 @@ package fr.xgouchet.luxels.components.io
 import fr.xgouchet.graphikio.GraphikIO
 import fr.xgouchet.graphikio.format.ImageFormat
 import fr.xgouchet.luxels.core.io.ImageFixer
-import fr.xgouchet.luxels.core.render.exposure.Film
+import fr.xgouchet.luxels.core.render.Film
 import okio.Path
 
 /**

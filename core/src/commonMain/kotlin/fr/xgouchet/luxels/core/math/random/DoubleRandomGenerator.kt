@@ -19,7 +19,7 @@ class DoubleRandomGenerator(
     }
 
     override fun inRange(min: Double, max: Double): Double {
-        return if (max == min) {
+        return if (max <= min) {
             min
         } else {
             random.nextDouble(min, max)

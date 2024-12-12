@@ -8,7 +8,9 @@ import kotlin.random.Random
  * The basis Random Generator utility object.
  */
 object RndGen {
-    internal var seed: Long = 0L
+
+    /** The seed used to generate all random data. */
+    var seed: Long = 0L
         private set
 
     private var random = Random(0L)
@@ -20,7 +22,6 @@ object RndGen {
     fun resetSeed(newSeed: Long) {
         seed = newSeed
         random = Random(newSeed)
-        println("--- Reset Seed: $newSeed")
 
         int = IntRandomGenerator(Random(seed))
         double = DoubleRandomGenerator(Random(seed))

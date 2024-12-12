@@ -26,6 +26,7 @@ ktlintGradlePlugin = "12.1.0"
 nexusPublishGradlePlugin = "1.1.0"
 pitestGradlePlugin = "1.15.0"
 versionsGradlePlugin = "0.46.0"
+mokkeryGradlePlugin = "2.3.0"
 
 [libraries]
 
@@ -39,6 +40,7 @@ ktlintGradlePlugin = { module = "org.jlleitschuh.gradle:ktlint-gradle", version.
 nexusPublishGradlePlugin = { module = "io.github.gradle-nexus:publish-plugin", version.ref = "nexusPublishGradlePlugin" }
 pitestGradlePlugin = { module = "info.solidsoft.pitest:info.solidsoft.pitest.gradle.plugin", version.ref = "pitestGradlePlugin" }
 versionsGradlePlugin = { module = "com.github.ben-manes:gradle-versions-plugin", version.ref = "versionsGradlePlugin" }
+mokkeryGradlePlugin = { module = "dev.mokkery:mokkery-gradle", version.ref = "mokkeryGradlePlugin" }
 
 # Common
 kotlin = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }

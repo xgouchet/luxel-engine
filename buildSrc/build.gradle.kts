@@ -17,6 +17,7 @@ dependencies {
     implementation(libs.ktlintGradlePlugin)
     implementation(libs.detektGradlePlugin)
     implementation(libs.kotestGradlePlugin)
+    implementation(libs.mokkeryGradlePlugin)
 
     implementation(libs.pitestGradlePlugin)
     implementation(libs.koverGradlePlugin)

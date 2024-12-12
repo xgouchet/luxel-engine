@@ -282,6 +282,16 @@ class Vector<D : Dimension> internal constructor(
     companion object {
 
         /**
+         * Creates a Vector based on an initialisation lambda.
+         * @param D the dimension of the vectors
+         * @param d an instance of the dimension
+         * @param init a lambda with the index as parameter to build the nth component of the vector
+         */
+        fun <D : Dimension> from(d: D, init: (Int) -> Double): Vector<D> {
+            return Vector(DoubleArray(d.size, init))
+        }
+
+        /**
          * Create the axes vectors corresponding to the provided dimension.
          * @param D the dimension of the vectors
          * @param d an instance of the dimension

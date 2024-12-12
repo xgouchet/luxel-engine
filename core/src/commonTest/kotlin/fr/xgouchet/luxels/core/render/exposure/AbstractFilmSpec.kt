@@ -1,13 +1,15 @@
 package fr.xgouchet.luxels.core.render.exposure
 
 import fr.xgouchet.graphikio.color.HDRColor
-import fr.xgouchet.luxels.core.configuration.Resolution
 import fr.xgouchet.luxels.core.math.Vector2
+import fr.xgouchet.luxels.core.render.AbstractFilm
+import fr.xgouchet.luxels.core.render.Resolution
 import fr.xgouchet.luxels.core.test.kotest.assertions.shouldBeCloseTo
 import fr.xgouchet.luxels.core.test.kotest.property.colorArb
 import fr.xgouchet.luxels.core.test.kotest.property.resolutionArb
 import io.kotest.common.ExperimentalKotest
 import io.kotest.core.spec.style.describeSpec
+import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb
 import io.kotest.property.arbitrary.double
 import io.kotest.property.arbitrary.int
@@ -35,6 +37,7 @@ internal fun abstractFilmSpec(supportsDirectExposure: Boolean = true, filmProvid
                     film.getColor(i, j) shouldBeCloseTo HDRColor.TRANSPARENT
                 }
             }
+
             it("does nothing when exposing outside the bounds of the film (-y)") {
                 checkAll(
                     resolutionArb(),
@@ -188,6 +191,37 @@ internal fun abstractFilmSpec(supportsDirectExposure: Boolean = true, filmProvid
                             film.getColor(i, j) shouldBeCloseTo HDRColor.TRANSPARENT
                         }
                     }
+                }
+            }
+        }
+
+        describe("hasData") {
+            it("returns false by default") {
+                checkAll(
+                    resolutionArb(),
+                ) { resolution ->
+                    val film = filmProvider(resolution)
+
+                    val hasData = film.hasData()
+
+                    hasData shouldBe false
+                }
+            }
+
+            it("returns true after exposure") {
+                checkAll(
+                    resolutionArb(),
+                    Arb.int(),
+                    Arb.int(max = -1),
+                    colorArb(),
+                    Arb.double(0.1, 100.0),
+                ) { resolution, i, j, color, intensity ->
+                    val film = filmProvider(resolution)
+
+                    film.expose(i, j, color, intensity)
+                    val hasData = film.hasData()
+
+                    hasData shouldBe true
                 }
             }
         }
