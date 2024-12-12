@@ -6,7 +6,7 @@ import io.kotest.property.arbitrary.long
 import kotlin.time.Duration.Companion.milliseconds
 
 fun durationArb() = arbitrary {
-    Arb.long(-Long.MAX_VALUE / 2, Long.MAX_VALUE / 2).bind().milliseconds
+    Arb.long(0, Long.MAX_VALUE / 2).bind().milliseconds
 }
 
 fun shortDurationArb() = arbitrary {

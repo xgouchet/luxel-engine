@@ -1,8 +1,8 @@
 package fr.xgouchet.luxels.components.geometry
 
-import fr.xgouchet.luxels.core.collections.zip
 import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.math.Vector
+import fr.xgouchet.luxels.core.utils.zip
 import kotlin.math.floor
 import kotlin.math.max
 import kotlin.math.min

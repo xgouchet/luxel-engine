@@ -2,6 +2,7 @@
 
 include(":graphikio")
 include(":core")
+include(":engine")
 include(":components")
 include(":cli")
 include(":detekt")

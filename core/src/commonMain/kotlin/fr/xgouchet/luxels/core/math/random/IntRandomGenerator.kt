@@ -2,6 +2,7 @@ package fr.xgouchet.luxels.core.math.random
 
 import fr.xgouchet.luxels.core.math.TAU
 import kotlin.math.cos
+import kotlin.math.floor
 import kotlin.math.ln
 import kotlin.math.roundToInt
 import kotlin.math.sqrt
@@ -16,11 +17,11 @@ class IntRandomGenerator(
     // region RandomGenerator
 
     override fun uniform(): Int {
-        return (random.nextDouble() * 100).roundToInt()
+        return floor(random.nextDouble() * 100).roundToInt()
     }
 
     override fun inRange(min: Int, max: Int): Int {
-        return if (max == min) {
+        return if (max <= min) {
             min
         } else {
             random.nextInt(min, max)
@@ -32,12 +33,14 @@ class IntRandomGenerator(
     }
 
     override fun gaussian(mean: Int, standardDeviation: Int): Int {
+        // Box muller works better when returning both values
         val u = 1 - random.nextDouble()
         val v = random.nextDouble()
 
-        val z = sqrt(-2.0 * ln(u)) * cos(TAU * v)
+        val z1 = sqrt(-2.0 * ln(u)) * cos(TAU * v)
+        // TODO val z2 = sqrt(-2.0 * ln(u)) * sin(TAU * v)
 
-        return (mean + (z * standardDeviation)).roundToInt()
+        return (mean + (z1 * standardDeviation)).roundToInt()
     }
 
     // endregion

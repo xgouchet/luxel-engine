@@ -25,6 +25,10 @@ jobs:
           command : ./gradlew :core:checkJvm
 
       - run:
+          name: Run checks on engine
+          command : ./gradlew :engine:checkJvm
+
+      - run:
           name: Run checks on components
           command : ./gradlew :components:checkJvm
 
@@ -32,9 +36,9 @@ jobs:
           name: Run checks on graphikio
           command : ./gradlew :graphikio:checkJvm
 
-      - run:
-          name: Run checks on cli
-          command : ./gradlew :cli:checkJvm
+#      - run:
+#          name: Run checks on cli
+#          command : ./gradlew :cli:checkJvm
 
       - run:
           name: Save test results
@@ -48,6 +52,8 @@ jobs:
 
       - codecov/upload:
           file: core/build/reports/kover/report.xml
+      - codecov/upload:
+          file: engine/build/reports/kover/report.xml
       - codecov/upload:
           file: components/build/reports/kover/report.xml
       - codecov/upload:

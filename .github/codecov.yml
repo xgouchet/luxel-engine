@@ -18,6 +18,10 @@ component_management:
       name: core
       paths:
         - core/**
+    - component_id: engine
+      name: engine
+      paths:
+        - engine/**
     - component_id: components
       name: components
       paths:

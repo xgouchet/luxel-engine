@@ -3,7 +3,7 @@ package fr.xgouchet.luxels.components.io
 import fr.xgouchet.graphikio.color.Color
 import fr.xgouchet.graphikio.data.MetadataAttribute
 import fr.xgouchet.graphikio.data.RasterData
-import fr.xgouchet.luxels.core.render.exposure.Film
+import fr.xgouchet.luxels.core.render.Film
 
 internal class FilmRasterDataWrapper(
     val film: Film,

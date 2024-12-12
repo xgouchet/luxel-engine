@@ -2,11 +2,21 @@
 
 package fr.xgouchet.luxels.core.system
 
-actual object SystemInfo {
+import fr.xgouchet.luxels.core.concurrency.ConcurrencyCapabilities
+import fr.xgouchet.luxels.core.render.Resolution
+
+actual object SystemInfo : ConcurrencyCapabilities {
     /***
      * @return the number of thread that can run safely in parallel
      */
-    actual fun getParallelCapacity(): Int {
+    actual override fun getCpuParallelCapacity(): Int {
+        TODO("Not yet implemented")
+    }
+
+    /**
+     * Get the number of thread that can run safely in parallel based on available memory.
+     */
+    actual override fun getMemoryParallelCapacity(resolution: Resolution): Int {
         TODO("Not yet implemented")
     }
 

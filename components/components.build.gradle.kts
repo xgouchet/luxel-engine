@@ -34,6 +34,7 @@ kotlin {
                 implementation(libs.okio)
 
                 implementation(project(":core"))
+                implementation(project(":engine"))
                 implementation(project(":graphikio"))
             }
         }

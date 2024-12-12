@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.konan.target.HostManager
 plugins {
     kotlin("multiplatform")
     id("common")
-    id("com.goncalossilva.resources") version ("0.4.1")
+    id("com.goncalossilva.resources") version ("0.4.1") // Use Resources in Tests
 }
 
 kotlin {

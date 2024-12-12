@@ -5,6 +5,12 @@
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/xgouchet/luxel-engine/tree/main.svg?style=shield)](https://dl.circleci.com/status-badge/redirect/gh/xgouchet/luxel-engine/tree/main)
 [![codecov](https://codecov.io/github/xgouchet/luxel-engine/graph/badge.svg?token=F62SNXPC6U)](https://codecov.io/github/xgouchet/luxel-engine)
 
+## Modules
+
+- core : contains the core math and basic utilities
+- engine : contains the main engine logic and API
+- components : contains some high level building blocks to build scenes more easily
+- graphikio : contains the base code to read and write image files
 
 ## Scenes progress
 

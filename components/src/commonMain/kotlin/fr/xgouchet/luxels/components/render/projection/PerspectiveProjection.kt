@@ -14,12 +14,12 @@ import fr.xgouchet.luxels.core.math.x
 import fr.xgouchet.luxels.core.math.xy
 import fr.xgouchet.luxels.core.math.y
 import fr.xgouchet.luxels.core.math.z
-import fr.xgouchet.luxels.core.render.projection.Projection
+import fr.xgouchet.luxels.engine.render.Projection
 import kotlin.math.tan
 
 /**
  * A [Projection] using a Perspective 3D camera.
- * @property simulationSpace the simulation space
+ * @property simulationVolume the simulation space
  * @property filmSpace the film space
  * @param cameraPosition the position (in simulation space) of the camera
  * @param targetPosition the position (in simulation space) that the camera is pointed at (defaults to the
@@ -27,12 +27,14 @@ import kotlin.math.tan
  * @param fov the field of view angle in degrees (defaults to 90°)
  */
 class PerspectiveProjection(
-    override val simulationSpace: Volume<Dimension.D3>,
+    override val simulationVolume: Volume<Dimension.D3>,
     override val filmSpace: Volume<Dimension.D2>,
     cameraPosition: Vector<Dimension.D3>,
-    targetPosition: Vector<Dimension.D3> = simulationSpace.center,
+    targetPosition: Vector<Dimension.D3> = simulationVolume.center,
     fov: Double = 90.0,
 ) : Projection<Dimension.D3> {
+
+    // TODO generate DoF
 
     private var viewMatrix = Matrix.identity(Dimension.D4, Dimension.D4)
     private var projectionMatrix = Matrix.identity(Dimension.D4, Dimension.D4)
@@ -44,18 +46,18 @@ class PerspectiveProjection(
             filmSpace.size.y,
             fov * TAU / 360.0,
             0.0,
-            simulationSpace.size.length(),
+            simulationVolume.size.length(),
         )
     }
 
     // region Projection
 
-    override fun convertPosition(position: Vector<Dimension.D3>): Vector<Dimension.D2> {
+    override fun project(position: Vector<Dimension.D3>): List<Vector<Dimension.D2>> {
         val worldPos = position.asPosition()
         val viewPos = viewMatrix * worldPos
         val screenPos = (projectionMatrix * viewPos).asVector()
         val screenPosNormalized = screenPos.xy / screenPos.z
-        return (screenPosNormalized * filmSpace.size) + filmSpace.center
+        return listOf((screenPosNormalized * filmSpace.size) + filmSpace.center)
     }
 
     // endregion

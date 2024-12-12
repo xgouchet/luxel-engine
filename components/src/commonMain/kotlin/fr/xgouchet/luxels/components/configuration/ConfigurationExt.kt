@@ -2,7 +2,7 @@ package fr.xgouchet.luxels.components.configuration
 
 import fr.xgouchet.luxels.components.io.BmpImageFixer
 import fr.xgouchet.luxels.components.io.HdrImageFixer
-import fr.xgouchet.luxels.core.configuration.RenderConfigBuilder
+import fr.xgouchet.luxels.engine.api.configuration.RenderConfigBuilder
 import okio.Path
 import okio.Path.Companion.toPath
 

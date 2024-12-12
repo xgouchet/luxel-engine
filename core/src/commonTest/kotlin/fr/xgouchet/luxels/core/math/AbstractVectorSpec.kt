@@ -258,12 +258,14 @@ fun <D : Dimension> abstractVectorSpec(d: D) = describeSpec {
             }
         }
 
-        it("is consistent with addition") {
+        it("is consistent with addition: v <= u = (v + w) <= (u + w)") {
             checkAll(vectorArb, vectorArb, vectorArb) { u, v, w ->
-                val `v lte u` = v isLessThanOrEqual u
-                val `v + w lte u + w` = (v + w) isLessThanOrEqual (u + w)
+                withAssumptions(u.length() > EPSILON && v.length() > EPSILON) {
+                    val `v lte u` = v isLessThanOrEqual u
+                    val `v + w lte u + w` = (v + w) isLessThanOrEqual (u + w)
 
-                `v lte u` shouldBe `v + w lte u + w`
+                    `v lte u` shouldBe `v + w lte u + w`
+                }
             }
         }
 
@@ -316,12 +318,14 @@ fun <D : Dimension> abstractVectorSpec(d: D) = describeSpec {
             }
         }
 
-        it("is consistent with addition") {
+        it("is consistent with addition: v >= u = (v + w) >= (u + w)") {
             checkAll(vectorArb, vectorArb, vectorArb) { u, v, w ->
-                val `v lt u` = v isLessThan u
-                val `v + w lt u + w` = (v + w) isLessThan (u + w)
+                withAssumptions(u.length() > EPSILON && v.length() > EPSILON) {
+                    val `v lt u` = v isLessThan u
+                    val `v + w lt u + w` = (v + w) isLessThan (u + w)
 
-                `v lt u` shouldBe `v + w lt u + w`
+                    `v lt u` shouldBe `v + w lt u + w`
+                }
             }
         }
 

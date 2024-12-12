@@ -13,6 +13,6 @@ interface LogHandler {
     fun onLog(log: Log)
 
     companion object {
-        internal val INDENTATIONS = (0..16).map { CharArray(it) { ' ' }.concatToString() }
+        internal val INDENTATIONS = (0..16).map { CharArray(it * 2) { ' ' }.concatToString() }
     }
 }

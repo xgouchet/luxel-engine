@@ -9,6 +9,7 @@ echo "  ┗━━━━━━━━━━━━┛"
 echo " ··· Clean"
 ./gradlew :graphikio:clean
 ./gradlew :core:clean
+./gradlew :engine:clean
 ./gradlew :components:clean
 ./gradlew :cli:clean
 echo "   ✔ Clean"

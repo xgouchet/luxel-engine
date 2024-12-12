@@ -3,10 +3,14 @@ package fr.xgouchet.luxels.core.log
 import fr.xgouchet.luxels.core.log.LogHandler.Companion.INDENTATIONS
 import kotlin.math.roundToInt
 
+internal typealias Output = (String) -> Unit
+
 /**
  * A [LogHandler] that prints the logs in the standard output.
  */
-class StdOutLogHandler : LogHandler {
+class StdOutLogHandler(
+    private val output: Output = { print(it) },
+) : LogHandler {
 
     private var sectionLevel: Int = 0
 
@@ -37,16 +41,18 @@ class StdOutLogHandler : LogHandler {
                 is Log.StartProgress -> isShowingProgress = true
 
                 is Log.StartSection -> {
-                    printLine("-", log.title)
+                    writeLine("-", log.title)
                     sectionLevel++
                 }
 
                 is Log.EndSection -> sectionLevel--
 
-                is Log.Message -> printLine(log.level.symbol, log.content)
+                is Log.Message -> writeLine(log.level.symbol, log.content)
 
-                else -> {
-                    // No Op
+                is Log.EndProgress,
+                is Log.Progress,
+                -> {
+                    // No op
                 }
             }
         }
@@ -58,12 +64,12 @@ class StdOutLogHandler : LogHandler {
 
     private fun handleProgress(progress: Log.Progress) {
         val perThousand = progress.progress * 1000.0
-        print("\r… ${perThousand.roundToInt()}‰ ${progress.message}")
+        output.invoke("\r… ${perThousand.roundToInt()}‰ ${progress.message}")
     }
 
-    private fun printLine(prefix: String, message: String) {
+    private fun writeLine(prefix: String, message: String) {
         val indentation = INDENTATIONS[sectionLevel]
-        println("\r$prefix $indentation $message")
+        output.invoke("\r$indentation$prefix $message\n")
     }
 
     private fun handleBacklog() {

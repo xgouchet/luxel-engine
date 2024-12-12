@@ -1,6 +1,6 @@
 package fr.xgouchet.luxels.core.io
 
-import fr.xgouchet.luxels.core.render.exposure.Film
+import fr.xgouchet.luxels.core.render.Film
 
 /**
  * An Image Fixer doing nothing.
