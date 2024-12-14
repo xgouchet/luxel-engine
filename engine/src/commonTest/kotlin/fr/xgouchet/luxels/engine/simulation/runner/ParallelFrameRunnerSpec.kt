@@ -80,9 +80,7 @@ class ParallelFrameRunnerSpec : DescribeSpec(
                     val scene = mock<Scene<Dimension, Luxel<Dimension>, Long, Environment<Dimension>>> {
                         every { outputName() } returns ("foo")
                         every {
-                            initEnvironment(
-                                configuration.simulationVolume,
-                                configuration.inputData,
+                            getFrameEnvironment(
                                 configuration.animationFrameInfo,
                             )
                         } returns (environment)

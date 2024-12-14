@@ -50,11 +50,7 @@ class ParallelSimulationRunner(
         configuration: InternalConfiguration<D, I>,
     ) {
         val fileName = getFilename(scene, configuration)
-        val environment = scene.initEnvironment(
-            configuration.simulationVolume,
-            configuration.inputData,
-            configuration.animationFrameInfo,
-        )
+        val environment = scene.getFrameEnvironment(configuration.animationFrameInfo)
         val projection = scene.getProjection(
             configuration.simulationVolume,
             configuration.outputResolution.asVector2().asVolume(),

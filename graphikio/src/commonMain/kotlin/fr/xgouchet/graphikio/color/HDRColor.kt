@@ -39,6 +39,14 @@ data class HDRColor(
         return HDRColor(r * scale, g * scale, b * scale, a * scale)
     }
 
+    /**
+     * @param scale the factor by which to multiply the color
+     * @return a color with each component multiplied (channel wise) by the given input
+     */
+    operator fun times(scale: HDRColor): HDRColor {
+        return HDRColor(r * scale.r, g * scale.g, b * scale.b, a * scale.a)
+    }
+
     // endregion
 
     // region Color operations

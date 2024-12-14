@@ -20,7 +20,7 @@ echo " ··· Detekt [jvm]"
 ./gradlew :core:detektJvmMain
 ./gradlew :engine:detektJvmMain
 ./gradlew :components:detektJvmMain
-#./gradlew :cli:detektJvmMain
+./gradlew :cli:detektJvmMain
 echo "   ✔ Detekt [jvm]"
 echo ""
 
@@ -29,7 +29,6 @@ echo " ··· Test [jvm]"
 ./gradlew :core:jvmTest
 ./gradlew :engine:jvmTest
 ./gradlew :components:jvmTest
-#./gradlew :cli:jvmTest
 echo "   ✔ Test [jvm]"
 echo ""
 
@@ -38,6 +37,6 @@ echo " ··· Dependency upgrades"
 ./gradlew :core:dependencyUpdates
 ./gradlew :engine:dependencyUpdates
 ./gradlew :components:dependencyUpdates
-#./gradlew :cli:dependencyUpdates
+./gradlew :cli:dependencyUpdates
 echo "   ✔ Dependency upgrades"
 echo ""

@@ -1,72 +1,26 @@
 package fr.xgouchet.luxels.cli.demo.noise
 
 import fr.xgouchet.graphikio.color.HDRColor
-import fr.xgouchet.luxels.cli.demo.DemoLuxel
-import fr.xgouchet.luxels.components.noise.NoiseGenerator
-import fr.xgouchet.luxels.components.render.projection.Flat2DProjection
-import fr.xgouchet.luxels.core.configuration.Configuration
-import fr.xgouchet.luxels.core.configuration.input.InputData
-import fr.xgouchet.luxels.core.log.LogHandler
-import fr.xgouchet.luxels.core.math.Dimension
-import fr.xgouchet.luxels.core.math.Vector
-import fr.xgouchet.luxels.core.math.Vector2
-import fr.xgouchet.luxels.core.math.Volume
+import fr.xgouchet.luxels.components.engine.StaticLuxel
+import fr.xgouchet.luxels.core.math.Dimension.D2
 import fr.xgouchet.luxels.core.math.random.RndGen
 import fr.xgouchet.luxels.core.math.random.inVolume
-import fr.xgouchet.luxels.core.render.projection.Projection
-import fr.xgouchet.luxels.core.simulation.Simulator
-import kotlin.time.Duration
+import fr.xgouchet.luxels.engine.api.Simulator
+import fr.xgouchet.luxels.engine.simulation.runner.FrameInfo
 
-// TODO debug weird x=y artifact
-internal class NoiseSimulator(
-    private val noiseSource: NoiseGenerator<Vector<Dimension.D2>, Double>,
-) : Simulator<Dimension.D2, DemoLuxel<Dimension.D2>, Unit> {
-
-    private val noiseScale = Vector2(0.001, 0.001)
+class NoiseSimulator : Simulator<D2, StaticLuxel<D2>, NoiseEnvironment> {
 
     // region Simulator
 
-    override fun getProjection(
-        simulationSpace: Volume<Dimension.D2>,
-        filmSpace: Volume<Dimension.D2>,
-        time: Duration,
-    ): Projection<Dimension.D2> {
-        return Flat2DProjection(simulationSpace, filmSpace)
-    }
-
-    override fun initEnvironment(
-        simulation: Configuration.Simulation<Dimension.D2>,
-        inputData: InputData<Unit>,
-        logger: LogHandler,
-    ) {
-    }
-
-    override fun onFrameStart(
-        simulation: Configuration.Simulation<Dimension.D2>,
-        time: Duration,
-        animationDuration: Duration,
-    ) {
-    }
-
-    override fun onFrameEnd(time: Duration, animationDuration: Duration) {
-    }
-
-    override suspend fun spawnLuxel(
-        simulation: Configuration.Simulation<Dimension.D2>,
-        time: Duration,
-    ): DemoLuxel<Dimension.D2> {
-        val position = RndGen.vector2.inVolume(simulation.volume)
-        val noise = noiseSource.noise((position * noiseScale))
+    override fun spawnLuxel(environment: NoiseEnvironment, frameInfo: FrameInfo): StaticLuxel<D2> {
+        val position = RndGen.vector2.inVolume(environment.simulationVolume)
+        val noise = environment.getNoise(position)
         val color = HDRColor(noise, noise, noise)
 
-        return DemoLuxel(position, color)
+        return StaticLuxel(position, color)
     }
 
-    override fun updateLuxel(luxel: DemoLuxel<Dimension.D2>, time: Duration) {
-    }
-
-    override fun outputName(): String {
-        return "noise"
+    override fun updateLuxel(luxel: StaticLuxel<D2>) {
     }
 
     // endregion

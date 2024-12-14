@@ -16,11 +16,11 @@ import fr.xgouchet.luxels.core.math.random.RndGen
  * @property number the atomic number of the element (e.g.: 80)
  * @param spectralLines the list of spectral lines for this element
  */
-abstract class ASLColorSource(
+open class ASLColorSource(
     val name: String,
     val symbol: String,
     val number: Int,
-    private val spectralLines: List<SpectralLine>,
+    internal val spectralLines: List<SpectralLine>,
 ) : EMSColorSource(0.0, 0.0, 0.8) {
     /**
      * Describe one of the spectral lines a given element can emit.

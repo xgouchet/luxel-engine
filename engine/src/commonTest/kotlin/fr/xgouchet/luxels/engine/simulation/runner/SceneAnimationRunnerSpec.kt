@@ -45,6 +45,24 @@ class SceneAnimationRunnerSpec : DescribeSpec(
                     RndGen.seed shouldBe configuration.inputData.seed
                 }
             }
+            it("prepares the scene") {
+                checkAll(internalConfigurationArb()) { configuration ->
+                    val logHandler = mock<LogHandler>()
+                    val simulationRunner = mock<SimulationRunner>()
+                    val scene = mock<Scene<Dimension, Luxel<Dimension>, Long, Environment<Dimension>>>()
+                    val testedRunner = SceneAnimationRunner(logHandler, simulationRunner)
+
+                    testedRunner.runSimulation(scene, configuration)
+
+                    verify {
+                        scene.prepareScene(
+                            configuration.simulationVolume,
+                            configuration.animationDuration,
+                            configuration.inputData,
+                        )
+                    }
+                }
+            }
 
             it("simulate all frames") {
                 checkAll(internalConfigurationArb()) { configuration ->

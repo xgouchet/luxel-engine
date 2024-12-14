@@ -162,4 +162,9 @@ object PeriodicTable {
         Gold,
         Mercury,
     )
+
+    /**
+     * Group all known elements of the periodic table.
+     */
+    val allElements = lightElements + mediumElements + heavyElements
 }
