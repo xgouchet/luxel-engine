@@ -19,8 +19,8 @@ class ProjectionExposure<D : Dimension>(
     // region Exposure
 
     override fun expose(position: Vector<D>, color: Color) {
-        projection.project(position).forEach { targetPosition ->
-            target.expose(targetPosition, color)
+        projection.project(position, color).forEach { (p, c) ->
+            target.expose(p, c)
         }
     }
 

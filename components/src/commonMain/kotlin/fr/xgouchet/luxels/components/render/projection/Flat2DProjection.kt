@@ -1,5 +1,6 @@
 package fr.xgouchet.luxels.components.render.projection
 
+import fr.xgouchet.luxels.components.render.SinglePositionProjection
 import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.math.Vector
 import fr.xgouchet.luxels.core.math.Volume
@@ -7,13 +8,14 @@ import fr.xgouchet.luxels.engine.render.Projection
 
 /**
  * A basic 2D [Projection].
- * @property simulationVolume the simulation space
- * @property filmSpace the film space
+ *
+ * @param simulationVolume the simulation volume
+ * @param filmSpace the film space
  */
 class Flat2DProjection(
-    override val simulationVolume: Volume<Dimension.D2>,
-    override val filmSpace: Volume<Dimension.D2>,
-) : Projection<Dimension.D2> {
+    simulationVolume: Volume<Dimension.D2>,
+    filmSpace: Volume<Dimension.D2>,
+) : SinglePositionProjection<Dimension.D2>(simulationVolume, filmSpace) {
 
     // region Projection
 

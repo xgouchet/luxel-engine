@@ -1,6 +1,9 @@
 package fr.xgouchet.luxels.components.render.projection
 
+import fr.xgouchet.luxels.components.render.SinglePositionProjection
 import fr.xgouchet.luxels.core.math.Dimension
+import fr.xgouchet.luxels.core.math.Dimension.D2
+import fr.xgouchet.luxels.core.math.Dimension.D3
 import fr.xgouchet.luxels.core.math.Matrix
 import fr.xgouchet.luxels.core.math.Matrix4x4
 import fr.xgouchet.luxels.core.math.TAU
@@ -10,6 +13,7 @@ import fr.xgouchet.luxels.core.math.Vector4
 import fr.xgouchet.luxels.core.math.Volume
 import fr.xgouchet.luxels.core.math.asVector
 import fr.xgouchet.luxels.core.math.cross
+import fr.xgouchet.luxels.core.math.random.RndGen
 import fr.xgouchet.luxels.core.math.x
 import fr.xgouchet.luxels.core.math.xy
 import fr.xgouchet.luxels.core.math.y
@@ -19,52 +23,75 @@ import kotlin.math.tan
 
 /**
  * A [Projection] using a Perspective 3D camera.
- * @property simulationVolume the simulation space
- * @property filmSpace the film space
+ * @param simulationVolume the simulation volume
+ * @param filmSpace the film space
  * @param cameraPosition the position (in simulation space) of the camera
  * @param targetPosition the position (in simulation space) that the camera is pointed at (defaults to the
- * center of the simulation space)
- * @param fov the field of view angle in degrees (defaults to 90°)
+ * center of the simulation volume)
+ * @param settings the Settings for the camera effects
  */
 class PerspectiveProjection(
-    override val simulationVolume: Volume<Dimension.D3>,
-    override val filmSpace: Volume<Dimension.D2>,
-    cameraPosition: Vector<Dimension.D3>,
-    targetPosition: Vector<Dimension.D3> = simulationVolume.center,
-    fov: Double = 90.0,
-) : Projection<Dimension.D3> {
+    simulationVolume: Volume<D3>,
+    filmSpace: Volume<D2>,
+    cameraPosition: Vector<D3>,
+    targetPosition: Vector<D3> = simulationVolume.center,
+    settings: Settings = Settings(),
+) : SinglePositionProjection<D3>(simulationVolume, filmSpace) {
 
-    // TODO generate DoF
+    /**
+     * The 3D Camera settings.
+     *
+     * @property fov the field of view angle in degrees (defaults to 90°)
+     * @property dofFocusDistance the distance of focus for the Depth of Field effect
+     * @property dofStrength the strength of the depth of field effect
+     * @property dofSamples the number of samples for the Depth of Field effect
+     */
+    data class Settings(
+        val fov: Double = 90.0,
+        val dofFocusDistance: Double = 1.0,
+        val dofStrength: Double = 0.1,
+        val dofSamples: Int = 0,
+    )
 
-    private var viewMatrix = Matrix.identity(Dimension.D4, Dimension.D4)
-    private var projectionMatrix = Matrix.identity(Dimension.D4, Dimension.D4)
+    private val viewMatrix = view(cameraPosition, targetPosition).inverse()
+    private val dofViewMatrices by lazy {
+        val dofCenter = cameraPosition + (targetPosition - cameraPosition).normalized() * settings.dofFocusDistance
+        val rng = RndGen.vector3
 
-    init {
-        viewMatrix = view(cameraPosition, targetPosition).inverse()
-        projectionMatrix = projection(
-            filmSpace.size.x,
-            filmSpace.size.y,
-            fov * TAU / 360.0,
-            0.0,
-            simulationVolume.size.length(),
-        )
+        List(settings.dofSamples) {
+            view(
+                cameraPosition = cameraPosition + (rng.gaussian() * settings.dofStrength),
+                targetPosition = dofCenter,
+            ).inverse()
+        }
     }
+
+    private val projectionMatrix = projection(
+        filmSpace.size.x,
+        filmSpace.size.y,
+        settings.fov * TAU / 360.0,
+        0.0,
+        simulationVolume.size.length(),
+    )
 
     // region Projection
 
-    override fun project(position: Vector<Dimension.D3>): List<Vector<Dimension.D2>> {
+    override fun project(position: Vector<D3>): List<Vector<D2>> {
         val worldPos = position.asPosition()
-        val viewPos = viewMatrix * worldPos
-        val screenPos = (projectionMatrix * viewPos).asVector()
-        val screenPosNormalized = screenPos.xy / screenPos.z
-        return listOf((screenPosNormalized * filmSpace.size) + filmSpace.center)
+
+        return (dofViewMatrices + viewMatrix).map {
+            val viewPos = it * worldPos
+            val screenPos = (projectionMatrix * viewPos).asVector()
+            val screenPosNormalized = screenPos.xy / screenPos.z
+            (screenPosNormalized * filmSpace.size) + filmSpace.center
+        }
     }
 
     // endregion
 
     // region Internal
 
-    private fun Vector<Dimension.D3>.asPosition(): Matrix<Dimension.D1, Dimension.D4> {
+    private fun Vector<D3>.asPosition(): Matrix<Dimension.D1, Dimension.D4> {
         return Vector4(x, y, z, 1.0).asVerticalMatrix()
     }
 
@@ -79,10 +106,7 @@ class PerspectiveProjection(
          * @param cameraPosition the position of the camera
          * @param targetPosition the position the camera is pointed at
          */
-        private fun view(
-            cameraPosition: Vector<Dimension.D3>,
-            targetPosition: Vector<Dimension.D3>,
-        ): Matrix<Dimension.D4, Dimension.D4> {
+        private fun view(cameraPosition: Vector<D3>, targetPosition: Vector<D3>): Matrix<Dimension.D4, Dimension.D4> {
             val result = Matrix4x4()
             val dir = (targetPosition - cameraPosition).normalized()
             val right = dir cross Vector3(0.0, 1.0, 0.0)

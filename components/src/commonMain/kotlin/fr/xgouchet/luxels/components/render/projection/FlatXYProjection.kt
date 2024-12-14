@@ -1,5 +1,6 @@
 package fr.xgouchet.luxels.components.render.projection
 
+import fr.xgouchet.luxels.components.render.SinglePositionProjection
 import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.math.Vector
 import fr.xgouchet.luxels.core.math.Volume
@@ -8,13 +9,14 @@ import fr.xgouchet.luxels.engine.render.Projection
 
 /**
  * A [Projection] using an orthographic 2D camera.
- * @property simulationVolume the simulation space
- * @property filmSpace the film space
+ *
+ * @param simulationVolume the simulation volume
+ * @param filmSpace the film space
  */
 class FlatXYProjection(
-    override val simulationVolume: Volume<Dimension.D3>,
-    override val filmSpace: Volume<Dimension.D2>,
-) : Projection<Dimension.D3> {
+    simulationVolume: Volume<Dimension.D3>,
+    filmSpace: Volume<Dimension.D2>,
+) : SinglePositionProjection<Dimension.D3>(simulationVolume, filmSpace) {
 
     // region Projection
 

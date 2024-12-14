@@ -18,7 +18,7 @@ interface Environment<D : Dimension> {
     /**
      * Called when running the simulation with the [SimulationType.ENV] option, to
      * render a debug visualisation of the simulation's environment.
-     * @param position the position in the simulation space
+     * @param position the position in the simulation volume
      * @param time the current time within the simulated animation
      * @return the color of the environment based on the given inputs
      */

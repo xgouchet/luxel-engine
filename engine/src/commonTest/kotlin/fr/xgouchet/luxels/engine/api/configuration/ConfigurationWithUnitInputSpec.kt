@@ -7,7 +7,7 @@ import io.kotest.core.spec.style.DescribeSpec
 class ConfigurationWithUnitInputSpec : DescribeSpec(
     {
         val name = "Unit Input"
-        val expectedInput = listOf(InputData("", 0, Unit))
+        val expectedInput = listOf(InputData("UNIT", 0, Unit))
 
         include(
             abstractConfigurationSpec(name, Dimension.D1, expectedInput) {

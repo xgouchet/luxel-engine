@@ -22,18 +22,19 @@ fun <D : Dimension> abstractProjectionExposureSpec(dimension: D) = describeSpec 
                 vectorArb(dimension),
                 Arb.list(vectorArb(Dimension.D2)),
                 colorArb(),
-            ) { input, outputs, color ->
+                colorArb(),
+            ) { input, outputs, inColor, outColor ->
                 val projection = mock<Projection<D>> {
-                    every { project(input) } returns outputs
+                    every { project(input, inColor) } returns outputs.map { vector -> vector to outColor }
                 }
                 val delegateExposure = mock<Exposure<Dimension.D2>>()
                 val testedExposure = ProjectionExposure(delegateExposure, projection)
 
-                testedExposure.expose(input, color)
+                testedExposure.expose(input, inColor)
 
                 verify(order) {
-                    outputs.forEach { output ->
-                        delegateExposure.expose(output, color)
+                    outputs.forEach { outVector ->
+                        delegateExposure.expose(outVector, outColor)
                     }
                 }
             }

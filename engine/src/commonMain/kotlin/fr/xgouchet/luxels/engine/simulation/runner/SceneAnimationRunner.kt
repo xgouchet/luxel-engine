@@ -30,6 +30,12 @@ class SceneAnimationRunner(
     ) {
         RndGen.resetSeed(configuration.inputData.seed)
 
+        scene.prepareScene(
+            configuration.simulationVolume,
+            configuration.animationDuration,
+            configuration.inputData,
+        )
+
         var frameInfo: FrameInfo? = FrameInfo(0, 0.milliseconds)
 
         while (frameInfo != null) {

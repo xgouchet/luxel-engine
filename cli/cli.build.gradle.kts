@@ -2,7 +2,6 @@ import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.konan.target.HostManager
 
 plugins {
-//    application
     kotlin("multiplatform")
     id("common")
 }
@@ -34,6 +33,7 @@ kotlin {
         commonMain {
             dependencies {
                 implementation(project(":core"))
+                implementation(project(":engine"))
                 implementation(project(":components"))
                 implementation(project(":graphikio"))
                 implementation(libs.kotlinxDateTime)

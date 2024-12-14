@@ -164,7 +164,7 @@ class ConfigurationBuilder<D : Dimension, I : Any> internal constructor(
     }
 
     /**
-     * Sets the simulation space volume based on the resolution and a given density.
+     * Sets the simulation volume volume based on the resolution and a given density.
      * @param density the density (i.e.: the number of units per pixel)
      */
     fun simulationVolumeDensity(density: Double) {

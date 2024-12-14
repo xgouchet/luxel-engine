@@ -5,6 +5,7 @@ import fr.xgouchet.luxels.core.math.Volume
 import fr.xgouchet.luxels.engine.api.input.InputData
 import fr.xgouchet.luxels.engine.render.Projection
 import fr.xgouchet.luxels.engine.simulation.runner.FrameInfo
+import kotlin.time.Duration
 
 /**
  * Describes a scene to be simulated.
@@ -17,18 +18,24 @@ import fr.xgouchet.luxels.engine.simulation.runner.FrameInfo
 interface Scene<D : Dimension, L : Luxel<D>, I : Any, E : Environment<D>> {
 
     /**
-     * TODO ensure called always on the main thread !
-     * Called once per input to initialize the environment.
+     * Called once per animation to prepare the scene.
+     *
      * @param simulationVolume the volume within which the simulation is ran
+     * @param duration the duration of the animation
      * @param inputData the input for the simulation
+     */
+    fun prepareScene(
+        simulationVolume: Volume<D>,
+        duration: Duration,
+        inputData: InputData<I>,
+    )
+
+    /**
+     * Called once per input to initialize the environment.
      * @param frameInfo the current frame information
      * @return the environment
      */
-    fun initEnvironment(
-        simulationVolume: Volume<D>,
-        inputData: InputData<I>,
-        frameInfo: FrameInfo,
-    ): E
+    fun getFrameEnvironment(frameInfo: FrameInfo): E
 
     /**
      * Called whenever a projection needs to be created (called once per frame).
