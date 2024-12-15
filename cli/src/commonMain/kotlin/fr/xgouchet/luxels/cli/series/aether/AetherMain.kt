@@ -2,16 +2,15 @@ package fr.xgouchet.luxels.cli.series.aether
 
 import fr.xgouchet.luxels.cli.common.baseOutputPath
 import fr.xgouchet.luxels.components.configuration.bmpFixer
-import fr.xgouchet.luxels.core.math.Dimension
+import fr.xgouchet.luxels.components.engine.runWith
+import fr.xgouchet.luxels.core.math.Dimension.D3
 import fr.xgouchet.luxels.core.render.Resolution
 import fr.xgouchet.luxels.engine.api.configuration.FilmType
 import fr.xgouchet.luxels.engine.api.configuration.Quality
-import fr.xgouchet.luxels.engine.api.configuration.configurationWithRandomSeeds
+import fr.xgouchet.luxels.engine.api.configuration.configurationWithFixedSeeds
 
 /** Main. */
 fun main() {
-    val outputPath = baseOutputPath / "aether"
-
     val seeds = longArrayOf(
         0xfbfbf1f2,
         0x4ca8c1be,
@@ -33,21 +32,18 @@ fun main() {
         0xe40e4ddc,
     )
 
-    //    val configuration = configurationWithFixedSeeds(Dimension.D3, *seeds) {
     @Suppress("SpreadOperator")
-    val configuration = configurationWithRandomSeeds(Dimension.D3) {
+    AetherScene() runWith configurationWithFixedSeeds(D3, *seeds) {
         simulation {
-            quality(Quality.DEBUG)
+            quality(Quality.SKETCH)
         }
 
         render {
             resolution(Resolution.XGA)
-            filmType(FilmType.CLEAN)
-            bmpFixer(path = outputPath)
+            filmType(FilmType.ROUGH)
+            bmpFixer(path = baseOutputPath / "aether")
         }
 
         simulationVolumeDensity(2.0)
     }
-
-    // TODO LuxelEngine().runSimulation(AetherSimulator(0x100), configuration)
 }
