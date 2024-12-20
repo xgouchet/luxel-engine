@@ -53,7 +53,7 @@ interface Scene<D : Dimension, L : Luxel<D>, I : Any, E : Environment<D>> {
     /**
      * Called once per thread to initialize a stateless simulator.
      */
-    fun initSimulator(): Simulator<D, L, E>
+    fun initSimulator(frameInfo: FrameInfo): Simulator<D, L, E>
 
     /**
      * @return the name of this scene (used to tag output image files)

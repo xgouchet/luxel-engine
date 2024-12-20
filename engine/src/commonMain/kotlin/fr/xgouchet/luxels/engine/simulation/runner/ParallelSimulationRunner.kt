@@ -59,7 +59,6 @@ class ParallelSimulationRunner(
         val layeredFilm = LayeredFilm(configuration.outputResolution)
 
         val frameStart = Clock.System.now()
-        logHandler.startProgress()
 
         spawnAndRunWorkers(
             scene,
@@ -68,8 +67,6 @@ class ParallelSimulationRunner(
             configuration,
             layeredFilm,
         )
-
-        logHandler.endProgress()
         val elapsed = Clock.System.now() - frameStart
 
         logHandler.info("✔ Frame #${configuration.animationFrameInfo.index} simulation complete in $elapsed")
@@ -96,12 +93,15 @@ class ParallelSimulationRunner(
             simulationLuxelCount = configuration.simulationLuxelCount / maxThreadsCount,
         )
 
+        logHandler.info("Using $maxThreadsCount threads")
+        logHandler.startProgress()
+
         repeat(maxThreadsCount) { workerIdx ->
             val layer = filmProvider.createFilm(
                 workerConfiguration.outputFilmType,
                 workerConfiguration.outputResolution,
             )
-            val simulator = scene.initSimulator()
+            val simulator = scene.initSimulator(configuration.animationFrameInfo)
             val worker = workerProvider.createWorker(simulator, workerConfiguration)
             val exposure = ProjectionExposure(layer, projection)
 
@@ -119,6 +119,7 @@ class ParallelSimulationRunner(
             job.join()
             layeredFilm.mergeLayer(layer)
         }
+        logHandler.endProgress()
     }
 
     private fun <D : Dimension, L : Luxel<D>, I : Any, E : Environment<D>> getFilename(
@@ -127,6 +128,9 @@ class ParallelSimulationRunner(
     ): String {
         return buildString {
             append(scene.outputName())
+
+            append("_")
+            append(configuration.simulationType.name)
 
             append("_")
             append(configuration.outputFilmType.name)

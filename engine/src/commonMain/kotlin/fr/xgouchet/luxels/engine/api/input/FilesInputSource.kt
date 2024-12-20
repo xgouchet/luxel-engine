@@ -6,7 +6,7 @@ import okio.Path
 /**
  * An [InputSource] listing all files in a given folder as input.
  */
-class FilesInputSource(private val inputDir: Path) : InputSource<Path>() {
+class FilesInputSource(inputDir: Path) : InputSource<Path>() {
 
     override val inputDataList: List<InputData<Path>> = fileSystem.list(inputDir).map {
         InputData(

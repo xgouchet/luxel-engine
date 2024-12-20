@@ -26,7 +26,8 @@ interface Simulator<D : Dimension, L : Luxel<D>, E : Environment<D>> {
      * This is called repetitively as long as the Luxel is alive. Each call precedes the Luxel
      * contributing to the final image based on its color.
      * @param luxel the [Luxel] to update
+     * @param environment the simulation environment
      * @see [Luxel.isAlive]
      */
-    fun updateLuxel(luxel: L)
+    fun updateLuxel(luxel: L, environment: E)
 }

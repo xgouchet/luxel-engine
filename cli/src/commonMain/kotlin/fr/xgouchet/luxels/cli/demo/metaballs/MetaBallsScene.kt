@@ -1,7 +1,7 @@
 package fr.xgouchet.luxels.cli.demo.metaballs
 
 import fr.xgouchet.luxels.components.engine.StaticLuxel
-import fr.xgouchet.luxels.components.render.projection.PerspectiveProjection
+import fr.xgouchet.luxels.components.projection.base.PerspectiveProjection
 import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.math.Dimension.D3
 import fr.xgouchet.luxels.core.math.Volume
@@ -45,7 +45,7 @@ class MetaBallsScene : Scene<D3, StaticLuxel<D3>, Unit, MetaBallsEnvironment> {
         )
     }
 
-    override fun initSimulator(): Simulator<D3, StaticLuxel<D3>, MetaBallsEnvironment> {
+    override fun initSimulator(frameInfo: FrameInfo): Simulator<D3, StaticLuxel<D3>, MetaBallsEnvironment> {
         return MetaBallsSimulator()
     }
 

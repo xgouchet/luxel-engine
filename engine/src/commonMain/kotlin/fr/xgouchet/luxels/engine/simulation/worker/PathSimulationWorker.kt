@@ -44,7 +44,7 @@ class PathSimulationWorker<D : Dimension, L : Luxel<D>, E : Environment<D>>(
         while (luxel.isAlive()) {
             luxel.onStep(step)
             exposure.expose(luxel.position(), PATH_COLOR)
-            simulator.updateLuxel(luxel)
+            simulator.updateLuxel(luxel, environment)
             step++
         }
 

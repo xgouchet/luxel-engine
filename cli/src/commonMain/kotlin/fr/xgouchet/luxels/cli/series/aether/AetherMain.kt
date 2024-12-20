@@ -12,7 +12,6 @@ import fr.xgouchet.luxels.engine.api.configuration.configurationWithFixedSeeds
 /** Main. */
 fun main() {
     val seeds = longArrayOf(
-        0xfbfbf1f2,
         0x4ca8c1be,
         0x5b6e7596,
         0x6f3339e7,
@@ -30,16 +29,17 @@ fun main() {
         0xd8f657fe,
         0xd4103920,
         0xe40e4ddc,
+        0xfbfbf1f2,
     )
 
     @Suppress("SpreadOperator")
-    AetherScene() runWith configurationWithFixedSeeds(D3, *seeds) {
+    AetherScene(0x400) runWith configurationWithFixedSeeds(D3, *seeds) {
         simulation {
             quality(Quality.SKETCH)
         }
 
         render {
-            resolution(Resolution.XGA)
+            resolution(Resolution.UHD_8K)
             filmType(FilmType.ROUGH)
             bmpFixer(path = baseOutputPath / "aether")
         }

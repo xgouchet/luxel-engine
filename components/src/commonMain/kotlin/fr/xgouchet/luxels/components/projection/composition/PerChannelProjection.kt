@@ -1,4 +1,4 @@
-package fr.xgouchet.luxels.components.render.projection
+package fr.xgouchet.luxels.components.projection.composition
 
 import fr.xgouchet.graphikio.color.Color
 import fr.xgouchet.graphikio.color.HDRColor
@@ -25,9 +25,9 @@ class PerChannelProjection<D : Dimension>(
     // region Projection
 
     override fun project(position: Vector<D>, color: Color): List<Pair<Vector<Dimension.D2>, Color>> {
-        val red = mapChannel(redProjection, position, color, HDRColor.RED)
-        val green = mapChannel(greenProjection, position, color, HDRColor.GREEN)
-        val blue = mapChannel(blueProjection, position, color, HDRColor.BLUE)
+        val red = mapChannel(redProjection, position, color, HDRColor.Companion.RED)
+        val green = mapChannel(greenProjection, position, color, HDRColor.Companion.GREEN)
+        val blue = mapChannel(blueProjection, position, color, HDRColor.Companion.BLUE)
 
         return red + green + blue
     }

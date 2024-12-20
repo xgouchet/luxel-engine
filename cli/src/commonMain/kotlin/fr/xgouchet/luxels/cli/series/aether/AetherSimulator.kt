@@ -7,7 +7,7 @@ import fr.xgouchet.luxels.engine.api.Simulator
 import fr.xgouchet.luxels.engine.simulation.runner.FrameInfo
 
 class AetherSimulator(
-    private val luxelLifespan: Int = 0x400,
+    private val luxelLifespan: Int,
 ) : Simulator<Dimension.D3, AetherLuxel, AetherEnvironment> {
 
     // region Simulator
@@ -20,7 +20,7 @@ class AetherSimulator(
         return AetherLuxel(curve, wavelength, luxelLifespan)
     }
 
-    override fun updateLuxel(luxel: AetherLuxel) {
+    override fun updateLuxel(luxel: AetherLuxel, environment: AetherEnvironment) {
     }
 
     // endregion

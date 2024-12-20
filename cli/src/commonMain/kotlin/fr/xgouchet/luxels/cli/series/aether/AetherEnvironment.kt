@@ -11,7 +11,7 @@ class AetherEnvironment(
     simulationVolume: Volume<D3>,
 ) : BaseEnvironment<D3>(simulationVolume) {
 
-    private val curves = List(RndGen.int.inRange(5, 9)) {
+    private val curves = List(RndGen.int.inRange(4, 8)) {
         Curve(List(RndGen.int.inRange(4, 8)) { RndGen.vector3.inVolume(simulationVolume) })
     }
 

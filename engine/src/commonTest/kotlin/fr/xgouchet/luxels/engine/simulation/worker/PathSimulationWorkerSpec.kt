@@ -59,7 +59,7 @@ class PathSimulationWorkerSpec : DescribeSpec(
                         verify { luxels[idx].onStart() }
                         verify(exactly(lifespan)) {
                             luxels[idx].onStep(any<Int>())
-                            simulator.updateLuxel(luxels[idx])
+                            simulator.updateLuxel(luxels[idx], environment)
                         }
                         verify { luxels[idx].onEnd() }
                     }

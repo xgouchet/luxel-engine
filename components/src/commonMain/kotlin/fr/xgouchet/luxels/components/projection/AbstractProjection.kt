@@ -1,4 +1,4 @@
-package fr.xgouchet.luxels.components.render
+package fr.xgouchet.luxels.components.projection
 
 import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.math.Dimension.D2

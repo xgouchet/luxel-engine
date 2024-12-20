@@ -43,7 +43,7 @@ class DeathSimulationWorker<D : Dimension, L : Luxel<D>, E : Environment<D>>(
         var step = 0
         while (luxel.isAlive()) {
             luxel.onStep(step)
-            simulator.updateLuxel(luxel)
+            simulator.updateLuxel(luxel, environment)
             step++
         }
         exposure.expose(luxel.position(), DEATH_COLOR)

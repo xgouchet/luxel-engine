@@ -1,6 +1,6 @@
-package fr.xgouchet.luxels.components.render.projection
+package fr.xgouchet.luxels.components.projection.base
 
-import fr.xgouchet.luxels.components.render.SinglePositionProjection
+import fr.xgouchet.luxels.components.projection.SinglePositionProjection
 import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.math.Dimension.D2
 import fr.xgouchet.luxels.core.math.Dimension.D3

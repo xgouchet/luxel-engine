@@ -1,29 +1,60 @@
 package fr.xgouchet.luxels.cli.series.pixie
 
 import fr.xgouchet.graphikio.color.HDRColor
-import fr.xgouchet.graphikio.data.RasterData
-import fr.xgouchet.luxels.components.color.ImageColorSource
-import fr.xgouchet.luxels.components.engine.PrincipledLuxel
-import fr.xgouchet.luxels.components.position.SimplePositionSource
 import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.math.Vector
 import fr.xgouchet.luxels.core.model.AgeingLifespanSource
+import fr.xgouchet.luxels.core.model.LifespanSource
+import fr.xgouchet.luxels.engine.api.Luxel
 
 class PixieLuxel(
-    rasterData: RasterData,
-    initialPosition: Vector<Dimension.D2>,
-    initialUV: Vector<Dimension.D2>,
     val colorMask: HDRColor,
-    lifespan: Int,
-) : PrincipledLuxel<Dimension.D2, ImageColorSource, SimplePositionSource<Dimension.D2>, AgeingLifespanSource>(
-    ImageColorSource(rasterData, initialUV),
-    SimplePositionSource(initialPosition),
-    AgeingLifespanSource(lifespan),
-) {
-    // region Luxel
+    initialPosition: Vector<Dimension.D2>,
+    val lifespanSource: AgeingLifespanSource,
+    val originalColor: HDRColor,
+) : Luxel<Dimension.D2>, LifespanSource by lifespanSource {
+
+    constructor(
+        colorMask: HDRColor,
+        initialPosition: Vector<Dimension.D2>,
+        lifespan: Int,
+        originalColor: HDRColor,
+    ) : this(
+        colorMask,
+        initialPosition,
+        AgeingLifespanSource(lifespan),
+        originalColor,
+    )
+
+    var color: HDRColor = originalColor
+    var nextColor: HDRColor = HDRColor.TRANSPARENT
+    var position: Vector<Dimension.D2> = initialPosition
+
+    // region PositionSource
+
+    override fun position(): Vector<Dimension.D2> {
+        return position
+    }
+
+    // endregion
+
+    // region ColorSource
 
     override fun color(): HDRColor {
-        return colorMask
+        return colorMask // (colorMask * originalColor)// + originalColor
+    }
+
+    // endregion
+
+    // region LifespanSource
+
+    override fun onStep(step: Int) {
+        lifespanSource.onStep(step)
+        color = nextColor
+    }
+
+    override fun isAlive(): Boolean {
+        return lifespanSource.isAlive()
     }
 
     // endregion

@@ -2,8 +2,8 @@ package fr.xgouchet.luxels.cli.demo.cube
 
 import fr.xgouchet.luxels.components.engine.BaseEnvironment
 import fr.xgouchet.luxels.components.engine.StaticLuxel
-import fr.xgouchet.luxels.components.render.projection.PerChannelProjection
-import fr.xgouchet.luxels.components.render.projection.PerspectiveProjection
+import fr.xgouchet.luxels.components.projection.base.PerspectiveProjection
+import fr.xgouchet.luxels.components.projection.composition.PerChannelProjection
 import fr.xgouchet.luxels.core.math.Dimension.D2
 import fr.xgouchet.luxels.core.math.Dimension.D3
 import fr.xgouchet.luxels.core.math.Vector3
@@ -78,7 +78,7 @@ class CubeScene : Scene<D3, StaticLuxel<D3>, Unit, BaseEnvironment<D3>> {
         return PerChannelProjection(red, green, blue)
     }
 
-    override fun initSimulator(): Simulator<D3, StaticLuxel<D3>, BaseEnvironment<D3>> {
+    override fun initSimulator(frameInfo: FrameInfo): Simulator<D3, StaticLuxel<D3>, BaseEnvironment<D3>> {
         return CubeSimulator()
     }
 

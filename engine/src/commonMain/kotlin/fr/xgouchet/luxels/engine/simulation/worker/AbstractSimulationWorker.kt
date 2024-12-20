@@ -75,6 +75,7 @@ abstract class AbstractSimulationWorker<D : Dimension, L : Luxel<D>, E : Environ
             )
         } catch (t: Throwable) {
             logHandler.error("Worker [$workerName] encountered an error: ${t.message ?: t::class.simpleName}")
+            logHandler.error(t.stackTraceToString())
         }
 
         logHandler.debug("Worker [$workerName] stopping")

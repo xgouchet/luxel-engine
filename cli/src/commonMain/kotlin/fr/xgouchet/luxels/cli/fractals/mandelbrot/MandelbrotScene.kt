@@ -1,7 +1,7 @@
 package fr.xgouchet.luxels.cli.fractals.mandelbrot
 
 import fr.xgouchet.luxels.components.engine.BaseEnvironment
-import fr.xgouchet.luxels.components.render.projection.Flat2DProjection
+import fr.xgouchet.luxels.components.projection.base.Flat2DProjection
 import fr.xgouchet.luxels.core.math.Dimension.D2
 import fr.xgouchet.luxels.core.math.Volume
 import fr.xgouchet.luxels.engine.api.Scene
@@ -37,7 +37,7 @@ class MandelbrotScene : Scene<D2, MandelbrotLuxel, Unit, BaseEnvironment<D2>> {
         return Flat2DProjection(simulationVolume, filmSpace)
     }
 
-    override fun initSimulator(): Simulator<D2, MandelbrotLuxel, BaseEnvironment<D2>> {
+    override fun initSimulator(frameInfo: FrameInfo): Simulator<D2, MandelbrotLuxel, BaseEnvironment<D2>> {
         return MandelbrotSimulator()
     }
 

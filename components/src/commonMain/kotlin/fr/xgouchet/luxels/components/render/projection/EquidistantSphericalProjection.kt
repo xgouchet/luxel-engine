@@ -1,12 +1,13 @@
 package fr.xgouchet.luxels.components.render.projection
 
-import fr.xgouchet.luxels.components.render.SinglePositionProjection
+import fr.xgouchet.luxels.components.projection.SinglePositionProjection
 import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.math.Vector
 import fr.xgouchet.luxels.core.math.Volume
 import fr.xgouchet.luxels.engine.render.Projection
 
 /**
+ * TODO
  * A [Projection] using an Equidistant Spherical 3D camera.
  * @param simulationVolume the simulation volume
  * @param filmSpace the film space

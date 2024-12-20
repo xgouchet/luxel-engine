@@ -43,7 +43,7 @@ class RenderSimulationWorker<D : Dimension, L : Luxel<D>, E : Environment<D>>(
         while (luxel.isAlive()) {
             luxel.onStep(step)
             exposure.expose(luxel.position(), luxel.color())
-            simulator.updateLuxel(luxel)
+            simulator.updateLuxel(luxel, environment)
             step++
         }
 

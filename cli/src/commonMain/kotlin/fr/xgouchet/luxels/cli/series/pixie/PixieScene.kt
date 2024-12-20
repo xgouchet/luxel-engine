@@ -1,6 +1,5 @@
-package fr.xgouchet.luxels.cli.fractals.buddhabrot
+package fr.xgouchet.luxels.cli.series.pixie
 
-import fr.xgouchet.luxels.components.engine.BaseEnvironment
 import fr.xgouchet.luxels.components.projection.base.Flat2DProjection
 import fr.xgouchet.luxels.core.math.Dimension.D2
 import fr.xgouchet.luxels.core.math.Volume
@@ -9,24 +8,24 @@ import fr.xgouchet.luxels.engine.api.Simulator
 import fr.xgouchet.luxels.engine.api.input.InputData
 import fr.xgouchet.luxels.engine.render.Projection
 import fr.xgouchet.luxels.engine.simulation.runner.FrameInfo
+import okio.Path
 import kotlin.time.Duration
 
-class BuddhabrotScene : Scene<D2, BuddhabrotLuxel, Unit, BaseEnvironment<D2>> {
-
-    lateinit var environment: BaseEnvironment<D2>
+class PixieScene : Scene<D2, PixieLuxel, Path, PixieEnvironment> {
+    lateinit var pixieEnvironment: PixieEnvironment
 
     // region Scene
 
     override fun prepareScene(
         simulationVolume: Volume<D2>,
         duration: Duration,
-        inputData: InputData<Unit>,
+        inputData: InputData<Path>,
     ) {
-        environment = BaseEnvironment(simulationVolume)
+        pixieEnvironment = PixieEnvironment(inputData.data, simulationVolume)
     }
 
-    override fun getFrameEnvironment(frameInfo: FrameInfo): BaseEnvironment<D2> {
-        return environment
+    override fun getFrameEnvironment(frameInfo: FrameInfo): PixieEnvironment {
+        return pixieEnvironment
     }
 
     override fun getProjection(
@@ -34,15 +33,20 @@ class BuddhabrotScene : Scene<D2, BuddhabrotLuxel, Unit, BaseEnvironment<D2>> {
         filmSpace: Volume<D2>,
         frameInfo: FrameInfo,
     ): Projection<D2> {
-        return Flat2DProjection(simulationVolume, filmSpace)
+        val delegate = Flat2DProjection(simulationVolume, filmSpace)
+//        return CombinedProjection(
+//            StarBloomProjection(delegate, 4, 2.5, 1),
+//            GaussianBloomProjection(delegate, 5.0, 6),
+//        )
+        return delegate
     }
 
-    override fun initSimulator(frameInfo: FrameInfo): Simulator<D2, BuddhabrotLuxel, BaseEnvironment<D2>> {
-        return BuddhabrotSimulator()
+    override fun initSimulator(frameInfo: FrameInfo): Simulator<D2, PixieLuxel, PixieEnvironment> {
+        return PixieSimulator()
     }
 
     override fun outputName(): String {
-        return "buddhabrot"
+        return "pixie"
     }
 
     // endregion

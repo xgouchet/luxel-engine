@@ -1,6 +1,6 @@
 package fr.xgouchet.luxels.cli.series.aether
 
-import fr.xgouchet.luxels.components.render.projection.PerspectiveProjection
+import fr.xgouchet.luxels.components.projection.base.PerspectiveProjection
 import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.math.Volume
 import fr.xgouchet.luxels.core.math.fromSpherical
@@ -12,7 +12,9 @@ import fr.xgouchet.luxels.engine.simulation.runner.FrameInfo
 import kotlin.math.PI
 import kotlin.time.Duration
 
-class AetherScene : Scene<Dimension.D3, AetherLuxel, Long, AetherEnvironment> {
+class AetherScene(
+    val luxelLifespan: Int = 0x10,
+) : Scene<Dimension.D3, AetherLuxel, Long, AetherEnvironment> {
 
     private lateinit var environment: AetherEnvironment
 
@@ -46,8 +48,8 @@ class AetherScene : Scene<Dimension.D3, AetherLuxel, Long, AetherEnvironment> {
         )
     }
 
-    override fun initSimulator(): Simulator<Dimension.D3, AetherLuxel, AetherEnvironment> {
-        return AetherSimulator()
+    override fun initSimulator(frameInfo: FrameInfo): Simulator<Dimension.D3, AetherLuxel, AetherEnvironment> {
+        return AetherSimulator(luxelLifespan)
     }
 
     override fun outputName(): String {

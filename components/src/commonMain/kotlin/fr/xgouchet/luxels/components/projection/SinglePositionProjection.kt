@@ -1,13 +1,12 @@
-package fr.xgouchet.luxels.components.render
+package fr.xgouchet.luxels.components.projection
 
 import fr.xgouchet.graphikio.color.Color
 import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.math.Vector
 import fr.xgouchet.luxels.core.math.Volume
-import fr.xgouchet.luxels.engine.render.Projection
 
 /**
- * A [Projection] implementation that returns a single position .
+ * A [fr.xgouchet.luxels.engine.render.Projection] implementation that returns a single position .
  *
  * @param D the dimension of the source dimension
  *

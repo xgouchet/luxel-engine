@@ -22,7 +22,7 @@ class MetaBallsSimulator : Simulator<D3, StaticLuxel<D3>, MetaBallsEnvironment> 
         return StaticLuxel(position, metaBallField)
     }
 
-    override fun updateLuxel(luxel: StaticLuxel<D3>) {
+    override fun updateLuxel(luxel: StaticLuxel<D3>, environment: MetaBallsEnvironment) {
     }
 
     // endregion

@@ -29,7 +29,7 @@ class BuddhabrotSimulator(
         )
     }
 
-    override fun updateLuxel(luxel: BuddhabrotLuxel) {
+    override fun updateLuxel(luxel: BuddhabrotLuxel, environment: BaseEnvironment<D2>) {
         luxel.positionSource.updatePosition()
     }
 

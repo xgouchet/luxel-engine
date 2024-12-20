@@ -91,7 +91,7 @@ class ParallelFrameRunnerSpec : DescribeSpec(
                                 configuration.animationFrameInfo,
                             )
                         } returns projection
-                        every { initSimulator() } sequentiallyReturns simulators
+                        every { initSimulator(configuration.animationFrameInfo) } sequentiallyReturns simulators
                     }
                     val workerProvider = mock<WorkerProvider> {
                         every { createWorker(any(), expectedWorkerConfig) } sequentiallyReturns workers

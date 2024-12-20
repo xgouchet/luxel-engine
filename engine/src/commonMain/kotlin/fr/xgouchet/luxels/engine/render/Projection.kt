@@ -9,6 +9,7 @@ import fr.xgouchet.luxels.engine.api.Luxel
 
 /**
  * A Projection converts the position of a [Luxel] in simulation into a position on a [Film].
+ *
  * @param D the dimension of the source position
  */
 interface Projection<D : Dimension> { // TODO make it even more generic?

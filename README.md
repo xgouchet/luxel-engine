@@ -3,7 +3,7 @@
 > An engine that generates pretty pictures…
 
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/xgouchet/luxel-engine/tree/main.svg?style=shield)](https://dl.circleci.com/status-badge/redirect/gh/xgouchet/luxel-engine/tree/main)
-[![codecov](https://codecov.io/github/xgouchet/luxel-engine/graph/badge.svg?token=F62SNXPC6U)](https://codecov.io/github/xgouchet/luxel-engine)
+[![CodeCov](https://codecov.io/github/xgouchet/luxel-engine/graph/badge.svg?token=F62SNXPC6U)](https://codecov.io/github/xgouchet/luxel-engine)
 
 ## Modules
 
@@ -16,13 +16,13 @@
 
 - [ ] Rewrite Old Series
   - [x] ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿ Aether 
-  - [ ] ⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀ Pixie Dust
+  - [ ] ⣿⣿⣿⣿⣿⣿⣀⣀⣀⣀ Pixie Dust
   - [ ] ⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀ Gravity
   - [ ] ⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀ Spectre
   - [ ] ⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀ Aura
   - [ ] ⣀⣀⣀⣀⣀⣀⣀⣀⣀⣀ Smoke
 
-- [ ] New ideas
+- [ ] New Series
   - [ ] ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣀ Rain
   - [ ] ⣿⣿⣿⣿⣀⣀⣀⣀⣀⣀ Bookworm
   - [ ] ⣿⣿⣿⣀⣀⣀⣀⣀⣀⣀ Aurora

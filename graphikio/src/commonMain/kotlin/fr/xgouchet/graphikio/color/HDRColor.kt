@@ -41,6 +41,14 @@ data class HDRColor(
 
     /**
      * @param scale the factor by which to multiply the color
+     * @return a color with each component multiplied by the given input
+     */
+    operator fun div(scale: Double): HDRColor {
+        return HDRColor(r / scale, g / scale, b / scale, a / scale)
+    }
+
+    /**
+     * @param scale the factor by which to multiply the color
      * @return a color with each component multiplied (channel wise) by the given input
      */
     operator fun times(scale: HDRColor): HDRColor {
