@@ -35,7 +35,7 @@ fun main() {
     @Suppress("SpreadOperator")
     AetherScene(0x400) runWith configurationWithFixedSeeds(D3, *seeds) {
         simulation {
-            quality(Quality.SKETCH)
+            quality(Quality.GRAINY_100)
         }
 
         render {

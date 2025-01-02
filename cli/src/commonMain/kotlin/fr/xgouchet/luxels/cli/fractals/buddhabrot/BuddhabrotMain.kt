@@ -7,14 +7,12 @@ import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.math.Vector2
 import fr.xgouchet.luxels.core.math.Volume
 import fr.xgouchet.luxels.core.render.Resolution
-import fr.xgouchet.luxels.engine.api.configuration.Quality
 import fr.xgouchet.luxels.engine.api.configuration.configuration
 
 /** Main. */
 fun main() {
     BuddhabrotScene() runWith configuration(Dimension.D2) {
         simulation {
-            quality(Quality.LOW)
             space(
                 Volume(
                     min = Vector2(-2.5, -2.0),

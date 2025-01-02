@@ -47,7 +47,7 @@ fun <D : Dimension, I : Any> abstractConfigurationSpec(
             it("has sensible defaults") {
                 val configuration = instantiation {}
 
-                configuration.simulation.quality shouldBe Quality.DEBUG
+                configuration.simulation.quality shouldBe Quality.GRAINY_1
                 configuration.simulation.volume shouldBe Volume.unit(dimension)
                 configuration.simulation.maxThreadCount shouldBe 4
                 configuration.simulation.simulationType shouldBe SimulationType.RENDER

@@ -40,13 +40,13 @@ data class Configuration<D : Dimension, I : Any>(
      * The simulation options for the simulation run.
      * @param D the dimension of the space luxels evolve in
      * @property volume the bounds of the simulation volume
-     * @property quality the quality of the simulation (default: [Quality.DEBUG])
+     * @property quality the quality of the simulation (default: [Quality.GRAINY_1])
      * @property maxThreadCount the number of threads to use in parallel for each computation (default: 4)
      * @property simulationType the kind of rendering to perform based on the simulation (default: [SimulationType.RENDER])
      */
     data class Simulation<D : Dimension>(
         val volume: Volume<D>,
-        val quality: Quality = Quality.DEBUG,
+        val quality: Quality = Quality.GRAINY_1,
         val maxThreadCount: Int = 4,
         val simulationType: SimulationType = SimulationType.RENDER,
     )

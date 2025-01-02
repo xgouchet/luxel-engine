@@ -14,7 +14,7 @@ import kotlin.time.Duration.Companion.seconds
 fun main() {
     GravityScene() runWith configurationWithFixedSeeds(D2, 42L) {
         simulation {
-            quality(Quality.DRAFT)
+            quality(Quality.GRAINY_80)
             passType(SimulationType.RENDER)
             maximumThreadCount(10)
         }

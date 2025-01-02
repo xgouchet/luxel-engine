@@ -13,7 +13,7 @@ import kotlin.time.Duration.Companion.seconds
 fun main() {
     MetaBallsScene() runWith configuration(D3) {
         simulation {
-            quality(Quality.SAMPLE)
+            quality(Quality.GRAINY_8)
         }
 
         render {

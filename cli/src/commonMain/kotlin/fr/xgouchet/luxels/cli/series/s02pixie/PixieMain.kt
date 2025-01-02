@@ -15,7 +15,7 @@ import fr.xgouchet.luxels.engine.api.configuration.configurationWithFilesFrom
 fun main() {
     PixieScene() runWith configurationWithFilesFrom(Dimension.D2, baseInputPath / "pixie") {
         simulation {
-            quality(Quality.SKETCH)
+            quality(Quality.GRAINY_100)
             passType(SimulationType.RENDER)
         }
 

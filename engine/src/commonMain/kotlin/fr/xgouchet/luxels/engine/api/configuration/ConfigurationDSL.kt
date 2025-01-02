@@ -204,7 +204,7 @@ class SimulationConfigBuilder<D : Dimension> internal constructor(
 
     /**
      * Sets the quality of the simulation.
-     * @param quality the quality of the simulation (default: DEBUG)
+     * @param quality the quality of the simulation (default: [Quality.GRAINY_1])
      */
     fun quality(quality: Quality) {
         simulation = simulation.copy(quality = quality)

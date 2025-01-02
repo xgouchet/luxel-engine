@@ -15,7 +15,7 @@ fun main() {
 
     val configuration = configurationWithFixedSeeds(Dimension.D2, 13L) {
         simulation {
-            quality(Quality.DRAFT)
+            quality(Quality.GRAINY_80)
         }
 
         render {

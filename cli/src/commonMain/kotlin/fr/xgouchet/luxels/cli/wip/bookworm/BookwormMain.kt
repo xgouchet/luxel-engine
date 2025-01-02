@@ -18,7 +18,7 @@ fun main() {
 
     val configuration = configurationWithFilesFrom(Dimension.D3, inputPath) {
         simulation {
-            quality(Quality.SAMPLE)
+            quality(Quality.GRAINY_8)
 
             space(
                 Volume(
