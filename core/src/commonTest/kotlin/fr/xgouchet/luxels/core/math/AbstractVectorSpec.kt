@@ -7,12 +7,19 @@ import fr.xgouchet.luxels.core.test.kotest.property.doubleInfiniteArb
 import fr.xgouchet.luxels.core.test.kotest.property.doubleNaNArb
 import fr.xgouchet.luxels.core.test.kotest.property.vectorArb
 import io.kotest.assertions.assertSoftly
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.describeSpec
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.doubles.shouldBeGreaterThanOrEqual
 import io.kotest.matchers.doubles.shouldBeLessThanOrEqual
+import io.kotest.matchers.equals.shouldBeEqual
+import io.kotest.matchers.equals.shouldNotBeEqual
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.string.shouldStartWith
+import io.kotest.property.Arb
 import io.kotest.property.arbitrary.arbitrary
+import io.kotest.property.arbitrary.int
+import io.kotest.property.arbitrary.string
 import io.kotest.property.checkAll
 import io.kotest.property.withAssumptions
 import kotlin.math.abs
@@ -702,6 +709,15 @@ fun <D : Dimension> abstractVectorSpec(d: D) = describeSpec {
     }
 
     describe("components ($d)") {
+        it("throws when out of bounds") {
+            checkAll(vectorArb, Arb.int(0, 128)) { u, idx ->
+                val index = u.components().size + idx
+                shouldThrow<IllegalArgumentException> {
+                    u[index]
+                }
+            }
+        }
+
         it("is consistent with constructor") {
             checkAll(vectorArb) { u ->
                 val copy = Vector<D>(u.components().toDoubleArray())
@@ -830,6 +846,66 @@ fun <D : Dimension> abstractVectorSpec(d: D) = describeSpec {
                 val sl = v.squaredLength()
 
                 res.get(0, 0) shouldBeCloseTo sl
+            }
+        }
+    }
+
+    describe("from lambda ($d)") {
+        it("uses the provided lambda") {
+            checkAll(vectorArb) { source ->
+                val v = Vector.from(d) { source[it] }
+
+                v shouldBeEqual source
+            }
+        }
+    }
+
+    describe("equals") {
+        it("returns true when compared to self") {
+            checkAll(vectorArb) { source ->
+                (source == source) shouldBe true
+            }
+        }
+
+        it("returns false when compared to null") {
+            checkAll(vectorArb) { source ->
+                val nullable = source as Vector?
+                (nullable == null) shouldBe false
+            }
+        }
+
+        it("returns false when compared to a non vector") {
+            checkAll(vectorArb, Arb.string()) { source, string ->
+                val untyped = source as Any
+                (untyped == string) shouldBe false
+            }
+        }
+    }
+
+    describe("hashcode") {
+        it("is consistent with equal (identical data)") {
+            checkAll(vectorArb) { source ->
+                val v = Vector.from(d) { source[it] }
+
+                v.hashCode() shouldBeEqual source.hashCode()
+            }
+        }
+
+        it("is consistent with equal (distinct vectors)") {
+            checkAll(vectorArb, vectorArb) { a, b ->
+                if (a == b) {
+                    a.hashCode() shouldBeEqual b.hashCode()
+                } else {
+                    a.hashCode() shouldNotBeEqual b.hashCode()
+                }
+            }
+        }
+    }
+
+    describe("toString") {
+        it("displays the data") {
+            checkAll(vectorArb) { v ->
+                v.toString() shouldStartWith "Vector<${d.size}> "
             }
         }
     }

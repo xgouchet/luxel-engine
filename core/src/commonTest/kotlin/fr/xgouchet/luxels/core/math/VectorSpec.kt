@@ -100,6 +100,56 @@ class VectorSpec : DescribeSpec(
             }
         }
 
+        describe("fromSpherical") {
+            it("construct known directions") {
+                checkAll(Arb.double(0.001, 100.0), Arb.double(0.0, TAU)) { radius, polar ->
+
+                    fromSpherical(0.0, 0.0, radius) shouldBeCloseTo Vector3(radius, 0.0, 0.0)
+                    fromSpherical(HALF_PI, 0.0, radius) shouldBeCloseTo Vector3(0.0, 0.0, radius)
+                    fromSpherical(PI, 0.0, radius) shouldBeCloseTo Vector3(-radius, 0.0, 0.0)
+                    fromSpherical(3 * HALF_PI, 0.0, radius) shouldBeCloseTo Vector3(0.0, 0.0, -radius)
+
+                    fromSpherical(polar, -HALF_PI, radius) shouldBeCloseTo Vector3(0.0, -radius, 0.0)
+                    fromSpherical(polar, HALF_PI, radius) shouldBeCloseTo Vector3(0.0, radius, 0.0)
+                }
+            }
+
+            it("has 𝜏 frequency for polar") {
+                checkAll(
+                    doubleArb(),
+                    Arb.double(-HALF_PI, HALF_PI),
+                    Arb.double(0.001, 100.0),
+                ) { polar, azimuth, radius ->
+
+                    fromSpherical(polar, azimuth, radius) shouldBeCloseTo fromSpherical(polar + TAU, azimuth, radius)
+                }
+            }
+
+            it("has length consistent with radius") {
+                checkAll(
+                    doubleArb(),
+                    Arb.double(-HALF_PI, HALF_PI),
+                    Arb.double(0.001, 100.0),
+                ) { polar, azimuth, radius ->
+                    fromSpherical(polar, azimuth, radius).length() shouldBeCloseTo radius
+                }
+            }
+
+            it("has default radius 1.0") {
+                checkAll(doubleArb(), Arb.double(-HALF_PI, HALF_PI)) { polar, azimuth ->
+
+                    fromSpherical(polar, azimuth).length() shouldBeCloseTo 1.0
+                }
+            }
+
+            it("has default azimuth 0.0") {
+                checkAll(doubleArb()) { polar ->
+
+                    fromSpherical(polar).y shouldBeCloseTo 0.0
+                }
+            }
+        }
+
         describe("cross product") {
             it("is consistent with 3D axes") {
                 val x = Vector3(1.0, 0.0, 0.0)
