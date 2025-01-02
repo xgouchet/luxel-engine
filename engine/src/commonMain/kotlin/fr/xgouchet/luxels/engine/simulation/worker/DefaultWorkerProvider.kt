@@ -28,7 +28,7 @@ class DefaultWorkerProvider(
             SimulationType.SPAWN -> SpawnSimulationWorker(simulator, logHandler)
             SimulationType.PATH -> PathSimulationWorker(simulator, logHandler)
             SimulationType.DEATH -> DeathSimulationWorker(simulator, logHandler)
-            SimulationType.ENV -> EnvSimulationWorker(simulator, logHandler)
+            SimulationType.ENV -> EnvSimulationWorker(simulator, logHandler, 4096)
         }
     }
 
