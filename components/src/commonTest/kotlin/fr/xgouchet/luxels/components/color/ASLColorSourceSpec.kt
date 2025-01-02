@@ -6,8 +6,9 @@ import fr.xgouchet.luxels.components.color.atomic.ASLColorSource
 import fr.xgouchet.luxels.components.color.atomic.PeriodicTable
 import fr.xgouchet.luxels.components.test.kotest.assertions.shouldBeCloseTo
 import io.kotest.core.spec.style.DescribeSpec
-import io.kotest.matchers.doubles.shouldBeGreaterThanOrEqual
-import io.kotest.matchers.doubles.shouldBeLessThanOrEqual
+import io.kotest.matchers.collections.shouldNotHaveSize
+import io.kotest.matchers.doubles.shouldBeGreaterThan
+import io.kotest.matchers.doubles.shouldBeLessThan
 import io.kotest.property.Arb
 import io.kotest.property.arbitrary.double
 import io.kotest.property.arbitrary.int
@@ -17,17 +18,32 @@ import io.kotest.property.checkAll
 class ASLColorSourceSpec : DescribeSpec(
     {
         describe("spectralLines") {
+
+            PeriodicTable.allElements.forEach { element ->
+                it("${element.name} has at list one line") {
+                    element.spectralLines shouldNotHaveSize 0
+                }
+            }
+
             PeriodicTable.allElements.forEach { element ->
                 it("${element.name} only has visible wavelengths") {
                     element.spectralLines.forEach { line ->
-                        line.waveLength shouldBeGreaterThanOrEqual MIN_UV_LIGHT
-                        line.waveLength shouldBeLessThanOrEqual MAX_IR_LIGHT
+                        line.waveLength shouldBeGreaterThan MIN_UV_LIGHT
+                        line.waveLength shouldBeLessThan MAX_IR_LIGHT
                     }
                 }
             }
         }
 
         describe("color") {
+            PeriodicTable.allElements.forEach { element ->
+                it("computes color for ${element.name}") {
+                    val color = element.color()
+
+                    color.a shouldBeGreaterThan 0.0
+                }
+            }
+
             it("computes color from spectral lines ") {
                 checkAll(
                     Arb.string(),
