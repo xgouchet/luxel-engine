@@ -36,6 +36,8 @@ kotlin {
                 implementation(project(":engine"))
                 implementation(project(":components"))
                 implementation(project(":graphikio"))
+
+                implementation(libs.kotlin)
                 implementation(libs.kotlinxDateTime)
                 implementation(libs.kotlinxSerialization)
                 implementation(libs.kotlinxCoroutines)

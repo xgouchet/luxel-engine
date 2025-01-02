@@ -13,20 +13,14 @@ import kotlin.time.Duration
 
 class MandelbrotScene : Scene<D2, MandelbrotLuxel, Unit, BaseEnvironment<D2>> {
 
-    lateinit var environment: BaseEnvironment<D2>
-
     // region Scene
 
-    override fun prepareScene(
+    override fun getEnvironment(
         simulationVolume: Volume<D2>,
         duration: Duration,
         inputData: InputData<Unit>,
-    ) {
-        environment = BaseEnvironment(simulationVolume)
-    }
-
-    override fun getFrameEnvironment(frameInfo: FrameInfo): BaseEnvironment<D2> {
-        return environment
+    ): BaseEnvironment<D2> {
+        return BaseEnvironment(simulationVolume)
     }
 
     override fun getProjection(

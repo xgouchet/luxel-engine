@@ -53,3 +53,4 @@ Xavier F. Gouchet – [@xgouchet.fr](https://bsky.app/profile/xgouchet.fr)
 Distributed under the MIT license. See [LICENSE.md](LICENSE.md) for more information.
 
 [https://github.com/xgouchet/luxel-engine](https://github.com/xgouchet/luxel-engine)
+

@@ -5,7 +5,6 @@ import fr.xgouchet.luxels.core.log.endProgress
 import fr.xgouchet.luxels.core.log.info
 import fr.xgouchet.luxels.core.log.startProgress
 import fr.xgouchet.luxels.core.math.Dimension
-import fr.xgouchet.luxels.core.math.asVolume
 import fr.xgouchet.luxels.core.render.Film
 import fr.xgouchet.luxels.core.render.LayeredFilm
 import fr.xgouchet.luxels.core.system.SystemInfo
@@ -14,7 +13,6 @@ import fr.xgouchet.luxels.engine.api.Luxel
 import fr.xgouchet.luxels.engine.api.Scene
 import fr.xgouchet.luxels.engine.render.DefaultFilmProvider
 import fr.xgouchet.luxels.engine.render.FilmProvider
-import fr.xgouchet.luxels.engine.render.Projection
 import fr.xgouchet.luxels.engine.render.ProjectionExposure
 import fr.xgouchet.luxels.engine.simulation.InternalConfiguration
 import fr.xgouchet.luxels.engine.simulation.worker.DefaultWorkerProvider
@@ -47,23 +45,16 @@ class ParallelSimulationRunner(
 
     override suspend fun <D : Dimension, L : Luxel<D>, I : Any, E : Environment<D>> runSimulation(
         scene: Scene<D, L, I, E>,
-        configuration: InternalConfiguration<D, I>,
+        configuration: InternalConfiguration<D, I, E>,
     ) {
         val fileName = getFilename(scene, configuration)
-        val environment = scene.getFrameEnvironment(configuration.animationFrameInfo)
-        val projection = scene.getProjection(
-            configuration.simulationVolume,
-            configuration.outputResolution.asVector2().asVolume(),
-            configuration.animationFrameInfo,
-        )
+
         val layeredFilm = LayeredFilm(configuration.outputResolution)
 
         val frameStart = Clock.System.now()
 
         spawnAndRunWorkers(
             scene,
-            environment,
-            projection,
             configuration,
             layeredFilm,
         )
@@ -82,9 +73,7 @@ class ParallelSimulationRunner(
     @OptIn(DelicateCoroutinesApi::class, ExperimentalCoroutinesApi::class)
     private suspend fun <D : Dimension, L : Luxel<D>, I : Any, E : Environment<D>> spawnAndRunWorkers(
         scene: Scene<D, L, I, E>,
-        environment: E,
-        projection: Projection<D>,
-        configuration: InternalConfiguration<D, I>,
+        configuration: InternalConfiguration<D, I, E>,
         layeredFilm: LayeredFilm,
     ) {
         val jobs = mutableMapOf<Job, Film>()
@@ -95,6 +84,7 @@ class ParallelSimulationRunner(
 
         logHandler.info("Using $maxThreadsCount threads")
         logHandler.startProgress()
+        val context = configuration.context ?: error("Missing context")
 
         repeat(maxThreadsCount) { workerIdx ->
             val layer = filmProvider.createFilm(
@@ -103,12 +93,12 @@ class ParallelSimulationRunner(
             )
             val simulator = scene.initSimulator(configuration.animationFrameInfo)
             val worker = workerProvider.createWorker(simulator, workerConfiguration)
-            val exposure = ProjectionExposure(layer, projection)
+            val exposure = ProjectionExposure(layer, context.projection)
 
             val name = "worker-$workerIdx"
             val workerJob = CoroutineScope(newSingleThreadContext(name)).launch {
                 withContext(CoroutineName(name)) {
-                    worker.runSimulation(environment, exposure, workerConfiguration)
+                    worker.runSimulation(exposure, workerConfiguration)
                 }
             }
             jobs[workerJob] = layer
@@ -124,7 +114,7 @@ class ParallelSimulationRunner(
 
     private fun <D : Dimension, L : Luxel<D>, I : Any, E : Environment<D>> getFilename(
         scene: Scene<D, L, I, E>,
-        configuration: InternalConfiguration<D, I>,
+        configuration: InternalConfiguration<D, I, E>,
     ): String {
         return buildString {
             append(scene.outputName())

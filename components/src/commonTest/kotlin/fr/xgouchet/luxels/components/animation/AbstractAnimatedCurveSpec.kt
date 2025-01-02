@@ -1,6 +1,5 @@
 package fr.xgouchet.luxels.components.animation
 
-import fr.xgouchet.luxels.components.test.ext.max
 import fr.xgouchet.luxels.components.test.kotest.assertions.shouldBeCloseTo
 import fr.xgouchet.luxels.components.test.kotest.property.animatedVectorListArb
 import fr.xgouchet.luxels.components.test.kotest.property.durationArb

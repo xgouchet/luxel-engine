@@ -28,6 +28,7 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
+                implementation(libs.kotlin)
                 implementation(libs.kotlinxDateTime)
                 implementation(libs.kotlinxSerialization)
                 implementation(libs.kotlinxCoroutines)

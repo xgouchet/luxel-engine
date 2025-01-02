@@ -29,7 +29,7 @@ class MandelbrotSimulator(
         return MandelbrotLuxel(Complex(vec.x, vec.y), col, iter)
     }
 
-    override fun updateLuxel(luxel: MandelbrotLuxel, environment: BaseEnvironment<D2>) {
+    override fun updateLuxel(luxel: MandelbrotLuxel, environment: BaseEnvironment<D2>, frameInfo: FrameInfo) {
     }
 
     // endregion

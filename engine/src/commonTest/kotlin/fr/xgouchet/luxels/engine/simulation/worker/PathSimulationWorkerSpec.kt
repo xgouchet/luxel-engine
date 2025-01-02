@@ -15,6 +15,8 @@ import fr.xgouchet.luxels.core.render.Exposure
 import fr.xgouchet.luxels.engine.api.Environment
 import fr.xgouchet.luxels.engine.api.Luxel
 import fr.xgouchet.luxels.engine.api.Simulator
+import fr.xgouchet.luxels.engine.render.Projection
+import fr.xgouchet.luxels.engine.simulation.SimulationContext
 import fr.xgouchet.luxels.engine.test.kotest.property.internalConfigurationArb
 import fr.xgouchet.luxels.engine.test.kotest.property.vectorArb
 import io.kotest.core.spec.style.DescribeSpec
@@ -32,7 +34,12 @@ class PathSimulationWorkerSpec : DescribeSpec(
                     Arb.int(min = 1, max = 8),
                     vectorArb(),
                 ) { baseConfig, luxelCount, lifespan, position ->
-                    val configuration = baseConfig.copy(simulationLuxelCount = luxelCount.toLong())
+                    val environment = mock<Environment<Dimension>>()
+                    val projection = mock<Projection<Dimension>>()
+                    val configuration = baseConfig.copy(
+                        simulationLuxelCount = luxelCount.toLong(),
+                        context = SimulationContext(environment, projection),
+                    )
                     val luxels = List(luxelCount) {
                         mock<Luxel<Dimension>> {
                             every { isAlive() } sequentially {
@@ -42,7 +49,6 @@ class PathSimulationWorkerSpec : DescribeSpec(
                             every { position() } returns position
                         }
                     }
-                    val environment = mock<Environment<Dimension>>()
                     val exposure = mock<Exposure<Dimension>>()
                     val logHandler = mock<LogHandler>()
                     val simulator = mock<Simulator<Dimension, Luxel<Dimension>, Environment<Dimension>>> {
@@ -52,14 +58,14 @@ class PathSimulationWorkerSpec : DescribeSpec(
                     }
                     val worker = PathSimulationWorker(simulator, logHandler)
 
-                    worker.runSimulation(environment, exposure, configuration)
+                    worker.runSimulation(exposure, configuration)
 
                     verify(exactly(luxelCount)) { simulator.spawnLuxel(environment, configuration.animationFrameInfo) }
                     repeat(luxelCount) { idx ->
                         verify { luxels[idx].onStart() }
                         verify(exactly(lifespan)) {
                             luxels[idx].onStep(any<Int>())
-                            simulator.updateLuxel(luxels[idx], environment)
+                            simulator.updateLuxel(luxels[idx], environment, configuration.animationFrameInfo)
                         }
                         verify { luxels[idx].onEnd() }
                     }

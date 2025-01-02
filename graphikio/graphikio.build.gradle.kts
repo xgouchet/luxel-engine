@@ -28,6 +28,7 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
+                implementation(libs.kotlin)
                 implementation(libs.kotlinxCoroutines)
                 implementation(libs.okio)
                 implementation("com.goncalossilva:resources:0.4.1")

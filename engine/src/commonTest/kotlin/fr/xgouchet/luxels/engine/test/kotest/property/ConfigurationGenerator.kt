@@ -1,13 +1,15 @@
 package fr.xgouchet.luxels.engine.test.kotest.property
 
-import fr.xgouchet.luxels.core.io.NoOpFixer
+import dev.mokkery.mock
 import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.render.Resolution
+import fr.xgouchet.luxels.engine.api.Environment
 import fr.xgouchet.luxels.engine.api.configuration.Configuration
 import fr.xgouchet.luxels.engine.api.configuration.FilmType
 import fr.xgouchet.luxels.engine.api.configuration.Quality
 import fr.xgouchet.luxels.engine.api.configuration.SimulationType
 import fr.xgouchet.luxels.engine.simulation.InternalConfiguration
+import fr.xgouchet.luxels.engine.simulation.SimulationContext
 import fr.xgouchet.luxels.engine.simulation.runner.FrameInfo
 import fr.xgouchet.luxels.engine.test.stub.StubInputSource
 import fr.xgouchet.luxels.engine.test.stub.stubInputData
@@ -34,7 +36,7 @@ fun configurationArb() = arbitrary {
         render = Configuration.Render(
             filmType = Arb.enum<FilmType>().bind(),
             resolution = Arb.enum<Resolution>().bind(),
-            fixer = NoOpFixer(), // TODO
+            fixer = mock(),
         ),
         animation = Configuration.Animation(
             duration = shortDurationArb().bind(),
@@ -47,8 +49,9 @@ internal fun internalConfigurationArb() = arbitrary {
     val frameStep = shortDurationArb().bind()
     val frameCount = Arb.int(0, 128).bind()
     val frameIdx = Arb.int(0, frameCount).bind()
+    val progression = frameIdx.toDouble() / frameCount
     val dimension = dimensionArb().bind()
-    InternalConfiguration<Dimension, Long>(
+    InternalConfiguration<Dimension, Long, Environment<Dimension>>(
         dimension = dimension,
         inputData = stubInputData(Arb.int().bind(), Arb.long().bind()),
         simulationVolume = volumeArb(dimension).bind(),
@@ -57,9 +60,10 @@ internal fun internalConfigurationArb() = arbitrary {
         simulationType = Arb.enum<SimulationType>().bind(),
         animationDuration = (frameStep * frameCount),
         animationFrameStep = frameStep,
-        animationFrameInfo = FrameInfo(frameIdx, frameStep * frameIdx),
+        animationFrameInfo = FrameInfo(frameIdx, frameStep * frameIdx, progression),
         outputFilmType = Arb.enum<FilmType>().bind(),
         outputResolution = Arb.enum<Resolution>().bind(),
-        outputFixer = NoOpFixer(), // TODO
+        outputFixer = mock(),
+        context = SimulationContext(mock(), mock()),
     )
 }

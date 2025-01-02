@@ -53,9 +53,8 @@ abstract class AbstractSimulationWorker<D : Dimension, L : Luxel<D>, E : Environ
 
     @Suppress("TooGenericExceptionCaught")
     override suspend fun <I : Any> runSimulation(
-        environment: E,
         exposure: Exposure<D>,
-        configuration: InternalConfiguration<D, I>,
+        configuration: InternalConfiguration<D, I, E>,
     ) {
         val coroutineName = coroutineContext[CoroutineName]?.name ?: "???"
         val workerName = "${simulationType.name}|$coroutineName"
@@ -66,7 +65,6 @@ abstract class AbstractSimulationWorker<D : Dimension, L : Luxel<D>, E : Environ
 
         try {
             simulateAllLuxels(
-                environment,
                 exposure,
                 configuration,
                 progressNotification,
@@ -87,16 +85,16 @@ abstract class AbstractSimulationWorker<D : Dimension, L : Luxel<D>, E : Environ
 
     @Suppress("LongParameterList")
     private fun <I : Any> simulateAllLuxels(
-        environment: E,
         exposure: Exposure<D>,
-        configuration: InternalConfiguration<D, I>,
+        configuration: InternalConfiguration<D, I, E>,
         progressNotification: Long,
         workerName: String,
         frameStart: Instant,
     ) {
+        val context = configuration.context ?: error("Context is empty!")
         for (i in 0 until configuration.simulationLuxelCount) {
             simulateSingleLuxel(
-                environment,
+                context.environment,
                 exposure,
                 i,
                 configuration.animationFrameInfo,

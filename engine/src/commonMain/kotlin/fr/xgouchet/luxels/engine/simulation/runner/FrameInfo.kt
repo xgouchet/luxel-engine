@@ -6,10 +6,12 @@ import kotlin.time.Duration
  * Information about a frame being rendered.
  * @param index the index of the frame in the simulation
  * @param time the time of the frame in the simulation
+ * @param progression the progression within the current animation (always in a [0…1] range)
  */
 data class FrameInfo(
     val index: Int,
     val time: Duration,
+    val progression: Double,
 ) {
     /**
      * @return the name of the frame
@@ -21,7 +23,7 @@ data class FrameInfo(
     // region Any
 
     override fun toString(): String {
-        return "#${name()} ($time)"
+        return "#${name()} ($time / $progression)"
     }
 
     // endregion

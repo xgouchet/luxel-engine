@@ -48,6 +48,24 @@ data class Volume<D : Dimension>(
         )
     }
 
+    /**
+     * Returns the nth corner of the volume.
+     * For a given dimension D, the volume has `2^D` corners.
+     * The corner at index 0 is always the [min] corner,
+     * and the corner at index `2^D - 1` is always the [max] corner.
+     */
+    fun corner(index: Int): Vector<D> {
+        val size = min.data.size
+        val components = List(size) { idx ->
+            if ((index shr idx) and 1 == 1) {
+                max.data[idx]
+            } else {
+                min.data[idx]
+            }
+        }
+        return Vector(components)
+    }
+
     // endregion
 
     companion object {

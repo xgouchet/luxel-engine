@@ -40,13 +40,10 @@ class EnvSimulationWorker<D : Dimension, L : Luxel<D>, E : Environment<D>>(
 
     // region SimulationWorker
 
-    override suspend fun <I : Any> runSimulation(
-        environment: E,
-        exposure: Exposure<D>,
-        configuration: InternalConfiguration<D, I>,
-    ) {
+    override suspend fun <I : Any> runSimulation(exposure: Exposure<D>, configuration: InternalConfiguration<D, I, E>) {
         rng = VectorRandomGenerator(configuration.dimension)
-        super.runSimulation(environment, exposure, configuration)
+        simulationVolume = configuration.simulationVolume
+        super.runSimulation(exposure, configuration)
     }
 
     // endregion
@@ -59,9 +56,11 @@ class EnvSimulationWorker<D : Dimension, L : Luxel<D>, E : Environment<D>>(
         luxelIndex: Long,
         frameInfo: FrameInfo,
     ) {
-        val simulationPosition = rng.inVolume(simulationVolume)
-        val color = environment.environmentColor(simulationPosition, frameInfo.time)
-        exposure.expose(simulationPosition, color)
+        repeat(8192) {
+            val simulationPosition = rng.inVolume(simulationVolume.expanded(2.0))
+            val color = environment.environmentColor(simulationPosition, frameInfo.time)
+            exposure.expose(simulationPosition, color)
+        }
     }
 
     // endregion

@@ -27,7 +27,12 @@ interface Simulator<D : Dimension, L : Luxel<D>, E : Environment<D>> {
      * contributing to the final image based on its color.
      * @param luxel the [Luxel] to update
      * @param environment the simulation environment
+     * @param frameInfo the current frame information
      * @see [Luxel.isAlive]
      */
-    fun updateLuxel(luxel: L, environment: E)
+    fun updateLuxel(
+        luxel: L,
+        environment: E,
+        frameInfo: FrameInfo,
+    )
 }
