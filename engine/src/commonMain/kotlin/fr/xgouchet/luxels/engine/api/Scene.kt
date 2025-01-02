@@ -18,24 +18,17 @@ import kotlin.time.Duration
 interface Scene<D : Dimension, L : Luxel<D>, I : Any, E : Environment<D>> {
 
     /**
-     * Called once per animation to prepare the scene.
+     * Called once per animation to prepare the environment.
      *
      * @param simulationVolume the volume within which the simulation is ran
      * @param duration the duration of the animation
      * @param inputData the input for the simulation
      */
-    fun prepareScene(
+    fun getEnvironment(
         simulationVolume: Volume<D>,
         duration: Duration,
         inputData: InputData<I>,
-    )
-
-    /**
-     * Called once per input to initialize the environment.
-     * @param frameInfo the current frame information
-     * @return the environment
-     */
-    fun getFrameEnvironment(frameInfo: FrameInfo): E
+    ): E
 
     /**
      * Called whenever a projection needs to be created (called once per frame).

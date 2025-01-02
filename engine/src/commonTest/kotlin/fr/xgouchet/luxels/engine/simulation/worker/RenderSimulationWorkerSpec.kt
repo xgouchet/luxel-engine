@@ -14,6 +14,8 @@ import fr.xgouchet.luxels.core.render.Exposure
 import fr.xgouchet.luxels.engine.api.Environment
 import fr.xgouchet.luxels.engine.api.Luxel
 import fr.xgouchet.luxels.engine.api.Simulator
+import fr.xgouchet.luxels.engine.render.Projection
+import fr.xgouchet.luxels.engine.simulation.SimulationContext
 import fr.xgouchet.luxels.engine.test.kotest.property.colorArb
 import fr.xgouchet.luxels.engine.test.kotest.property.internalConfigurationArb
 import fr.xgouchet.luxels.engine.test.kotest.property.vectorArb
@@ -33,7 +35,6 @@ class RenderSimulationWorkerSpec : DescribeSpec(
                     colorArb(),
                     vectorArb(),
                 ) { baseConfig, luxelCount, lifespan, color, position ->
-                    val configuration = baseConfig.copy(simulationLuxelCount = luxelCount.toLong())
                     val luxels = List(luxelCount) {
                         mock<Luxel<Dimension>> {
                             every { isAlive() } sequentially {
@@ -46,6 +47,11 @@ class RenderSimulationWorkerSpec : DescribeSpec(
                     }
                     val environment = mock<Environment<Dimension>>()
                     val exposure = mock<Exposure<Dimension>>()
+                    val projection = mock<Projection<Dimension>>()
+                    val configuration = baseConfig.copy(
+                        simulationLuxelCount = luxelCount.toLong(),
+                        context = SimulationContext(environment, projection),
+                    )
                     val logHandler = mock<LogHandler>()
                     val simulator = mock<Simulator<Dimension, Luxel<Dimension>, Environment<Dimension>>> {
                         every {
@@ -54,14 +60,14 @@ class RenderSimulationWorkerSpec : DescribeSpec(
                     }
                     val worker = RenderSimulationWorker(simulator, logHandler)
 
-                    worker.runSimulation(environment, exposure, configuration)
+                    worker.runSimulation(exposure, configuration)
 
                     verify(exactly(luxelCount)) { simulator.spawnLuxel(environment, configuration.animationFrameInfo) }
                     repeat(luxelCount) { idx ->
                         verify { luxels[idx].onStart() }
                         verify(exactly(lifespan)) {
                             luxels[idx].onStep(any<Int>())
-                            simulator.updateLuxel(luxels[idx], environment)
+                            simulator.updateLuxel(luxels[idx], environment, configuration.animationFrameInfo)
                         }
                         verify { luxels[idx].onEnd() }
                     }

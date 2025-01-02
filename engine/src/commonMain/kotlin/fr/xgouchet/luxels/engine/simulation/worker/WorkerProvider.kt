@@ -22,6 +22,6 @@ interface WorkerProvider {
      */
     fun <D : Dimension, L : Luxel<D>, I : Any, E : Environment<D>> createWorker(
         simulator: Simulator<D, L, E>,
-        configuration: InternalConfiguration<D, I>,
+        configuration: InternalConfiguration<D, I, E>,
     ): SimulationWorker<D, E>
 }

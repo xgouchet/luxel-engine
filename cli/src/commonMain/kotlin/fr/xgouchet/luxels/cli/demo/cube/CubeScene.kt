@@ -17,20 +17,14 @@ import kotlin.time.Duration
 
 class CubeScene : Scene<D3, StaticLuxel<D3>, Unit, BaseEnvironment<D3>> {
 
-    lateinit var environment: BaseEnvironment<D3>
-
     // region Scene
 
-    override fun prepareScene(
+    override fun getEnvironment(
         simulationVolume: Volume<D3>,
         duration: Duration,
         inputData: InputData<Unit>,
-    ) {
-        environment = BaseEnvironment(simulationVolume)
-    }
-
-    override fun getFrameEnvironment(frameInfo: FrameInfo): BaseEnvironment<D3> {
-        return environment
+    ): BaseEnvironment<D3> {
+        return BaseEnvironment(simulationVolume)
     }
 
     override fun getProjection(

@@ -13,20 +13,14 @@ import kotlin.time.Duration
 
 class NoiseScene : Scene<D2, StaticLuxel<D2>, Unit, NoiseEnvironment> {
 
-    lateinit var environment: NoiseEnvironment
-
     // region Scene
 
-    override fun prepareScene(
+    override fun getEnvironment(
         simulationVolume: Volume<D2>,
         duration: Duration,
         inputData: InputData<Unit>,
-    ) {
-        environment = NoiseEnvironment(simulationVolume)
-    }
-
-    override fun getFrameEnvironment(frameInfo: FrameInfo): NoiseEnvironment {
-        return environment
+    ): NoiseEnvironment {
+        return NoiseEnvironment(simulationVolume)
     }
 
     override fun getProjection(

@@ -48,7 +48,7 @@ class LuxelEngine internal constructor(
         val mainJob = CoroutineScope(mainDispatcher).launch {
             logHandler.startSection("Scene ${scene.outputName()}")
             configuration.input.source.forEach {
-                val internalConfig = InternalConfiguration(configuration, it)
+                val internalConfig = InternalConfiguration<D, I, E>(configuration, it)
                 logHandler.startSection(
                     "Running scene “${scene.outputName()}” with input ${it.id} (${
                         it.seed.toString(

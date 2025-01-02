@@ -7,7 +7,7 @@ import fr.xgouchet.luxels.engine.api.Scene
 import fr.xgouchet.luxels.engine.simulation.InternalConfiguration
 
 /**
- * Runs the simulation for a single frame.
+ * Runs the simulation for given Scene.
  */
 interface SimulationRunner {
 
@@ -24,6 +24,6 @@ interface SimulationRunner {
      */
     suspend fun <D : Dimension, L : Luxel<D>, I : Any, E : Environment<D>> runSimulation(
         scene: Scene<D, L, I, E>,
-        configuration: InternalConfiguration<D, I>,
+        configuration: InternalConfiguration<D, I, E>,
     )
 }

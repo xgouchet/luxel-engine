@@ -48,7 +48,7 @@ class LuxelEngineSpec : DescribeSpec(
                     testedEngine.runSimulation(scene, configuration)
 
                     configuration.input.source.forEachIndexed { idx, input ->
-                        val expectedConfiguration = InternalConfiguration<Dimension, Long>(
+                        val expectedConfiguration = InternalConfiguration<Dimension, Long, Environment<Dimension>>(
                             dimension = configuration.dimension,
                             inputData = input,
                             simulationVolume = configuration.simulation.volume,
@@ -57,10 +57,11 @@ class LuxelEngineSpec : DescribeSpec(
                             simulationType = configuration.simulation.simulationType,
                             animationDuration = configuration.animation.duration,
                             animationFrameStep = 1.seconds / configuration.animation.fps,
-                            animationFrameInfo = FrameInfo(0, 0.nanoseconds),
+                            animationFrameInfo = FrameInfo(0, 0.nanoseconds, 0.0),
                             outputFilmType = configuration.render.filmType,
                             outputResolution = configuration.render.resolution,
                             outputFixer = configuration.render.fixer,
+                            context = null,
                         )
                         verifySuspend { sceneRunner.runSimulation(scene, expectedConfiguration) }
                     }

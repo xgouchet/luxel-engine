@@ -30,7 +30,7 @@ open class AnimatedVector<D : Dimension>(
     // region Animated
 
     override fun getValue(time: Duration): Vector<D> {
-        val progress = time.inWholeNanoseconds.toDouble() / duration.inWholeNanoseconds.toDouble()
+        val progress = time / duration
         return curve.getPosition(progress)
     }
 

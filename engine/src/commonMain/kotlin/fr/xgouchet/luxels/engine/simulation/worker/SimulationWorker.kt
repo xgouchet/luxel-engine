@@ -16,13 +16,8 @@ interface SimulationWorker<D : Dimension, E : Environment<D>> {
     /**
      * Perform some work.
      * @param I the expected Input
-     * @param environment the environment for the simulation
      * @param exposure the target exposure
      * @param configuration the configuration
      */
-    suspend fun <I : Any> runSimulation(
-        environment: E,
-        exposure: Exposure<D>,
-        configuration: InternalConfiguration<D, I>,
-    )
+    suspend fun <I : Any> runSimulation(exposure: Exposure<D>, configuration: InternalConfiguration<D, I, E>)
 }

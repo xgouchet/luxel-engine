@@ -13,20 +13,14 @@ import kotlin.time.Duration
 
 class BuddhabrotScene : Scene<D2, BuddhabrotLuxel, Unit, BaseEnvironment<D2>> {
 
-    lateinit var environment: BaseEnvironment<D2>
-
     // region Scene
 
-    override fun prepareScene(
+    override fun getEnvironment(
         simulationVolume: Volume<D2>,
         duration: Duration,
         inputData: InputData<Unit>,
-    ) {
-        environment = BaseEnvironment(simulationVolume)
-    }
-
-    override fun getFrameEnvironment(frameInfo: FrameInfo): BaseEnvironment<D2> {
-        return environment
+    ): BaseEnvironment<D2> {
+        return BaseEnvironment(simulationVolume)
     }
 
     override fun getProjection(

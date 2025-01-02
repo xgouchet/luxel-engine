@@ -16,20 +16,14 @@ import kotlin.time.Duration
 
 class MetaBallsScene : Scene<D3, StaticLuxel<D3>, Unit, MetaBallsEnvironment> {
 
-    lateinit var metaBallsEnvironment: MetaBallsEnvironment
-
     // region Scene
 
-    override fun prepareScene(
+    override fun getEnvironment(
         simulationVolume: Volume<D3>,
         duration: Duration,
         inputData: InputData<Unit>,
-    ) {
-        metaBallsEnvironment = MetaBallsEnvironment(simulationVolume, duration)
-    }
-
-    override fun getFrameEnvironment(frameInfo: FrameInfo): MetaBallsEnvironment {
-        return metaBallsEnvironment
+    ): MetaBallsEnvironment {
+        return MetaBallsEnvironment(simulationVolume, duration)
     }
 
     override fun getProjection(

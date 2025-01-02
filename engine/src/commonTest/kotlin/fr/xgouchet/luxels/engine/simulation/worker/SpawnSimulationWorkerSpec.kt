@@ -13,6 +13,8 @@ import fr.xgouchet.luxels.core.render.Exposure
 import fr.xgouchet.luxels.engine.api.Environment
 import fr.xgouchet.luxels.engine.api.Luxel
 import fr.xgouchet.luxels.engine.api.Simulator
+import fr.xgouchet.luxels.engine.render.Projection
+import fr.xgouchet.luxels.engine.simulation.SimulationContext
 import fr.xgouchet.luxels.engine.test.kotest.property.internalConfigurationArb
 import fr.xgouchet.luxels.engine.test.kotest.property.vectorArb
 import io.kotest.core.spec.style.DescribeSpec
@@ -29,7 +31,6 @@ class SpawnSimulationWorkerSpec : DescribeSpec(
                     Arb.int(min = 4, max = 128),
                     vectorArb(),
                 ) { baseConfig, luxelCount, position ->
-                    val configuration = baseConfig.copy(simulationLuxelCount = luxelCount.toLong())
                     val luxels = List(luxelCount) {
                         mock<Luxel<Dimension>> {
                             every { isAlive() } returns false
@@ -38,6 +39,11 @@ class SpawnSimulationWorkerSpec : DescribeSpec(
                     }
                     val environment = mock<Environment<Dimension>>()
                     val exposure = mock<Exposure<Dimension>>()
+                    val projection = mock<Projection<Dimension>>()
+                    val configuration = baseConfig.copy(
+                        simulationLuxelCount = luxelCount.toLong(),
+                        context = SimulationContext(environment, projection),
+                    )
                     val logHandler = mock<LogHandler>()
                     val simulator = mock<Simulator<Dimension, Luxel<Dimension>, Environment<Dimension>>> {
                         every {
@@ -46,7 +52,7 @@ class SpawnSimulationWorkerSpec : DescribeSpec(
                     }
                     val worker = SpawnSimulationWorker(simulator, logHandler)
 
-                    worker.runSimulation(environment, exposure, configuration)
+                    worker.runSimulation(exposure, configuration)
 
                     verify(exactly(luxelCount)) { simulator.spawnLuxel(environment, configuration.animationFrameInfo) }
                     verify(exactly(luxelCount)) { exposure.expose(position, HDRColor.GREEN) }

@@ -8,7 +8,6 @@ import dev.mokkery.mock
 import dev.mokkery.verifySuspend
 import fr.xgouchet.luxels.core.log.LogHandler
 import fr.xgouchet.luxels.core.math.Dimension
-import fr.xgouchet.luxels.core.math.asVolume
 import fr.xgouchet.luxels.core.render.Film
 import fr.xgouchet.luxels.core.render.Resolution
 import fr.xgouchet.luxels.engine.api.Environment
@@ -17,7 +16,7 @@ import fr.xgouchet.luxels.engine.api.Scene
 import fr.xgouchet.luxels.engine.api.Simulator
 import fr.xgouchet.luxels.engine.render.DefaultFilmProvider
 import fr.xgouchet.luxels.engine.render.FilmProvider
-import fr.xgouchet.luxels.engine.render.Projection
+import fr.xgouchet.luxels.engine.simulation.SimulationContext
 import fr.xgouchet.luxels.engine.simulation.worker.DefaultWorkerProvider
 import fr.xgouchet.luxels.engine.simulation.worker.SimulationWorker
 import fr.xgouchet.luxels.engine.simulation.worker.WorkerProvider
@@ -49,9 +48,10 @@ class ParallelFrameRunnerSpec : DescribeSpec(
                     Arb.int(1, 3),
                 ) { baseConfiguration, threadCount ->
                     val resolution = Resolution.SQUARE_128
-                    val configuration = baseConfiguration.copy(outputResolution = resolution)
-                    val environment = mock<Environment<Dimension>>()
-                    val projection = mock<Projection<Dimension>>()
+                    val configuration = baseConfiguration.copy(
+                        outputResolution = resolution,
+                        context = SimulationContext(mock(), mock()),
+                    )
                     val logHandler = mock<LogHandler>()
                     val expectedWorkerConfig = configuration.copy(
                         simulationLuxelCount = configuration.simulationLuxelCount / threadCount,
@@ -79,18 +79,6 @@ class ParallelFrameRunnerSpec : DescribeSpec(
                     }
                     val scene = mock<Scene<Dimension, Luxel<Dimension>, Long, Environment<Dimension>>> {
                         every { outputName() } returns ("foo")
-                        every {
-                            getFrameEnvironment(
-                                configuration.animationFrameInfo,
-                            )
-                        } returns (environment)
-                        every {
-                            getProjection(
-                                configuration.simulationVolume,
-                                configuration.outputResolution.asVector2().asVolume(),
-                                configuration.animationFrameInfo,
-                            )
-                        } returns projection
                         every { initSimulator(configuration.animationFrameInfo) } sequentiallyReturns simulators
                     }
                     val workerProvider = mock<WorkerProvider> {
@@ -107,7 +95,7 @@ class ParallelFrameRunnerSpec : DescribeSpec(
 
                     repeat(threadCount) { idx ->
                         verifySuspend {
-                            workers[idx].runSimulation(environment, any(), expectedWorkerConfig)
+                            workers[idx].runSimulation(any(), expectedWorkerConfig)
                         }
                     }
                 }

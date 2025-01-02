@@ -20,7 +20,7 @@ class NoiseSimulator : Simulator<D2, StaticLuxel<D2>, NoiseEnvironment> {
         return StaticLuxel(position, color)
     }
 
-    override fun updateLuxel(luxel: StaticLuxel<D2>, environment: NoiseEnvironment) {
+    override fun updateLuxel(luxel: StaticLuxel<D2>, environment: NoiseEnvironment, frameInfo: FrameInfo) {
     }
 
     // endregion

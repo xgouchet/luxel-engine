@@ -78,7 +78,7 @@ class CubeSimulator : Simulator<D3, StaticLuxel<D3>, BaseEnvironment<D3>> {
         return StaticLuxel(position, HDRColor.WHITE)
     }
 
-    override fun updateLuxel(luxel: StaticLuxel<D3>, environment: BaseEnvironment<D3>) {
+    override fun updateLuxel(luxel: StaticLuxel<D3>, environment: BaseEnvironment<D3>, frameInfo: FrameInfo) {
     }
 
     // endregion
