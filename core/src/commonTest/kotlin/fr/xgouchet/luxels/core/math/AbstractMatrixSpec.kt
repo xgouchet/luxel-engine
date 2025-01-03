@@ -9,6 +9,7 @@ import io.kotest.core.spec.style.describeSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb
 import io.kotest.property.arbitrary.int
+import io.kotest.property.arbitrary.string
 import io.kotest.property.checkAll
 import io.kotest.property.withAssumptions
 import kotlin.math.abs
@@ -485,6 +486,22 @@ fun <C : Dimension, R : Dimension> abstractMatrixSpec(cols: C, rows: R) = descri
                 val b = a * 1.0
 
                 (a == b) shouldBe true
+            }
+        }
+
+        it("is always false with null") {
+            checkAll(matrixArb) { a ->
+                val nullable = a as Matrix?
+
+                (nullable == null) shouldBe false
+            }
+        }
+
+        it("is always false with non matrix") {
+            checkAll(matrixArb, Arb.string()) { a, string ->
+                val untyped = a as Any?
+
+                (untyped == string) shouldBe false
             }
         }
 

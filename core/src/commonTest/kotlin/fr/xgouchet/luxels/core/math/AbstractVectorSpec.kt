@@ -850,6 +850,18 @@ fun <D : Dimension> abstractVectorSpec(d: D) = describeSpec {
         }
     }
 
+    describe("asVolume ($d)") {
+        it("returns a volume with the proper corners") {
+            checkAll(vectorArb) { v ->
+                val volume = v.asVolume()
+                val expectedMax = v.abs()
+
+                volume.min shouldBe Vector.nul(d)
+                volume.max shouldBe expectedMax
+            }
+        }
+    }
+
     describe("from lambda ($d)") {
         it("uses the provided lambda") {
             checkAll(vectorArb) { source ->

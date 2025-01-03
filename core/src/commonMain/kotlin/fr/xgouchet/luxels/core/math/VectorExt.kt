@@ -124,21 +124,6 @@ val Vector<*>.yzw: Vector<Dimension.D3>
 
 // endregion
 
-// region Vector<*> -> Volume<*>
-
-/**
- * @return a [Volume] with Zero as one corner and this [Vector] as the other corner
- */
-fun <D : Dimension> Vector<D>.asVolume(): Volume<D> {
-    // TODO handle negative components
-    return Volume(
-        min = this * 0.0,
-        max = this,
-    )
-}
-
-// endregion
-
 // region Dimension specific operation
 
 /**

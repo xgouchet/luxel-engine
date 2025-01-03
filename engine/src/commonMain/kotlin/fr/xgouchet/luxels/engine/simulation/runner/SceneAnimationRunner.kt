@@ -4,7 +4,6 @@ import fr.xgouchet.luxels.core.log.LogHandler
 import fr.xgouchet.luxels.core.log.endSection
 import fr.xgouchet.luxels.core.log.startSection
 import fr.xgouchet.luxels.core.math.Dimension
-import fr.xgouchet.luxels.core.math.asVolume
 import fr.xgouchet.luxels.core.math.random.RndGen
 import fr.xgouchet.luxels.engine.api.Environment
 import fr.xgouchet.luxels.engine.api.Luxel
