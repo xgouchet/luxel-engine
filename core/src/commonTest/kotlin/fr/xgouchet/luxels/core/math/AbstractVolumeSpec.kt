@@ -11,6 +11,8 @@ import io.kotest.property.Arb
 import io.kotest.property.arbitrary.double
 import io.kotest.property.checkAll
 import io.kotest.property.withAssumptions
+import kotlin.math.pow
+import kotlin.math.roundToInt
 
 @OptIn(ExperimentalKotest::class)
 @Suppress("LocalVariableName", "NonAsciiCharacters")
@@ -81,6 +83,31 @@ fun <D : Dimension> abstractVolumeSpec(d: D) = describeSpec {
                 val volume = Volume(u, u)
 
                 volume.center shouldBeCloseTo u
+            }
+        }
+    }
+
+    describe("corner ($d)") {
+        it("returns min corner") {
+            checkAll(vectorArb, vectorArb) { min, s ->
+                val size = s.abs()
+                val max = min + size
+
+                val volume = Volume(min, max)
+
+                volume.corner(0) shouldBeCloseTo min
+            }
+        }
+
+        it("returns max corner") {
+            checkAll(vectorArb, vectorArb) { min, s ->
+                val size = s.abs()
+                val max = min + size
+                val maxCornerIdx = 2.0.pow(d.size).roundToInt()
+
+                val volume = Volume(min, max)
+
+                volume.corner(maxCornerIdx - 1) shouldBeCloseTo max
             }
         }
     }

@@ -9,7 +9,6 @@ import dev.mokkery.verifySuspend
 import fr.xgouchet.luxels.core.log.Log
 import fr.xgouchet.luxels.core.log.LogHandler
 import fr.xgouchet.luxels.core.math.Dimension
-import fr.xgouchet.luxels.core.math.asVolume
 import fr.xgouchet.luxels.core.math.random.RndGen
 import fr.xgouchet.luxels.engine.api.Environment
 import fr.xgouchet.luxels.engine.api.Luxel

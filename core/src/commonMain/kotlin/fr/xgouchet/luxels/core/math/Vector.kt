@@ -147,17 +147,15 @@ class Vector<D : Dimension>(
      * @param normal the normal vector of the surface through which the vector should be refracted
      * @param sourceIndex the source medium refraction index
      * @param destinationIndex the destination medium refraction index
-     * @param refractionFactor the refraction factor
      */
     fun refract(
         normal: Vector<D>,
         sourceIndex: Double,
         destinationIndex: Double,
-        refractionFactor: Double,
     ): Vector<D> {
-        val r = (sourceIndex / destinationIndex) * refractionFactor
+        val r = sourceIndex / destinationIndex
         val c = -(normal.dot(this))
-        val k = r * c - sqrt(kotlin.math.abs(1.0 - (r * r * (1.0 - c * c))))
+        val k = r * c - sqrt(abs(1.0 - (r * r * (1.0 - c * c))))
         return (this * r) + (normal * k)
     }
 
@@ -232,6 +230,10 @@ class Vector<D : Dimension>(
         return data.zip(other.data) { a, b -> a >= b }.all { it }
     }
 
+    // endregion
+
+    // region Conversion
+
     /**
      * Converts this vector into an horizontal matrix.
      * @return the matrix with in row of n values
@@ -253,6 +255,17 @@ class Vector<D : Dimension>(
             data = data.copyOf(),
             width = 1,
             height = data.size,
+        )
+    }
+
+    /**
+     * @return a [Volume] with Zero as one corner and this [Vector] as the other corner
+     */
+    fun asVolume(): Volume<D> {
+        val abs = this.abs()
+        return Volume(
+            min = abs * 0.0,
+            max = abs,
         )
     }
 

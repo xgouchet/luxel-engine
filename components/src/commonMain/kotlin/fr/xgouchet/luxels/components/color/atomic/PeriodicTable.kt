@@ -48,7 +48,7 @@ object PeriodicTable {
         Gallium,
         Germanium,
         Arsenic,
-        Selenium,
+        // Selenium, // No Visible Spectral Lines
         Bromine,
         Krypton,
         Rubidium,
@@ -95,8 +95,8 @@ object PeriodicTable {
         Hafnium,
         Tantalum,
         Tungsten,
-        Rhenium,
-        Osmium,
+        // Rhenium, // No Visible Spectral Lines
+        // Osmium, // No Visible Spectral Lines
         Iridium,
         Platinum,
         Gold,
@@ -105,7 +105,7 @@ object PeriodicTable {
         Lead,
         Bismuth,
         Polonium,
-        Astatine,
+        // Astatine, // No Visible Spectral Lines
         Radon,
     )
 
@@ -116,7 +116,8 @@ object PeriodicTable {
     val alkalineEarthMetals = arrayOf(Beryllium, Magnesium, Calcium, Strontium, Barium)
 
     /** Group Halogens ("salt former": when reacting with metals, they produce a wide range of salts). */
-    val halogens = arrayOf(Fluorine, Chlorine, Bromine, Iodine, Astatine)
+    // Missing: Astatine (No visible spectral lines)
+    val halogens = arrayOf(Fluorine, Chlorine, Bromine, Iodine)
 
     /** Group Metalloids (non metal elements with some metallic properties). */
     val metalloids = arrayOf(Boron, Silicon, Germanium, Arsenic, Antimony, Tellurium, Polonium)
@@ -125,7 +126,8 @@ object PeriodicTable {
     val nobleGases = arrayOf(Helium, Neon, Argon, Krypton, Xenon, Radon)
 
     /** Group Non Metals (mostly lack distinctive metallic properties).*/
-    val nonMetals = arrayOf(Hydrogen, Carbon, Nitrogen, Oxygen, Phosphorus, Sulfur, Selenium)
+    // Missing: Selenium (No visible spectral lines)
+    val nonMetals = arrayOf(Hydrogen, Carbon, Nitrogen, Oxygen, Phosphorus, Sulfur)
 
     /** Group Post-Transition Metals .*/
     val postTransitionMetals = arrayOf(Aluminium, Gallium, Indium, Tin, Thallium, Lead, Bismuth)
@@ -155,8 +157,8 @@ object PeriodicTable {
         Hafnium,
         Tantalum,
         Tungsten,
-        Rhenium,
-        Osmium,
+        // Rhenium,
+        // Osmium,
         Iridium,
         Platinum,
         Gold,

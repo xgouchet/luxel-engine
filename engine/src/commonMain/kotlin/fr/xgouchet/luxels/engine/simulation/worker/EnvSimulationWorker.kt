@@ -22,10 +22,12 @@ import fr.xgouchet.luxels.engine.simulation.runner.FrameInfo
  *
  * @param simulator the simulator to use
  * @param logHandler the [LogHandler] to use throughout the simulation
+ * @param density the density of the env simulation pass
  */
 class EnvSimulationWorker<D : Dimension, L : Luxel<D>, E : Environment<D>>(
     simulator: Simulator<D, L, E>,
     logHandler: LogHandler,
+    val density: Int,
 ) : AbstractSimulationWorker<D, L, E>(
     simulationType = SimulationType.ENV,
     simulator = simulator,
@@ -56,7 +58,7 @@ class EnvSimulationWorker<D : Dimension, L : Luxel<D>, E : Environment<D>>(
         luxelIndex: Long,
         frameInfo: FrameInfo,
     ) {
-        repeat(8192) {
+        repeat(density) {
             val simulationPosition = rng.inVolume(simulationVolume.expanded(2.0))
             val color = environment.environmentColor(simulationPosition, frameInfo.time)
             exposure.expose(simulationPosition, color)

@@ -1,9 +1,11 @@
+import dev.mokkery.MockMode
 import org.jetbrains.kotlin.konan.target.HostManager
 
 
 plugins {
     kotlin("multiplatform")
     id("common")
+    id("dev.mokkery")
 }
 
 kotlin {
@@ -66,4 +68,8 @@ kotlin {
 dependencies {
     detektPlugins(project(":detekt"))
     detekt(libs.detektCli)
+}
+
+mokkery {
+    defaultMockMode.set(MockMode.autoUnit)
 }
