@@ -1,10 +1,30 @@
 package fr.xgouchet.luxels.cli.wip.bookworm
 
-/*
+import fr.xgouchet.luxels.core.math.Dimension.D3
+import fr.xgouchet.luxels.core.math.Interpolation
+import fr.xgouchet.luxels.engine.api.Environment
+import fr.xgouchet.luxels.engine.api.Simulator
+import fr.xgouchet.luxels.engine.simulation.runner.FrameInfo
+
 class BookwormSimulator(
     val luxelLifespan: Int = 0X80,
     val interpolation: Interpolation = Interpolation.Linear,
-) : Simulator<Dimension.D3, BookwormLuxel, Path> {
+) : Simulator<D3, BookwormLuxel, Environment<D3>> {
+    // region Simulator
+    override fun spawnLuxel(environment: Environment<D3>, frameInfo: FrameInfo): BookwormLuxel {
+        TODO("Not yet implemented")
+    }
+
+    override fun updateLuxel(
+        luxel: BookwormLuxel,
+        environment: Environment<D3>,
+        frameInfo: FrameInfo,
+    ) {
+        TODO("Not yet implemented")
+    }
+    // endregion
+}
+/*
 
     val inputReader = BookwormInputReader()
 

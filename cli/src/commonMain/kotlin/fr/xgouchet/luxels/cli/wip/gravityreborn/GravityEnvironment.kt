@@ -16,10 +16,7 @@ class GravityEnvironment(
 
     // region Environment
 
-    override fun environmentColor(
-        position: Vector<D3>,
-        time: Duration,
-    ): HDRColor {
+    override fun environmentColor(position: Vector<D3>, time: Duration): HDRColor {
         return attractors.fold(HDRColor.TRANSPARENT) { prev, it ->
             val distance = (it.position.getValue(time) - position).squaredLength()
 

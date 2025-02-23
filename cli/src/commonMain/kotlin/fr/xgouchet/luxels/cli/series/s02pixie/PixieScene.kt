@@ -17,8 +17,8 @@ class PixieScene : Scene<D2, PixieLuxel, Path, PixieEnvironment> {
 
     override fun getEnvironment(
         simulationVolume: Volume<D2>,
-        duration: Duration,
         inputData: InputData<Path>,
+        duration: Duration,
     ): PixieEnvironment {
         return PixieEnvironment(inputData.data, simulationVolume)
     }

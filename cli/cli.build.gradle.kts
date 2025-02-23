@@ -20,13 +20,18 @@ kotlin {
     // JS is disabled for now because KoTest doesn't support fully JS target
     // TODO js { nodejs() }
 
-    if (HostManager.hostIsLinux) {
-        linuxX64()
-        linuxArm64()
-    }
-    if (HostManager.hostIsMac) {
-        macosX64()
-        macosArm64()
+    when (HostManager.hostName) {
+        "macos_arm64" -> macosArm64 {
+            binaries {
+                executable {
+                    entryPoint = "fr.xgouchet.luxels.cli.main"
+                }
+            }
+        }
+
+        else -> {
+            println("Unknown host ${HostManager.hostName}")
+        }
     }
 
     sourceSets {
@@ -37,11 +42,12 @@ kotlin {
                 implementation(project(":components"))
                 implementation(project(":graphikio"))
 
-                implementation(libs.kotlin)
+//                implementation(libs.kotlin)
                 implementation(libs.kotlinxDateTime)
                 implementation(libs.kotlinxSerialization)
                 implementation(libs.kotlinxCoroutines)
                 implementation(libs.okio)
+                implementation(libs.clikt)
             }
         }
 
@@ -57,10 +63,6 @@ dependencies {
     detektPlugins(project(":detekt"))
     detekt(libs.detektCli)
 }
-
-// application {
-//    mainClass.set("fr.xgouchet.luxels.cli.MainKt")
-// }
 
 tasks.withType(Jar::class.java) {
     manifest {

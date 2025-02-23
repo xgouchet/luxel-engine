@@ -20,7 +20,11 @@ class AetherSimulator(
         return AetherLuxel(curve, wavelength, luxelLifespan)
     }
 
-    override fun updateLuxel(luxel: AetherLuxel, environment: AetherEnvironment, frameInfo: FrameInfo) {
+    override fun updateLuxel(
+        luxel: AetherLuxel,
+        environment: AetherEnvironment,
+        frameInfo: FrameInfo,
+    ) {
     }
 
     // endregion

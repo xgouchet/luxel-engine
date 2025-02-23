@@ -10,7 +10,8 @@ import fr.xgouchet.luxels.engine.api.Environment
 import fr.xgouchet.luxels.engine.api.Luxel
 import fr.xgouchet.luxels.engine.api.Simulator
 import fr.xgouchet.luxels.engine.api.configuration.SimulationType
-import fr.xgouchet.luxels.engine.simulation.InternalConfiguration
+import fr.xgouchet.luxels.engine.simulation.CommonConfiguration
+import fr.xgouchet.luxels.engine.simulation.SceneConfiguration
 import fr.xgouchet.luxels.engine.simulation.runner.FrameInfo
 import kotlinx.coroutines.CoroutineName
 import kotlinx.datetime.Clock
@@ -54,19 +55,21 @@ abstract class AbstractSimulationWorker<D : Dimension, L : Luxel<D>, E : Environ
     @Suppress("TooGenericExceptionCaught")
     override suspend fun <I : Any> runSimulation(
         exposure: Exposure<D>,
-        configuration: InternalConfiguration<D, I, E>,
+        sceneConfiguration: SceneConfiguration<D, I, E>,
+        commonConfiguration: CommonConfiguration,
     ) {
         val coroutineName = coroutineContext[CoroutineName]?.name ?: "???"
         val workerName = "${simulationType.name}|$coroutineName"
         logHandler.debug("Worker [$workerName] starting for simulation $simulationType")
         val frameStart = Clock.System.now()
 
-        val progressNotification = max(configuration.simulationLuxelCount / 1000L, 2L)
+        val progressNotification = max(commonConfiguration.simulationLuxelCount / 1000L, 2L)
 
         try {
             simulateAllLuxels(
                 exposure,
-                configuration,
+                sceneConfiguration,
+                commonConfiguration,
                 progressNotification,
                 workerName,
                 frameStart,
@@ -86,22 +89,23 @@ abstract class AbstractSimulationWorker<D : Dimension, L : Luxel<D>, E : Environ
     @Suppress("LongParameterList")
     private fun <I : Any> simulateAllLuxels(
         exposure: Exposure<D>,
-        configuration: InternalConfiguration<D, I, E>,
+        sceneConfiguration: SceneConfiguration<D, I, E>,
+        commonConfiguration: CommonConfiguration,
         progressNotification: Long,
         workerName: String,
         frameStart: Instant,
     ) {
-        val context = configuration.context ?: error("Context is empty!")
-        for (i in 0 until configuration.simulationLuxelCount) {
+        val context = sceneConfiguration.context ?: error("Context is empty!")
+        for (i in 0 until commonConfiguration.simulationLuxelCount) {
             simulateSingleLuxel(
                 context.environment,
                 exposure,
                 i,
-                configuration.animationFrameInfo,
+                commonConfiguration.animationFrameInfo,
             )
 
             if (i % progressNotification == 0L) {
-                onLuxelRan(workerName, i, configuration.simulationLuxelCount, frameStart)
+                onLuxelRan(workerName, i, commonConfiguration.simulationLuxelCount, frameStart)
             }
         }
     }

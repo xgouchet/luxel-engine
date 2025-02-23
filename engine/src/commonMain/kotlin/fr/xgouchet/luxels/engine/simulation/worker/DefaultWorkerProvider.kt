@@ -6,7 +6,7 @@ import fr.xgouchet.luxels.engine.api.Environment
 import fr.xgouchet.luxels.engine.api.Luxel
 import fr.xgouchet.luxels.engine.api.Simulator
 import fr.xgouchet.luxels.engine.api.configuration.SimulationType
-import fr.xgouchet.luxels.engine.simulation.InternalConfiguration
+import fr.xgouchet.luxels.engine.simulation.CommonConfiguration
 
 /**
  * A default [WorkerProvider].
@@ -19,11 +19,11 @@ class DefaultWorkerProvider(
 
     // region WorkerProvider
 
-    override fun <D : Dimension, L : Luxel<D>, I : Any, E : Environment<D>> createWorker(
+    override fun <D : Dimension, L : Luxel<D>, E : Environment<D>> createWorker(
         simulator: Simulator<D, L, E>,
-        configuration: InternalConfiguration<D, I, E>,
+        commonConfiguration: CommonConfiguration,
     ): SimulationWorker<D, E> {
-        return when (configuration.simulationType) {
+        return when (commonConfiguration.simulationType) {
             SimulationType.RENDER -> RenderSimulationWorker(simulator, logHandler)
             SimulationType.SPAWN -> SpawnSimulationWorker(simulator, logHandler)
             SimulationType.PATH -> PathSimulationWorker(simulator, logHandler)

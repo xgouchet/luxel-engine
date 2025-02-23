@@ -1,10 +1,10 @@
 [versions]
 
 # Commons
-kotlin = "2.0.0"
+kotlin = "2.1.10"
 kotlinxDateTime = "0.6.0"
 kotlinxSerialization = "1.6.3"
-kotlinxCoroutines = "1.8.1"
+kotlinxCoroutines = "1.9.0"
 
 # Okio
 okio = "3.9.0"
@@ -14,6 +14,12 @@ imageIo = "3.10.1"
 
 # Static Analysis
 detekt = "1.23.6"
+
+# CLI arg parser
+clikt = "5.0.2"
+
+# System Info
+oshi = "6.6.6"
 
 # Tests Tools
 kotest = "5.9.0"
@@ -25,8 +31,8 @@ koverGradlePlugin = "0.7.6"
 ktlintGradlePlugin = "12.1.0"
 nexusPublishGradlePlugin = "1.1.0"
 pitestGradlePlugin = "1.15.0"
-versionsGradlePlugin = "0.46.0"
-mokkeryGradlePlugin = "2.3.0"
+depsVersionsGradlePlugin = "0.46.0"
+mokkeryGradlePlugin = "2.6.0"
 
 [libraries]
 
@@ -39,16 +45,14 @@ koverGradlePlugin = { module = "org.jetbrains.kotlinx:kover-gradle-plugin", vers
 ktlintGradlePlugin = { module = "org.jlleitschuh.gradle:ktlint-gradle", version.ref = "ktlintGradlePlugin" }
 nexusPublishGradlePlugin = { module = "io.github.gradle-nexus:publish-plugin", version.ref = "nexusPublishGradlePlugin" }
 pitestGradlePlugin = { module = "info.solidsoft.pitest:info.solidsoft.pitest.gradle.plugin", version.ref = "pitestGradlePlugin" }
-versionsGradlePlugin = { module = "com.github.ben-manes:gradle-versions-plugin", version.ref = "versionsGradlePlugin" }
+depsVersionsGradlePlugin = { module = "com.github.ben-manes:gradle-versions-plugin", version.ref = "depsVersionsGradlePlugin" }
 mokkeryGradlePlugin = { module = "dev.mokkery:mokkery-gradle", version.ref = "mokkeryGradlePlugin" }
 
 # Common
-kotlin = { module = "org.jetbrains.kotlin:kotlin-stdlib", version.ref = "kotlin" }
 kotlinxDateTime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDateTime" }
 kotlinxSerialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
 kotlinxCoroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
 kotlinxCoroutinesJvm = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm", version.ref = "kotlinxCoroutines" }
-kotlinxCoroutinesMacOsx64 = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core-macosx64", version.ref = "kotlinxCoroutines" }
 kotlinxCoroutinesTest = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
 
 # Okio
@@ -68,6 +72,12 @@ imageIoTiff = { module = "com.twelvemonkeys.imageio:imageio-tiff", version.ref =
 # Detekt
 detektCli = { module = "io.gitlab.arturbosch.detekt:detekt-cli", version.ref = "detekt" }
 detektApi = { module = "io.gitlab.arturbosch.detekt:detekt-api", version.ref = "detekt" }
+
+# CLI
+clikt = { module = "com.github.ajalt.clikt:clikt", version.ref = "clikt" }
+
+# System
+oshi = { group = "com.github.oshi", name = "oshi-core", version.ref = "oshi" }
 
 # Kotest
 kotestJunit5 = { module = "io.kotest:kotest-runner-junit5-jvm", version.ref = "kotest" }
@@ -90,4 +100,4 @@ kotest = [
 ]
 
 [plugins]
-versionsGradlePlugin = { id = "com.github.ben-manes.versions", version.ref = "versionsGradlePlugin" }
+depsVersionsGradlePlugin = { id = "com.github.ben-manes.versions", version.ref = "depsVersionsGradlePlugin" }

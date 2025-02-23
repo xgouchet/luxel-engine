@@ -13,7 +13,7 @@ dependencies {
     implementation(libs.kotlinGradlePlugin)
 
     implementation(libs.dokkaGradlePlugin)
-    implementation(libs.versionsGradlePlugin)
+    implementation(libs.depsVersionsGradlePlugin)
     implementation(libs.ktlintGradlePlugin)
     implementation(libs.detektGradlePlugin)
     implementation(libs.kotestGradlePlugin)

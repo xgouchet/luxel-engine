@@ -16,11 +16,11 @@ import fr.xgouchet.luxels.engine.api.Scene
 import fr.xgouchet.luxels.engine.api.Simulator
 import fr.xgouchet.luxels.engine.render.DefaultFilmProvider
 import fr.xgouchet.luxels.engine.render.FilmProvider
-import fr.xgouchet.luxels.engine.simulation.SimulationContext
 import fr.xgouchet.luxels.engine.simulation.worker.DefaultWorkerProvider
 import fr.xgouchet.luxels.engine.simulation.worker.SimulationWorker
 import fr.xgouchet.luxels.engine.simulation.worker.WorkerProvider
-import fr.xgouchet.luxels.engine.test.kotest.property.internalConfigurationArb
+import fr.xgouchet.luxels.engine.test.kotest.property.commonConfigurationArb
+import fr.xgouchet.luxels.engine.test.kotest.property.sceneConfigurationArb
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.should
 import io.kotest.matchers.types.beOfType
@@ -44,17 +44,15 @@ class ParallelFrameRunnerSpec : DescribeSpec(
         describe("runSimulation") {
             it("run on multiple threads") {
                 checkAll(
-                    internalConfigurationArb(),
+                    sceneConfigurationArb(),
+                    commonConfigurationArb(),
                     Arb.int(1, 3),
-                ) { baseConfiguration, threadCount ->
+                ) { sceneConfig, baseCommonConfig, threadCount ->
                     val resolution = Resolution.SQUARE_128
-                    val configuration = baseConfiguration.copy(
-                        outputResolution = resolution,
-                        context = SimulationContext(mock(), mock()),
-                    )
+                    val commonConfig = baseCommonConfig.copy(outputResolution = resolution)
                     val logHandler = mock<LogHandler>()
-                    val expectedWorkerConfig = configuration.copy(
-                        simulationLuxelCount = configuration.simulationLuxelCount / threadCount,
+                    val expectedWorkerConfig = commonConfig.copy(
+                        simulationLuxelCount = commonConfig.simulationLuxelCount / threadCount,
                     )
                     val films = List(threadCount) {
                         mock<Film> {
@@ -70,19 +68,24 @@ class ParallelFrameRunnerSpec : DescribeSpec(
                         mock<SimulationWorker<Dimension, Environment<Dimension>>>()
                     }
                     val threadCountComputer = mock<ThreadCountComputer> {
-                        every { getAvailableThreads(configuration) } returns threadCount
+                        every { getAvailableThreads(commonConfig) } returns threadCount
                     }
                     val filmProvider = mock<FilmProvider> {
                         every {
-                            createFilm(configuration.outputFilmType, configuration.outputResolution)
+                            createFilm(commonConfig.outputFilmType, commonConfig.outputResolution)
                         } sequentiallyReturns films
                     }
                     val scene = mock<Scene<Dimension, Luxel<Dimension>, Long, Environment<Dimension>>> {
                         every { outputName() } returns ("foo")
-                        every { initSimulator(configuration.animationFrameInfo) } sequentiallyReturns simulators
+                        every { initSimulator(commonConfig.animationFrameInfo) } sequentiallyReturns simulators
                     }
                     val workerProvider = mock<WorkerProvider> {
-                        every { createWorker(any(), expectedWorkerConfig) } sequentiallyReturns workers
+                        every {
+                            createWorker(
+                                any<Simulator<*, *, *>>(),
+                                expectedWorkerConfig,
+                            )
+                        } sequentiallyReturns workers
                     }
                     val testedRunner = ParallelSimulationRunner(
                         logHandler,
@@ -91,11 +94,11 @@ class ParallelFrameRunnerSpec : DescribeSpec(
                         threadCountComputer,
                     )
 
-                    testedRunner.runSimulation(scene, configuration)
+                    testedRunner.runSimulation(scene, sceneConfig, commonConfig)
 
                     repeat(threadCount) { idx ->
                         verifySuspend {
-                            workers[idx].runSimulation(any(), expectedWorkerConfig)
+                            workers[idx].runSimulation(any(), sceneConfig, expectedWorkerConfig)
                         }
                     }
                 }

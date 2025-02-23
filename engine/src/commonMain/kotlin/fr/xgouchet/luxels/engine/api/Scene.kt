@@ -21,13 +21,13 @@ interface Scene<D : Dimension, L : Luxel<D>, I : Any, E : Environment<D>> {
      * Called once per animation to prepare the environment.
      *
      * @param simulationVolume the volume within which the simulation is ran
-     * @param duration the duration of the animation
      * @param inputData the input for the simulation
+     * @param duration the duration of the animation
      */
     fun getEnvironment(
         simulationVolume: Volume<D>,
-        duration: Duration,
         inputData: InputData<I>,
+        duration: Duration,
     ): E
 
     /**

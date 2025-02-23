@@ -28,10 +28,7 @@ class PixieEnvironment(
 
     // region Environment
 
-    override fun environmentColor(
-        position: Vector<D2>,
-        time: Duration,
-    ): HDRColor {
+    override fun environmentColor(position: Vector<D2>, time: Duration): HDRColor {
         val uv = position / simulationVolume.size
 
         val x = floor(uv.x * imageRasterData.width).roundToInt()

@@ -3,7 +3,8 @@ package fr.xgouchet.luxels.engine.simulation.worker
 import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.render.Exposure
 import fr.xgouchet.luxels.engine.api.Environment
-import fr.xgouchet.luxels.engine.simulation.InternalConfiguration
+import fr.xgouchet.luxels.engine.simulation.CommonConfiguration
+import fr.xgouchet.luxels.engine.simulation.SceneConfiguration
 
 /**
  * A simple worker running part of the simulation (to parallelize computation).
@@ -17,7 +18,12 @@ interface SimulationWorker<D : Dimension, E : Environment<D>> {
      * Perform some work.
      * @param I the expected Input
      * @param exposure the target exposure
-     * @param configuration the configuration
+     * @param sceneConfiguration the simulation scene configuration
+     * @param commonConfiguration the simulation common configuration
      */
-    suspend fun <I : Any> runSimulation(exposure: Exposure<D>, configuration: InternalConfiguration<D, I, E>)
+    suspend fun <I : Any> runSimulation(
+        exposure: Exposure<D>,
+        sceneConfiguration: SceneConfiguration<D, I, E>,
+        commonConfiguration: CommonConfiguration,
+    )
 }

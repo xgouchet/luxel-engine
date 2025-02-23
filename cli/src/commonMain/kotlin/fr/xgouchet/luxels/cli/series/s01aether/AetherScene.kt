@@ -20,8 +20,8 @@ class AetherScene(
 
     override fun getEnvironment(
         simulationVolume: Volume<Dimension.D3>,
-        duration: Duration,
         inputData: InputData<Long>,
+        duration: Duration,
     ): AetherEnvironment {
         return AetherEnvironment(simulationVolume)
     }

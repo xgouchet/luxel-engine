@@ -17,8 +17,8 @@ class MandelbrotScene : Scene<D2, MandelbrotLuxel, Unit, BaseEnvironment<D2>> {
 
     override fun getEnvironment(
         simulationVolume: Volume<D2>,
-        duration: Duration,
         inputData: InputData<Unit>,
+        duration: Duration,
     ): BaseEnvironment<D2> {
         return BaseEnvironment(simulationVolume)
     }

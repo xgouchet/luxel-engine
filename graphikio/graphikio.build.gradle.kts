@@ -16,19 +16,17 @@ kotlin {
     // JS is disabled for now because KoTest doesn't support fully JS target
     // TODO js { nodejs() }
 
-    if (HostManager.hostIsLinux) {
-        linuxX64()
-        linuxArm64()
-    }
-    if (HostManager.hostIsMac) {
-        macosX64()
-        macosArm64()
+    when (HostManager.hostName) {
+        "macos_arm64" -> macosArm64()
+        else -> {
+            println("Unknown host ${HostManager.hostName}")
+        }
     }
 
     sourceSets {
         commonMain {
             dependencies {
-                implementation(libs.kotlin)
+//                implementation(libs.kotlin)
                 implementation(libs.kotlinxCoroutines)
                 implementation(libs.okio)
                 implementation("com.goncalossilva:resources:0.4.1")

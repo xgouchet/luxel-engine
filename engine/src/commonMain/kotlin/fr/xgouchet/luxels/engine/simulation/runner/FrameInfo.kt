@@ -1,6 +1,7 @@
 package fr.xgouchet.luxels.engine.simulation.runner
 
 import kotlin.time.Duration
+import kotlin.time.Duration.Companion.nanoseconds
 
 /**
  * Information about a frame being rendered.
@@ -30,5 +31,10 @@ data class FrameInfo(
 
     companion object {
         private const val FRAME_PADDING = 4
+
+        /**
+         * Used in place a of NULL FrameInfo.
+         */
+        val NULL_FRAME = FrameInfo(0, 0.nanoseconds, 0.0)
     }
 }

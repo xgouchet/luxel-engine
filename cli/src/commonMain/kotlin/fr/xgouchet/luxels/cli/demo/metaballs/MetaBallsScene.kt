@@ -15,13 +15,12 @@ import kotlin.math.PI
 import kotlin.time.Duration
 
 class MetaBallsScene : Scene<D3, StaticLuxel<D3>, Unit, MetaBallsEnvironment> {
-
     // region Scene
 
     override fun getEnvironment(
         simulationVolume: Volume<D3>,
-        duration: Duration,
         inputData: InputData<Unit>,
+        duration: Duration,
     ): MetaBallsEnvironment {
         return MetaBallsEnvironment(simulationVolume, duration)
     }

@@ -1,7 +1,26 @@
 package fr.xgouchet.luxels.cli.wip.aurora
 
+import fr.xgouchet.luxels.core.math.Dimension.D3
+import fr.xgouchet.luxels.engine.api.Environment
+import fr.xgouchet.luxels.engine.api.Simulator
+import fr.xgouchet.luxels.engine.simulation.runner.FrameInfo
+
+class AuroraSimulator : Simulator<D3, AuroraLuxel, Environment<D3>> {
+    // region Simulator
+    override fun spawnLuxel(environment: Environment<D3>, frameInfo: FrameInfo): AuroraLuxel {
+        TODO("Not yet implemented")
+    }
+
+    override fun updateLuxel(
+        luxel: AuroraLuxel,
+        environment: Environment<D3>,
+        frameInfo: FrameInfo,
+    ) {
+        TODO("Not yet implemented")
+    }
+    // endregion
+}
 /*
-class AuroraSimulator : Simulator<Dimension.D3, AuroraLuxel, Long> {
 
     private var element: ASLColorSource = Hydrogen
     private var strandInput = 0.0

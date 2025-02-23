@@ -1,7 +1,26 @@
 package fr.xgouchet.luxels.cli.wip.rain
 
+import fr.xgouchet.luxels.core.math.Dimension
+import fr.xgouchet.luxels.engine.api.Environment
+import fr.xgouchet.luxels.engine.api.Simulator
+import fr.xgouchet.luxels.engine.simulation.runner.FrameInfo
+
+class RainSimulator : Simulator<Dimension.D2, RainLuxel, Environment<Dimension.D2>> {
+    // region Simulator
+    override fun spawnLuxel(environment: Environment<Dimension.D2>, frameInfo: FrameInfo): RainLuxel {
+        TODO("Not yet implemented")
+    }
+
+    override fun updateLuxel(
+        luxel: RainLuxel,
+        environment: Environment<Dimension.D2>,
+        frameInfo: FrameInfo,
+    ) {
+        TODO("Not yet implemented")
+    }
+    // endregion
+}
 /*
-class RainSimulator : Simulator<Dimension.D2, RainLuxel, Long> {
     val noiseField = VectorNoiseGenerator<Dimension.D2, Dimension.D1>(PerlinNoiseGenerator(), Dimension.D1)
 
     private var extendedRange: Volume<Dimension.D2> = Volume.unit(Dimension.D2)

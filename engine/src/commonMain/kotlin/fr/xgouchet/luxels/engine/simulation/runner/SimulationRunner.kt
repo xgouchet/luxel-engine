@@ -4,7 +4,8 @@ import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.engine.api.Environment
 import fr.xgouchet.luxels.engine.api.Luxel
 import fr.xgouchet.luxels.engine.api.Scene
-import fr.xgouchet.luxels.engine.simulation.InternalConfiguration
+import fr.xgouchet.luxels.engine.simulation.CommonConfiguration
+import fr.xgouchet.luxels.engine.simulation.SceneConfiguration
 
 /**
  * Runs the simulation for given Scene.
@@ -20,10 +21,12 @@ interface SimulationRunner {
      * @param E the expected Environment
      *
      * @param scene the scene to run
-     * @param configuration the simulation configuration
+     * @param sceneConfiguration the simulation scene configuration
+     * @param commonConfiguration the simulation common configuration
      */
     suspend fun <D : Dimension, L : Luxel<D>, I : Any, E : Environment<D>> runSimulation(
         scene: Scene<D, L, I, E>,
-        configuration: InternalConfiguration<D, I, E>,
+        sceneConfiguration: SceneConfiguration<D, I, E>,
+        commonConfiguration: CommonConfiguration,
     )
 }

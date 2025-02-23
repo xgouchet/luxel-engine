@@ -15,7 +15,10 @@ import fr.xgouchet.luxels.engine.api.Luxel
 import fr.xgouchet.luxels.engine.api.Scene
 import fr.xgouchet.luxels.engine.render.Projection
 import fr.xgouchet.luxels.engine.simulation.SimulationContext
-import fr.xgouchet.luxels.engine.test.kotest.property.internalConfigurationArb
+import fr.xgouchet.luxels.engine.test.kotest.property.commonConfigurationArb
+import fr.xgouchet.luxels.engine.test.kotest.property.dimensionArb
+import fr.xgouchet.luxels.engine.test.kotest.property.inputSourceArb
+import fr.xgouchet.luxels.engine.test.kotest.property.sceneConfigurationArb
 import fr.xgouchet.luxels.engine.test.kotest.property.shortDurationArb
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.should
@@ -30,16 +33,22 @@ class SceneAnimationRunnerSpec : DescribeSpec(
     {
         describe("constructor") {
             it("uses sensible defaults") {
-                val logHandler = mock<LogHandler>()
-                val defaultRunner = SceneAnimationRunner(logHandler)
+                checkAll(dimensionArb()) { dimension ->
+                    val logHandler = mock<LogHandler>()
+                    val defaultRunner = SceneAnimationRunner(dimension, logHandler)
 
-                defaultRunner.simulationRunner should beOfType(ParallelSimulationRunner::class)
+                    defaultRunner.simulationRunner should beOfType(ParallelSimulationRunner::class)
+                }
             }
         }
 
         describe("runSimulation") {
             it("resets the RndGen seed") {
-                checkAll(internalConfigurationArb()) { configuration ->
+                checkAll(
+                    sceneConfigurationArb(),
+                    commonConfigurationArb(),
+                    inputSourceArb(),
+                ) { sceneConfig, commonConfig, inputSource ->
                     val logHandler = mock<LogHandler>()
                     val simulationRunner = mock<SimulationRunner>()
                     val environment = mock<Environment<Dimension>>()
@@ -47,29 +56,29 @@ class SceneAnimationRunnerSpec : DescribeSpec(
                     val scene = mock<Scene<Dimension, Luxel<Dimension>, Long, Environment<Dimension>>> {
                         every {
                             getEnvironment(
-                                configuration.simulationVolume,
-                                configuration.animationDuration,
-                                configuration.inputData,
+                                sceneConfig.simulationVolume,
+                                sceneConfig.inputData,
+                                commonConfig.animationDuration,
                             )
                         } returns environment
                         every {
                             getProjection(
-                                configuration.simulationVolume,
-                                configuration.outputResolution.asVector2().asVolume(),
+                                sceneConfig.simulationVolume,
+                                commonConfig.outputResolution.asVector2().asVolume(),
                                 any<FrameInfo>(),
                             )
                         } returns projection
                     }
-                    val testedRunner = SceneAnimationRunner(logHandler, simulationRunner)
+                    val testedRunner = SceneAnimationRunner(sceneConfig.dimension, logHandler, simulationRunner)
 
-                    testedRunner.runSimulation(scene, configuration)
+                    testedRunner.runSimulation(scene, commonConfig, sceneConfig.inputData, sceneConfig.simulationVolume)
 
-                    RndGen.seed shouldBe configuration.inputData.seed
+                    RndGen.seed shouldBe sceneConfig.inputData.seed
                 }
             }
 
             it("simulate all frames") {
-                checkAll(internalConfigurationArb()) { configuration ->
+                checkAll(sceneConfigurationArb(), commonConfigurationArb()) { sceneConfig, commonConfig ->
                     val logHandler = mock<LogHandler>()
                     val simulationRunner = mock<SimulationRunner>()
                     val environment = mock<Environment<Dimension>>()
@@ -77,39 +86,43 @@ class SceneAnimationRunnerSpec : DescribeSpec(
                     val scene = mock<Scene<Dimension, Luxel<Dimension>, Long, Environment<Dimension>>> {
                         every {
                             getEnvironment(
-                                configuration.simulationVolume,
-                                configuration.animationDuration,
-                                configuration.inputData,
+                                sceneConfig.simulationVolume,
+                                sceneConfig.inputData,
+                                commonConfig.animationDuration,
                             )
                         } returns environment
                         every {
                             getProjection(
-                                configuration.simulationVolume,
-                                configuration.outputResolution.asVector2().asVolume(),
+                                sceneConfig.simulationVolume,
+                                commonConfig.outputResolution.asVector2().asVolume(),
                                 any<FrameInfo>(),
                             )
                         } returns projection
                     }
-                    val frameCount = (configuration.animationDuration / configuration.animationFrameStep).toInt()
-                    val testedRunner = SceneAnimationRunner(logHandler, simulationRunner)
+                    val frameCount = (commonConfig.animationDuration / commonConfig.animationFrameStep).toInt()
+                    val testedRunner = SceneAnimationRunner(sceneConfig.dimension, logHandler, simulationRunner)
 
-                    testedRunner.runSimulation(scene, configuration)
+                    testedRunner.runSimulation(scene, commonConfig, sceneConfig.inputData, sceneConfig.simulationVolume)
 
                     repeat(frameCount) { idx ->
-                        val frameTime = configuration.animationFrameStep * idx
-                        val progress = frameTime / configuration.animationDuration
+                        val frameTime = commonConfig.animationFrameStep * idx
+                        val progress = frameTime / commonConfig.animationDuration
                         val frameInfo = FrameInfo(idx, frameTime, progress)
-                        val expectedConfiguration = configuration.copy(
-                            animationFrameInfo = frameInfo,
-                            context = SimulationContext(environment, projection),
-                        )
-                        verifySuspend { simulationRunner.runSimulation(scene, expectedConfiguration) }
+                        val expectedSceneConfig = sceneConfig.copy(context = SimulationContext(environment, projection))
+                        val expectedCommonConfig = commonConfig.copy(animationFrameInfo = frameInfo)
+                        verifySuspend {
+                            simulationRunner.runSimulation(
+                                scene,
+                                expectedSceneConfig,
+                                expectedCommonConfig,
+                            )
+                        }
                     }
                 }
             }
 
             it("reports a log section for each frame") {
-                checkAll(internalConfigurationArb()) { configuration ->
+                checkAll(sceneConfigurationArb(), commonConfigurationArb()) { sceneConfig, commonConfig ->
                     val logHandler = mock<LogHandler>()
                     val simulationRunner = mock<SimulationRunner>()
                     val environment = mock<Environment<Dimension>>()
@@ -117,28 +130,28 @@ class SceneAnimationRunnerSpec : DescribeSpec(
                     val scene = mock<Scene<Dimension, Luxel<Dimension>, Long, Environment<Dimension>>> {
                         every {
                             getEnvironment(
-                                configuration.simulationVolume,
-                                configuration.animationDuration,
-                                configuration.inputData,
+                                sceneConfig.simulationVolume,
+                                sceneConfig.inputData,
+                                commonConfig.animationDuration,
                             )
                         } returns environment
                         every {
                             getProjection(
-                                configuration.simulationVolume,
-                                configuration.outputResolution.asVector2().asVolume(),
+                                sceneConfig.simulationVolume,
+                                commonConfig.outputResolution.asVector2().asVolume(),
                                 any<FrameInfo>(),
                             )
                         } returns projection
                     }
 
-                    val frameCount = (configuration.animationDuration / configuration.animationFrameStep).toInt()
-                    val testedRunner = SceneAnimationRunner(logHandler, simulationRunner)
+                    val frameCount = (commonConfig.animationDuration / commonConfig.animationFrameStep).toInt()
+                    val testedRunner = SceneAnimationRunner(sceneConfig.dimension, logHandler, simulationRunner)
 
-                    testedRunner.runSimulation(scene, configuration)
+                    testedRunner.runSimulation(scene, commonConfig, sceneConfig.inputData, sceneConfig.simulationVolume)
 
                     repeat(frameCount) { idx ->
                         val progress = idx.toDouble() / frameCount
-                        val frameInfo = FrameInfo(idx, configuration.animationFrameStep * idx, progress)
+                        val frameInfo = FrameInfo(idx, commonConfig.animationFrameStep * idx, progress)
 
                         verify { logHandler.onLog(Log.StartSection("Frame $frameInfo")) }
                     }
@@ -150,11 +163,12 @@ class SceneAnimationRunnerSpec : DescribeSpec(
 
             it("increment a frame") {
                 checkAll(
-                    internalConfigurationArb(),
+                    commonConfigurationArb(),
+                    dimensionArb(),
                     shortDurationArb(),
                     Arb.Companion.int(64, 128),
                     Arb.Companion.int(0, 32),
-                ) { baseConfig, frameStep, frameCount, frameIdx ->
+                ) { baseConfig, dimension, frameStep, frameCount, frameIdx ->
                     val logHandler = mock<LogHandler>()
                     val simulationRunner = mock<SimulationRunner>()
                     val progress = frameIdx.toDouble() / frameCount
@@ -163,7 +177,7 @@ class SceneAnimationRunnerSpec : DescribeSpec(
                     val frameStepNs = frameStep.inWholeNanoseconds.toDouble()
                     val expectedProgress = (expectedIdx * frameStepNs) / ((frameCount * frameStepNs) + 1)
                     val expectedFrameInfo = FrameInfo(expectedIdx, frameStep * expectedIdx, expectedProgress)
-                    val testedRunner = SceneAnimationRunner(logHandler, simulationRunner)
+                    val testedRunner = SceneAnimationRunner(dimension, logHandler, simulationRunner)
                     val configuration = baseConfig.copy(
                         animationDuration = (frameStep * frameCount) + 1.nanoseconds,
                         animationFrameStep = frameStep,
@@ -177,10 +191,11 @@ class SceneAnimationRunnerSpec : DescribeSpec(
 
             it("return null when animation finished") {
                 checkAll(
-                    internalConfigurationArb(),
+                    commonConfigurationArb(),
+                    dimensionArb(),
                     shortDurationArb(),
                     Arb.Companion.int(min = 0, max = 65536),
-                ) { baseConfig, frameStep, frameCount ->
+                ) { baseConfig, dimension, frameStep, frameCount ->
                     val logHandler = mock<LogHandler>()
                     val simulationRunner = mock<SimulationRunner>()
                     val frameIdx = frameCount + 1
@@ -189,7 +204,7 @@ class SceneAnimationRunnerSpec : DescribeSpec(
                         animationDuration = (frameStep * frameCount) + 1.nanoseconds,
                         animationFrameStep = frameStep,
                     )
-                    val testedRunner = SceneAnimationRunner(logHandler, simulationRunner)
+                    val testedRunner = SceneAnimationRunner(dimension, logHandler, simulationRunner)
 
                     val result = testedRunner.increment(frameInfo, configuration)
 

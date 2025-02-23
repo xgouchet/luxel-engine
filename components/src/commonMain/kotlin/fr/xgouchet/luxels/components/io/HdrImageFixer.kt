@@ -1,6 +1,7 @@
 package fr.xgouchet.luxels.components.io
 
 import fr.xgouchet.graphikio.format.hdr.HdrImageFormat
+import fr.xgouchet.luxels.core.io.ImageFixer
 import okio.Path
 
 /**

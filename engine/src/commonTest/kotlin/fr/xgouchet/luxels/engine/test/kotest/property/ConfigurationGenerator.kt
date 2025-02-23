@@ -4,11 +4,10 @@ import dev.mokkery.mock
 import fr.xgouchet.luxels.core.math.Dimension
 import fr.xgouchet.luxels.core.render.Resolution
 import fr.xgouchet.luxels.engine.api.Environment
-import fr.xgouchet.luxels.engine.api.configuration.Configuration
 import fr.xgouchet.luxels.engine.api.configuration.FilmType
-import fr.xgouchet.luxels.engine.api.configuration.Quality
 import fr.xgouchet.luxels.engine.api.configuration.SimulationType
-import fr.xgouchet.luxels.engine.simulation.InternalConfiguration
+import fr.xgouchet.luxels.engine.simulation.CommonConfiguration
+import fr.xgouchet.luxels.engine.simulation.SceneConfiguration
 import fr.xgouchet.luxels.engine.simulation.SimulationContext
 import fr.xgouchet.luxels.engine.simulation.runner.FrameInfo
 import fr.xgouchet.luxels.engine.test.stub.StubInputSource
@@ -20,41 +19,26 @@ import io.kotest.property.arbitrary.int
 import io.kotest.property.arbitrary.list
 import io.kotest.property.arbitrary.long
 
-fun configurationArb() = arbitrary {
+fun inputSourceArb() = arbitrary {
+    StubInputSource(Arb.list(Arb.long()).bind())
+}
+
+internal fun sceneConfigurationArb() = arbitrary {
     val dimension = dimensionArb().bind()
-    Configuration<Dimension, Long>(
+    SceneConfiguration<Dimension, Long, Environment<Dimension>>(
         dimension = dimension,
-        input = Configuration.Input<Long>(
-            source = StubInputSource(Arb.list(Arb.long()).bind()),
-        ),
-        simulation = Configuration.Simulation(
-            volume = volumeArb(dimension).bind(),
-            quality = Arb.enum<Quality>().bind(),
-            maxThreadCount = Arb.int(1, 128).bind(),
-            simulationType = Arb.enum<SimulationType>().bind(),
-        ),
-        render = Configuration.Render(
-            filmType = Arb.enum<FilmType>().bind(),
-            resolution = Arb.enum<Resolution>().bind(),
-            fixer = mock(),
-        ),
-        animation = Configuration.Animation(
-            duration = shortDurationArb().bind(),
-            fps = Arb.int(1, 120).bind(),
-        ),
+        inputData = stubInputData(Arb.int().bind(), Arb.long().bind()),
+        simulationVolume = volumeArb(dimension).bind(),
+        context = SimulationContext(mock(), mock()),
     )
 }
 
-internal fun internalConfigurationArb() = arbitrary {
+internal fun commonConfigurationArb() = arbitrary {
     val frameStep = shortDurationArb().bind()
     val frameCount = Arb.int(0, 128).bind()
     val frameIdx = Arb.int(0, frameCount).bind()
     val progression = frameIdx.toDouble() / frameCount
-    val dimension = dimensionArb().bind()
-    InternalConfiguration<Dimension, Long, Environment<Dimension>>(
-        dimension = dimension,
-        inputData = stubInputData(Arb.int().bind(), Arb.long().bind()),
-        simulationVolume = volumeArb(dimension).bind(),
+    CommonConfiguration(
         simulationLuxelCount = Arb.long(min = 1).bind(),
         simulationMaxThreadCount = Arb.int(1, 128).bind(),
         simulationType = Arb.enum<SimulationType>().bind(),
@@ -64,6 +48,5 @@ internal fun internalConfigurationArb() = arbitrary {
         outputFilmType = Arb.enum<FilmType>().bind(),
         outputResolution = Arb.enum<Resolution>().bind(),
         outputFixer = mock(),
-        context = SimulationContext(mock(), mock()),
     )
 }

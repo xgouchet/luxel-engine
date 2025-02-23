@@ -4,7 +4,7 @@ import dev.mokkery.answering.returns
 import dev.mokkery.every
 import dev.mokkery.mock
 import fr.xgouchet.luxels.core.concurrency.ConcurrencyCapabilities
-import fr.xgouchet.luxels.engine.test.kotest.property.internalConfigurationArb
+import fr.xgouchet.luxels.engine.test.kotest.property.commonConfigurationArb
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.ints.shouldBeExactly
 import io.kotest.property.Arb
@@ -16,7 +16,7 @@ class DefaultThreadCountComputerSpec : DescribeSpec(
         describe("getAvailableThreads") {
             it("is bound by cpu cores") {
                 checkAll(
-                    internalConfigurationArb(),
+                    commonConfigurationArb(),
                     Arb.int(1, 32),
                     Arb.int(64, 128),
                     Arb.int(64, 128),
@@ -36,7 +36,7 @@ class DefaultThreadCountComputerSpec : DescribeSpec(
 
             it("is bound by memory space") {
                 checkAll(
-                    internalConfigurationArb(),
+                    commonConfigurationArb(),
                     Arb.int(64, 128),
                     Arb.int(1, 32),
                     Arb.int(64, 128),
@@ -56,7 +56,7 @@ class DefaultThreadCountComputerSpec : DescribeSpec(
 
             it("is bound by user decision") {
                 checkAll(
-                    internalConfigurationArb(),
+                    commonConfigurationArb(),
                     Arb.int(64, 128),
                     Arb.int(64, 128),
                     Arb.int(1, 32),

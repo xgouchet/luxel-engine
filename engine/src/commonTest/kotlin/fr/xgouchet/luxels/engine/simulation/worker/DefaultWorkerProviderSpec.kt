@@ -7,7 +7,7 @@ import fr.xgouchet.luxels.engine.api.Environment
 import fr.xgouchet.luxels.engine.api.Luxel
 import fr.xgouchet.luxels.engine.api.Simulator
 import fr.xgouchet.luxels.engine.api.configuration.SimulationType
-import fr.xgouchet.luxels.engine.test.kotest.property.internalConfigurationArb
+import fr.xgouchet.luxels.engine.test.kotest.property.commonConfigurationArb
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.types.shouldBeSameInstanceAs
 import io.kotest.matchers.types.shouldBeTypeOf
@@ -17,7 +17,7 @@ class DefaultWorkerProviderSpec : DescribeSpec(
     {
         describe("createWorker") {
             it("creates a Render worker") {
-                checkAll(internalConfigurationArb()) { baseConfig ->
+                checkAll(commonConfigurationArb()) { baseConfig ->
                     val configuration = baseConfig.copy(simulationType = SimulationType.RENDER)
                     val logHandler = mock<LogHandler>()
                     val simulator = mock<Simulator<Dimension, Luxel<Dimension>, Environment<Dimension>>>()
@@ -32,7 +32,7 @@ class DefaultWorkerProviderSpec : DescribeSpec(
             }
 
             it("creates a Env worker") {
-                checkAll(internalConfigurationArb()) { baseConfig ->
+                checkAll(commonConfigurationArb()) { baseConfig ->
                     val configuration = baseConfig.copy(simulationType = SimulationType.ENV)
                     val logHandler = mock<LogHandler>()
                     val simulator = mock<Simulator<Dimension, Luxel<Dimension>, Environment<Dimension>>>()
@@ -47,7 +47,7 @@ class DefaultWorkerProviderSpec : DescribeSpec(
             }
 
             it("creates a Spawn worker") {
-                checkAll(internalConfigurationArb()) { baseConfig ->
+                checkAll(commonConfigurationArb()) { baseConfig ->
                     val configuration = baseConfig.copy(simulationType = SimulationType.SPAWN)
                     val logHandler = mock<LogHandler>()
                     val simulator = mock<Simulator<Dimension, Luxel<Dimension>, Environment<Dimension>>>()
@@ -62,7 +62,7 @@ class DefaultWorkerProviderSpec : DescribeSpec(
             }
 
             it("creates a Path worker") {
-                checkAll(internalConfigurationArb()) { baseConfig ->
+                checkAll(commonConfigurationArb()) { baseConfig ->
                     val configuration = baseConfig.copy(simulationType = SimulationType.PATH)
                     val logHandler = mock<LogHandler>()
                     val simulator = mock<Simulator<Dimension, Luxel<Dimension>, Environment<Dimension>>>()
@@ -77,7 +77,7 @@ class DefaultWorkerProviderSpec : DescribeSpec(
             }
 
             it("creates a Death worker") {
-                checkAll(internalConfigurationArb()) { baseConfig ->
+                checkAll(commonConfigurationArb()) { baseConfig ->
                     val configuration = baseConfig.copy(simulationType = SimulationType.DEATH)
                     val logHandler = mock<LogHandler>()
                     val simulator = mock<Simulator<Dimension, Luxel<Dimension>, Environment<Dimension>>>()

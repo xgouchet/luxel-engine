@@ -12,11 +12,10 @@ build/
 kotlin-js-store
 .kotlin
 
-# Output data
+# Luxels dirs
 output/
-
-# Input data
 input/
+logs/
 
 # Temp / test data
 temp/

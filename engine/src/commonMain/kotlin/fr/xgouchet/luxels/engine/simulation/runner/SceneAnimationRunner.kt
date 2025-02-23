@@ -4,37 +4,46 @@ import fr.xgouchet.luxels.core.log.LogHandler
 import fr.xgouchet.luxels.core.log.endSection
 import fr.xgouchet.luxels.core.log.startSection
 import fr.xgouchet.luxels.core.math.Dimension
+import fr.xgouchet.luxels.core.math.Volume
 import fr.xgouchet.luxels.core.math.random.RndGen
 import fr.xgouchet.luxels.engine.api.Environment
 import fr.xgouchet.luxels.engine.api.Luxel
 import fr.xgouchet.luxels.engine.api.Scene
-import fr.xgouchet.luxels.engine.simulation.InternalConfiguration
+import fr.xgouchet.luxels.engine.api.input.InputData
+import fr.xgouchet.luxels.engine.simulation.CommonConfiguration
+import fr.xgouchet.luxels.engine.simulation.SceneConfiguration
 import fr.xgouchet.luxels.engine.simulation.SimulationContext
 import kotlin.time.Duration.Companion.milliseconds
 
 /**
  * A simulation runner that runs simulation for all frames of a simulation.
  *
- * @param logHandler the [LogHandler] to use throughout the simulation
- * @param simulationRunner the runner for the simulation of each frame
+ * @param D the dimension of the space luxels evolve in
+ *
+ * @property dimension the [Dimension] in which the luxels evolve
+ * @property logHandler the [LogHandler] to use throughout the simulation
+ * @property simulationRunner the runner for the simulation of each frame
  */
-class SceneAnimationRunner(
+class SceneAnimationRunner<D : Dimension>(
+    val dimension: D,
     val logHandler: LogHandler,
     val simulationRunner: SimulationRunner = ParallelSimulationRunner(logHandler),
-) : SimulationRunner {
+) : SingleSimulationRunner<D> {
 
-    // region SimulationRunner
+    // region SingleSimulationRunner
 
-    override suspend fun <D : Dimension, L : Luxel<D>, I : Any, E : Environment<D>> runSimulation(
+    override suspend fun <L : Luxel<D>, I : Any, E : Environment<D>> runSimulation(
         scene: Scene<D, L, I, E>,
-        configuration: InternalConfiguration<D, I, E>,
+        commonConfiguration: CommonConfiguration,
+        inputData: InputData<I>,
+        simulationVolume: Volume<D>,
     ) {
-        RndGen.resetSeed(configuration.inputData.seed)
+        RndGen.resetSeed(inputData.seed)
 
         val environment = scene.getEnvironment(
-            configuration.simulationVolume,
-            configuration.animationDuration,
-            configuration.inputData,
+            simulationVolume,
+            inputData,
+            commonConfiguration.animationDuration,
         )
 
         var frameInfo: FrameInfo? = FrameInfo(0, 0.milliseconds, 0.0)
@@ -43,16 +52,19 @@ class SceneAnimationRunner(
             logHandler.startSection("Frame $frameInfo")
 
             val projection = scene.getProjection(
-                configuration.simulationVolume,
-                configuration.outputResolution.asVector2().asVolume(),
+                simulationVolume,
+                commonConfiguration.outputResolution.asVector2().asVolume(),
                 frameInfo,
             )
-            val frameConfig = configuration.copy(
-                animationFrameInfo = frameInfo,
-                context = SimulationContext(environment, projection),
+            val frameSceneConfig = SceneConfiguration(
+                dimension,
+                inputData,
+                simulationVolume,
+                SimulationContext(environment, projection),
             )
-            simulationRunner.runSimulation(scene, frameConfig)
-            frameInfo = increment(frameInfo, configuration)
+            val frameCommonConfig = commonConfiguration.copy(animationFrameInfo = frameInfo)
+            simulationRunner.runSimulation(scene, frameSceneConfig, frameCommonConfig)
+            frameInfo = increment(frameInfo, frameCommonConfig)
 
             logHandler.endSection()
         }
@@ -62,10 +74,7 @@ class SceneAnimationRunner(
 
     // region Internal
 
-    internal fun <D : Dimension, I : Any, E : Environment<D>> increment(
-        frameInfo: FrameInfo,
-        configuration: InternalConfiguration<D, I, E>,
-    ): FrameInfo? {
+    internal fun increment(frameInfo: FrameInfo, configuration: CommonConfiguration): FrameInfo? {
         val nextTime = frameInfo.time + configuration.animationFrameStep
 
         return if (nextTime > configuration.animationDuration) {

@@ -16,347 +16,1015 @@ import io.kotest.property.checkAll
 
 class StdOutLogHandlerSpec : DescribeSpec(
     {
-        describe("onLog [no progress]") {
-            it("prints a Verbose log") {
-                checkAll(Arb.string()) { message ->
-                    val output = mock<Output> { every { invoke(any()) } calls {} }
-                    val logHandler = StdOutLogHandler(output)
+        context("minLevel=VERBOSE") {
+            val minLevel = Log.Level.VERBOSE
 
-                    logHandler.verbose(message)
+            describe("onLog [no progress]") {
+                it("prints a Verbose log") {
+                    checkAll(Arb.string()) { message ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
 
-                    verify {
-                        output.invoke("\r… $message\n")
+                        logHandler.verbose(message)
+
+                        verify {
+                            output.invoke("\r… $message\n")
+                        }
                     }
                 }
-            }
 
-            it("prints a Verbose log within section") {
-                checkAll(Arb.string(), Arb.string()) { message, section ->
-                    val output = mock<Output> { every { invoke(any()) } calls {} }
-                    val logHandler = StdOutLogHandler(output)
+                it("prints a Verbose log within section") {
+                    checkAll(Arb.string(), Arb.string()) { message, section ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
 
-                    logHandler.startSection(section)
-                    logHandler.verbose(message)
-                    logHandler.endSection()
+                        logHandler.startSection(section)
+                        logHandler.verbose(message)
+                        logHandler.endSection()
 
-                    verify(order) {
-                        output.invoke("\r- $section\n")
-                        output.invoke("\r  … $message\n")
+                        verify(order) {
+                            output.invoke("\r- $section\n")
+                            output.invoke("\r  … $message\n")
+                        }
                     }
                 }
-            }
 
-            it("prints a Debug log") {
-                checkAll(Arb.string()) { message ->
-                    val output = mock<Output> { every { invoke(any()) } calls {} }
-                    val logHandler = StdOutLogHandler(output)
+                it("prints a Debug log") {
+                    checkAll(Arb.string()) { message ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
 
-                    logHandler.debug(message)
+                        logHandler.debug(message)
 
-                    verify {
-                        output.invoke("\r⚙ $message\n")
+                        verify {
+                            output.invoke("\r⚙ $message\n")
+                        }
                     }
                 }
-            }
 
-            it("prints a Debug log within section") {
-                checkAll(Arb.string(), Arb.string()) { message, section ->
-                    val output = mock<Output> { every { invoke(any()) } calls {} }
-                    val logHandler = StdOutLogHandler(output)
+                it("prints a Debug log within section") {
+                    checkAll(Arb.string(), Arb.string()) { message, section ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
 
-                    logHandler.startSection(section)
-                    logHandler.debug(message)
-                    logHandler.endSection()
+                        logHandler.startSection(section)
+                        logHandler.debug(message)
+                        logHandler.endSection()
 
-                    verify(order) {
-                        output.invoke("\r- $section\n")
-                        output.invoke("\r  ⚙ $message\n")
+                        verify(order) {
+                            output.invoke("\r- $section\n")
+                            output.invoke("\r  ⚙ $message\n")
+                        }
                     }
                 }
-            }
 
-            it("prints a Info log") {
-                checkAll(Arb.string()) { message ->
-                    val output = mock<Output> { every { invoke(any()) } calls {} }
-                    val logHandler = StdOutLogHandler(output)
+                it("prints a Info log") {
+                    checkAll(Arb.string()) { message ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
 
-                    logHandler.info(message)
+                        logHandler.info(message)
 
-                    verify {
-                        output.invoke("\rℹ $message\n")
+                        verify {
+                            output.invoke("\rℹ $message\n")
+                        }
                     }
                 }
-            }
 
-            it("prints a Info log within section") {
-                checkAll(Arb.string(), Arb.string()) { message, section ->
-                    val output = mock<Output> { every { invoke(any()) } calls {} }
-                    val logHandler = StdOutLogHandler(output)
+                it("prints a Info log within section") {
+                    checkAll(Arb.string(), Arb.string()) { message, section ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
 
-                    logHandler.startSection(section)
-                    logHandler.info(message)
-                    logHandler.endSection()
+                        logHandler.startSection(section)
+                        logHandler.info(message)
+                        logHandler.endSection()
 
-                    verify(order) {
-                        output.invoke("\r- $section\n")
-                        output.invoke("\r  ℹ $message\n")
+                        verify(order) {
+                            output.invoke("\r- $section\n")
+                            output.invoke("\r  ℹ $message\n")
+                        }
                     }
                 }
-            }
 
-            it("prints a Warning log") {
-                checkAll(Arb.string()) { message ->
-                    val output = mock<Output> { every { invoke(any()) } calls {} }
-                    val logHandler = StdOutLogHandler(output)
+                it("prints a Warning log") {
+                    checkAll(Arb.string()) { message ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
 
-                    logHandler.warning(message)
+                        logHandler.warning(message)
 
-                    verify {
-                        output.invoke("\r⚠ $message\n")
+                        verify {
+                            output.invoke("\r⚠ $message\n")
+                        }
                     }
                 }
-            }
 
-            it("prints a Warning log within section") {
-                checkAll(Arb.string(), Arb.string()) { message, section ->
-                    val output = mock<Output> { every { invoke(any()) } calls {} }
-                    val logHandler = StdOutLogHandler(output)
+                it("prints a Warning log within section") {
+                    checkAll(Arb.string(), Arb.string()) { message, section ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
 
-                    logHandler.startSection(section)
-                    logHandler.warning(message)
-                    logHandler.endSection()
+                        logHandler.startSection(section)
+                        logHandler.warning(message)
+                        logHandler.endSection()
 
-                    verify(order) {
-                        output.invoke("\r- $section\n")
-                        output.invoke("\r  ⚠ $message\n")
+                        verify(order) {
+                            output.invoke("\r- $section\n")
+                            output.invoke("\r  ⚠ $message\n")
+                        }
                     }
                 }
-            }
 
-            it("prints an Error log") {
-                checkAll(Arb.string()) { message ->
-                    val output = mock<Output> { every { invoke(any()) } calls {} }
-                    val logHandler = StdOutLogHandler(output)
+                it("prints an Error log") {
+                    checkAll(Arb.string()) { message ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
 
-                    logHandler.error(message)
+                        logHandler.error(message)
 
-                    verify {
-                        output.invoke("\r☢ $message\n")
+                        verify {
+                            output.invoke("\r☢ $message\n")
+                        }
                     }
                 }
-            }
 
-            it("prints an Error log within section") {
-                checkAll(Arb.string(), Arb.string()) { message, section ->
-                    val output = mock<Output> { every { invoke(any()) } calls {} }
-                    val logHandler = StdOutLogHandler(output)
+                it("prints an Error log within section") {
+                    checkAll(Arb.string(), Arb.string()) { message, section ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
 
-                    logHandler.startSection(section)
-                    logHandler.error(message)
-                    logHandler.endSection()
+                        logHandler.startSection(section)
+                        logHandler.error(message)
+                        logHandler.endSection()
 
-                    verify(order) {
-                        output.invoke("\r- $section\n")
-                        output.invoke("\r  ☢ $message\n")
+                        verify(order) {
+                            output.invoke("\r- $section\n")
+                            output.invoke("\r  ☢ $message\n")
+                        }
                     }
                 }
-            }
 
-            it("does nothing on endProgress") {
-                val output = mock<Output> { every { invoke(any()) } calls {} }
-                val logHandler = StdOutLogHandler(output)
-
-                logHandler.endProgress()
-
-                verify(not) { output.invoke(any()) }
-            }
-
-            it("does nothing on progress") {
-                checkAll(Arb.string(), Arb.double()) { message, progress ->
+                it("does nothing on endProgress") {
                     val output = mock<Output> { every { invoke(any()) } calls {} }
-                    val logHandler = StdOutLogHandler(output)
+                    val logHandler = StdOutLogHandler(minLevel, output)
 
-                    logHandler.progress(progress, message)
+                    logHandler.endProgress()
 
                     verify(not) { output.invoke(any()) }
+                }
+
+                it("does nothing on progress") {
+                    checkAll(Arb.string(), Arb.double()) { message, progress ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+
+                        logHandler.progress(progress, message)
+
+                        verify(not) { output.invoke(any()) }
+                    }
+                }
+            }
+
+            describe("onLog [in progress]") {
+                it("doesn't print a Verbose log") {
+                    checkAll(Arb.string()) { message ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+
+                        logHandler.startProgress()
+                        logHandler.verbose(message)
+
+                        verify(not) { output.invoke(any()) }
+                    }
+                }
+
+                it("doesn't print a Debug log") {
+                    checkAll(Arb.string()) { message ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+
+                        logHandler.startProgress()
+                        logHandler.debug(message)
+
+                        verify(not) { output.invoke(any()) }
+                    }
+                }
+
+                it("doesn't print a Info log") {
+                    checkAll(Arb.string()) { message ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+
+                        logHandler.startProgress()
+                        logHandler.info(message)
+
+                        verify(not) { output.invoke(any()) }
+                    }
+                }
+
+                it("doesn't print a Warning log") {
+                    checkAll(Arb.string()) { message ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+
+                        logHandler.startProgress()
+                        logHandler.warning(message)
+
+                        verify(not) { output.invoke(any()) }
+                    }
+                }
+
+                it("doesn't print an Error log") {
+                    checkAll(Arb.string()) { message ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+
+                        logHandler.startProgress()
+                        logHandler.error(message)
+
+                        verify(not) { output.invoke(any()) }
+                    }
+                }
+
+                it("doesn't print a StartSection log") {
+                    checkAll(Arb.string()) { message ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+
+                        logHandler.startProgress()
+                        logHandler.error(message)
+
+                        verify(not) { output.invoke(any()) }
+                    }
+                }
+
+                it("prints a progress log") {
+                    checkAll(Arb.string(), Arb.int(min = 0, max = 1000)) { message, progress ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+                        val progressDouble = progress / 1000.0
+
+                        logHandler.startProgress()
+                        logHandler.progress(progressDouble, message)
+
+                        verify { output.invoke("\r… $progress‰ $message") }
+                    }
+                }
+            }
+
+            describe("onLog [after end progress]") {
+                it("prints a Verbose log") {
+                    checkAll(Arb.string(), Arb.int(min = 0, max = 1000)) { message, progress ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+                        val progressDouble = progress / 1000.0
+
+                        logHandler.startProgress()
+                        logHandler.verbose(message)
+                        logHandler.progress(progressDouble, "first")
+                        logHandler.endProgress()
+
+                        verify(order) {
+                            output.invoke("\r… $progress‰ first")
+                            output.invoke("\r… $message\n")
+                        }
+                    }
+                }
+
+                it("prints a Debug log") {
+                    checkAll(Arb.string(), Arb.int(min = 0, max = 1000)) { message, progress ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+                        val progressDouble = progress / 1000.0
+
+                        logHandler.startProgress()
+                        logHandler.debug(message)
+                        logHandler.progress(progressDouble, "first")
+                        logHandler.endProgress()
+
+                        verify(order) {
+                            output.invoke("\r… $progress‰ first")
+                            output.invoke("\r⚙ $message\n")
+                        }
+                    }
+                }
+
+                it("prints a Info log") {
+                    checkAll(Arb.string(), Arb.int(min = 0, max = 1000)) { message, progress ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+                        val progressDouble = progress / 1000.0
+
+                        logHandler.startProgress()
+                        logHandler.info(message)
+                        logHandler.progress(progressDouble, "first")
+                        logHandler.endProgress()
+
+                        verify(order) {
+                            output.invoke("\r… $progress‰ first")
+                            output.invoke("\rℹ $message\n")
+                        }
+                    }
+                }
+
+                it("prints a Warning log") {
+                    checkAll(Arb.string(), Arb.int(min = 0, max = 1000)) { message, progress ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+                        val progressDouble = progress / 1000.0
+
+                        logHandler.startProgress()
+                        logHandler.warning(message)
+                        logHandler.progress(progressDouble, "first")
+                        logHandler.endProgress()
+
+                        verify(order) {
+                            output.invoke("\r… $progress‰ first")
+                            output.invoke("\r⚠ $message\n")
+                        }
+                    }
+                }
+
+                it("prints an Error log") {
+                    checkAll(Arb.string(), Arb.int(min = 0, max = 1000)) { message, progress ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+                        val progressDouble = progress / 1000.0
+
+                        logHandler.startProgress()
+                        logHandler.error(message)
+                        logHandler.progress(progressDouble, "first")
+                        logHandler.endProgress()
+
+                        verify(order) {
+                            output.invoke("\r… $progress‰ first")
+                            output.invoke("\r☢ $message\n")
+                        }
+                    }
                 }
             }
         }
 
-        describe("onLog [in progress]") {
-            it("doesn't print a Verbose log") {
-                checkAll(Arb.string()) { message ->
-                    val output = mock<Output> { every { invoke(any()) } calls {} }
-                    val logHandler = StdOutLogHandler(output)
+        context("minLevel=INFO") {
+            val minLevel = Log.Level.INFO
 
-                    logHandler.startProgress()
-                    logHandler.verbose(message)
+            describe("onLog [no progress]") {
+                it("prints a Verbose log") {
+                    checkAll(Arb.string()) { message ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+
+                        logHandler.verbose(message)
+
+                        verify(not) { output.invoke("\r  … $message\n") }
+                    }
+                }
+
+                it("prints a Verbose log within section") {
+                    checkAll(Arb.string(), Arb.string()) { message, section ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+
+                        logHandler.startSection(section)
+                        logHandler.verbose(message)
+                        logHandler.endSection()
+
+                        verify { output.invoke("\r- $section\n") }
+                        verify(not) { output.invoke("\r  … $message\n") }
+                    }
+                }
+
+                it("prints a Debug log") {
+                    checkAll(Arb.string()) { message ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+
+                        logHandler.debug(message)
+
+                        verify(not) { output.invoke("\r⚙ $message\n") }
+                    }
+                }
+
+                it("prints a Debug log within section") {
+                    checkAll(Arb.string(), Arb.string()) { message, section ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+
+                        logHandler.startSection(section)
+                        logHandler.debug(message)
+                        logHandler.endSection()
+
+                        verify(order) { output.invoke("\r- $section\n") }
+                        verify(not) { output.invoke("\r  ⚙ $message\n") }
+                    }
+                }
+
+                it("prints a Info log") {
+                    checkAll(Arb.string()) { message ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+
+                        logHandler.info(message)
+
+                        verify {
+                            output.invoke("\rℹ $message\n")
+                        }
+                    }
+                }
+
+                it("prints a Info log within section") {
+                    checkAll(Arb.string(), Arb.string()) { message, section ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+
+                        logHandler.startSection(section)
+                        logHandler.info(message)
+                        logHandler.endSection()
+
+                        verify(order) {
+                            output.invoke("\r- $section\n")
+                            output.invoke("\r  ℹ $message\n")
+                        }
+                    }
+                }
+
+                it("prints a Warning log") {
+                    checkAll(Arb.string()) { message ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+
+                        logHandler.warning(message)
+
+                        verify {
+                            output.invoke("\r⚠ $message\n")
+                        }
+                    }
+                }
+
+                it("prints a Warning log within section") {
+                    checkAll(Arb.string(), Arb.string()) { message, section ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+
+                        logHandler.startSection(section)
+                        logHandler.warning(message)
+                        logHandler.endSection()
+
+                        verify(order) {
+                            output.invoke("\r- $section\n")
+                            output.invoke("\r  ⚠ $message\n")
+                        }
+                    }
+                }
+
+                it("prints an Error log") {
+                    checkAll(Arb.string()) { message ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+
+                        logHandler.error(message)
+
+                        verify {
+                            output.invoke("\r☢ $message\n")
+                        }
+                    }
+                }
+
+                it("prints an Error log within section") {
+                    checkAll(Arb.string(), Arb.string()) { message, section ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+
+                        logHandler.startSection(section)
+                        logHandler.error(message)
+                        logHandler.endSection()
+
+                        verify(order) {
+                            output.invoke("\r- $section\n")
+                            output.invoke("\r  ☢ $message\n")
+                        }
+                    }
+                }
+
+                it("does nothing on endProgress") {
+                    val output = mock<Output> { every { invoke(any()) } calls {} }
+                    val logHandler = StdOutLogHandler(minLevel, output)
+
+                    logHandler.endProgress()
 
                     verify(not) { output.invoke(any()) }
                 }
-            }
 
-            it("doesn't print a Debug log") {
-                checkAll(Arb.string()) { message ->
-                    val output = mock<Output> { every { invoke(any()) } calls {} }
-                    val logHandler = StdOutLogHandler(output)
+                it("does nothing on progress") {
+                    checkAll(Arb.string(), Arb.double()) { message, progress ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
 
-                    logHandler.startProgress()
-                    logHandler.debug(message)
+                        logHandler.progress(progress, message)
 
-                    verify(not) { output.invoke(any()) }
+                        verify(not) { output.invoke(any()) }
+                    }
                 }
             }
 
-            it("doesn't print a Info log") {
-                checkAll(Arb.string()) { message ->
-                    val output = mock<Output> { every { invoke(any()) } calls {} }
-                    val logHandler = StdOutLogHandler(output)
+            describe("onLog [in progress]") {
+                it("doesn't print a Verbose log") {
+                    checkAll(Arb.string()) { message ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
 
-                    logHandler.startProgress()
-                    logHandler.info(message)
+                        logHandler.startProgress()
+                        logHandler.verbose(message)
 
-                    verify(not) { output.invoke(any()) }
+                        verify(not) { output.invoke(any()) }
+                    }
+                }
+
+                it("doesn't print a Debug log") {
+                    checkAll(Arb.string()) { message ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+
+                        logHandler.startProgress()
+                        logHandler.debug(message)
+
+                        verify(not) { output.invoke(any()) }
+                    }
+                }
+
+                it("doesn't print a Info log") {
+                    checkAll(Arb.string()) { message ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+
+                        logHandler.startProgress()
+                        logHandler.info(message)
+
+                        verify(not) { output.invoke(any()) }
+                    }
+                }
+
+                it("doesn't print a Warning log") {
+                    checkAll(Arb.string()) { message ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+
+                        logHandler.startProgress()
+                        logHandler.warning(message)
+
+                        verify(not) { output.invoke(any()) }
+                    }
+                }
+
+                it("doesn't print an Error log") {
+                    checkAll(Arb.string()) { message ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+
+                        logHandler.startProgress()
+                        logHandler.error(message)
+
+                        verify(not) { output.invoke(any()) }
+                    }
+                }
+
+                it("doesn't print a StartSection log") {
+                    checkAll(Arb.string()) { message ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+
+                        logHandler.startProgress()
+                        logHandler.error(message)
+
+                        verify(not) { output.invoke(any()) }
+                    }
+                }
+
+                it("prints a progress log") {
+                    checkAll(Arb.string(), Arb.int(min = 0, max = 1000)) { message, progress ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+                        val progressDouble = progress / 1000.0
+
+                        logHandler.startProgress()
+                        logHandler.progress(progressDouble, message)
+
+                        verify { output.invoke("\r… $progress‰ $message") }
+                    }
                 }
             }
 
-            it("doesn't print a Warning log") {
-                checkAll(Arb.string()) { message ->
-                    val output = mock<Output> { every { invoke(any()) } calls {} }
-                    val logHandler = StdOutLogHandler(output)
+            describe("onLog [after end progress]") {
+                it("prints a Verbose log") {
+                    checkAll(Arb.string(), Arb.int(min = 0, max = 1000)) { message, progress ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+                        val progressDouble = progress / 1000.0
 
-                    logHandler.startProgress()
-                    logHandler.warning(message)
+                        logHandler.startProgress()
+                        logHandler.verbose(message)
+                        logHandler.progress(progressDouble, "first")
+                        logHandler.endProgress()
 
-                    verify(not) { output.invoke(any()) }
+                        verify { output.invoke("\r… $progress‰ first") }
+                        verify(not) { output.invoke("\r  … $message\n") }
+                    }
                 }
-            }
 
-            it("doesn't print an Error log") {
-                checkAll(Arb.string()) { message ->
-                    val output = mock<Output> { every { invoke(any()) } calls {} }
-                    val logHandler = StdOutLogHandler(output)
+                it("prints a Debug log") {
+                    checkAll(Arb.string(), Arb.int(min = 0, max = 1000)) { message, progress ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+                        val progressDouble = progress / 1000.0
 
-                    logHandler.startProgress()
-                    logHandler.error(message)
+                        logHandler.startProgress()
+                        logHandler.debug(message)
+                        logHandler.progress(progressDouble, "first")
+                        logHandler.endProgress()
 
-                    verify(not) { output.invoke(any()) }
+                        verify { output.invoke("\r… $progress‰ first") }
+                        verify(not) { output.invoke("\r⚙ $message\n") }
+                    }
                 }
-            }
 
-            it("doesn't print a StartSection log") {
-                checkAll(Arb.string()) { message ->
-                    val output = mock<Output> { every { invoke(any()) } calls {} }
-                    val logHandler = StdOutLogHandler(output)
+                it("prints a Info log") {
+                    checkAll(Arb.string(), Arb.int(min = 0, max = 1000)) { message, progress ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+                        val progressDouble = progress / 1000.0
 
-                    logHandler.startProgress()
-                    logHandler.error(message)
+                        logHandler.startProgress()
+                        logHandler.info(message)
+                        logHandler.progress(progressDouble, "first")
+                        logHandler.endProgress()
 
-                    verify(not) { output.invoke(any()) }
+                        verify(order) {
+                            output.invoke("\r… $progress‰ first")
+                            output.invoke("\rℹ $message\n")
+                        }
+                    }
                 }
-            }
 
-            it("prints a progress log") {
-                checkAll(Arb.string(), Arb.int(min = 0, max = 1000)) { message, progress ->
-                    val output = mock<Output> { every { invoke(any()) } calls {} }
-                    val logHandler = StdOutLogHandler(output)
-                    val progressDouble = progress / 1000.0
+                it("prints a Warning log") {
+                    checkAll(Arb.string(), Arb.int(min = 0, max = 1000)) { message, progress ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+                        val progressDouble = progress / 1000.0
 
-                    logHandler.startProgress()
-                    logHandler.progress(progressDouble, message)
+                        logHandler.startProgress()
+                        logHandler.warning(message)
+                        logHandler.progress(progressDouble, "first")
+                        logHandler.endProgress()
 
-                    verify { output.invoke("\r… $progress‰ $message") }
+                        verify(order) {
+                            output.invoke("\r… $progress‰ first")
+                            output.invoke("\r⚠ $message\n")
+                        }
+                    }
+                }
+
+                it("prints an Error log") {
+                    checkAll(Arb.string(), Arb.int(min = 0, max = 1000)) { message, progress ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+                        val progressDouble = progress / 1000.0
+
+                        logHandler.startProgress()
+                        logHandler.error(message)
+                        logHandler.progress(progressDouble, "first")
+                        logHandler.endProgress()
+
+                        verify(order) {
+                            output.invoke("\r… $progress‰ first")
+                            output.invoke("\r☢ $message\n")
+                        }
+                    }
                 }
             }
         }
 
-        describe("onLog [after end progress]") {
-            it("prints a Verbose log") {
-                checkAll(Arb.string(), Arb.int(min = 0, max = 1000)) { message, progress ->
-                    val output = mock<Output> { every { invoke(any()) } calls {} }
-                    val logHandler = StdOutLogHandler(output)
-                    val progressDouble = progress / 1000.0
+        context("minLevel=ERROR") {
+            val minLevel = Log.Level.ERROR
 
-                    logHandler.startProgress()
-                    logHandler.verbose(message)
-                    logHandler.progress(progressDouble, "first")
+            describe("onLog [no progress]") {
+                it("prints a Verbose log") {
+                    checkAll(Arb.string()) { message ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+
+                        logHandler.verbose(message)
+
+                        verify(not) { output.invoke("\r… $message\n") }
+                    }
+                }
+
+                it("prints a Verbose log within section") {
+                    checkAll(Arb.string(), Arb.string()) { message, section ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+
+                        logHandler.startSection(section)
+                        logHandler.verbose(message)
+                        logHandler.endSection()
+
+                        verify { output.invoke("\r- $section\n") }
+                        verify(not) { output.invoke("\r  … $message\n") }
+                    }
+                }
+
+                it("prints a Debug log") {
+                    checkAll(Arb.string()) { message ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+
+                        logHandler.debug(message)
+
+                        verify(not) { output.invoke("\r⚙ $message\n") }
+                    }
+                }
+
+                it("prints a Debug log within section") {
+                    checkAll(Arb.string(), Arb.string()) { message, section ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+
+                        logHandler.startSection(section)
+                        logHandler.debug(message)
+                        logHandler.endSection()
+
+                        verify { output.invoke("\r- $section\n") }
+                        verify(not) { output.invoke("\r  ⚙ $message\n") }
+                    }
+                }
+
+                it("prints a Info log") {
+                    checkAll(Arb.string()) { message ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+
+                        logHandler.info(message)
+
+                        verify(not) { output.invoke("\rℹ $message\n") }
+                    }
+                }
+
+                it("prints a Info log within section") {
+                    checkAll(Arb.string(), Arb.string()) { message, section ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+
+                        logHandler.startSection(section)
+                        logHandler.info(message)
+                        logHandler.endSection()
+
+                        verify { output.invoke("\r- $section\n") }
+                        verify(not) { output.invoke("\r  ℹ $message\n") }
+                    }
+                }
+
+                it("prints a Warning log") {
+                    checkAll(Arb.string()) { message ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+
+                        logHandler.warning(message)
+
+                        verify(not) { output.invoke("\r⚠ $message\n") }
+                    }
+                }
+
+                it("prints a Warning log within section") {
+                    checkAll(Arb.string(), Arb.string()) { message, section ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+
+                        logHandler.startSection(section)
+                        logHandler.warning(message)
+                        logHandler.endSection()
+
+                        verify { output.invoke("\r- $section\n") }
+                        verify(not) { output.invoke("\r  ⚠ $message\n") }
+                    }
+                }
+
+                it("prints an Error log") {
+                    checkAll(Arb.string()) { message ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+
+                        logHandler.error(message)
+
+                        verify {
+                            output.invoke("\r☢ $message\n")
+                        }
+                    }
+                }
+
+                it("prints an Error log within section") {
+                    checkAll(Arb.string(), Arb.string()) { message, section ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+
+                        logHandler.startSection(section)
+                        logHandler.error(message)
+                        logHandler.endSection()
+
+                        verify(order) {
+                            output.invoke("\r- $section\n")
+                            output.invoke("\r  ☢ $message\n")
+                        }
+                    }
+                }
+
+                it("does nothing on endProgress") {
+                    val output = mock<Output> { every { invoke(any()) } calls {} }
+                    val logHandler = StdOutLogHandler(minLevel, output)
+
                     logHandler.endProgress()
 
-                    verify(order) {
-                        output.invoke("\r… $progress‰ first")
-                        output.invoke("\r… $message\n")
+                    verify(not) { output.invoke(any()) }
+                }
+
+                it("does nothing on progress") {
+                    checkAll(Arb.string(), Arb.double()) { message, progress ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+
+                        logHandler.progress(progress, message)
+
+                        verify(not) { output.invoke(any()) }
                     }
                 }
             }
 
-            it("prints a Debug log") {
-                checkAll(Arb.string(), Arb.int(min = 0, max = 1000)) { message, progress ->
-                    val output = mock<Output> { every { invoke(any()) } calls {} }
-                    val logHandler = StdOutLogHandler(output)
-                    val progressDouble = progress / 1000.0
+            describe("onLog [in progress]") {
+                it("doesn't print a Verbose log") {
+                    checkAll(Arb.string()) { message ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
 
-                    logHandler.startProgress()
-                    logHandler.debug(message)
-                    logHandler.progress(progressDouble, "first")
-                    logHandler.endProgress()
+                        logHandler.startProgress()
+                        logHandler.verbose(message)
 
-                    verify(order) {
-                        output.invoke("\r… $progress‰ first")
-                        output.invoke("\r⚙ $message\n")
+                        verify(not) { output.invoke(any()) }
+                    }
+                }
+
+                it("doesn't print a Debug log") {
+                    checkAll(Arb.string()) { message ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+
+                        logHandler.startProgress()
+                        logHandler.debug(message)
+
+                        verify(not) { output.invoke(any()) }
+                    }
+                }
+
+                it("doesn't print a Info log") {
+                    checkAll(Arb.string()) { message ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+
+                        logHandler.startProgress()
+                        logHandler.info(message)
+
+                        verify(not) { output.invoke(any()) }
+                    }
+                }
+
+                it("doesn't print a Warning log") {
+                    checkAll(Arb.string()) { message ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+
+                        logHandler.startProgress()
+                        logHandler.warning(message)
+
+                        verify(not) { output.invoke(any()) }
+                    }
+                }
+
+                it("doesn't print an Error log") {
+                    checkAll(Arb.string()) { message ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+
+                        logHandler.startProgress()
+                        logHandler.error(message)
+
+                        verify(not) { output.invoke(any()) }
+                    }
+                }
+
+                it("doesn't print a StartSection log") {
+                    checkAll(Arb.string()) { message ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+
+                        logHandler.startProgress()
+                        logHandler.error(message)
+
+                        verify(not) { output.invoke(any()) }
+                    }
+                }
+
+                it("prints a progress log") {
+                    checkAll(Arb.string(), Arb.int(min = 0, max = 1000)) { message, progress ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+                        val progressDouble = progress / 1000.0
+
+                        logHandler.startProgress()
+                        logHandler.progress(progressDouble, message)
+
+                        verify { output.invoke("\r… $progress‰ $message") }
                     }
                 }
             }
 
-            it("prints a Info log") {
-                checkAll(Arb.string(), Arb.int(min = 0, max = 1000)) { message, progress ->
-                    val output = mock<Output> { every { invoke(any()) } calls {} }
-                    val logHandler = StdOutLogHandler(output)
-                    val progressDouble = progress / 1000.0
+            describe("onLog [after end progress]") {
+                it("prints a Verbose log") {
+                    checkAll(Arb.string(), Arb.int(min = 0, max = 1000)) { message, progress ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+                        val progressDouble = progress / 1000.0
 
-                    logHandler.startProgress()
-                    logHandler.info(message)
-                    logHandler.progress(progressDouble, "first")
-                    logHandler.endProgress()
+                        logHandler.startProgress()
+                        logHandler.verbose(message)
+                        logHandler.progress(progressDouble, "first")
+                        logHandler.endProgress()
 
-                    verify(order) {
-                        output.invoke("\r… $progress‰ first")
-                        output.invoke("\rℹ $message\n")
+                        verify { output.invoke("\r… $progress‰ first") }
+                        verify(not) { output.invoke("\r… $message\n") }
                     }
                 }
-            }
 
-            it("prints a Warning log") {
-                checkAll(Arb.string(), Arb.int(min = 0, max = 1000)) { message, progress ->
-                    val output = mock<Output> { every { invoke(any()) } calls {} }
-                    val logHandler = StdOutLogHandler(output)
-                    val progressDouble = progress / 1000.0
+                it("prints a Debug log") {
+                    checkAll(Arb.string(), Arb.int(min = 0, max = 1000)) { message, progress ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+                        val progressDouble = progress / 1000.0
 
-                    logHandler.startProgress()
-                    logHandler.warning(message)
-                    logHandler.progress(progressDouble, "first")
-                    logHandler.endProgress()
+                        logHandler.startProgress()
+                        logHandler.debug(message)
+                        logHandler.progress(progressDouble, "first")
+                        logHandler.endProgress()
 
-                    verify(order) {
-                        output.invoke("\r… $progress‰ first")
-                        output.invoke("\r⚠ $message\n")
+                        verify { output.invoke("\r… $progress‰ first") }
+                        verify(not) { output.invoke("\r⚙ $message\n") }
                     }
                 }
-            }
 
-            it("prints an Error log") {
-                checkAll(Arb.string(), Arb.int(min = 0, max = 1000)) { message, progress ->
-                    val output = mock<Output> { every { invoke(any()) } calls {} }
-                    val logHandler = StdOutLogHandler(output)
-                    val progressDouble = progress / 1000.0
+                it("prints a Info log") {
+                    checkAll(Arb.string(), Arb.int(min = 0, max = 1000)) { message, progress ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+                        val progressDouble = progress / 1000.0
 
-                    logHandler.startProgress()
-                    logHandler.error(message)
-                    logHandler.progress(progressDouble, "first")
-                    logHandler.endProgress()
+                        logHandler.startProgress()
+                        logHandler.info(message)
+                        logHandler.progress(progressDouble, "first")
+                        logHandler.endProgress()
 
-                    verify(order) {
-                        output.invoke("\r… $progress‰ first")
-                        output.invoke("\r☢ $message\n")
+                        verify { output.invoke("\r… $progress‰ first") }
+                        verify(not) { output.invoke("\rℹ $message\n") }
+                    }
+                }
+
+                it("prints a Warning log") {
+                    checkAll(Arb.string(), Arb.int(min = 0, max = 1000)) { message, progress ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+                        val progressDouble = progress / 1000.0
+
+                        logHandler.startProgress()
+                        logHandler.warning(message)
+                        logHandler.progress(progressDouble, "first")
+                        logHandler.endProgress()
+
+                        verify { output.invoke("\r… $progress‰ first") }
+                        verify(not) { output.invoke("\r⚠ $message\n") }
+                    }
+                }
+
+                it("prints an Error log") {
+                    checkAll(Arb.string(), Arb.int(min = 0, max = 1000)) { message, progress ->
+                        val output = mock<Output> { every { invoke(any()) } calls {} }
+                        val logHandler = StdOutLogHandler(minLevel, output)
+                        val progressDouble = progress / 1000.0
+
+                        logHandler.startProgress()
+                        logHandler.error(message)
+                        logHandler.progress(progressDouble, "first")
+                        logHandler.endProgress()
+
+                        verify(order) {
+                            output.invoke("\r… $progress‰ first")
+                            output.invoke("\r☢ $message\n")
+                        }
                     }
                 }
             }

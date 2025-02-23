@@ -17,10 +17,7 @@ class GravityEnvironment(
 
     // region Environment
 
-    override fun environmentColor(
-        position: Vector<D2>,
-        time: Duration,
-    ): HDRColor {
+    override fun environmentColor(position: Vector<D2>, time: Duration): HDRColor {
         TODO("Not yet implemented")
     }
 

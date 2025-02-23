@@ -10,7 +10,8 @@ import fr.xgouchet.luxels.engine.api.Environment
 import fr.xgouchet.luxels.engine.api.Luxel
 import fr.xgouchet.luxels.engine.api.Simulator
 import fr.xgouchet.luxels.engine.api.configuration.SimulationType
-import fr.xgouchet.luxels.engine.simulation.InternalConfiguration
+import fr.xgouchet.luxels.engine.simulation.CommonConfiguration
+import fr.xgouchet.luxels.engine.simulation.SceneConfiguration
 import fr.xgouchet.luxels.engine.simulation.runner.FrameInfo
 
 /**
@@ -42,10 +43,14 @@ class EnvSimulationWorker<D : Dimension, L : Luxel<D>, E : Environment<D>>(
 
     // region SimulationWorker
 
-    override suspend fun <I : Any> runSimulation(exposure: Exposure<D>, configuration: InternalConfiguration<D, I, E>) {
-        rng = VectorRandomGenerator(configuration.dimension)
-        simulationVolume = configuration.simulationVolume
-        super.runSimulation(exposure, configuration)
+    override suspend fun <I : Any> runSimulation(
+        exposure: Exposure<D>,
+        sceneConfiguration: SceneConfiguration<D, I, E>,
+        commonConfiguration: CommonConfiguration,
+    ) {
+        rng = VectorRandomGenerator(sceneConfiguration.dimension)
+        simulationVolume = sceneConfiguration.simulationVolume
+        super.runSimulation(exposure, sceneConfiguration, commonConfiguration)
     }
 
     // endregion

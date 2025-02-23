@@ -30,7 +30,11 @@ class PixieSimulator : Simulator<Dimension.D2, PixieLuxel, PixieEnvironment> {
         return PixieLuxel(colorMask, position, iteration, initialColor)
     }
 
-    override fun updateLuxel(luxel: PixieLuxel, environment: PixieEnvironment, frameInfo: FrameInfo) {
+    override fun updateLuxel(
+        luxel: PixieLuxel,
+        environment: PixieEnvironment,
+        frameInfo: FrameInfo,
+    ) {
         val color = luxel.color
 
         // find a position in a [-½, ½]  range

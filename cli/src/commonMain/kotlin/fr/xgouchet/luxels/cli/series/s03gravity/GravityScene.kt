@@ -18,8 +18,8 @@ class GravityScene : Scene<D2, GravityLuxel, Long, GravityEnvironment> {
 
     override fun getEnvironment(
         simulationVolume: Volume<D2>,
-        duration: Duration,
         inputData: InputData<Long>,
+        duration: Duration,
     ): GravityEnvironment {
         val simDuration = max(duration, 1.milliseconds)
         return GravityEnvironment(simulationVolume, simDuration)

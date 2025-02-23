@@ -19,7 +19,7 @@ buildscript {
         classpath(libs.kotlinGradlePlugin)
 
         classpath(libs.dokkaGradlePlugin)
-        classpath(libs.versionsGradlePlugin)
+        classpath(libs.depsVersionsGradlePlugin)
         classpath(libs.ktlintGradlePlugin)
         classpath(libs.detektGradlePlugin)
         classpath(libs.kotestGradlePlugin)

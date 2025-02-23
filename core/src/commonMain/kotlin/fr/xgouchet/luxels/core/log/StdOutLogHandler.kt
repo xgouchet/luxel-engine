@@ -7,8 +7,12 @@ internal typealias Output = (String) -> Unit
 
 /**
  * A [LogHandler] that prints the logs in the standard output.
+ *
+ * @property minLevel the minimum Log Level to report
+ * @param output the delegate to write to the output stream
  */
 class StdOutLogHandler(
+    val minLevel: Log.Level = Log.Level.INFO,
     private val output: Output = { print(it) },
 ) : LogHandler {
 
@@ -47,11 +51,13 @@ class StdOutLogHandler(
 
                 is Log.EndSection -> sectionLevel--
 
-                is Log.Message -> writeLine(log.level.symbol, log.content)
+                is Log.Message -> if (log.level >= minLevel) {
+                    writeLine(log.level.symbol, log.content)
+                }
 
-                is Log.EndProgress,
-                is Log.Progress,
-                -> {
+                else -> {
+//                is Log.EndProgress,
+//                is Log.Progress,
                     // No op
                 }
             }

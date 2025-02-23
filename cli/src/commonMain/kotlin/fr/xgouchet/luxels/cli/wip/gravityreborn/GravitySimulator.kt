@@ -13,10 +13,7 @@ class GravitySimulator(
 
     // region Simulator
 
-    override fun spawnLuxel(
-        environment: GravityEnvironment,
-        frameInfo: FrameInfo,
-    ): GravityLuxel {
+    override fun spawnLuxel(environment: GravityEnvironment, frameInfo: FrameInfo): GravityLuxel {
         return GravityLuxel(environment.simulationVolume, 1024)
     }
 

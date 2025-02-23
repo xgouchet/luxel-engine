@@ -17,7 +17,6 @@ project.afterEvaluate {
         (this as? Test)?.useJUnitPlatform()
     }
 
-
     tasks.findByName("koverXmlReport")?.apply {
         this.dependsOn("jvmTest")
     }
@@ -41,6 +40,7 @@ ktlint {
         exclude("**/generated/**")
         exclude("**/build/**")
         include("**/kotlin/**")
+        include("**/luxels/cli/**")
     }
 }
 

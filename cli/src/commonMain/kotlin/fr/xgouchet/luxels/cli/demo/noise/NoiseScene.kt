@@ -17,8 +17,8 @@ class NoiseScene : Scene<D2, StaticLuxel<D2>, Unit, NoiseEnvironment> {
 
     override fun getEnvironment(
         simulationVolume: Volume<D2>,
-        duration: Duration,
         inputData: InputData<Unit>,
+        duration: Duration,
     ): NoiseEnvironment {
         return NoiseEnvironment(simulationVolume)
     }
