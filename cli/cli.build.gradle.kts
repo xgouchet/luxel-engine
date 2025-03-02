@@ -29,6 +29,14 @@ kotlin {
             }
         }
 
+        "linux_x64" -> linuxX64 {
+            binaries {
+                executable {
+                    entryPoint = "fr.xgouchet.luxels.cli.main"
+                }
+            }
+        }
+
         else -> {
             println("Unknown host ${HostManager.hostName}")
         }

@@ -70,12 +70,12 @@ class StdOutLogHandler(
 
     private fun handleProgress(progress: Log.Progress) {
         val perThousand = progress.progress * 1000.0
-        output.invoke("\r… ${perThousand.roundToInt()}‰ ${progress.message}")
+        output.invoke("\r… ${perThousand.roundToInt()}‰ ${progress.message}$TAIL_SPACE")
     }
 
     private fun writeLine(prefix: String, message: String) {
         val indentation = INDENTATIONS[sectionLevel]
-        output.invoke("\r$indentation$prefix $message\n")
+        output.invoke("\r$indentation$prefix $message$TAIL_SPACE\n")
     }
 
     private fun handleBacklog() {
@@ -85,4 +85,8 @@ class StdOutLogHandler(
     }
 
     // endregion
+
+    companion object {
+        const val TAIL_SPACE = "                                "
+    }
 }

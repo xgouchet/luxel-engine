@@ -22,7 +22,7 @@ clikt = "5.0.2"
 oshi = "6.6.6"
 
 # Tests Tools
-kotest = "5.9.0"
+kotest = "6.0.0.M2"
 
 # Plugins
 detektGradlePlugin = "1.23.6"
