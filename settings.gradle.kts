@@ -1,6 +1,6 @@
 
 
-include(":graphikio")
+include(":imageio")
 include(":core")
 include(":engine")
 include(":components")

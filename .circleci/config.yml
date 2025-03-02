@@ -33,8 +33,8 @@ jobs:
           command : ./gradlew :components:checkJvm
 
       - run:
-          name: Run checks on graphikio
-          command : ./gradlew :graphikio:checkJvm
+          name: Run checks on imageio
+          command : ./gradlew :imageio:checkJvm
 
 #      - run:
 #          name: Run checks on cli
@@ -57,7 +57,7 @@ jobs:
       - codecov/upload:
           file: components/build/reports/kover/report.xml
       - codecov/upload:
-          file: graphikio/build/reports/kover/report.xml
+          file: imageio/build/reports/kover/report.xml
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/workflows/ & https://circleci.com/docs/configuration-reference/#workflows

@@ -36,7 +36,7 @@ kotlin {
                 implementation(libs.okio)
 
                 implementation(project(":core"))
-                implementation(project(":graphikio"))
+                implementation(project(":imageio"))
             }
         }
 

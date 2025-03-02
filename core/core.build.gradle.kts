@@ -35,7 +35,7 @@ kotlin {
                 implementation(libs.kotlinxCoroutines)
                 implementation(libs.okio)
 
-                implementation(project(":graphikio"))
+                implementation(project(":imageio"))
             }
         }
 

@@ -37,7 +37,7 @@ kotlin {
 
                 implementation(project(":core"))
                 implementation(project(":engine"))
-                implementation(project(":graphikio"))
+                implementation(project(":imageio"))
             }
         }
 

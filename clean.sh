@@ -7,7 +7,7 @@ echo "  ┃   LUXELS   ┃"
 echo "  ┗━━━━━━━━━━━━┛"
 
 echo " ··· Clean"
-./gradlew :graphikio:clean
+./gradlew :imageio:clean
 ./gradlew :core:clean
 ./gradlew :engine:clean
 ./gradlew :components:clean

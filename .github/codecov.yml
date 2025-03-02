@@ -26,8 +26,8 @@ component_management:
       name: components
       paths:
         - components/**
-    - component_id: graphikio
-      name: graphikio
+    - component_id: imageio
+      name: imageio
       paths:
-        - graphikio/**
+        - imageio/**
 

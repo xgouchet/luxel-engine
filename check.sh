@@ -7,7 +7,7 @@ echo "  ┃   LUXELS   ┃"
 echo "  ┗━━━━━━━━━━━━┛"
 
 echo " ··· KtLint"
-./gradlew :graphikio:ktlintCheck
+./gradlew :imageio:ktlintCheck
 ./gradlew :core:ktlintCheck
 ./gradlew :engine:ktlintCheck
 ./gradlew :components:ktlintCheck
@@ -16,7 +16,7 @@ echo "   ✔ KtLint"
 echo ""
 
 echo " ··· Detekt [jvm]"
-./gradlew :graphikio:detektJvmMain
+./gradlew :imageio:detektJvmMain
 ./gradlew :core:detektJvmMain
 ./gradlew :engine:detektJvmMain
 ./gradlew :components:detektJvmMain
@@ -25,7 +25,7 @@ echo "   ✔ Detekt [jvm]"
 echo ""
 
 echo " ··· Test [jvm]"
-./gradlew :graphikio:jvmTest
+./gradlew :imageio:jvmTest
 ./gradlew :core:jvmTest
 ./gradlew :engine:jvmTest
 ./gradlew :components:jvmTest
@@ -33,7 +33,7 @@ echo "   ✔ Test [jvm]"
 echo ""
 
 echo " ··· Dependency upgrades"
-./gradlew :graphikio:dependencyUpdates
+./gradlew :imageio:dependencyUpdates
 ./gradlew :core:dependencyUpdates
 ./gradlew :engine:dependencyUpdates
 ./gradlew :components:dependencyUpdates

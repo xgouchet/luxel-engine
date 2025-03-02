@@ -13,7 +13,7 @@ kotlin {
         withJava()
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
         mainRun {
-            mainClass.set("fr.xgouchet.luxels.cli.MainKt")
+            mainClass.set("art.luxels.cli.MainKt")
         }
     }
 
@@ -24,7 +24,7 @@ kotlin {
         "macos_arm64" -> macosArm64 {
             binaries {
                 executable {
-                    entryPoint = "fr.xgouchet.luxels.cli.main"
+                    entryPoint = "art.luxels.cli.main"
                 }
             }
         }
@@ -32,7 +32,7 @@ kotlin {
         "linux_x64" -> linuxX64 {
             binaries {
                 executable {
-                    entryPoint = "fr.xgouchet.luxels.cli.main"
+                    entryPoint = "art.luxels.cli.main"
                 }
             }
         }
@@ -48,7 +48,7 @@ kotlin {
                 implementation(project(":core"))
                 implementation(project(":engine"))
                 implementation(project(":components"))
-                implementation(project(":graphikio"))
+                implementation(project(":imageio"))
 
 //                implementation(libs.kotlin)
                 implementation(libs.kotlinxDateTime)
@@ -76,7 +76,7 @@ tasks.withType(Jar::class.java) {
     manifest {
         val main by kotlin.jvm().compilations.getting
         attributes(
-            "Main-Class" to "fr.xgouchet.luxels.cli.MainKt",
+            "Main-Class" to "art.luxels.cli.MainKt",
         )
     }
 }
