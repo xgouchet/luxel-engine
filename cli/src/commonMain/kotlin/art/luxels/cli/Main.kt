@@ -11,6 +11,7 @@ import art.luxels.cli.fractals.mandelbrot.MandelbrotCommand
 import art.luxels.cli.series.s01aether.AetherCommand
 import art.luxels.cli.series.s03gravity.GravityCommand
 import art.luxels.cli.wip.gravityreborn.GravityRebornCommand
+import art.luxels.cli.wip.rain.RainCommand
 
 fun main(args: Array<String>) {
     LuxelCommand()
@@ -23,6 +24,7 @@ fun main(args: Array<String>) {
             AetherCommand(),
             GravityCommand(),
             GravityRebornCommand(),
+            RainCommand()
         )
         .main(args)
 }
