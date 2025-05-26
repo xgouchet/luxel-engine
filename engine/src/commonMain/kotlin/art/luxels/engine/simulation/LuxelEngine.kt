@@ -5,6 +5,7 @@ import art.luxels.core.log.StdOutLogHandler
 import art.luxels.core.log.endSection
 import art.luxels.core.log.info
 import art.luxels.core.log.startSection
+import art.luxels.core.log.warning
 import art.luxels.core.math.Dimension
 import art.luxels.core.math.Volume
 import art.luxels.engine.api.Environment
@@ -57,6 +58,10 @@ class LuxelEngine<D : Dimension> internal constructor(
         inputSource: InputSource<I>,
         simulationVolume: Volume<D>,
     ) {
+        if (inputSource.isEmpty()) {
+            logHandler.warning("Can't simulate scene ${scene.outputName()}: input source is empty")
+        }
+
         logHandler.info("Simulating scene ${scene.outputName()}")
         val mainJob = CoroutineScope(Dispatchers.Default).launch {
             logHandler.startSection("Scene ${scene.outputName()}")

@@ -15,6 +15,13 @@ abstract class InputSource<I : Any> : Iterable<InputData<I>> {
         return inputDataList.iterator()
     }
 
+    /**
+     * @return whether the imput source is empty
+     */
+    fun isEmpty(): Boolean {
+        return inputDataList.isEmpty()
+    }
+
     // endregion
 
     /**
