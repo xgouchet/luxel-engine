@@ -13,7 +13,11 @@ import art.luxels.engine.api.Scene
 // 6bec6b51
 // 7c0e9028
 class RainCommand : LongInputSceneCommand<D2, RainLuxel, RainEnvironment>("rain", D2) {
+    // region AbstractSceneCommand
+
     override fun getScene(): Scene<D2, RainLuxel, Long, RainEnvironment> {
         return RainScene()
     }
+
+    // endregion
 }

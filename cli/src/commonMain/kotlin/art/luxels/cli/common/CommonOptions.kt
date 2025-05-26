@@ -83,9 +83,8 @@ class CommonOptions : OptionGroup() {
         .default(Resolution.XGA)
         .help("The output film resolution")
 
-    // TODO add ISO param?
     val outputFormat: FixerType? by option("--format")
-        .choice(mapOf("hdr" to FixerType.HDR, "bmp" to FixerType.BMP(400.0)))
+        .choice(mapOf("hdr" to FixerType.HDR, "bmp" to FixerType.BMP))
         .help("The output file format")
 
     fun asConfiguration(outputPath: Path, logHandler: LogHandler): CommonConfiguration {

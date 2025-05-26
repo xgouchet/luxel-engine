@@ -20,13 +20,11 @@ sealed class FixerType {
         // endregion
     }
 
-    data class BMP(
-        val iso: Double,
-    ) : FixerType() {
+    data object BMP : FixerType() {
         // region FixerType
 
         override fun createFixer(outputPath: Path, logHandler: LogHandler): ImageFixer {
-            return BmpImageFixer(outputPath, iso)
+            return BmpImageFixer(outputPath)
         }
 
         // endregion
