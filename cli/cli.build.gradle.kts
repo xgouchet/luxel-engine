@@ -29,6 +29,14 @@ kotlin {
             }
         }
 
+        "macos_x64" -> macosX64 {
+            binaries {
+                executable {
+                    entryPoint = "art.luxels.cli.main"
+                }
+            }
+        }
+
         "linux_x64" -> linuxX64 {
             binaries {
                 executable {

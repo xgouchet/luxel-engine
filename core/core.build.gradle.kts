@@ -20,6 +20,7 @@ kotlin {
 
     when (HostManager.hostName) {
         "macos_arm64" -> macosArm64()
+        "macos_x64" -> macosX64()
         "linux_x64" -> linuxX64()
         else -> {
             println("Unknown host ${HostManager.hostName}")

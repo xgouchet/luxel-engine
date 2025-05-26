@@ -5,6 +5,7 @@ package art.luxels.core.system
 import art.luxels.core.concurrency.ConcurrencyCapabilities
 import art.luxels.core.render.Resolution
 import kotlinx.cinterop.ExperimentalForeignApi
+import platform.Foundation.NSProcessInfo
 
 /**
  * A class giving access to runtime system information.
@@ -16,11 +17,12 @@ actual object SystemInfo : ConcurrencyCapabilities {
 
     @OptIn(ExperimentalForeignApi::class)
     actual override fun getCpuParallelCapacity(): Int {
-        return 1
+        return NSProcessInfo.processInfo().processorCount.toInt()
     }
 
     actual override fun getMemoryParallelCapacity(resolution: Resolution): Int {
-        return 1
+        // TODO()
+        return 8
     }
 
     // endregion
