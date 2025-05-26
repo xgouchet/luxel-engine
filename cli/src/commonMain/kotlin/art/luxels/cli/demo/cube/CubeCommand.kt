@@ -6,9 +6,10 @@ import art.luxels.components.engine.StaticLuxel
 import art.luxels.core.math.Dimension.D3
 import art.luxels.engine.api.Scene
 import art.luxels.engine.api.input.InputSource
+import art.luxels.scenes.demo.cube.CubeScene
 
 /**
- * [CliktCommand] for the [CubeScene].
+ * [CliktCommand] for the [art.luxels.scenes.demo.cube.CubeScene].
  */
 class CubeCommand : AbstractSceneCommand<D3, StaticLuxel<D3>, Unit, BaseEnvironment<D3>>("cube", D3) {
     // region AbstractSceneCommand

@@ -5,10 +5,12 @@ import art.luxels.components.engine.BaseEnvironment
 import art.luxels.core.math.Dimension.D2
 import art.luxels.engine.api.Scene
 import art.luxels.engine.api.input.InputSource
+import art.luxels.scenes.fractal.mandelbrot.MandelbrotLuxel
+import art.luxels.scenes.fractal.mandelbrot.MandelbrotScene
 import com.github.ajalt.clikt.core.CliktCommand
 
 /**
- * [CliktCommand] for the [MandelbrotScene].
+ * [CliktCommand] for the [art.luxels.scenes.fractal.mandelbrot.MandelbrotScene].
  */
 class MandelbrotCommand : AbstractSceneCommand<D2, MandelbrotLuxel, Unit, BaseEnvironment<D2>>("mandelbrot", D2) {
     // region AbstractSceneCommand

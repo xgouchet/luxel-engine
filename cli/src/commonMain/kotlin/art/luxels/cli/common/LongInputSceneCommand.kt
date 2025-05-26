@@ -1,16 +1,16 @@
 package art.luxels.cli.common
 
+import art.luxels.core.math.Dimension
+import art.luxels.engine.api.Environment
+import art.luxels.engine.api.Luxel
+import art.luxels.engine.api.input.FixedSeedsInputSource
+import art.luxels.engine.api.input.InputSource
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.options.help
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.options.varargValues
 import com.github.ajalt.clikt.parameters.types.int
 import com.github.ajalt.clikt.parameters.types.long
-import art.luxels.core.math.Dimension
-import art.luxels.engine.api.Environment
-import art.luxels.engine.api.Luxel
-import art.luxels.engine.api.input.FixedSeedsInputSource
-import art.luxels.engine.api.input.InputSource
 import kotlinx.datetime.Clock
 import kotlin.math.absoluteValue
 

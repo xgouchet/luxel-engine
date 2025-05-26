@@ -3,6 +3,9 @@ package art.luxels.cli.wip.rain
 import art.luxels.cli.common.LongInputSceneCommand
 import art.luxels.core.math.Dimension.D2
 import art.luxels.engine.api.Scene
+import art.luxels.scenes.wip.rain.RainEnvironment
+import art.luxels.scenes.wip.rain.RainLuxel
+import art.luxels.scenes.wip.rain.RainScene
 
 // 5525e11f
 // 5b39ec29

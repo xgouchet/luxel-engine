@@ -11,7 +11,8 @@ echo " ··· KtLint"
 ./gradlew :core:ktlintCheck
 ./gradlew :engine:ktlintCheck
 ./gradlew :components:ktlintCheck
-#./gradlew :cli:ktlintCheck
+./gradlew :scenes:ktlintCheck
+./gradlew :cli:ktlintCheck
 echo "   ✔ KtLint"
 echo ""
 
@@ -20,6 +21,7 @@ echo " ··· Detekt [jvm]"
 ./gradlew :core:detektJvmMain
 ./gradlew :engine:detektJvmMain
 ./gradlew :components:detektJvmMain
+./gradlew :scenes:detektJvmMain
 ./gradlew :cli:detektJvmMain
 echo "   ✔ Detekt [jvm]"
 echo ""
@@ -37,6 +39,7 @@ echo " ··· Dependency upgrades"
 ./gradlew :core:dependencyUpdates
 ./gradlew :engine:dependencyUpdates
 ./gradlew :components:dependencyUpdates
+./gradlew :scenes:dependencyUpdates
 ./gradlew :cli:dependencyUpdates
 echo "   ✔ Dependency upgrades"
 echo ""

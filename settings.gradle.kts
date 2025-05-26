@@ -4,6 +4,7 @@ include(":imageio")
 include(":core")
 include(":engine")
 include(":components")
+include(":scenes")
 include(":cli")
 include(":detekt")
 

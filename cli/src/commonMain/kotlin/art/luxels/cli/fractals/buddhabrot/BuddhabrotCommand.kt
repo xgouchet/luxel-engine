@@ -5,9 +5,11 @@ import art.luxels.components.engine.BaseEnvironment
 import art.luxels.core.math.Dimension.D2
 import art.luxels.engine.api.Scene
 import art.luxels.engine.api.input.InputSource
+import art.luxels.scenes.fractal.buddhabrot.BuddhabrotLuxel
+import art.luxels.scenes.fractal.buddhabrot.BuddhabrotScene
 
 /**
- * [CliktCommand] for the [BuddhabrotScene].
+ * [CliktCommand] for the [art.luxels.scenes.fractal.buddhabrot.BuddhabrotScene].
  */
 class BuddhabrotCommand : AbstractSceneCommand<D2, BuddhabrotLuxel, Unit, BaseEnvironment<D2>>("buddhabrot", D2) {
     // region AbstractSceneCommand

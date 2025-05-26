@@ -57,6 +57,7 @@ kotlin {
                 implementation(project(":engine"))
                 implementation(project(":components"))
                 implementation(project(":imageio"))
+                implementation(project(":scenes"))
 
 //                implementation(libs.kotlin)
                 implementation(libs.kotlinxDateTime)

@@ -93,6 +93,7 @@ comments:
       - '**/androidInstrumentedTest/**'
       - '**/jsTest/**'
       - '**/iosTest/**'
+      - '**/scenes/**'
       - '**/cli/**'
     searchInNestedClass: true
     searchInInnerClass: true
@@ -110,6 +111,7 @@ comments:
       - '**/androidInstrumentedTest/**'
       - '**/jsTest/**'
       - '**/iosTest/**'
+      - '**/scenes/**'
       - '**/cli/**'
     searchProtectedFunction: true
   UndocumentedPublicProperty:
@@ -123,6 +125,7 @@ comments:
       - '**/androidInstrumentedTest/**'
       - '**/jsTest/**'
       - '**/iosTest/**'
+      - '**/scenes/**'
       - '**/cli/**'
     searchProtectedProperty: true
 

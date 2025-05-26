@@ -1,14 +1,14 @@
 package art.luxels.cli.common
 
-import com.github.ajalt.clikt.core.CliktCommand
-import com.github.ajalt.clikt.parameters.options.convert
-import com.github.ajalt.clikt.parameters.options.help
-import com.github.ajalt.clikt.parameters.options.option
 import art.luxels.core.math.Dimension
 import art.luxels.engine.api.Environment
 import art.luxels.engine.api.Luxel
 import art.luxels.engine.api.input.FilesInputSource
 import art.luxels.engine.api.input.InputSource
+import com.github.ajalt.clikt.core.CliktCommand
+import com.github.ajalt.clikt.parameters.options.convert
+import com.github.ajalt.clikt.parameters.options.help
+import com.github.ajalt.clikt.parameters.options.option
 import okio.Path
 import okio.Path.Companion.toPath
 

@@ -1,7 +1,5 @@
 package art.luxels.cli.common
 
-import com.github.ajalt.clikt.core.CliktCommand
-import com.github.ajalt.clikt.parameters.groups.provideDelegate
 import art.luxels.core.log.FileLogHandler
 import art.luxels.core.log.StdOutLogHandler
 import art.luxels.core.log.error
@@ -14,8 +12,8 @@ import art.luxels.engine.api.Scene
 import art.luxels.engine.api.input.InputSource
 import art.luxels.engine.simulation.LuxelEngine
 import art.luxels.imageio.fileSystem
-import okio.FileSystem
-import okio.SYSTEM
+import com.github.ajalt.clikt.core.CliktCommand
+import com.github.ajalt.clikt.parameters.groups.provideDelegate
 
 /**
  *  An abstract [CliktCommand] to run a specific Scene.

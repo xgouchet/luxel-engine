@@ -5,9 +5,11 @@ import art.luxels.components.engine.StaticLuxel
 import art.luxels.core.math.Dimension.D3
 import art.luxels.engine.api.Scene
 import art.luxels.engine.api.input.InputSource
+import art.luxels.scenes.demo.metaballs.MetaBallsEnvironment
+import art.luxels.scenes.demo.metaballs.MetaBallsScene
 
 /**
- * [CliktCommand] for the [MetaBallsScene].
+ * [CliktCommand] for the [art.luxels.scenes.demo.metaballs.MetaBallsScene].
  */
 class MetaBallsCommand : AbstractSceneCommand<D3, StaticLuxel<D3>, Unit, MetaBallsEnvironment>("metaballs", D3) {
     // region AbstractSceneCommand

@@ -5,9 +5,11 @@ import art.luxels.components.engine.StaticLuxel
 import art.luxels.core.math.Dimension.D2
 import art.luxels.engine.api.Scene
 import art.luxels.engine.api.input.InputSource
+import art.luxels.scenes.demo.noise.NoiseEnvironment
+import art.luxels.scenes.demo.noise.NoiseScene
 
 /**
- * [CliktCommand] for the [NoiseScene].
+ * [CliktCommand] for the [art.luxels.scenes.demo.noise.NoiseScene].
  */
 class NoiseCommand : AbstractSceneCommand<D2, StaticLuxel<D2>, Unit, NoiseEnvironment>("noise", D2) {
     // region AbstractSceneCommand

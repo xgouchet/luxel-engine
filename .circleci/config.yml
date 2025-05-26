@@ -21,6 +21,10 @@ jobs:
       - checkout
 
       - run:
+          name: Run checks on imageio
+          command : ./gradlew :imageio:checkJvm
+
+      - run:
           name: Run checks on core
           command : ./gradlew :core:checkJvm
 
@@ -33,7 +37,7 @@ jobs:
           command : ./gradlew :components:checkJvm
 
       - run:
-          name: Run checks on imageio
+          name: Run checks on scenes
           command : ./gradlew :imageio:checkJvm
 
 #      - run:

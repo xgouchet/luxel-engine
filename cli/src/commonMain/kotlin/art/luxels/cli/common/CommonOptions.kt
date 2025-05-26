@@ -1,15 +1,5 @@
 package art.luxels.cli.common
 
-import com.github.ajalt.clikt.parameters.groups.OptionGroup
-import com.github.ajalt.clikt.parameters.options.convert
-import com.github.ajalt.clikt.parameters.options.default
-import com.github.ajalt.clikt.parameters.options.help
-import com.github.ajalt.clikt.parameters.options.option
-import com.github.ajalt.clikt.parameters.options.transformValues
-import com.github.ajalt.clikt.parameters.types.choice
-import com.github.ajalt.clikt.parameters.types.double
-import com.github.ajalt.clikt.parameters.types.int
-import com.github.ajalt.clikt.parameters.types.ulong
 import art.luxels.core.io.NoOpFixer
 import art.luxels.core.log.LogHandler
 import art.luxels.core.math.Dimension
@@ -24,6 +14,16 @@ import art.luxels.engine.api.configuration.FilmType
 import art.luxels.engine.api.configuration.SimulationType
 import art.luxels.engine.simulation.CommonConfiguration
 import art.luxels.engine.simulation.runner.FrameInfo
+import com.github.ajalt.clikt.parameters.groups.OptionGroup
+import com.github.ajalt.clikt.parameters.options.convert
+import com.github.ajalt.clikt.parameters.options.default
+import com.github.ajalt.clikt.parameters.options.help
+import com.github.ajalt.clikt.parameters.options.option
+import com.github.ajalt.clikt.parameters.options.transformValues
+import com.github.ajalt.clikt.parameters.types.choice
+import com.github.ajalt.clikt.parameters.types.double
+import com.github.ajalt.clikt.parameters.types.int
+import com.github.ajalt.clikt.parameters.types.ulong
 import okio.Path
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
