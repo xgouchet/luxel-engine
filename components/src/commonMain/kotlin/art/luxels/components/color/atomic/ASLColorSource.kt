@@ -27,10 +27,7 @@ open class ASLColorSource(
      * @property waveLength the wavelength of the spectral line (in nm)
      * @property intensity the (relative) intensity of the spectral line
      */
-    data class SpectralLine(
-        val waveLength: WavelengthNanometer,
-        val intensity: Double,
-    )
+    data class SpectralLine(val waveLength: WavelengthNanometer, val intensity: Double)
 
     // region ColorSource
 

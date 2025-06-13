@@ -13,7 +13,5 @@ import art.luxels.engine.render.Projection
  * @property simulationVolume the simulation volume
  * @property filmSpace the film space
  */
-abstract class AbstractProjection<D : Dimension>(
-    val simulationVolume: Volume<D>,
-    val filmSpace: Volume<D2>,
-) : Projection<D>
+abstract class AbstractProjection<D : Dimension>(val simulationVolume: Volume<D>, val filmSpace: Volume<D2>) :
+    Projection<D>

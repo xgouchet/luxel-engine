@@ -10,9 +10,8 @@ import art.luxels.core.math.Vector
  * @param F the dimension to create noise from
  * @param delegate the underlying [DimensionalNoiseGenerator]
  */
-class VectorToDoubleNoiseGenerator<F : Dimension>(
-    private val delegate: DimensionalNoiseGenerator,
-) : NoiseGenerator<Vector<F>, Double> {
+class VectorToDoubleNoiseGenerator<F : Dimension>(private val delegate: DimensionalNoiseGenerator) :
+    NoiseGenerator<Vector<F>, Double> {
 
     // region NoiseGenerator
 

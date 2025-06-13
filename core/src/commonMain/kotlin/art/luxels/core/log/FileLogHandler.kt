@@ -14,10 +14,7 @@ import okio.use
  * @property outputLogPath the [Path] to the file where logs are written
  * @property minLevel the minimum Log Level to report
  */
-class FileLogHandler(
-    val outputLogPath: Path,
-    val minLevel: Log.Level = Log.Level.INFO,
-) : LogHandler {
+class FileLogHandler(val outputLogPath: Path, val minLevel: Log.Level = Log.Level.INFO) : LogHandler {
 
     private val fs: FileSystem = fileSystem
 

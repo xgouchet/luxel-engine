@@ -17,11 +17,8 @@ import kotlin.math.pow
  * @property radius the radius (in film space) of the effect
  * @property samples the number of samples to use for the effect
  */
-class GaussianBloomProjection<D : Dimension>(
-    val delegate: Projection<D>,
-    val radius: Double,
-    val samples: Int,
-) : Projection<D> {
+class GaussianBloomProjection<D : Dimension>(val delegate: Projection<D>, val radius: Double, val samples: Int) :
+    Projection<D> {
 
     // region Projection
 

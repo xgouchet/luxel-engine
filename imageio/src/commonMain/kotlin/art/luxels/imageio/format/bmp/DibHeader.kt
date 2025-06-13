@@ -21,12 +21,8 @@ internal sealed class DibHeader(
 
     abstract val headerSize: Int
 
-    class BitmapCoreHeader(
-        width: Int,
-        height: Int,
-        colorPlaneCount: Int,
-        bitPerPixel: Int,
-    ) : DibHeader(width, height, colorPlaneCount, bitPerPixel) {
+    class BitmapCoreHeader(width: Int, height: Int, colorPlaneCount: Int, bitPerPixel: Int) :
+        DibHeader(width, height, colorPlaneCount, bitPerPixel) {
 
         // region DibHeader
 

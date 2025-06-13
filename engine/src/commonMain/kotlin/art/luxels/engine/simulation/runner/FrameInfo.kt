@@ -9,11 +9,7 @@ import kotlin.time.Duration.Companion.nanoseconds
  * @param time the time of the frame in the simulation
  * @param progression the progression within the current animation (always in a [0…1] range)
  */
-data class FrameInfo(
-    val index: Int,
-    val time: Duration,
-    val progression: Double,
-) {
+data class FrameInfo(val index: Int, val time: Duration, val progression: Double) {
     /**
      * @return the name of the frame
      */

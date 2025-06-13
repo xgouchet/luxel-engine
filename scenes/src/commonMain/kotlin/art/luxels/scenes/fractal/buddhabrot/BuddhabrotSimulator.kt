@@ -8,9 +8,8 @@ import art.luxels.engine.api.Simulator
 import art.luxels.engine.simulation.runner.FrameInfo
 import art.luxels.imageio.color.HDRColor
 
-class BuddhabrotSimulator(
-    private val iterations: Int = 0x1_000,
-) : Simulator<D2, BuddhabrotLuxel, BaseEnvironment<D2>> {
+class BuddhabrotSimulator(private val iterations: Int = 0x1_000) :
+    Simulator<D2, BuddhabrotLuxel, BaseEnvironment<D2>> {
 
     // region Simulator
 

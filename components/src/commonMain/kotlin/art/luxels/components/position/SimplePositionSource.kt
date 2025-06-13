@@ -9,9 +9,7 @@ import art.luxels.core.position.PositionSource
  * @param D the dimension of the space luxels evolve in
  * @property position the position of the luxel
  */
-class SimplePositionSource<D : Dimension>(
-    var position: Vector<D>,
-) : PositionSource<D> {
+class SimplePositionSource<D : Dimension>(var position: Vector<D>) : PositionSource<D> {
 
     // region PositionSource
 

@@ -11,10 +11,8 @@ internal typealias Output = (String) -> Unit
  * @property minLevel the minimum Log Level to report
  * @param output the delegate to write to the output stream
  */
-class StdOutLogHandler(
-    val minLevel: Log.Level = Log.Level.INFO,
-    private val output: Output = { print(it) },
-) : LogHandler {
+class StdOutLogHandler(val minLevel: Log.Level = Log.Level.INFO, private val output: Output = { print(it) }) :
+    LogHandler {
 
     private var sectionLevel: Int = 0
 

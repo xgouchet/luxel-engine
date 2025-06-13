@@ -8,10 +8,7 @@ import art.luxels.core.math.random.RndGen
 import art.luxels.imageio.color.HDRColor
 import kotlin.time.Duration
 
-class GravityEnvironment(
-    simulationVolume: Volume<D2>,
-    duration: Duration,
-) : BaseEnvironment<D2>(simulationVolume) {
+class GravityEnvironment(simulationVolume: Volume<D2>, duration: Duration) : BaseEnvironment<D2>(simulationVolume) {
 
     val attractors = List(RndGen.int.inRange(7, 18)) { GravityAttractor(simulationVolume, duration) }
 

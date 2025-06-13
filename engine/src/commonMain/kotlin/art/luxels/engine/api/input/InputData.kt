@@ -7,8 +7,4 @@ package art.luxels.engine.api.input
  * @property seed a long seed derived from this input, used to seed the Randomness of the simulation
  * @property data the input data
  */
-data class InputData<I : Any>(
-    val id: String,
-    val seed: Long,
-    val data: I,
-)
+data class InputData<I : Any>(val id: String, val seed: Long, val data: I)

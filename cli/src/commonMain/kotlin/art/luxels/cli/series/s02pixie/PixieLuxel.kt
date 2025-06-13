@@ -11,8 +11,9 @@ class PixieLuxel(
     val colorMask: HDRColor,
     initialPosition: Vector<Dimension.D2>,
     val lifespanSource: AgeingLifespanSource,
-    val originalColor: HDRColor,
-) : Luxel<Dimension.D2>, LifespanSource by lifespanSource {
+    originalColor: HDRColor,
+) : Luxel<Dimension.D2>,
+    LifespanSource by lifespanSource {
 
     constructor(
         colorMask: HDRColor,

@@ -11,9 +11,7 @@ import kotlin.random.Random
 /**
  * A [RandomGenerator] generating [Int] values.
  */
-class IntRandomGenerator(
-    private val random: Random,
-) : RandomGenerator<Int> {
+class IntRandomGenerator(private val random: Random) : RandomGenerator<Int> {
     // region RandomGenerator
 
     override fun uniform(): Int {

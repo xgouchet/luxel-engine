@@ -1,28 +1,25 @@
 [versions]
 
 # Commons
-kotlin = "2.1.10"
-kotlinxDateTime = "0.6.0"
-kotlinxSerialization = "1.6.3"
-kotlinxCoroutines = "1.9.0"
+kotlin = "2.1.21"
+kotlinxDateTime = "0.6.2"
+kotlinxSerialization = "1.8.1"
+kotlinxCoroutines = "1.10.2"
 
 # Okio
-okio = "3.9.0"
+okio = "3.12.0"
 
 # Image IO
-imageIo = "3.10.1"
+imageIo = "3.12.0"
 
 # Static Analysis
-detekt = "1.23.6"
+detekt = "1.23.8"
 
 # CLI arg parser
-clikt = "5.0.2"
-
-# System Info
-oshi = "6.6.6"
+clikt = "5.0.3"
 
 # Tests Tools
-kotest = "6.0.0.M2"
+kotest = "6.0.0.M3"
 
 # Plugins
 detektGradlePlugin = "1.23.6"
@@ -32,7 +29,7 @@ ktlintGradlePlugin = "12.1.0"
 nexusPublishGradlePlugin = "1.1.0"
 pitestGradlePlugin = "1.15.0"
 depsVersionsGradlePlugin = "0.46.0"
-mokkeryGradlePlugin = "2.6.0"
+mokkeryGradlePlugin = "2.8.0"
 
 [libraries]
 
@@ -75,9 +72,6 @@ detektApi = { module = "io.gitlab.arturbosch.detekt:detekt-api", version.ref = "
 
 # CLI
 clikt = { module = "com.github.ajalt.clikt:clikt", version.ref = "clikt" }
-
-# System
-oshi = { group = "com.github.oshi", name = "oshi-core", version.ref = "oshi" }
 
 # Kotest
 kotestJunit5 = { module = "io.kotest:kotest-runner-junit5-jvm", version.ref = "kotest" }

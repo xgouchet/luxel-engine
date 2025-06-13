@@ -100,6 +100,7 @@ comments:
     searchInInnerObject: true
     searchInInnerInterface: true
     searchInProtectedClass: true
+    ignoreDefaultCompanionObject: true
   UndocumentedPublicFunction:
     active: true
     excludes:

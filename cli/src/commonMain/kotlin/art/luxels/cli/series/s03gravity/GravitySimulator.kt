@@ -9,9 +9,7 @@ import art.luxels.core.math.y
 import art.luxels.engine.api.Simulator
 import art.luxels.engine.simulation.runner.FrameInfo
 
-class GravitySimulator(
-    val deviationStrength: Double = 3.0,
-) : Simulator<D2, GravityLuxel, GravityEnvironment> {
+class GravitySimulator(val deviationStrength: Double = 3.0) : Simulator<D2, GravityLuxel, GravityEnvironment> {
 
     // region Simulator
 

@@ -12,10 +12,8 @@ import art.luxels.engine.render.Projection
  * @param simulationVolume the simulation volume
  * @param filmSpace the film space
  */
-class Flat2DProjection(
-    simulationVolume: Volume<Dimension.D2>,
-    filmSpace: Volume<Dimension.D2>,
-) : SinglePositionProjection<Dimension.D2>(simulationVolume, filmSpace) {
+class Flat2DProjection(simulationVolume: Volume<Dimension.D2>, filmSpace: Volume<Dimension.D2>) :
+    SinglePositionProjection<Dimension.D2>(simulationVolume, filmSpace) {
 
     // region Projection
 

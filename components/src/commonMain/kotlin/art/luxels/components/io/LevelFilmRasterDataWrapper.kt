@@ -6,9 +6,7 @@ import art.luxels.imageio.color.Color
 import art.luxels.imageio.data.MetadataAttribute
 import art.luxels.imageio.data.RasterData
 
-internal class LevelFilmRasterDataWrapper(
-    val film: Film,
-) : RasterData {
+internal class LevelFilmRasterDataWrapper(val film: Film) : RasterData {
 
     private val reverseMaxExposure: Double
 

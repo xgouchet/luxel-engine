@@ -11,10 +11,7 @@ import kotlin.time.Duration
  * @property duration the duration of the animation
  * @param points the key frames (regularly spread through the animation duration)
  */
-open class AnimatedVector<D : Dimension>(
-    val duration: Duration,
-    points: List<Vector<D>>,
-) : Animated<Vector<D>> {
+open class AnimatedVector<D : Dimension>(val duration: Duration, points: List<Vector<D>>) : Animated<Vector<D>> {
 
     constructor(
         duration: Duration,

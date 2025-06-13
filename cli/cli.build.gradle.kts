@@ -10,7 +10,6 @@ kotlin {
     jvmToolchain(17)
 
     jvm {
-        withJava()
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
         mainRun {
             mainClass.set("art.luxels.cli.MainKt")
@@ -30,6 +29,14 @@ kotlin {
         }
 
         "macos_x64" -> macosX64 {
+            binaries {
+                executable {
+                    entryPoint = "art.luxels.cli.main"
+                }
+            }
+        }
+
+        "linux_arm64" -> linuxArm64 {
             binaries {
                 executable {
                     entryPoint = "art.luxels.cli.main"
@@ -59,7 +66,6 @@ kotlin {
                 implementation(project(":imageio"))
                 implementation(project(":scenes"))
 
-//                implementation(libs.kotlin)
                 implementation(libs.kotlinxDateTime)
                 implementation(libs.kotlinxSerialization)
                 implementation(libs.kotlinxCoroutines)
@@ -70,7 +76,40 @@ kotlin {
 
         jvmMain {
             dependencies {
+                implementation(libs.okioJvm)
                 implementation(libs.bundles.imageIo)
+            }
+        }
+
+        jvmTest {
+            dependencies {
+                implementation(libs.kotestJunit5)
+            }
+        }
+
+        when (HostManager.hostName) {
+            "macos_arm64" -> macosArm64Main {
+                dependencies {
+                    implementation(libs.okioMacosArm64)
+                }
+            }
+
+            "macos_x64" -> macosX64Main {
+                dependencies {
+                    implementation(libs.okioMacosX64)
+                }
+            }
+
+            "linux_arm64" -> linuxArm64Main {
+                dependencies {
+                    implementation(libs.okioLinuxArm64)
+                }
+            }
+
+            "linux_x64" -> linuxX64Main {
+                dependencies {
+                    implementation(libs.okioLinuxX64)
+                }
             }
         }
     }

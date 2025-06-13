@@ -12,9 +12,7 @@ import art.luxels.engine.simulation.runner.FrameInfo
 import kotlin.math.PI
 import kotlin.time.Duration
 
-class AetherScene(
-    val luxelLifespan: Int = 0x10,
-) : Scene<Dimension.D3, AetherLuxel, Long, AetherEnvironment> {
+class AetherScene(val luxelLifespan: Int = 0x10) : Scene<Dimension.D3, AetherLuxel, Long, AetherEnvironment> {
 
     // region Scene
 

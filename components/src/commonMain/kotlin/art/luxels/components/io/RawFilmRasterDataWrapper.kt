@@ -5,9 +5,7 @@ import art.luxels.imageio.color.Color
 import art.luxels.imageio.data.MetadataAttribute
 import art.luxels.imageio.data.RasterData
 
-internal class RawFilmRasterDataWrapper(
-    val film: Film,
-) : RasterData {
+internal class RawFilmRasterDataWrapper(val film: Film) : RasterData {
     // region RasterData
 
     override val width: Int = film.width

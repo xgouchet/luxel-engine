@@ -12,10 +12,8 @@ import art.luxels.engine.render.Projection
  * @param simulationVolume the simulation volume
  * @param filmSpace the film space
  */
-class EquidistantSphericalProjection(
-    simulationVolume: Volume<Dimension.D3>,
-    filmSpace: Volume<Dimension.D2>,
-) : SinglePositionProjection<Dimension.D3>(simulationVolume, filmSpace) {
+class EquidistantSphericalProjection(simulationVolume: Volume<Dimension.D3>, filmSpace: Volume<Dimension.D2>) :
+    SinglePositionProjection<Dimension.D3>(simulationVolume, filmSpace) {
 
     // region Projection
 

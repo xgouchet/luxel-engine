@@ -8,9 +8,7 @@ import art.luxels.imageio.format.ImageFormatConstraints
  * image formats.
  * @param supportedFormat the format(s) supported by this writer.
  */
-abstract class AbstractRasterWriter(
-    vararg supportedFormat: ImageFormat,
-) : RasterWriter {
+abstract class AbstractRasterWriter(vararg supportedFormat: ImageFormat) : RasterWriter {
     private val supportedFormats: List<ImageFormat> = supportedFormat.toList()
 
     init {

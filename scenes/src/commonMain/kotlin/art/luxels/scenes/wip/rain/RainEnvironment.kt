@@ -19,9 +19,7 @@ import art.luxels.imageio.color.HDRColor
 import kotlin.math.min
 import kotlin.time.Duration
 
-class RainEnvironment(
-    val simulationVolume: Volume<D2>,
-) : Environment<D2> {
+class RainEnvironment(val simulationVolume: Volume<D2>) : Environment<D2> {
 
     private val noiseField = VectorNoiseGenerator<D2, D1>(
         whiteNoise(PerlinNoiseGenerator(), 3),

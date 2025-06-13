@@ -11,9 +11,7 @@ import kotlin.math.sqrt
  * @property data the internal representation of the vector
  */
 @Suppress("TooManyFunctions")
-class Vector<D : Dimension>(
-    val data: DoubleArray,
-) {
+class Vector<D : Dimension>(val data: DoubleArray) {
 
     constructor(data: Collection<Double>) : this(data.toDoubleArray())
 

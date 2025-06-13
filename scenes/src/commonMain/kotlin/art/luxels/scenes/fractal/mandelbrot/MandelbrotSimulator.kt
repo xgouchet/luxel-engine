@@ -11,9 +11,8 @@ import art.luxels.engine.simulation.runner.FrameInfo
 import art.luxels.imageio.color.HDRColor
 import art.luxels.scenes.fractal.Complex
 
-class MandelbrotSimulator(
-    private val iterations: Int = 0x1_000,
-) : Simulator<D2, MandelbrotLuxel, BaseEnvironment<D2>> {
+class MandelbrotSimulator(private val iterations: Int = 0x1_000) :
+    Simulator<D2, MandelbrotLuxel, BaseEnvironment<D2>> {
 
     // region Simulator
 

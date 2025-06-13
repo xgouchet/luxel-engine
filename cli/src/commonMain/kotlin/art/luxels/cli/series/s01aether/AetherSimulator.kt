@@ -6,9 +6,7 @@ import art.luxels.core.math.random.RndGen
 import art.luxels.engine.api.Simulator
 import art.luxels.engine.simulation.runner.FrameInfo
 
-class AetherSimulator(
-    private val luxelLifespan: Int,
-) : Simulator<Dimension.D3, AetherLuxel, AetherEnvironment> {
+class AetherSimulator(private val luxelLifespan: Int) : Simulator<Dimension.D3, AetherLuxel, AetherEnvironment> {
 
     // region Simulator
 

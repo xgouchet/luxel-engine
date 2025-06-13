@@ -7,10 +7,7 @@ package art.luxels.imageio.format.hdr
  *     fraction ⨉ 2ᵉˣᵖ
  *
  */
-internal data class HdrDouble(
-    val fraction: Double,
-    val exponent: Int,
-) {
+internal data class HdrDouble(val fraction: Double, val exponent: Int) {
     companion object {
         /**
          * An IEEE double uses 64 bits, as follow :

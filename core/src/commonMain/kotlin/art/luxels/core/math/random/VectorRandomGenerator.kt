@@ -8,9 +8,7 @@ import art.luxels.core.math.Vector
  * @param D the dimension of the vectors
  * @property dimension an instance of the dimension
  */
-class VectorRandomGenerator<D : Dimension>(
-    val dimension: D,
-) : RandomGenerator<Vector<D>> {
+class VectorRandomGenerator<D : Dimension>(val dimension: D) : RandomGenerator<Vector<D>> {
 
     // region RandomGenerator
 

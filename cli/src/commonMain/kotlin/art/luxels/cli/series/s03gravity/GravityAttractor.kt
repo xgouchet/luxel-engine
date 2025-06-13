@@ -8,11 +8,7 @@ import art.luxels.core.math.random.RndGen
 import kotlin.math.pow
 import kotlin.time.Duration
 
-data class GravityAttractor(
-    val gravity: Double,
-    val orbit: Double,
-    val position: AnimatedVector<D2>,
-) {
+data class GravityAttractor(val gravity: Double, val orbit: Double, val position: AnimatedVector<D2>) {
     constructor(
         volume: Volume<D2>,
         duration: Duration,

@@ -6,9 +6,8 @@ import kotlin.math.floor
 /**
  * Provides a noise based on the algorithm by Ken Perlin.
  */
-class PerlinNoiseGenerator(
-    private val interpolation: Interpolation = Interpolation.Quintic,
-) : DimensionalNoiseGenerator {
+class PerlinNoiseGenerator(private val interpolation: Interpolation = Interpolation.Quintic) :
+    DimensionalNoiseGenerator {
     // region DimensionalNoiseGenerator
 
     override fun noise(input: List<Double>, outputSize: Int): List<Double> {

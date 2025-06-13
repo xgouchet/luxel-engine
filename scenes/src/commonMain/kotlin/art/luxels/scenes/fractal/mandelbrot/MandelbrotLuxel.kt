@@ -6,11 +6,7 @@ import art.luxels.engine.api.Luxel
 import art.luxels.imageio.color.HDRColor
 import art.luxels.scenes.fractal.Complex
 
-class MandelbrotLuxel(
-    val c: Complex,
-    val baseColor: HDRColor,
-    maxIterations: Int,
-) : Luxel<D2> {
+class MandelbrotLuxel(val c: Complex, val baseColor: HDRColor, maxIterations: Int) : Luxel<D2> {
 
     private val iterationBeforeEscape: Int
     private var isAlive = true

@@ -15,10 +15,7 @@ typealias Kelvin = Double
  * @param temperature the temperature of the black body in Kelvin
  * @param magnitude the magnitude of the color (default: 1.0)
  */
-open class BBRColorSource(
-    var temperature: Kelvin,
-    var magnitude: Double = 1.0,
-) : ColorSource {
+open class BBRColorSource(var temperature: Kelvin, var magnitude: Double = 1.0) : ColorSource {
     // TODO write tests
     // TODO add memoization
 

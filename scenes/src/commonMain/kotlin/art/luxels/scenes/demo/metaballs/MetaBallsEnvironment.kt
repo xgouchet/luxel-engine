@@ -10,10 +10,7 @@ import art.luxels.core.math.random.inVolume
 import art.luxels.imageio.color.HDRColor
 import kotlin.time.Duration
 
-class MetaBallsEnvironment(
-    simulationVolume: Volume<D3>,
-    duration: Duration,
-) : BaseEnvironment<D3>(simulationVolume) {
+class MetaBallsEnvironment(simulationVolume: Volume<D3>, duration: Duration) : BaseEnvironment<D3>(simulationVolume) {
 
     private val metaBalls: List<MetaBall> = listOf(
         HDRColor.RED,

@@ -4,9 +4,7 @@ package art.luxels.core.model
  * A simple [LifespanSource] allowing a fixed number of iterations.
  * @property lifespan the lifespan of the luxel
  */
-class AgeingLifespanSource(
-    val lifespan: Int,
-) : LifespanSource {
+class AgeingLifespanSource(val lifespan: Int) : LifespanSource {
 
     init {
         require(lifespan > 0) { "lifespan should be greater than 0" }

@@ -17,10 +17,7 @@ import kotlin.math.roundToInt
  * @param rasterData the data to read color from
  * @param uv the position on the image to read color from (in a [0…1;0…1] range)
  */
-class ImageColorSource(
-    private val rasterData: RasterData,
-    var uv: Vector<Dimension.D2>,
-) : ColorSource {
+class ImageColorSource(private val rasterData: RasterData, var uv: Vector<Dimension.D2>) : ColorSource {
 
     /**
      * @param imagePath the path to the image to read

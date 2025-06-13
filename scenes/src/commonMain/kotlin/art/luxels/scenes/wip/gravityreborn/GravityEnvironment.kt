@@ -7,10 +7,7 @@ import art.luxels.core.math.Volume
 import art.luxels.imageio.color.HDRColor
 import kotlin.time.Duration
 
-class GravityEnvironment(
-    simulationVolume: Volume<D3>,
-    duration: Duration,
-) : BaseEnvironment<D3>(simulationVolume) {
+class GravityEnvironment(simulationVolume: Volume<D3>, duration: Duration) : BaseEnvironment<D3>(simulationVolume) {
 
     val attractors = List(7) { GravityAttractor(simulationVolume, duration, simulationVolume.corner(it)) }
 

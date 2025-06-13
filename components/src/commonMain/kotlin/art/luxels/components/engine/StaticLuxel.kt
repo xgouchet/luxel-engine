@@ -10,10 +10,7 @@ import art.luxels.imageio.color.asHDR
 /**
  * A basic [Luxel] with a fixed position and color, and a single iteration lifespan.
  */
-class StaticLuxel<D : Dimension>(
-    private val position: Vector<D>,
-    private val color: Color,
-) : Luxel<D> {
+class StaticLuxel<D : Dimension>(private val position: Vector<D>, private val color: Color) : Luxel<D> {
 
     private var isAlive = true
 

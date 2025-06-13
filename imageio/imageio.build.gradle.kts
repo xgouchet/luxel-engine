@@ -9,9 +9,7 @@ plugins {
 kotlin {
     jvmToolchain(17)
 
-    jvm {
-        withJava()
-    }
+    jvm {}
 
     // JS is disabled for now because KoTest doesn't support fully JS target
     // TODO js { nodejs() }
@@ -19,6 +17,7 @@ kotlin {
     when (HostManager.hostName) {
         "macos_arm64" -> macosArm64()
         "macos_x64" -> macosX64()
+        "linux_arm64" -> linuxArm64()
         "linux_x64" -> linuxX64()
         else -> {
             println("Unknown host ${HostManager.hostName}")
@@ -28,7 +27,6 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-//                implementation(libs.kotlin)
                 implementation(libs.kotlinxCoroutines)
                 implementation(libs.okio)
                 implementation("com.goncalossilva:resources:0.4.1")
@@ -52,6 +50,32 @@ kotlin {
         jvmTest {
             dependencies {
                 implementation(libs.kotestJunit5)
+            }
+        }
+
+        when (HostManager.hostName) {
+            "macos_arm64" -> macosArm64Main {
+                dependencies {
+                    implementation(libs.okioMacosArm64)
+                }
+            }
+
+            "macos_x64" -> macosX64Main {
+                dependencies {
+                    implementation(libs.okioMacosX64)
+                }
+            }
+
+            "linux_arm64" -> linuxArm64Main {
+                dependencies {
+                    implementation(libs.okioLinuxArm64)
+                }
+            }
+
+            "linux_x64" -> linuxX64Main {
+                dependencies {
+                    implementation(libs.okioLinuxX64)
+                }
             }
         }
     }

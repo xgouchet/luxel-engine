@@ -22,10 +22,8 @@ import okio.Path.Companion.toPath
  * @param name the name of the Scene (and subcommand label)
  * @param dimension the dimension in which the Luxels evolve
  */
-abstract class PathInputSceneCommand<D : Dimension, L : Luxel<D>, E : Environment<D>>(
-    name: String,
-    dimension: D,
-) : AbstractSceneCommand<D, L, Path, E>(name, dimension) {
+abstract class PathInputSceneCommand<D : Dimension, L : Luxel<D>, E : Environment<D>>(name: String, dimension: D) :
+    AbstractSceneCommand<D, L, Path, E>(name, dimension) {
 
     val defaultInputDirPath = baseInputPath / name
 

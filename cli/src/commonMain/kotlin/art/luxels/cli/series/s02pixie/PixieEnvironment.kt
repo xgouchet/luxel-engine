@@ -17,10 +17,7 @@ import kotlin.math.floor
 import kotlin.math.roundToInt
 import kotlin.time.Duration
 
-class PixieEnvironment(
-    path: Path,
-    simulationVolume: Volume<D2>,
-) : BaseEnvironment<D2>(simulationVolume) {
+class PixieEnvironment(path: Path, simulationVolume: Volume<D2>) : BaseEnvironment<D2>(simulationVolume) {
 
     private val imageRasterData: RasterData = ImageIO.read(path).apply {
         (this as? SDRRasterData)?.outOfBoundStrategy = OutOfBoundStrategy.LOOP

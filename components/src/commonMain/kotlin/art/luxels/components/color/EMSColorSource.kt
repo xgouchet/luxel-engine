@@ -25,11 +25,8 @@ typealias WavelengthNanometer = Double
  * @property gamma the gamma correction factor (default : 0.8)
  *
  */
-open class EMSColorSource(
-    var waveLength: WavelengthNanometer,
-    var intensity: Double = 1.0,
-    var gamma: Double = 0.8,
-) : ColorSource {
+open class EMSColorSource(var waveLength: WavelengthNanometer, var intensity: Double = 1.0, var gamma: Double = 0.8) :
+    ColorSource {
     // TODO add memoization
 
     // region ColorSource

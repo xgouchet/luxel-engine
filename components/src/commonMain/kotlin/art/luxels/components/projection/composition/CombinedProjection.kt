@@ -12,9 +12,7 @@ import art.luxels.imageio.color.Color
  *
  * @property delegates the delegates to combine
  */
-class CombinedProjection<D : Dimension>(
-    vararg val delegates: Projection<D>,
-) : Projection<D> {
+class CombinedProjection<D : Dimension>(vararg val delegates: Projection<D>) : Projection<D> {
 
     // region Projection
 

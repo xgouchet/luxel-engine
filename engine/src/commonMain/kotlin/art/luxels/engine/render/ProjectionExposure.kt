@@ -11,10 +11,8 @@ import art.luxels.imageio.color.Color
  * @param target the target exposure
  * @param projection the projection
  */
-class ProjectionExposure<D : Dimension>(
-    val target: Exposure<Dimension.D2>,
-    val projection: Projection<D>,
-) : Exposure<D> {
+class ProjectionExposure<D : Dimension>(val target: Exposure<Dimension.D2>, val projection: Projection<D>) :
+    Exposure<D> {
 
     // region Exposure
 

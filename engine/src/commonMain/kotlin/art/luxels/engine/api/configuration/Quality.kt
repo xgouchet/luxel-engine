@@ -5,6 +5,7 @@ package art.luxels.engine.api.configuration
  * This directly correlates with the amount of time needed to compute the simulation.
  * @property count the number of luxel being spawned in the simulation
  */
+@Suppress("UndocumentedPublicProperty")
 enum class Quality(val count: Long) {
     // ROUGH = n * 1
     // GRAINY = n * 1_000

@@ -13,10 +13,7 @@ import art.luxels.imageio.data.RasterData
  *  - pixel in the bottom-left corner make a gradient of blue/red
  *  - pixel in the bottom-right corner make a gradient of grey/transparency
  */
-class StubRasterData(
-    override val width: Int,
-    override val height: Int,
-) : RasterData {
+class StubRasterData(override val width: Int, override val height: Int) : RasterData {
     private val halfWidth = width / 2
     private val halfHeight = height / 2
 

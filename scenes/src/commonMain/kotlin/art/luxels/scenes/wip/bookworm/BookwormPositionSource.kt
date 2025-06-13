@@ -5,10 +5,8 @@ import art.luxels.core.math.Vector
 import art.luxels.core.math.random.RandomGenerator
 import art.luxels.core.position.PositionSource
 
-class BookwormPositionSource(
-    val rng: RandomGenerator<Vector<Dimension.D3>>,
-    val sentence: BookwormSentence,
-) : PositionSource<Dimension.D3> {
+class BookwormPositionSource(val rng: RandomGenerator<Vector<Dimension.D3>>, val sentence: BookwormSentence) :
+    PositionSource<Dimension.D3> {
 
     var progression: Double = 0.0
 

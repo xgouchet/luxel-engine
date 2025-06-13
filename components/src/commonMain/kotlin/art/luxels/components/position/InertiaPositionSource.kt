@@ -12,10 +12,8 @@ import art.luxels.core.position.UpdatablePositionSource
  * @param initialPosition the initial position of the luxel
  * @param initialSpeed the speed position of the luxel
  */
-class InertiaPositionSource<D : Dimension>(
-    initialPosition: Vector<D>,
-    initialSpeed: Vector<D>,
-) : UpdatablePositionSource<D> {
+class InertiaPositionSource<D : Dimension>(initialPosition: Vector<D>, initialSpeed: Vector<D>) :
+    UpdatablePositionSource<D> {
 
     private var position = initialPosition
 

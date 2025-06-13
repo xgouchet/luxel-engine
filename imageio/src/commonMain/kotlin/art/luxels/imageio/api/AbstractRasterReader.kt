@@ -7,9 +7,7 @@ import art.luxels.imageio.format.ImageFormat
  * image formats.
  * @param supportedFormat the format(s) supported by this reader.
  */
-abstract class AbstractRasterReader(
-    vararg supportedFormat: ImageFormat,
-) : RasterReader {
+abstract class AbstractRasterReader(vararg supportedFormat: ImageFormat) : RasterReader {
 
     private val supportedFormats: List<ImageFormat> = supportedFormat.toList()
 

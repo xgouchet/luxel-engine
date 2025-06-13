@@ -9,9 +9,7 @@ import kotlin.time.Duration
  * @param D the dimension of the vector that make the control points of the curve
  * @param animatedPoints the animated control points
  */
-open class AnimatedCurve<D : Dimension>(
-    private val animatedPoints: List<AnimatedVector<D>>,
-) : Animated<Curve<D>> {
+open class AnimatedCurve<D : Dimension>(private val animatedPoints: List<AnimatedVector<D>>) : Animated<Curve<D>> {
 
     init {
         require(animatedPoints.isNotEmpty()) { "Can't create a curve with no points" }

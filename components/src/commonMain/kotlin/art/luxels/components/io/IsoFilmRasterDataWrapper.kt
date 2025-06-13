@@ -5,10 +5,7 @@ import art.luxels.imageio.color.Color
 import art.luxels.imageio.data.MetadataAttribute
 import art.luxels.imageio.data.RasterData
 
-internal class FilmRasterDataWrapper(
-    val film: Film,
-    iso: Double,
-) : RasterData {
+internal class IsoFilmRasterDataWrapper(val film: Film, iso: Double) : RasterData {
     private val scaledIso = iso / 1600.0
 
     init {

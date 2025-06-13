@@ -6,10 +6,7 @@ package art.luxels.core.math
  * @property min the min corner of the volume
  * @property max the max corner of the volume
  */
-data class Volume<D : Dimension>(
-    val min: Vector<D>,
-    val max: Vector<D>,
-) {
+data class Volume<D : Dimension>(val min: Vector<D>, val max: Vector<D>) {
 
     /** The size of the volume (i.e.: length of the diagonal from the lower to upper corner). */
     val size: Vector<D> = max - min

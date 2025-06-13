@@ -21,8 +21,7 @@ open class PrincipledLuxel<D : Dimension, C : ColorSource, P : PositionSource<D>
     val colorSource: C,
     val positionSource: P,
     val lifespanSource: L,
-) :
-    ColorSource by colorSource,
+) : ColorSource by colorSource,
     PositionSource<D> by positionSource,
     LifespanSource by lifespanSource,
     Luxel<D>

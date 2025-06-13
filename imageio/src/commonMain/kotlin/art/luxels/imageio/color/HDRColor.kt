@@ -15,12 +15,7 @@ import kotlin.math.min
  * @property b the blue component.
  * @property a the alpha component.
  */
-data class HDRColor(
-    val r: Double,
-    val g: Double,
-    val b: Double,
-    val a: Double = 1.0,
-) : Color {
+data class HDRColor(val r: Double, val g: Double, val b: Double, val a: Double = 1.0) : Color {
     // region Operators
 
     /**

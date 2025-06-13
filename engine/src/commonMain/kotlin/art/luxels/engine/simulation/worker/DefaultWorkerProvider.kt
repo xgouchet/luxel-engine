@@ -13,9 +13,7 @@ import art.luxels.engine.simulation.CommonConfiguration
  *
  * @param logHandler the [LogHandler] to use throughout the simulation
  */
-class DefaultWorkerProvider(
-    val logHandler: LogHandler,
-) : WorkerProvider {
+class DefaultWorkerProvider(val logHandler: LogHandler) : WorkerProvider {
 
     // region WorkerProvider
 

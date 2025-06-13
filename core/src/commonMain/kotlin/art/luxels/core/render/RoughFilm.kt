@@ -11,9 +11,7 @@ import kotlin.math.roundToInt
  * A basic [Film] implementation exposing the nearest pixel.
  * @param resolution the resolution of the film
  */
-class RoughFilm(
-    resolution: Resolution,
-) : AbstractFilm(resolution) {
+class RoughFilm(resolution: Resolution) : AbstractFilm(resolution) {
 
     // region Exposure
 

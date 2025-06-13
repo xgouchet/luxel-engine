@@ -8,9 +8,7 @@ import art.luxels.imageio.color.asHDR
  * A basic abstract [Film].
  * @param resolution the resolution of the film
  */
-abstract class AbstractFilm(
-    val resolution: Resolution,
-) : Film {
+abstract class AbstractFilm(val resolution: Resolution) : Film {
 
     private val pixelCount = resolution.pixelCount
 

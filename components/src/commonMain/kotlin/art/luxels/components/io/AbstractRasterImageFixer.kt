@@ -12,10 +12,8 @@ import okio.Path
  * @param targetFormat the [ImageFormat] to use when writing an image
  * @param outputDirPath the path to the output dir where the file should be saved
  */
-abstract class AbstractRasterImageFixer(
-    private val targetFormat: ImageFormat,
-    private val outputDirPath: Path,
-) : ImageFixer {
+abstract class AbstractRasterImageFixer(private val targetFormat: ImageFormat, private val outputDirPath: Path) :
+    ImageFixer {
     // region ImageFixer
 
     override fun write(film: Film, outputName: String) {

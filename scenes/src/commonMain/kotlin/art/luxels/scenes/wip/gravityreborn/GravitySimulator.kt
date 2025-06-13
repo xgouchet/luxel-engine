@@ -7,9 +7,7 @@ import art.luxels.core.math.random.RndGen
 import art.luxels.engine.api.Simulator
 import art.luxels.engine.simulation.runner.FrameInfo
 
-class GravitySimulator(
-    val deviationStrength: Double = 0.25,
-) : Simulator<D3, GravityLuxel, GravityEnvironment> {
+class GravitySimulator(val deviationStrength: Double = 0.25) : Simulator<D3, GravityLuxel, GravityEnvironment> {
 
     // region Simulator
 

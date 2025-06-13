@@ -17,13 +17,7 @@ import kotlin.math.roundToInt
  * @property a the alpha component.
  * @param isCoerced whether the value had to be coerced within the [0…255] range.
  */
-data class SDRColor(
-    val r: Int,
-    val g: Int,
-    val b: Int,
-    val a: Int,
-    private val isCoerced: Boolean,
-) : Color {
+data class SDRColor(val r: Int, val g: Int, val b: Int, val a: Int, private val isCoerced: Boolean) : Color {
 
     init {
         check(r in CHANNEL_RANGE)

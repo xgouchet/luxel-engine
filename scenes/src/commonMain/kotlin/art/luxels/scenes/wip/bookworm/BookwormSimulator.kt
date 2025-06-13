@@ -6,10 +6,8 @@ import art.luxels.engine.api.Environment
 import art.luxels.engine.api.Simulator
 import art.luxels.engine.simulation.runner.FrameInfo
 
-class BookwormSimulator(
-    val luxelLifespan: Int = 0X80,
-    val interpolation: Interpolation = Interpolation.Linear,
-) : Simulator<D3, BookwormLuxel, Environment<D3>> {
+class BookwormSimulator(val luxelLifespan: Int = 0X80, val interpolation: Interpolation = Interpolation.Linear) :
+    Simulator<D3, BookwormLuxel, Environment<D3>> {
     // region Simulator
     override fun spawnLuxel(environment: Environment<D3>, frameInfo: FrameInfo): BookwormLuxel {
         TODO("Not yet implemented")

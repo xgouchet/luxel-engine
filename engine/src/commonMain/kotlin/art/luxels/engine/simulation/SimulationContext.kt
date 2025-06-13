@@ -12,7 +12,4 @@ import art.luxels.engine.render.Projection
  * @property environment the environment
  * @property projection the projection
  */
-data class SimulationContext<D : Dimension, E : Environment<D>>(
-    val environment: E,
-    val projection: Projection<D>,
-)
+data class SimulationContext<D : Dimension, E : Environment<D>>(val environment: E, val projection: Projection<D>)

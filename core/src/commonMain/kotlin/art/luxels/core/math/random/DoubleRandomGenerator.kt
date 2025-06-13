@@ -9,9 +9,7 @@ import kotlin.random.Random
 /**
  * A [RandomGenerator] generating [Double] values.
  */
-class DoubleRandomGenerator(
-    private val random: Random,
-) : RandomGenerator<Double> {
+class DoubleRandomGenerator(private val random: Random) : RandomGenerator<Double> {
 
     // region RandomGenerator
 

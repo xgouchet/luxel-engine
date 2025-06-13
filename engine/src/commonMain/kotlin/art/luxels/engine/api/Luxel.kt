@@ -9,4 +9,7 @@ import art.luxels.core.position.PositionSource
  * A basic Luxel representation.
  * @param D the dimension of the space luxels evolve in
  */
-interface Luxel<D : Dimension> : ColorSource, PositionSource<D>, LifespanSource
+interface Luxel<D : Dimension> :
+    ColorSource,
+    PositionSource<D>,
+    LifespanSource

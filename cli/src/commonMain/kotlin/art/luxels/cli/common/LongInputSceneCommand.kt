@@ -24,10 +24,8 @@ import kotlin.math.absoluteValue
  * @param name the name of the Scene (and subcommand label)
  * @param dimension the dimension in which the Luxels evolve
  */
-abstract class LongInputSceneCommand<D : Dimension, L : Luxel<D>, E : Environment<D>>(
-    name: String,
-    dimension: D,
-) : AbstractSceneCommand<D, L, Long, E>(name, dimension) {
+abstract class LongInputSceneCommand<D : Dimension, L : Luxel<D>, E : Environment<D>>(name: String, dimension: D) :
+    AbstractSceneCommand<D, L, Long, E>(name, dimension) {
 
     val randomSeeds: Int? by option()
         .int()

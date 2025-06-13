@@ -3,9 +3,7 @@ package art.luxels.scenes.wip.bookworm
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 
-class BookwormInput(
-    private val sentences: List<BookwormSentence>,
-) {
+class BookwormInput(private val sentences: List<BookwormSentence>) {
     private var cursor: Int = 0
 
     private val mutex = Mutex()

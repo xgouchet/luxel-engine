@@ -11,11 +11,9 @@ import art.luxels.core.model.LifespanSource
 import art.luxels.engine.api.Luxel
 import art.luxels.imageio.color.HDRColor
 
-class GravityLuxel(
-    val channel: HDRColor,
-    var position: Vector<D2>,
-    val lifespanSource: AgeingLifespanSource,
-) : Luxel<D2>, LifespanSource by lifespanSource {
+class GravityLuxel(channel: HDRColor, var position: Vector<D2>, val lifespanSource: AgeingLifespanSource) :
+    Luxel<D2>,
+    LifespanSource by lifespanSource {
 
     constructor(
         volume: Volume<D2>,

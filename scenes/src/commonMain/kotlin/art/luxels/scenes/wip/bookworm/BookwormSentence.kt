@@ -7,10 +7,7 @@ import art.luxels.core.math.x
 import art.luxels.core.math.y
 import kotlin.math.pow
 
-class BookwormSentence(
-    val tokens: List<BookwormToken>,
-    val sentenceIndex: Int,
-) {
+class BookwormSentence(val tokens: List<BookwormToken>, val sentenceIndex: Int) {
 
     val sentenceLength = tokens.size
 

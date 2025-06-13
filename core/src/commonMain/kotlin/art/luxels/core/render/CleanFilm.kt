@@ -16,9 +16,7 @@ import kotlin.math.sin
  * using a disc section area as intensity.
  * @param resolution the resolution of the film
  */
-class CleanFilm(
-    resolution: Resolution,
-) : AbstractFilm(resolution) {
+class CleanFilm(resolution: Resolution) : AbstractFilm(resolution) {
 
     // region Exposure
 

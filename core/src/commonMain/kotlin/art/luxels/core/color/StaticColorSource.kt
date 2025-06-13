@@ -9,9 +9,7 @@ import art.luxels.imageio.color.asHDR
  * Boring.
  * @param color the color
  */
-class StaticColorSource(
-    private val color: Color,
-) : ColorSource {
+class StaticColorSource(private val color: Color) : ColorSource {
     // region ColorSource
 
     override fun color(): HDRColor {

@@ -13,10 +13,8 @@ import art.luxels.imageio.color.Color
  * @param simulationVolume the simulation volume
  * @param filmSpace the film space
  */
-abstract class SinglePositionProjection<D : Dimension>(
-    simulationVolume: Volume<D>,
-    filmSpace: Volume<Dimension.D2>,
-) : AbstractProjection<D>(simulationVolume, filmSpace) {
+abstract class SinglePositionProjection<D : Dimension>(simulationVolume: Volume<D>, filmSpace: Volume<Dimension.D2>) :
+    AbstractProjection<D>(simulationVolume, filmSpace) {
 
     // region Projection
 
