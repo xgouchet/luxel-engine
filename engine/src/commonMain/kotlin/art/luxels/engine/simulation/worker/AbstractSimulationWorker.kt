@@ -26,14 +26,16 @@ import kotlin.math.max
  * @param L the type of simulated Luxels
  * @param E the expected Environment
  *
- * @param simulationType the type of simulation
- * @param simulator the simulator to use
- * @param logHandler the [LogHandler] to use throughout the simulation
+ * @property simulationType the type of simulation
+ * @property simulator the simulator to use
+ * @property logHandler the [LogHandler] to use throughout the simulation
+ * @property progressionCallback a callback to handle progression events
  */
 abstract class AbstractSimulationWorker<D : Dimension, L : Luxel<D>, E : Environment<D>>(
     internal val simulationType: SimulationType,
     internal val simulator: Simulator<D, L, E>,
     internal val logHandler: LogHandler,
+    internal val progressionCallback: (Double) -> Unit,
 ) : SimulationWorker<D, E> {
 
     // region AbstractSimulationWorker
@@ -105,11 +107,14 @@ abstract class AbstractSimulationWorker<D : Dimension, L : Luxel<D>, E : Environ
             )
 
             if (i % progressNotification == 0L) {
+                val progress = i.toDouble() / commonConfiguration.simulationLuxelCount
+                progressionCallback(progress)
                 onLuxelRan(workerName, i, commonConfiguration.simulationLuxelCount, frameStart)
             }
         }
     }
 
+    // TODO remove
     private fun onLuxelRan(
         workerName: String,
         i: Long,

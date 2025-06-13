@@ -22,13 +22,28 @@ import kotlin.time.Duration.Companion.milliseconds
  *
  * @property dimension the [Dimension] in which the luxels evolve
  * @property logHandler the [LogHandler] to use throughout the simulation
- * @property simulationRunner the runner for the simulation of each frame
+ * @property simulationRunnerProvider a provider for the runner for the simulation of each frame
  */
 class SceneAnimationRunner<D : Dimension>(
     val dimension: D,
     val logHandler: LogHandler,
-    val simulationRunner: SimulationRunner = ParallelSimulationRunner(logHandler),
+    val simulationRunnerProvider: (CommonConfiguration) -> SimulationRunner,
 ) : SingleSimulationRunner<D> {
+
+    constructor(
+        dimension: D,
+        logHandler: LogHandler,
+    ) : this(
+        dimension = dimension,
+        logHandler = logHandler,
+        simulationRunnerProvider = {
+            if (it.simulationMaxThreadCount <= 1) {
+                ProgressSimulationRunner(logHandler)
+            } else {
+                ParallelSimulationRunner(logHandler)
+            }
+        },
+    )
 
     // region SingleSimulationRunner
 
@@ -39,6 +54,8 @@ class SceneAnimationRunner<D : Dimension>(
         simulationVolume: Volume<D>,
     ) {
         RndGen.resetSeed(inputData.seed)
+
+        val simulationRunner = simulationRunnerProvider.invoke(commonConfiguration)
 
         val environment = scene.getEnvironment(
             simulationVolume,

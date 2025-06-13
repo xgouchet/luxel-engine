@@ -22,13 +22,14 @@ class DefaultWorkerProvider(
     override fun <D : Dimension, L : Luxel<D>, E : Environment<D>> createWorker(
         simulator: Simulator<D, L, E>,
         commonConfiguration: CommonConfiguration,
+        progressionCallback: (Double) -> Unit,
     ): SimulationWorker<D, E> {
         return when (commonConfiguration.simulationType) {
-            SimulationType.RENDER -> RenderSimulationWorker(simulator, logHandler)
-            SimulationType.SPAWN -> SpawnSimulationWorker(simulator, logHandler)
-            SimulationType.PATH -> PathSimulationWorker(simulator, logHandler)
-            SimulationType.DEATH -> DeathSimulationWorker(simulator, logHandler)
-            SimulationType.ENV -> EnvSimulationWorker(simulator, logHandler, 4096)
+            SimulationType.RENDER -> RenderSimulationWorker(simulator, logHandler, progressionCallback)
+            SimulationType.SPAWN -> SpawnSimulationWorker(simulator, logHandler, progressionCallback)
+            SimulationType.PATH -> PathSimulationWorker(simulator, logHandler, progressionCallback)
+            SimulationType.DEATH -> DeathSimulationWorker(simulator, logHandler, progressionCallback)
+            SimulationType.ENV -> EnvSimulationWorker(simulator, logHandler, 4096, progressionCallback)
         }
     }
 

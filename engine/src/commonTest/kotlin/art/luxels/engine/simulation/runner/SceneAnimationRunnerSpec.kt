@@ -27,17 +27,25 @@ import io.kotest.matchers.types.beOfType
 import io.kotest.property.Arb
 import io.kotest.property.arbitrary.int
 import io.kotest.property.checkAll
+import kotlin.math.max
 import kotlin.time.Duration.Companion.nanoseconds
 
 class SceneAnimationRunnerSpec : DescribeSpec(
     {
         describe("constructor") {
-            it("uses sensible defaults") {
-                checkAll(dimensionArb()) { dimension ->
+            it("uses sensible defaults with single thread") {
+                checkAll(dimensionArb(), commonConfigurationArb()) { dimension, config ->
                     val logHandler = mock<LogHandler>()
                     val defaultRunner = SceneAnimationRunner(dimension, logHandler)
+                    val singleThreadConfig = config.copy(simulationMaxThreadCount = 1)
+                    val multiThreadConfig =
+                        config.copy(simulationMaxThreadCount = max(config.simulationMaxThreadCount, 2))
 
-                    defaultRunner.simulationRunner should beOfType(ParallelSimulationRunner::class)
+                    val singleThreadRunner = defaultRunner.simulationRunnerProvider.invoke(singleThreadConfig)
+                    val multiThreadRunner = defaultRunner.simulationRunnerProvider.invoke(multiThreadConfig)
+
+                    singleThreadRunner should beOfType(ProgressSimulationRunner::class)
+                    multiThreadRunner should beOfType(ParallelSimulationRunner::class)
                 }
             }
         }
@@ -69,7 +77,7 @@ class SceneAnimationRunnerSpec : DescribeSpec(
                             )
                         } returns projection
                     }
-                    val testedRunner = SceneAnimationRunner(sceneConfig.dimension, logHandler, simulationRunner)
+                    val testedRunner = SceneAnimationRunner(sceneConfig.dimension, logHandler) { simulationRunner }
 
                     testedRunner.runSimulation(scene, commonConfig, sceneConfig.inputData, sceneConfig.simulationVolume)
 
@@ -100,7 +108,7 @@ class SceneAnimationRunnerSpec : DescribeSpec(
                         } returns projection
                     }
                     val frameCount = (commonConfig.animationDuration / commonConfig.animationFrameStep).toInt()
-                    val testedRunner = SceneAnimationRunner(sceneConfig.dimension, logHandler, simulationRunner)
+                    val testedRunner = SceneAnimationRunner(sceneConfig.dimension, logHandler) { simulationRunner }
 
                     testedRunner.runSimulation(scene, commonConfig, sceneConfig.inputData, sceneConfig.simulationVolume)
 
@@ -145,7 +153,7 @@ class SceneAnimationRunnerSpec : DescribeSpec(
                     }
 
                     val frameCount = (commonConfig.animationDuration / commonConfig.animationFrameStep).toInt()
-                    val testedRunner = SceneAnimationRunner(sceneConfig.dimension, logHandler, simulationRunner)
+                    val testedRunner = SceneAnimationRunner(sceneConfig.dimension, logHandler) { simulationRunner }
 
                     testedRunner.runSimulation(scene, commonConfig, sceneConfig.inputData, sceneConfig.simulationVolume)
 
@@ -177,7 +185,7 @@ class SceneAnimationRunnerSpec : DescribeSpec(
                     val frameStepNs = frameStep.inWholeNanoseconds.toDouble()
                     val expectedProgress = (expectedIdx * frameStepNs) / ((frameCount * frameStepNs) + 1)
                     val expectedFrameInfo = FrameInfo(expectedIdx, frameStep * expectedIdx, expectedProgress)
-                    val testedRunner = SceneAnimationRunner(dimension, logHandler, simulationRunner)
+                    val testedRunner = SceneAnimationRunner(dimension, logHandler) { simulationRunner }
                     val configuration = baseConfig.copy(
                         animationDuration = (frameStep * frameCount) + 1.nanoseconds,
                         animationFrameStep = frameStep,
@@ -204,7 +212,7 @@ class SceneAnimationRunnerSpec : DescribeSpec(
                         animationDuration = (frameStep * frameCount) + 1.nanoseconds,
                         animationFrameStep = frameStep,
                     )
-                    val testedRunner = SceneAnimationRunner(dimension, logHandler, simulationRunner)
+                    val testedRunner = SceneAnimationRunner(dimension, logHandler) { simulationRunner }
 
                     val result = testedRunner.increment(frameInfo, configuration)
 

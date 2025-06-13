@@ -18,9 +18,11 @@ interface WorkerProvider {
      *
      * @param simulator the simulator to use
      * @param commonConfiguration the simulation configuration
+     * @param progressionCallback a callback to handle progression events
      */
     fun <D : Dimension, L : Luxel<D>, E : Environment<D>> createWorker(
         simulator: Simulator<D, L, E>,
         commonConfiguration: CommonConfiguration,
+        progressionCallback: (Double) -> Unit = {},
     ): SimulationWorker<D, E>
 }

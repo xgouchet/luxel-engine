@@ -24,15 +24,18 @@ import art.luxels.engine.simulation.runner.FrameInfo
  * @param simulator the simulator to use
  * @param logHandler the [LogHandler] to use throughout the simulation
  * @param density the density of the env simulation pass
+ * @param progressionCallback a callback to handle progression events
  */
 class EnvSimulationWorker<D : Dimension, L : Luxel<D>, E : Environment<D>>(
     simulator: Simulator<D, L, E>,
     logHandler: LogHandler,
     val density: Int,
+    progressionCallback: (Double) -> Unit = {},
 ) : AbstractSimulationWorker<D, L, E>(
     simulationType = SimulationType.ENV,
     simulator = simulator,
     logHandler = logHandler,
+    progressionCallback = progressionCallback,
 ) {
 
     @Suppress("LateinitUsage")

@@ -9,10 +9,11 @@
 
 ## Modules
 
-- core : contains the core math and basic utilities
-- engine : contains the main engine logic and API
-- components : contains some high level building blocks to build scenes more easily
-- imageio : contains the base code to read and write image files
+- core: contains the core math and basic utilities
+- engine: contains the main engine logic and API
+- components: contains some high level building blocks to build scenes more easily
+- imageio: contains the base code to read and write image files
+- scenes: contains the code implementing scenes (demos, historical and new series)
 
 ## Scenes progress
 
@@ -36,9 +37,10 @@
   - UI to explore configuration of simulations, maybe to write them directly
 - [ ] KMM
   - Support in browser computation with JS
-  - Support native run on Mac OS / Linux
 - [ ] Graphik IO
   - Add Jpg / Png image reader
+  - Add QOI image reader
+  - Add automatic color grading / filtering
 
 ## Donate
 

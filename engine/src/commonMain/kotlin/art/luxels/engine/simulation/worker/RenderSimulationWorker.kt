@@ -18,14 +18,17 @@ import art.luxels.engine.simulation.runner.FrameInfo
  *
  * @param simulator the simulator to use
  * @param logHandler the [LogHandler] to use throughout the simulation
+ * @param progressionCallback a callback to handle progression events
  */
 class RenderSimulationWorker<D : Dimension, L : Luxel<D>, E : Environment<D>>(
     simulator: Simulator<D, L, E>,
     logHandler: LogHandler,
+    progressionCallback: (Double) -> Unit = {},
 ) : AbstractSimulationWorker<D, L, E>(
     simulationType = SimulationType.RENDER,
     simulator = simulator,
     logHandler = logHandler,
+    progressionCallback = progressionCallback,
 ) {
 
     // region AbstractSimulationWorker
