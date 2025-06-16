@@ -51,7 +51,7 @@ class BookwormSimulator(val luxelLifespan: Int = 0X80, val interpolation: Interp
 
     override suspend fun spawnLuxel(simulation: Configuration.Simulation<Dimension.D3>, time: Duration): BookwormLuxel {
         val sentence = input.nextSentence()
-        val wavelengthProgress = sentence.sentenceIndex.toDouble() / input.getSentenceCount()
+        val waveLengthProgress = sentence.sentenceIndex.toDouble() / input.getSentenceCount()
 
         return BookwormLuxel(
             rng,
@@ -59,7 +59,7 @@ class BookwormSimulator(val luxelLifespan: Int = 0X80, val interpolation: Interp
             interpolation.interpolate(
                 EMSColorSource.MIN_VISIBLE_LIGHT,
                 EMSColorSource.MAX_VISIBLE_LIGHT,
-                wavelengthProgress,
+                waveLengthProgress,
             ),
             luxelLifespan,
         )

@@ -13,7 +13,8 @@ import kotlin.random.Random
  * nearest Voronoi center.
  */
 class VoronoiNoiseGenerator : DimensionalNoiseGenerator {
-    private val random = Random(0L)
+
+    // TODO improve performances
 
     // region DimensionalNoiseGenerator
 

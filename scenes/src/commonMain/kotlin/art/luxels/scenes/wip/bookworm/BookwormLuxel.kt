@@ -1,7 +1,7 @@
 package art.luxels.scenes.wip.bookworm
 
-import art.luxels.components.color.EMSColorSource
-import art.luxels.components.color.WavelengthNanometer
+import art.luxels.components.color.WLVaryingColorSource
+import art.luxels.components.color.WaveLengthNanometer
 import art.luxels.components.engine.PrincipledLuxel
 import art.luxels.components.position.SimplePositionSource
 import art.luxels.core.math.Dimension
@@ -14,10 +14,10 @@ import art.luxels.imageio.color.HDRColor
 class BookwormLuxel(
     val rng: RandomGenerator<Vector<Dimension.D3>>,
     val sentence: BookwormSentence,
-    wavelength: WavelengthNanometer,
+    waveLength: WaveLengthNanometer,
     lifespan: Int,
-) : PrincipledLuxel<Dimension.D3, EMSColorSource, PositionSource<Dimension.D3>, AgeingLifespanSource>(
-    EMSColorSource(wavelength),
+) : PrincipledLuxel<Dimension.D3, WLVaryingColorSource, PositionSource<Dimension.D3>, AgeingLifespanSource>(
+    WLVaryingColorSource(waveLength),
     SimplePositionSource(Vector.unit(Dimension.D3)),
     AgeingLifespanSource(lifespan),
 ) {

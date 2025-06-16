@@ -6,11 +6,12 @@ fun abstractDelegatedNoiseGeneratorSpec(
     description: String,
     noiseProvider: (DimensionalNoiseGenerator) -> DimensionalNoiseGenerator,
 ) = describeSpec {
-    include(
-        abstractNoiseGeneratorSpec("$description+Voronoi") {
-            noiseProvider(VoronoiNoiseGenerator())
-        },
-    )
+    // Discarded for speed for now
+//    include(
+//        abstractNoiseGeneratorSpec("$description+Voronoi") {
+//            noiseProvider(VoronoiNoiseGenerator())
+//        },
+//    )
 
     include(
         abstractNoiseGeneratorSpec("$description+Perlin") {

@@ -1,7 +1,7 @@
 package art.luxels.components.color.atomic
 
-import art.luxels.components.color.EMSColorSource
-import art.luxels.components.color.WavelengthNanometer
+import art.luxels.components.color.WLVaryingColorSource
+import art.luxels.components.color.WaveLengthNanometer
 import art.luxels.core.color.ColorSource
 import art.luxels.core.math.random.RndGen
 import art.luxels.imageio.color.HDRColor
@@ -21,13 +21,13 @@ open class ASLColorSource(
     val symbol: String,
     val number: Int,
     internal val spectralLines: List<SpectralLine>,
-) : EMSColorSource(0.0, 0.0, 0.8) {
+) : WLVaryingColorSource(0.0, 0.0) {
     /**
      * Describe one of the spectral lines a given element can emit.
      * @property waveLength the wavelength of the spectral line (in nm)
      * @property intensity the (relative) intensity of the spectral line
      */
-    data class SpectralLine(val waveLength: WavelengthNanometer, val intensity: Double)
+    data class SpectralLine(val waveLength: WaveLengthNanometer, val intensity: Double)
 
     // region ColorSource
 

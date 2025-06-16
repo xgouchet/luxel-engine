@@ -1,7 +1,7 @@
 package art.luxels.components.color
 
-import art.luxels.components.color.EMSColorSource.Companion.MAX_IR_LIGHT
-import art.luxels.components.color.EMSColorSource.Companion.MIN_UV_LIGHT
+import art.luxels.components.color.WLColorSource.Companion.MAX_IR_LIGHT
+import art.luxels.components.color.WLColorSource.Companion.MIN_UV_LIGHT
 import art.luxels.components.color.atomic.ASLColorSource
 import art.luxels.components.color.atomic.PeriodicTable
 import art.luxels.components.test.kotest.assertions.shouldBeCloseTo
@@ -58,7 +58,7 @@ class ASLColorSourceSpec : DescribeSpec(
                         number,
                         listOf(ASLColorSource.SpectralLine(wavelength, intensity)),
                     )
-                    val reference = EMSColorSource(wavelength, intensity)
+                    val reference = WLVaryingColorSource(wavelength, intensity)
 
                     val color = colorSource.color()
                     val refColor = reference.color()

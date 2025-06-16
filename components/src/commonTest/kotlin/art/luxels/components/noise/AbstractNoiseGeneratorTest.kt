@@ -15,7 +15,7 @@ import kotlin.math.abs
 
 fun abstractNoiseGeneratorSpec(description: String, noiseProvider: () -> DimensionalNoiseGenerator) = describeSpec {
     describe("generic noise [$description]") {
-        it("returns a value with the expected dimensions") {
+        it("returns a value with the expected dimensions [$description]") {
             checkAll(Arb.list(doubleArb(), 1..8), Arb.int(1, 8)) { input, outputSize ->
                 val noise = noiseProvider()
                 val result = noise.noise(input, outputSize)
@@ -24,7 +24,7 @@ fun abstractNoiseGeneratorSpec(description: String, noiseProvider: () -> Dimensi
             }
         }
 
-        it("always returns a value between 0.0 and 1.0") {
+        it("always returns a value between 0.0 and 1.0 [$description]") {
             checkAll(Arb.list(doubleArb(), 1..8), Arb.int(1, 8)) { input, outputSize ->
                 val noise = noiseProvider()
                 val result = noise.noise(input, outputSize)
@@ -38,7 +38,7 @@ fun abstractNoiseGeneratorSpec(description: String, noiseProvider: () -> Dimensi
             }
         }
 
-        it("is continuous") {
+        it("is continuous [$description]") {
             checkAll(Arb.list(doubleArb(), 1..8), Arb.int(1, 8), Arb.int(1, 8)) { input, outputSize, dimension ->
                 val noise = noiseProvider()
                 val changingIndex = dimension % input.size

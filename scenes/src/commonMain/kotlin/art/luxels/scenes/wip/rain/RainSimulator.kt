@@ -1,6 +1,6 @@
 package art.luxels.scenes.wip.rain
 
-import art.luxels.components.color.EMSColorSource
+import art.luxels.components.color.WLColorSource
 import art.luxels.core.math.Dimension.D2
 import art.luxels.core.math.EPSILON
 import art.luxels.core.math.Vector2
@@ -61,7 +61,7 @@ class RainSimulator : Simulator<D2, RainLuxel, RainEnvironment> {
             if (n != 1.0) {
                 val normal = environment.getNormal(position)
                 if (RndGen.double.inRange(0.0, 100.0) < environment.bounceThreshold) {
-                    val refractionStrength = luxel.colorSource.waveLength / EMSColorSource.MEAN_GREEN
+                    val refractionStrength = luxel.colorSource.waveLength / WLColorSource.MEAN_GREEN
                     luxel.positionSource.updateSpeed(
                         luxel.positionSource.speed.refract(
                             normal,
@@ -76,7 +76,7 @@ class RainSimulator : Simulator<D2, RainLuxel, RainEnvironment> {
                 }
                 luxel.refractionIndex = futureRefractionIndex
                 luxel.colorSource.intensity *= 0.95 // 975
-                luxel.colorSource.intensity *= luxel.reductionFactor
+//                luxel.colorSource.intensity() *= luxel.reductionFactor
             }
         }
 

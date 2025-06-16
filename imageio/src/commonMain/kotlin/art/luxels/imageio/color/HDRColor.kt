@@ -107,6 +107,14 @@ data class HDRColor(val r: Double, val g: Double, val b: Double, val a: Double =
         return max(max(r, g), b)
     }
 
+    /**
+     * @param scale the factor by which to multiply the color
+     * @return a color with each component multiplied by the given input,but leaving the alpha untouched
+     */
+    fun scaleColorOnly(scale: Double): HDRColor {
+        return HDRColor(r * scale, g * scale, b * scale, a)
+    }
+
     // endregion
 
     companion object {
