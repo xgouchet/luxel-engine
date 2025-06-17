@@ -21,6 +21,10 @@ class StubRasterData(override val width: Int, override val height: Int) : Raster
 
     private val pixelRead = IntArray(pixelCount) { 0 }
 
+    override fun prepare() {
+        // No-op
+    }
+
     override fun getColor(x: Int, y: Int): Color {
         require(x in 0..<width)
         require(y in 0..<height)

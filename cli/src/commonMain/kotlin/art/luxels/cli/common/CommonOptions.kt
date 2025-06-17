@@ -1,5 +1,9 @@
 package art.luxels.cli.common
 
+import art.luxels.components.io.RasterImageFixer
+import art.luxels.components.io.converter.FilmConverter
+import art.luxels.components.io.converter.LinearLevelConverter
+import art.luxels.components.io.converter.RawConverter
 import art.luxels.core.io.NoOpFixer
 import art.luxels.core.log.LogHandler
 import art.luxels.core.math.Dimension
@@ -14,6 +18,9 @@ import art.luxels.engine.api.configuration.FilmType
 import art.luxels.engine.api.configuration.SimulationType
 import art.luxels.engine.simulation.CommonConfiguration
 import art.luxels.engine.simulation.runner.FrameInfo
+import art.luxels.imageio.format.ImageFormat
+import art.luxels.imageio.format.bmp.BmpImageFormat
+import art.luxels.imageio.format.hdr.HdrImageFormat
 import com.github.ajalt.clikt.parameters.groups.OptionGroup
 import com.github.ajalt.clikt.parameters.options.convert
 import com.github.ajalt.clikt.parameters.options.default
@@ -83,11 +90,17 @@ class CommonOptions : OptionGroup() {
         .default(Resolution.XGA)
         .help("The output film resolution")
 
-    val outputFormat: FixerType? by option("--format")
-        .choice(mapOf("hdr" to FixerType.HDR, "bmp" to FixerType.BMP))
+    val outputConverter: FilmConverter by option("--converter")
+        .choice(mapOf("raw" to RawConverter(), "linear" to LinearLevelConverter()))
+        .default(RawConverter())
+        .help("The color conversion algorithm")
+
+    val outputFormat: ImageFormat? by option("--format")
+        .choice(mapOf("hdr" to HdrImageFormat, "bmp" to BmpImageFormat))
         .help("The output file format")
 
     fun asConfiguration(outputPath: Path, logHandler: LogHandler): CommonConfiguration {
+        val outputFixer = outputFormat?.let { RasterImageFixer(it, outputPath, outputConverter) }
         return CommonConfiguration(
             simulationLuxelCount = simulationLuxelCount.toLong(),
             simulationMaxThreadCount = simulationMaxCpuCount,
@@ -97,7 +110,7 @@ class CommonOptions : OptionGroup() {
             animationFrameInfo = FrameInfo.NULL_FRAME,
             outputFilmType = outputFilmType,
             outputResolution = outputFilmResolution,
-            outputFixer = outputFormat?.createFixer(outputPath, logHandler) ?: NoOpFixer(logHandler),
+            outputFixer = outputFixer ?: NoOpFixer(logHandler),
         )
     }
 

@@ -19,6 +19,8 @@ class SDRRasterData(
 
     // region RasterData
 
+    override fun prepare() {}
+
     override fun getColor(x: Int, y: Int): Color {
         val index = index(getXIndex(x), getYIndex(y))
         return pixels[index]

@@ -14,6 +14,13 @@ interface RasterData {
     val height: Int
 
     /**
+     * Called whenever data is about to be read.
+     *
+     * This can be used to preprocess the content, if needed.
+     */
+    fun prepare()
+
+    /**
      * Get the color of a pixel.
      * @param x the column (0-based) index of the pixel
      * @param y the row (0-based) index of the pixel

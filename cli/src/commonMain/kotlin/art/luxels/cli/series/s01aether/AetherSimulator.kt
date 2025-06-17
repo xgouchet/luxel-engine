@@ -1,6 +1,6 @@
 package art.luxels.cli.series.s01aether
 
-import art.luxels.components.color.EMSColorSource
+import art.luxels.components.color.WLColorSource
 import art.luxels.core.math.Dimension
 import art.luxels.core.math.random.RndGen
 import art.luxels.engine.api.Simulator
@@ -28,7 +28,7 @@ class AetherSimulator(private val luxelLifespan: Int) : Simulator<Dimension.D3, 
     // endregion
 
     companion object {
-        private const val WL_MIN = EMSColorSource.MIN_UV_LIGHT
-        private const val WL_RANGE = EMSColorSource.MAX_IR_LIGHT - EMSColorSource.MIN_UV_LIGHT
+        private const val WL_MIN = WLColorSource.MIN_UV_LIGHT
+        private const val WL_RANGE = WLColorSource.MAX_IR_LIGHT - WLColorSource.MIN_UV_LIGHT
     }
 }

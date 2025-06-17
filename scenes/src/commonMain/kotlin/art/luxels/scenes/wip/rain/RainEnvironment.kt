@@ -2,7 +2,6 @@ package art.luxels.scenes.wip.rain
 
 import art.luxels.components.color.WLColorSource
 import art.luxels.components.noise.PerlinNoiseGenerator
-import art.luxels.components.noise.RidgeNoiseGenerator
 import art.luxels.components.noise.wrapper.VectorNoiseGenerator
 import art.luxels.core.math.Dimension.D1
 import art.luxels.core.math.Dimension.D2
@@ -22,7 +21,7 @@ import kotlin.time.Duration
 class RainEnvironment(val simulationVolume: Volume<D2>) : Environment<D2> {
 
     private val noiseField = VectorNoiseGenerator<D2, D1>(
-        RidgeNoiseGenerator(PerlinNoiseGenerator()),
+        PerlinNoiseGenerator(),
         D1,
     )
 

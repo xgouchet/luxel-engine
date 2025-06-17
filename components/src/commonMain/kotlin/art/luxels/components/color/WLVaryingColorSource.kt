@@ -25,10 +25,11 @@ import art.luxels.imageio.color.HDRColor
  */
 open class WLVaryingColorSource(waveLength: WaveLengthNanometer, intensity: Double = 1.0) : WLColorSource() {
 
-    private var rawColor: HDRColor = HDRColor.BLACK
-    private var scaledColor: HDRColor = HDRColor.BLACK
+    private var rawColor: HDRColor = computeColor(waveLength)
+    private var scaledColor: HDRColor = rawColor * intensity
 
     /**
+     *
      * The light's wave length in nanometer.
      */
     var waveLength: WaveLengthNanometer = waveLength
@@ -51,8 +52,7 @@ open class WLVaryingColorSource(waveLength: WaveLengthNanometer, intensity: Doub
 
     @Suppress("NamedArguments")
     override fun color(): HDRColor {
-        val baseColor = computeColor(waveLength)
-        return baseColor.scaleColorOnly(intensity)
+        return scaledColor
     }
 
     // endregion

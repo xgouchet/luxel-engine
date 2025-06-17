@@ -45,7 +45,8 @@ class BmpRasterWriter : AbstractRasterWriter(BmpImageFormat) {
         )
         header.write(bufferedSink)
 
-        // Pixel data.
+        // Pixel data
+        rasterData.prepare()
         for (y in rasterData.height - 1 downTo 0) {
             for (x in 0..<rasterData.width) {
                 val color = rasterData.getColor(x, y).asSDR()

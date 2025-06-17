@@ -56,7 +56,7 @@ class ParallelSimulationRunner(
 
         val layeredFilm = LayeredFilm(commonConfiguration.outputResolution)
 
-        val frameStart = Clock.System.now()
+        val frameSimStart = Clock.System.now()
 
         spawnAndRunWorkers(
             scene,
@@ -64,14 +64,21 @@ class ParallelSimulationRunner(
             commonConfiguration,
             layeredFilm,
         )
-        val elapsed = Clock.System.now() - frameStart
 
-        logHandler.info("✔ Frame #${commonConfiguration.animationFrameInfo.index} simulation complete in $elapsed")
-        logHandler.info("Saving frame -> $fileName")
+        val frameSimStop = Clock.System.now()
+        val simDuration = frameSimStop - frameSimStart
+
+        logHandler.info("                                                                                ")
+        logHandler.info("✔ Frame #${commonConfiguration.animationFrameInfo.index} simulation complete in $simDuration")
+        logHandler.info("  Saving frame -> $fileName")
 
         CoroutineScope(Dispatchers.IO).run {
             commonConfiguration.outputFixer.write(layeredFilm, fileName)
         }
+
+        val imageWritten = Clock.System.now()
+        val imageProcessingDuration = imageWritten - frameSimStop
+        logHandler.info("✔ Frame #${commonConfiguration.animationFrameInfo.index} written in $imageProcessingDuration")
 
         SystemInfo.clearMemory()
     }

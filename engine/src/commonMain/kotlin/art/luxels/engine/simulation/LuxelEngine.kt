@@ -58,16 +58,17 @@ class LuxelEngine<D : Dimension> internal constructor(
         inputSource: InputSource<I>,
         simulationVolume: Volume<D>,
     ) {
+        val sceneName = scene.outputName()
         if (inputSource.isEmpty()) {
-            logHandler.warning("Can't simulate scene ${scene.outputName()}: input source is empty")
+            logHandler.warning("Can't simulate scene $sceneName: input source is empty")
         }
 
-        logHandler.info("Simulating scene ${scene.outputName()}")
+        logHandler.info("Simulating scene $sceneName")
         val mainJob = CoroutineScope(Dispatchers.Default).launch {
-            logHandler.startSection("Scene ${scene.outputName()}")
+            logHandler.startSection("Scene $sceneName")
             inputSource.forEach { inputData ->
                 logHandler.startSection(
-                    "Running scene “${scene.outputName()}” with input ${inputData.id} (${inputData.seed.toString(16)})",
+                    "Running scene “$sceneName” with input ${inputData.id} (seed:0x${inputData.seed.toString(16)})",
                 )
                 simulationRunner.runSimulation(
                     scene,

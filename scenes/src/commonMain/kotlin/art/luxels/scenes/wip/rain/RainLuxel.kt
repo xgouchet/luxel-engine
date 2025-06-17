@@ -7,6 +7,7 @@ import art.luxels.components.position.InertiaPositionSource
 import art.luxels.core.math.Dimension
 import art.luxels.core.math.Vector
 import art.luxels.core.model.AgeingLifespanSource
+import kotlin.math.pow
 
 class RainLuxel(
     lifespan: Int,
@@ -19,5 +20,10 @@ class RainLuxel(
     InertiaPositionSource(initialPosition, initialSpeed),
     AgeingLifespanSource(lifespan),
 ) {
-    val reductionFactor = (10000.0 - ((waveLength - WLColorSource.MIN_UV_LIGHT) * 10.0)) / 10000.0
+
+    val reductionFactor = (1.0 - ((waveLength - WLColorSource.MIN_UV_LIGHT) / REDUCTION_RANGE)).pow(0.5)
+
+    companion object {
+        const val REDUCTION_RANGE = WLColorSource.MAX_IR_LIGHT - WLColorSource.MIN_UV_LIGHT
+    }
 }

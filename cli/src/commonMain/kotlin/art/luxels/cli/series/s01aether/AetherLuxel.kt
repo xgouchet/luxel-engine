@@ -1,7 +1,7 @@
 package art.luxels.cli.series.s01aether
 
-import art.luxels.components.color.EMSColorSource
-import art.luxels.components.color.WavelengthNanometer
+import art.luxels.components.color.WLStaticColorSource
+import art.luxels.components.color.WaveLengthNanometer
 import art.luxels.components.geometry.Curve
 import art.luxels.core.color.ColorSource
 import art.luxels.core.math.Dimension.D3
@@ -22,9 +22,9 @@ class AetherLuxel(
 
     constructor(
         curve: Curve<D3>,
-        waveLength: WavelengthNanometer,
+        waveLength: WaveLengthNanometer,
         lifespan: Int,
-    ) : this(curve, EMSColorSource(waveLength), AgeingLifespanSource(lifespan))
+    ) : this(curve, WLStaticColorSource(waveLength), AgeingLifespanSource(lifespan))
 
     // region PositionSource
 

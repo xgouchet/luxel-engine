@@ -40,6 +40,7 @@ class HdrRasterWriter : AbstractRasterWriter(HdrImageFormat) {
     }
 
     private fun prepareRgbeData(rasterData: RasterData): ByteArray {
+        rasterData.prepare()
         val width = rasterData.width
         val height = rasterData.height
         val rgbeData = ByteArray(width * height * (4))

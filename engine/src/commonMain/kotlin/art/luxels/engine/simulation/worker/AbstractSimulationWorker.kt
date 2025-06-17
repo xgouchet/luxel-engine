@@ -18,6 +18,10 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlin.coroutines.coroutineContext
 import kotlin.math.max
+import kotlin.time.Duration.Companion.hours
+import kotlin.time.Duration.Companion.minutes
+import kotlin.time.Duration.Companion.seconds
+import kotlin.time.DurationUnit
 
 /**
  * An abstract [SimulationWorker] to simplify boilerplate logic.
@@ -127,7 +131,21 @@ abstract class AbstractSimulationWorker<D : Dimension, L : Luxel<D>, E : Environ
         val durationPerLuxel = elapsed / i.toDouble()
         val totalDuration = (elapsed * total.toDouble()) / i.toDouble()
         val remaining = totalDuration - elapsed
-        logHandler.progress(progress, "[$workerName] - $remaining remaining ($durationPerLuxel / luxel)")
+
+        val durationPerLuxelStr = durationPerLuxel.toString(DurationUnit.MILLISECONDS, 3)
+        val remainingStr = if (remaining > 30.hours) {
+            remaining.toString(DurationUnit.DAYS, 2)
+        } else if (remaining > 90.minutes) {
+            remaining.toString(DurationUnit.HOURS, 2)
+        } else if (remaining > 90.seconds) {
+            remaining.toString(DurationUnit.MINUTES, 2)
+        } else if (remaining > 2.seconds) {
+            remaining.toString(DurationUnit.SECONDS, 2)
+        } else {
+            remaining.toString(DurationUnit.MILLISECONDS, 2)
+        }
+
+        logHandler.progress(progress, "[$workerName] - $remainingStr remaining ($durationPerLuxelStr / luxel)")
     }
 
     // endregion

@@ -1,5 +1,6 @@
 package art.luxels.components.io
 
+import art.luxels.components.io.converter.FilmConverter
 import art.luxels.core.io.ImageFixer
 import art.luxels.core.render.Film
 import art.luxels.imageio.ImageIO
@@ -11,13 +12,18 @@ import okio.Path
  * An abstract [ImageFixer] based on the imageio module capabilities.
  * @param targetFormat the [ImageFormat] to use when writing an image
  * @param outputDirPath the path to the output dir where the file should be saved
+ * @param filmConverter the [FilmConverter] to transform the film into serializable [RasterData]
  */
-abstract class AbstractRasterImageFixer(private val targetFormat: ImageFormat, private val outputDirPath: Path) :
-    ImageFixer {
+class RasterImageFixer(
+    private val targetFormat: ImageFormat,
+    private val outputDirPath: Path,
+    private val filmConverter: FilmConverter,
+) : ImageFixer {
+
     // region ImageFixer
 
     override fun write(film: Film, outputName: String) {
-        val rasterData = convertFilmToRasterData(film)
+        val rasterData = filmConverter.convert(film)
 
         ImageIO.write(
             rasterData,
@@ -28,15 +34,4 @@ abstract class AbstractRasterImageFixer(private val targetFormat: ImageFormat, p
     }
 
     //  endregion
-
-    // region AbstractRasterImageWrapper
-
-    /**
-     * Converts an internal [Film] into a writeable [RasterData] instance.
-     * @param film the film to convert
-     * @return a [RasterData] object to be written
-     */
-    abstract fun convertFilmToRasterData(film: Film): RasterData
-
-    // endregion
 }
