@@ -27,6 +27,14 @@ data class HDRColor(val r: Double, val g: Double, val b: Double, val a: Double =
     }
 
     /**
+     * @param other the color to subtract from this color
+     * @return a color with each component as the component in this color minus the matching component in the given input
+     */
+    operator fun minus(other: HDRColor): HDRColor {
+        return HDRColor(r - other.r, g - other.g, b - other.b, a - other.a)
+    }
+
+    /**
      * @param scale the factor by which to multiply the color
      * @return a color with each component multiplied by the given input
      */
@@ -40,6 +48,15 @@ data class HDRColor(val r: Double, val g: Double, val b: Double, val a: Double =
      */
     operator fun div(scale: Double): HDRColor {
         return HDRColor(r / scale, g / scale, b / scale, a / scale)
+    }
+
+
+    /**
+     * @param scale the factor by which to multiply the color
+     * @return a color with each component multiplied by the given input
+     */
+    operator fun div(scale: HDRColor): HDRColor {
+        return HDRColor(r / scale.r, g / scale.g, b / scale.b, a / scale.a)
     }
 
     /**

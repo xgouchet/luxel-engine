@@ -95,15 +95,15 @@ class Matrix<C : Dimension, R : Dimension> internal constructor(
             height = height,
         )
 
-        for (lj in 0..<height) {
-            for (ri in 0..<matrix.width) {
+        for (leftRow in 0..<height) {
+            for (rightCol in 0..<matrix.width) {
                 var sum = 0.0
                 for (k in 0..<matrix.height) {
-                    val l = get(k, lj)
-                    val r = matrix.get(ri, k)
+                    val l = data[idx(k, leftRow)]
+                    val r = matrix.get(rightCol, k)
                     sum += (l * r)
                 }
-                result.set(ri, lj, sum)
+                result.set(rightCol, leftRow, sum)
             }
         }
 
@@ -122,7 +122,7 @@ class Matrix<C : Dimension, R : Dimension> internal constructor(
             data = DoubleArray(data.size) { idx ->
                 val i = (idx.mod(height))
                 val j = (idx - i) / height
-                data[j + (i * width)]
+                data[(i * width) + j]
             },
             width = height,
             height = width,
@@ -168,18 +168,19 @@ class Matrix<C : Dimension, R : Dimension> internal constructor(
 
         val reduced = data.copyOf()
         val inverse = DoubleArray(width * height) { idx ->
-            if (idx.mod(height + 1) == 0) 1.0 else 0.0
+            val (i, j) = coords(idx)
+            if (i == j) 1.0 else 0.0
         }
 
         // gaussian reduction step 1: Make reduced a diagonal matrix
         for (i in 0..<width) {
-            var pivot = reduced[(i * width) + i]
+            var pivot = reduced[idx(i, i)]
 
             // Special case, swap rows if needed
             if (abs(pivot) <= EPSILON) {
                 var swapWithRowIdx = -1
                 for (s in (i + 1)..<height) {
-                    val tentativePivot = reduced[(s * width) + i]
+                    val tentativePivot = reduced[idx(i, s)]
                     if (abs(tentativePivot) > EPSILON) {
                         swapWithRowIdx = s
                         break
@@ -188,15 +189,15 @@ class Matrix<C : Dimension, R : Dimension> internal constructor(
                 if (swapWithRowIdx < 0) {
                     throw UnsupportedOperationException("Unable to invert matrix")
                 } else {
-                    pivot = reduced[(swapWithRowIdx * width) + i]
+                    pivot = reduced[idx(i, swapWithRowIdx)]
                     // swap rows
                     for (k in 0..<width) {
-                        val tempR = reduced[(i * width) + k]
-                        reduced[(i * width) + k] = reduced[(swapWithRowIdx * width) + k]
-                        reduced[(swapWithRowIdx * width) + k] = tempR
-                        val tempI = inverse[(i * width) + k]
-                        inverse[(i * width) + k] = inverse[(swapWithRowIdx * width) + k]
-                        inverse[(swapWithRowIdx * width) + k] = tempI
+                        val tempR = reduced[idx(k, i)]
+                        reduced[idx(k, i)] = reduced[idx(k, swapWithRowIdx)]
+                        reduced[idx(k, swapWithRowIdx)] = tempR
+                        val tempI = inverse[idx(k, i)]
+                        inverse[idx(k, i)] = inverse[idx(k, swapWithRowIdx)]
+                        inverse[idx(k, swapWithRowIdx)] = tempI
                     }
                 }
             }
@@ -205,11 +206,11 @@ class Matrix<C : Dimension, R : Dimension> internal constructor(
                 if (i == j) {
                     // ignore
                 } else {
-                    val factor = -(reduced[(j * width) + i] / pivot)
+                    val factor = -(reduced[idx(i, j)] / pivot)
 
                     for (k in 0..<width) {
-                        reduced[(j * width) + k] += reduced[(i * width) + k] * factor
-                        inverse[(j * width) + k] += inverse[(i * width) + k] * factor
+                        reduced[idx(k, j)] += reduced[idx(k, i)] * factor
+                        inverse[idx(k, j)] += inverse[idx(k, i)] * factor
                     }
                 }
             }
@@ -217,14 +218,79 @@ class Matrix<C : Dimension, R : Dimension> internal constructor(
 
         // gaussian reduction step 2: Make reduced identity
         for (j in 0..<height) {
-            val factor = 1.0 / reduced[(j * width) + j]
+            val factor = 1.0 / reduced[idx(j, j)]
             for (k in 0..<width) {
-                reduced[(j * width) + k] *= factor
-                inverse[(j * width) + k] *= factor
+                reduced[idx(k, j)] *= factor
+                inverse[idx(k, j)] *= factor
             }
         }
 
         return Matrix(inverse, height, width)
+    }
+
+    fun reducedRowEchelonForm(): Matrix<C, R> {
+        val echelon = Matrix<C, R>(data.copyOf(), width, height)
+        var marchingCol = 0
+        var marchingRow = 0
+
+        while ((marchingCol < width) && (marchingRow < height)) {
+            // 1. Swap pivot
+            val pivot = echelon.rrefEnsurePivot(marchingRow, marchingCol)
+            if (abs(pivot) < EPSILON) {
+                marchingCol++
+            } else {
+
+                // 2. scale row
+                echelon.rrefScaleRow(marchingRow, marchingCol)
+
+                // 3. Use row replacement
+                echelon.rrefReduceOtherRows(marchingRow, marchingCol)
+
+                marchingRow++
+                marchingCol++
+            }
+        }
+
+        return echelon
+    }
+
+    private fun rrefEnsurePivot(marchingRow: Int, marchingCol: Int): Double {
+        var pivot = data[idx(marchingCol, marchingRow)]
+        if (abs(pivot) <= EPSILON) {
+            var swapWithRow = -1
+            for (row in (marchingRow + 1) until height) {
+                pivot = data[idx(marchingCol, row)]
+                if (abs(pivot) > EPSILON) {
+                    swapWithRow = row
+                    break
+                }
+            }
+
+            if (swapWithRow < 0) {
+                return 0.0
+            }
+
+            swapRows(marchingRow, swapWithRow)
+        }
+        return pivot
+    }
+
+    private fun rrefScaleRow(marchingRow: Int, marchingCol: Int) {
+        val scale = 1.0 / data[idx(marchingCol, marchingRow)]
+        for (col in marchingCol until width) {
+            update(col, marchingRow) { it * scale }
+        }
+    }
+
+    private fun rrefReduceOtherRows(marchingRow: Int, marchingCol: Int) {
+        for (row in 0 until height) {
+            if (row != marchingRow) {
+                val factor = data[idx(marchingCol, row)]
+                for (col in (marchingCol) until width) {
+                    update(col, row) { it - (factor * get(col, marchingRow)) }
+                }
+            }
+        }
     }
 
     // endregion
@@ -232,28 +298,73 @@ class Matrix<C : Dimension, R : Dimension> internal constructor(
     // region Access
 
     /**
-     * @param i the index of the column
-     * @param j the index of the row
+     * @param col the index of the column
+     * @param row the index of the row
      */
-    fun get(i: Int, j: Int): Double {
-        check(i in 0..<width) { "Can't access column $i in get($j, $i) in $this" }
-        check(j in 0..<height) { "Can't access row $j in get($j, $i) in $this" }
-        return data[(j * width) + i]
+    fun get(col: Int, row: Int): Double {
+        check(col in 0..<width) { "Can't access column $col in get($row, $col) in $this" }
+        check(row in 0..<height) { "Can't access row $row in get($row, $col) in $this" }
+        return data[idx(col, row)]
     }
 
     /**
-     * @param i the index of the column
-     * @param j the index of the row
+     * @param col the index of the column
+     * @param row the index of the row
      * @param value the new value
      */
     fun set(
-        i: Int,
-        j: Int,
+        col: Int,
+        row: Int,
         value: Double,
     ) {
-        check(i in 0..<width) { "Can't access column $i in set($j, $i) in $this" }
-        check(j in 0..<height) { "Can't access row $j in set($j, $i) in $this" }
-        data[(j * width) + i] = value
+        check(col in 0..<width) { "Can't access column $col in set($row, $col) in $this" }
+        check(row in 0..<height) { "Can't access row $row in set($row, $col) in $this" }
+        data[idx(col, row)] = value
+    }
+
+    /**
+     * Updates the value at the given coordinate.
+     * @param col the index of the column
+     * @param row the index of the row
+     * @param operation the update operation to apply
+     * @return the new value
+     */
+    fun update(
+        col: Int,
+        row: Int,
+        operation: (Double) -> Double,
+    ): Double {
+        check(col in 0..<width) { "Can't access column $col in set($row, $col) in $this" }
+        check(row in 0..<height) { "Can't access row $row in set($row, $col) in $this" }
+        val updated = operation(data[idx(col, row)])
+        data[idx(col, row)] = updated
+        return updated
+    }
+
+    /**
+     * Extracts the nth column as a vertical Matrix.
+     * @param col the column to extract
+     * @return the column as a Matrix
+     */
+    fun column(col: Int): Matrix<Dimension.D1, R> {
+        return Matrix(
+            DoubleArray(height) { row -> get(col, row) },
+            1,
+            height,
+        )
+    }
+
+    /**
+     * Extracts the nth row as a horizontal Matrix.
+     * @param row the row to extract
+     * @return the row as a Matrix
+     */
+    fun row(row: Int): Matrix<C, Dimension.D1> {
+        return Matrix(
+            DoubleArray(width) { col -> get(col, row) },
+            width,
+            1,
+        )
     }
 
     // endregion
@@ -286,7 +397,64 @@ class Matrix<C : Dimension, R : Dimension> internal constructor(
 
     // endregion
 
+    // region Debug
+
+    /**
+     * Prints the matrix to the standard output.
+     */
+    fun debugPrint() {
+        val asStr = data.map { it.toString() }
+        val maxWidth = asStr.maxBy { it.length }.length
+
+        for (j in 0..<height) {
+            for (i in 0..<width) {
+                print(asStr[idx(i, j)].padStart(maxWidth, ' '))
+                print("   ")
+            }
+            println()
+        }
+    }
+
+    // endregion
+
+    // region Internal
+
+    internal fun coords(index: Int): Pair<Int, Int> {
+        val col = index.mod(width)
+        val row = (index - col) / width
+        return col to row
+    }
+
+    internal fun idx(col: Int, row: Int): Int {
+        return (row * width) + col
+    }
+
+    internal fun swapRows(rowA: Int, rowB: Int) {
+        for (col in 0 until width) {
+            val tmp = data[idx(col, rowA)]
+            data[idx(col, rowA)] = data[idx(col, rowB)]
+            data[idx(col, rowB)] = tmp
+        }
+    }
+
+    // endregion
+
     companion object {
+
+        /**
+         * Creates a Matrix with no specific dimension type. This is very unsafe and should only be used
+         * if you know what you're doing.
+         * @param cols the column dimension
+         * @param rows the row dimension
+         * @return a matrix filled with 0
+         */
+        fun unsafeMatrix(cols: Int, rows: Int): Matrix<Dimension, Dimension> {
+            return Matrix(
+                data = DoubleArray(cols * rows) { 0.0 },
+                width = cols,
+                height = rows,
+            )
+        }
 
         /**
          * @param C the column dimension

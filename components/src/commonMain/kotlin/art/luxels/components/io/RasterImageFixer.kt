@@ -25,11 +25,12 @@ class RasterImageFixer(
     override fun write(film: Film, outputName: String) {
         val rasterData = filmConverter.convert(film)
 
+        val augmentedName = "${outputName}_${filmConverter.name}"
         ImageIO.write(
             rasterData,
             targetFormat.constraints,
             outputDirPath,
-            outputName,
+            augmentedName,
         )
     }
 

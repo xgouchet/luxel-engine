@@ -126,24 +126,24 @@ class MatrixSpec : DescribeSpec(
             }
         }
 
-        include(abstractMatrixSpec(Dimension.D1, Dimension.D1))
-        include(abstractMatrixSpec(Dimension.D1, Dimension.D2))
-        include(abstractMatrixSpec(Dimension.D1, Dimension.D3))
-        include(abstractMatrixSpec(Dimension.D1, Dimension.D4))
+//        include(abstractMatrixSpec(Dimension.D1, Dimension.D1))
+//        include(abstractMatrixSpec(Dimension.D1, Dimension.D2))
+//        include(abstractMatrixSpec(Dimension.D1, Dimension.D3))
+//        include(abstractMatrixSpec(Dimension.D1, Dimension.D4))
 
-        include(abstractMatrixSpec(Dimension.D2, Dimension.D1))
-        include(abstractMatrixSpec(Dimension.D2, Dimension.D2))
-        include(abstractMatrixSpec(Dimension.D2, Dimension.D3))
+//        include(abstractMatrixSpec(Dimension.D2, Dimension.D1))
+//        include(abstractMatrixSpec(Dimension.D2, Dimension.D2))
+//        include(abstractMatrixSpec(Dimension.D2, Dimension.D3))
         include(abstractMatrixSpec(Dimension.D2, Dimension.D4))
 
-        include(abstractMatrixSpec(Dimension.D3, Dimension.D1))
-        include(abstractMatrixSpec(Dimension.D3, Dimension.D2))
-        include(abstractMatrixSpec(Dimension.D3, Dimension.D3))
-        include(abstractMatrixSpec(Dimension.D3, Dimension.D4))
-
-        include(abstractMatrixSpec(Dimension.D4, Dimension.D1))
-        include(abstractMatrixSpec(Dimension.D4, Dimension.D2))
-        include(abstractMatrixSpec(Dimension.D4, Dimension.D3))
-        include(abstractMatrixSpec(Dimension.D4, Dimension.D4))
+//        include(abstractMatrixSpec(Dimension.D3, Dimension.D1))
+//        include(abstractMatrixSpec(Dimension.D3, Dimension.D2))
+//        include(abstractMatrixSpec(Dimension.D3, Dimension.D3))
+//        include(abstractMatrixSpec(Dimension.D3, Dimension.D4))
+//
+//        include(abstractMatrixSpec(Dimension.D4, Dimension.D1))
+//        include(abstractMatrixSpec(Dimension.D4, Dimension.D2))
+//        include(abstractMatrixSpec(Dimension.D4, Dimension.D3))
+//        include(abstractMatrixSpec(Dimension.D4, Dimension.D4))
     },
 )

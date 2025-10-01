@@ -20,15 +20,6 @@ abstract class FilmRasterDataWrapper(val film: Film) : RasterData {
 
     override val height: Int = film.height
 
-    override fun prepare() {
-        for (j in 0..<height) {
-            for (i in 0..<width) {
-                val color = film.getColor(i, j)
-                analyzeSourceColor(color, i, j)
-            }
-        }
-    }
-
     override fun getColor(x: Int, y: Int): Color {
         return convertColor(film.getColor(x, y), x, y)
     }
@@ -40,19 +31,6 @@ abstract class FilmRasterDataWrapper(val film: Film) : RasterData {
     // endregion
 
     // region FilmRasterDataWrapper
-
-    /**
-     * Method to take into account the raw color at the given position.
-     * Wrappers can use that to drive how the color should eventually be converted.
-     * @param rawColor the raw color of the pixel
-     * @param i the column index of the pixel
-     * @param j the row index of the pixel
-     */
-    abstract fun analyzeSourceColor(
-        rawColor: HDRColor,
-        i: Int,
-        j: Int,
-    )
 
     /**
      * Method to convert the raw color at the given position into the final color to use in the [RasterData].

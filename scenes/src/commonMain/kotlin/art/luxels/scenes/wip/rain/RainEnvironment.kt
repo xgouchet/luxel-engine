@@ -29,7 +29,7 @@ class RainEnvironment(val simulationVolume: Volume<D2>) : Environment<D2> {
     internal val safeRange: Volume<D2> = simulationVolume.expanded(1.2)
 
     private val noiseOffset: Vector<D2> = RndGen.vector2.inVolume(noiseOffsetVolume)
-    private val noiseScale: Double = 1.0 / RndGen.double.inRange(100.0, 500.0)
+    private val noiseScale: Double = 1.0 / RndGen.double.inRange(300.0, 700.0)
     private val noiseThreshold: Double = RndGen.double.inRange(0.4, 0.6)
 
     private val animationDirection: Vector<D2> = Vector.nul(D2)
@@ -41,7 +41,7 @@ class RainEnvironment(val simulationVolume: Volume<D2>) : Environment<D2> {
 
     internal val directionalRainSpeed: Vector<D2> = Vector2(RndGen.double.inRange(-2.0, 2.0), 1.0).normalized()
 
-    internal val lightWaveLengthCenter = RndGen.double.inRange(WLColorSource.MEAN_CYAN, WLColorSource.MEAN_DARK_ORANGE)
+    internal val lightWaveLengthCenter = RndGen.double.inRange(WLColorSource.MEAN_BLUE, WLColorSource.MEAN_RED)
     internal val lightWaveLengthWidth = min(
         lightWaveLengthCenter - WLColorSource.MIN_VISIBLE_LIGHT,
         WLColorSource.MAX_VISIBLE_LIGHT - lightWaveLengthCenter,

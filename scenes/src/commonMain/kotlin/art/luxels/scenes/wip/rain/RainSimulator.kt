@@ -31,7 +31,7 @@ class RainSimulator : Simulator<D2, RainLuxel, RainEnvironment> {
             ),
         )
         val randomPosition = RndGen.vector2.inVolume(range)
-        val randomSpeed = environment.directionalRainSpeed + RndGen.vector2.gaussian()
+        val randomSpeed = environment.directionalRainSpeed + (RndGen.vector2.gaussian() * 0.5)
 
         val refractionIndex = environment.getRefractionIndex(randomPosition)
 
@@ -75,8 +75,7 @@ class RainSimulator : Simulator<D2, RainLuxel, RainEnvironment> {
                     )
                 }
                 luxel.refractionIndex = futureRefractionIndex
-                luxel.colorSource.intensity *= 0.95 // 975
-//                luxel.colorSource.intensity() *= luxel.reductionFactor
+                luxel.colorSource.intensity *= luxel.reductionFactor
             }
         }
 

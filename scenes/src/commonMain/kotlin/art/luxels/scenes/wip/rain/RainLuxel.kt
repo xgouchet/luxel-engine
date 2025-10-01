@@ -21,7 +21,7 @@ class RainLuxel(
     AgeingLifespanSource(lifespan),
 ) {
 
-    val reductionFactor = (1.0 - ((waveLength - WLColorSource.MIN_UV_LIGHT) / REDUCTION_RANGE)).pow(0.5)
+    val reductionFactor = (1.0 - ((waveLength - WLColorSource.MIN_UV_LIGHT) / REDUCTION_RANGE))
 
     companion object {
         const val REDUCTION_RANGE = WLColorSource.MAX_IR_LIGHT - WLColorSource.MIN_UV_LIGHT
