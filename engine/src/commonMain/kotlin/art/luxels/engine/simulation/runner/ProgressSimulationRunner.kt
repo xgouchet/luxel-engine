@@ -26,7 +26,8 @@ import kotlinx.coroutines.IO
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.coroutines.withContext
-import kotlinx.datetime.Clock
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
 
 /**
  * Runs the simulation for a single frame on a single thread, saving the progress image regularly.
@@ -34,6 +35,7 @@ import kotlinx.datetime.Clock
  * @param workerProvider the provider for the workers for each thread
  * @param filmProvider the provider for the film for each thread
  */
+@OptIn(ExperimentalTime::class)
 class ProgressSimulationRunner(
     internal val logHandler: LogHandler,
     internal val workerProvider: WorkerProvider = DefaultWorkerProvider(logHandler),

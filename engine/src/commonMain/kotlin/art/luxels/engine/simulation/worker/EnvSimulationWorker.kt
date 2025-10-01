@@ -68,7 +68,7 @@ class EnvSimulationWorker<D : Dimension, L : Luxel<D>, E : Environment<D>>(
     ) {
         repeat(density) {
             val simulationPosition = rng.inVolume(simulationVolume.expanded(2.0))
-            val color = environment.environmentColor(simulationPosition, frameInfo.time) * 1024.0
+            val color = environment.environmentColor(simulationPosition, frameInfo.time)
             exposure.expose(simulationPosition, color)
         }
     }

@@ -5,12 +5,14 @@ import art.luxels.core.math.Matrix.Companion.unsafeMatrix
 import art.luxels.core.utils.Transformer
 import kotlin.math.abs
 import kotlin.math.pow
-import kotlin.math.roundToInt
 
-class CurveTransformer(
-    curvePoints: List<Pair<Double, Double>>,
-    val linear: Boolean = true,
-) : Transformer<Double, Double> {
+/**
+ * A [Transformer] converting a numeric input based on a curve.
+ * @param curvePoints the control points for the curve
+ * @property isLinear whether the interpolation should be linear or cubic
+ */
+class CurveTransformer(curvePoints: List<Pair<Double, Double>>, val isLinear: Boolean = true) :
+    Transformer<Double, Double> {
 
     /**
      * Represents a Cubic Function of the form: f(x) = ax³ + bx² + cx + d.
@@ -43,14 +45,9 @@ class CurveTransformer(
 
     /**
      * Represents a Cubic Function of the form: f(x) = ax³ + bx² + cx + d.
-     * It's only valid over the range min to max
+     * It's only valid over the range min to max.
      */
-    internal data class LinearFunction(
-        val minX: Double,
-        val minY: Double,
-        val maxX: Double,
-        val maxY: Double,
-    ) {
+    internal data class LinearFunction(val minX: Double, val minY: Double, val maxX: Double, val maxY: Double) {
         val rangeX = maxX - minX
         val rangeY = maxY - minY
         fun isInputValid(input: Double): Boolean {
@@ -140,7 +137,6 @@ class CurveTransformer(
         globalMatrix.set((polyCount * 4) - 3, row, -2.0)
         row++
 
-
         val rref = globalMatrix.reducedRowEchelonForm()
         val polynomialCoefs = rref.column(coefCount)
 
@@ -165,22 +161,10 @@ class CurveTransformer(
         }
     }
 
-    fun debugPrint() {
-        val minX = sortedPoints.first().first
-        val maxX = sortedPoints.last().first
-        val step = (maxX - minX) / 32
-        println("Curve : input in [$minX - $maxX]")
-        for (i in 0 until 32) {
-            val input = (i * step) + minX
-            val output = transform(input)
-            println("$input -> $output")
-            val chars = (output * 32 / 256).roundToInt()
-            println(" ".padStart(chars, '█'))
-        }
-    }
+    // region Transformer
 
     override fun transform(input: Double): Double {
-        if (linear) {
+        if (isLinear) {
             val function = linearFunctions.firstOrNull { it.isInputValid(input) }
             return function?.compute(input) ?: 0.0
         } else {
@@ -188,4 +172,6 @@ class CurveTransformer(
             return function?.compute(input) ?: 0.0
         }
     }
+
+    // endregion
 }

@@ -28,7 +28,8 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.newSingleThreadContext
 import kotlinx.coroutines.withContext
-import kotlinx.datetime.Clock
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
 
 /**
  * Runs the simulation for a single frame on multiple parallel threads.
@@ -47,6 +48,7 @@ class ParallelSimulationRunner(
     // region SimulationRunner
 
     @Suppress("InjectDispatcher")
+    @OptIn(ExperimentalTime::class)
     override suspend fun <D : Dimension, L : Luxel<D>, I : Any, E : Environment<D>> runSimulation(
         scene: Scene<D, L, I, E>,
         sceneConfiguration: SceneConfiguration<D, I, E>,

@@ -4,7 +4,7 @@ import io.kotest.common.KotestInternal
 import io.kotest.core.listeners.AfterEachListener
 import io.kotest.core.listeners.BeforeEachListener
 import io.kotest.core.test.TestCase
-import io.kotest.core.test.TestResult
+import io.kotest.engine.test.TestResult
 
 @OptIn(KotestInternal::class)
 class MemoryGuardExtension : BeforeEachListener, AfterEachListener {

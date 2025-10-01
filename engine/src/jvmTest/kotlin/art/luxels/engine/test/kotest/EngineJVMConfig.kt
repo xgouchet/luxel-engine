@@ -14,7 +14,7 @@ class EngineJVMConfig : AbstractProjectConfig() {
 
     init {
         PropertyTesting.defaultIterationCount = 64
-        System.setProperty(AssertionsConfigSystemProperties.disableNaNEquality, "true")
+        System.setProperty(AssertionsConfigSystemProperties.DISABLE_NA_NEQUALITY, "true")
 
         println("JVM ${Runtime.version()} / Memory: ${Runtime.getRuntime().totalMemory()}b")
     }

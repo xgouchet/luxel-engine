@@ -8,9 +8,11 @@ import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb
 import io.kotest.property.arbitrary.double
 import io.kotest.property.checkAll
-import kotlinx.datetime.Clock
 import kotlin.math.abs
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
 
+@OptIn(ExperimentalTime::class)
 class DoubleRandomGeneratorSpec : DescribeSpec(
     {
         RndGen.resetSeed(Clock.System.now().epochSeconds)

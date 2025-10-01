@@ -2,9 +2,9 @@ package art.luxels.cli.common
 
 import art.luxels.components.io.RasterImageFixer
 import art.luxels.components.io.converter.FilmConverter
-import art.luxels.components.io.wrapper.ChannelCurveWrapper
-import art.luxels.components.io.wrapper.LinearLevelWrapper
-import art.luxels.components.io.wrapper.RawWrapper
+import art.luxels.components.io.wrapper.ChannelCurveFilmWrapper
+import art.luxels.components.io.wrapper.LinearLevelFilmWrapper
+import art.luxels.components.io.wrapper.RawFilmWrapper
 import art.luxels.core.io.NoOpFixer
 import art.luxels.core.log.LogHandler
 import art.luxels.core.math.Dimension
@@ -94,12 +94,12 @@ class CommonOptions : OptionGroup() {
     val outputConverter: FilmConverter by option("--converter")
         .choice(
             mapOf(
-                "raw" to RawWrapper.CONVERTER,
-                "linear" to LinearLevelWrapper.CONVERTER,
-                "curve" to ChannelCurveWrapper.CONVERTER,
+                "raw" to RawFilmWrapper.CONVERTER,
+                "linear" to LinearLevelFilmWrapper.CONVERTER,
+                "curve" to ChannelCurveFilmWrapper.CONVERTER,
             ),
         )
-        .default(RawWrapper.CONVERTER)
+        .default(RawFilmWrapper.CONVERTER)
         .help("The color conversion algorithm")
 
     val outputFormat: ImageFormat? by option("--format")

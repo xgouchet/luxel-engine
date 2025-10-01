@@ -11,8 +11,9 @@ import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.options.varargValues
 import com.github.ajalt.clikt.parameters.types.int
 import com.github.ajalt.clikt.parameters.types.long
-import kotlinx.datetime.Clock
 import kotlin.math.absoluteValue
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
 
 /**
  *  An abstract [CliktCommand] to run a specific Scene with long numbers as inputs.
@@ -38,6 +39,7 @@ abstract class LongInputSceneCommand<D : Dimension, L : Luxel<D>, E : Environmen
 
     // region AbstractSceneCommand
 
+    @OptIn(ExperimentalTime::class)
     final override fun getInput(): InputSource<Long> {
         val seeds = mutableSetOf<Long>()
 

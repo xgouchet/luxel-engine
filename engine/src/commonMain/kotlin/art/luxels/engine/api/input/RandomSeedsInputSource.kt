@@ -1,12 +1,14 @@
 package art.luxels.engine.api.input
 
-import kotlinx.datetime.Clock
 import kotlin.math.absoluteValue
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
 
 /**
  * An [InputSource] based on a list of random Long numbers.
  * @param count the number of random numbers (default: 8)
  */
+@OptIn(ExperimentalTime::class)
 class RandomSeedsInputSource(count: Int = 8) : InputSource<Long>() {
     override val inputDataList: List<InputData<Long>>
 

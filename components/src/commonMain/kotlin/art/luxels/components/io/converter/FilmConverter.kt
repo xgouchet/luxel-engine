@@ -9,9 +9,9 @@ import art.luxels.imageio.data.RasterData
 interface FilmConverter {
 
     /**
-     *
+     * Name of the converter.
      */
-    val name : String
+    val name: String
 
     /**
      * Converts the input [Film] into a [RasterData] for writing into an image file.

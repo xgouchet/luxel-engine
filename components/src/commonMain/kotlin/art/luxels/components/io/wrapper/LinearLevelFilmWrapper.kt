@@ -1,21 +1,20 @@
 package art.luxels.components.io.wrapper
 
 import art.luxels.components.io.converter.FilmConverter
+import art.luxels.components.io.converter.ProxyFilmConverter
 import art.luxels.core.math.EPSILON
 import art.luxels.core.render.Film
 import art.luxels.imageio.color.Color
 import art.luxels.imageio.color.HDRColor
-import art.luxels.imageio.data.RasterData
 
 /**
  * A [FilmRasterDataWrapper] applying a basic Linear interpolation to ensure the HDR color maps to the allowed
  * SDR color range.
  * The same filter is applied to all channels.
  */
-class LinearLevelWrapper(film: Film) : FilmRasterDataWrapper(film) {
+class LinearLevelFilmWrapper(film: Film) : FilmRasterDataWrapper(film) {
 
     private var reverseMaxExposure: Double = 1.0
-
 
     // region RasterData
 
@@ -49,12 +48,9 @@ class LinearLevelWrapper(film: Film) : FilmRasterDataWrapper(film) {
     // endregion
 
     companion object {
-        val CONVERTER: FilmConverter = object : FilmConverter {
-            override val name: String = "linear"
-
-            override fun convert(film: Film): RasterData {
-                return LinearLevelWrapper(film)
-            }
-        }
+        /**
+         * A [FilmConverter] using a [LinearLevelFilmWrapper].
+         */
+        val CONVERTER: FilmConverter = ProxyFilmConverter("linear") { LinearLevelFilmWrapper(it) }
     }
 }
