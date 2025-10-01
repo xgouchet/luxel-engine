@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.konan.target.HostManager
 plugins {
     kotlin("multiplatform")
     id("common")
-    id("com.goncalossilva.resources") version ("0.4.1") // Use Resources in Tests
+    id("com.goncalossilva.resources") version ("0.10.1") // Use Resources in Tests
 }
 
 kotlin {
@@ -29,7 +29,7 @@ kotlin {
             dependencies {
                 implementation(libs.kotlinxCoroutines)
                 implementation(libs.okio)
-                implementation("com.goncalossilva:resources:0.4.1")
+                implementation(libs.resources)
             }
         }
 

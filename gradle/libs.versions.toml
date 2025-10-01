@@ -1,13 +1,13 @@
 [versions]
 
 # Commons
-kotlin = "2.1.21"
-kotlinxDateTime = "0.6.2"
-kotlinxSerialization = "1.8.1"
+kotlin = "2.2.20"
+kotlinxDateTime = "0.7.1"
+kotlinxSerialization = "1.9.0"
 kotlinxCoroutines = "1.10.2"
 
 # Okio
-okio = "3.12.0"
+okio = "3.16.0"
 
 # Image IO
 imageIo = "3.12.0"
@@ -19,65 +19,68 @@ detekt = "1.23.8"
 clikt = "5.0.3"
 
 # Tests Tools
-kotest = "6.0.0.M3"
+kotest = "6.0.3"
+resources = "0.10.1"
 
 # Plugins
+depsVersionsGradlePlugin = "0.53.0"
 detektGradlePlugin = "1.23.6"
 dokkaGradlePlugin = "1.6.10"
+kotestGradlePlugin = "6.0.0.M3"
 koverGradlePlugin = "0.7.6"
 ktlintGradlePlugin = "12.1.0"
-nexusPublishGradlePlugin = "1.1.0"
+mokkeryGradlePlugin = "2.10.0"
 pitestGradlePlugin = "1.15.0"
-depsVersionsGradlePlugin = "0.46.0"
-mokkeryGradlePlugin = "2.8.0"
 
 [libraries]
 
 # Classpaths
+depsVersionsGradlePlugin = { module = "com.github.ben-manes:gradle-versions-plugin", version.ref = "depsVersionsGradlePlugin" }
 detektGradlePlugin = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detektGradlePlugin" }
 dokkaGradlePlugin = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "dokkaGradlePlugin" }
-kotestGradlePlugin = { module = "io.kotest:kotest-framework-multiplatform-plugin-gradle", version.ref = "kotest" }
+kotestGradlePlugin = { module = "io.kotest:kotest-framework-multiplatform-plugin-gradle", version.ref = "kotestGradlePlugin" }
 kotlinGradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 koverGradlePlugin = { module = "org.jetbrains.kotlinx:kover-gradle-plugin", version.ref = "koverGradlePlugin" }
 ktlintGradlePlugin = { module = "org.jlleitschuh.gradle:ktlint-gradle", version.ref = "ktlintGradlePlugin" }
-nexusPublishGradlePlugin = { module = "io.github.gradle-nexus:publish-plugin", version.ref = "nexusPublishGradlePlugin" }
-pitestGradlePlugin = { module = "info.solidsoft.pitest:info.solidsoft.pitest.gradle.plugin", version.ref = "pitestGradlePlugin" }
-depsVersionsGradlePlugin = { module = "com.github.ben-manes:gradle-versions-plugin", version.ref = "depsVersionsGradlePlugin" }
 mokkeryGradlePlugin = { module = "dev.mokkery:mokkery-gradle", version.ref = "mokkeryGradlePlugin" }
+pitestGradlePlugin = { module = "info.solidsoft.pitest:info.solidsoft.pitest.gradle.plugin", version.ref = "pitestGradlePlugin" }
 
 # Common
-kotlinxDateTime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDateTime" }
-kotlinxSerialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
 kotlinxCoroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
 kotlinxCoroutinesJvm = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm", version.ref = "kotlinxCoroutines" }
 kotlinxCoroutinesTest = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
+kotlinxDateTime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDateTime" }
+kotlinxSerialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
 
 # Okio
 okio = { module = "com.squareup.okio:okio", version.ref = "okio" }
 okioJvm = { module = "com.squareup.okio:okio-jvm", version.ref = "okio" }
-okioMacosX64 = { module = "com.squareup.okio:okio-macosx64", version.ref = "okio" }
-okioMacosArm64 = { module = "com.squareup.okio:okio-macosarm64", version.ref = "okio" }
-okioLinuxX64 = { module = "com.squareup.okio:okio-linuxx64", version.ref = "okio" }
 okioLinuxArm64 = { module = "com.squareup.okio:okio-linuxarm64", version.ref = "okio" }
+okioLinuxX64 = { module = "com.squareup.okio:okio-linuxx64", version.ref = "okio" }
+okioMacosArm64 = { module = "com.squareup.okio:okio-macosarm64", version.ref = "okio" }
+okioMacosX64 = { module = "com.squareup.okio:okio-macosx64", version.ref = "okio" }
 okioTest = { module = "com.squareup.okio:okio-fakefilesystem", version.ref = "okio" }
 
 # Image IO
 imageIoHDR = { module = "com.twelvemonkeys.imageio:imageio-hdr", version.ref = "imageIo" }
-imageIoWebP = { module = "com.twelvemonkeys.imageio:imageio-webp", version.ref = "imageIo" }
 imageIoTiff = { module = "com.twelvemonkeys.imageio:imageio-tiff", version.ref = "imageIo" }
+imageIoWebP = { module = "com.twelvemonkeys.imageio:imageio-webp", version.ref = "imageIo" }
 
 # Detekt
-detektCli = { module = "io.gitlab.arturbosch.detekt:detekt-cli", version.ref = "detekt" }
 detektApi = { module = "io.gitlab.arturbosch.detekt:detekt-api", version.ref = "detekt" }
+detektCli = { module = "io.gitlab.arturbosch.detekt:detekt-cli", version.ref = "detekt" }
 
 # CLI
 clikt = { module = "com.github.ajalt.clikt:clikt", version.ref = "clikt" }
 
 # Kotest
-kotestJunit5 = { module = "io.kotest:kotest-runner-junit5-jvm", version.ref = "kotest" }
-kotestFrameworkEngine = { module = "io.kotest:kotest-framework-engine", version.ref = "kotest" }
 kotestAssertions = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
+kotestFrameworkEngine = { module = "io.kotest:kotest-framework-engine", version.ref = "kotest" }
+kotestJunit5 = { module = "io.kotest:kotest-runner-junit5-jvm", version.ref = "kotest" }
 kotestProperty = { module = "io.kotest:kotest-property", version.ref = "kotest" }
+
+# Resources
+resources = { module = "com.goncalossilva:resources", version.ref = "resources" }
 
 [bundles]
 
@@ -88,10 +91,7 @@ imageIo = [
 ]
 
 kotest = [
-    "kotestFrameworkEngine",
     "kotestAssertions",
+    "kotestFrameworkEngine",
     "kotestProperty"
 ]
-
-[plugins]
-depsVersionsGradlePlugin = { id = "com.github.ben-manes.versions", version.ref = "depsVersionsGradlePlugin" }

@@ -21,7 +21,7 @@ project.afterEvaluate {
         this.dependsOn("jvmTest")
     }
 
-    tasks.create("checkJvm") {
+    tasks.register("checkJvm") {
         group = "verification"
         this.dependsOn("ktlintCheck")
         this.dependsOn("detektJvmMain")
@@ -35,7 +35,7 @@ project.afterEvaluate {
 // region KtLint
 
 ktlint {
-    version.set("1.6.0")
+    version.set("1.7.1")
     filter {
         exclude("**/generated/**")
         exclude("**/build/**")

@@ -27,6 +27,7 @@ buildscript {
 
         classpath(libs.pitestGradlePlugin)
         classpath(libs.koverGradlePlugin)
+//        classpath(libs.resourcesGradlePlugin)
     }
 }
 
