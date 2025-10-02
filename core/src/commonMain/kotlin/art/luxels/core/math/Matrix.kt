@@ -228,6 +228,10 @@ class Matrix<C : Dimension, R : Dimension> internal constructor(
         return Matrix(inverse, height, width)
     }
 
+    /**
+     * Computes the row canonical form of this Matrix, through gaussian elimination.
+     * @return a Matrix corresponding to this in reduced row echelon form
+     */
     fun reducedRowEchelonForm(): Matrix<C, R> {
         val echelon = Matrix<C, R>(data.copyOf(), width, height)
         var marchingCol = 0
@@ -239,7 +243,6 @@ class Matrix<C : Dimension, R : Dimension> internal constructor(
             if (abs(pivot) < EPSILON) {
                 marchingCol++
             } else {
-
                 // 2. scale row
                 echelon.rrefScaleRow(marchingRow, marchingCol)
 
@@ -252,45 +255,6 @@ class Matrix<C : Dimension, R : Dimension> internal constructor(
         }
 
         return echelon
-    }
-
-    private fun rrefEnsurePivot(marchingRow: Int, marchingCol: Int): Double {
-        var pivot = data[idx(marchingCol, marchingRow)]
-        if (abs(pivot) <= EPSILON) {
-            var swapWithRow = -1
-            for (row in (marchingRow + 1) until height) {
-                pivot = data[idx(marchingCol, row)]
-                if (abs(pivot) > EPSILON) {
-                    swapWithRow = row
-                    break
-                }
-            }
-
-            if (swapWithRow < 0) {
-                return 0.0
-            }
-
-            swapRows(marchingRow, swapWithRow)
-        }
-        return pivot
-    }
-
-    private fun rrefScaleRow(marchingRow: Int, marchingCol: Int) {
-        val scale = 1.0 / data[idx(marchingCol, marchingRow)]
-        for (col in marchingCol until width) {
-            update(col, marchingRow) { it * scale }
-        }
-    }
-
-    private fun rrefReduceOtherRows(marchingRow: Int, marchingCol: Int) {
-        for (row in 0 until height) {
-            if (row != marchingRow) {
-                val factor = data[idx(marchingCol, row)]
-                for (col in (marchingCol) until width) {
-                    update(col, row) { it - (factor * get(col, marchingRow)) }
-                }
-            }
-        }
     }
 
     // endregion
@@ -434,6 +398,45 @@ class Matrix<C : Dimension, R : Dimension> internal constructor(
             val tmp = data[idx(col, rowA)]
             data[idx(col, rowA)] = data[idx(col, rowB)]
             data[idx(col, rowB)] = tmp
+        }
+    }
+
+    private fun rrefEnsurePivot(marchingRow: Int, marchingCol: Int): Double {
+        var pivot = data[idx(marchingCol, marchingRow)]
+        if (abs(pivot) <= EPSILON) {
+            var swapWithRow = -1
+            for (row in (marchingRow + 1) until height) {
+                pivot = data[idx(marchingCol, row)]
+                if (abs(pivot) > EPSILON) {
+                    swapWithRow = row
+                    break
+                }
+            }
+
+            if (swapWithRow < 0) {
+                return 0.0
+            }
+
+            swapRows(marchingRow, swapWithRow)
+        }
+        return pivot
+    }
+
+    private fun rrefScaleRow(marchingRow: Int, marchingCol: Int) {
+        val scale = 1.0 / data[idx(marchingCol, marchingRow)]
+        for (col in marchingCol until width) {
+            update(col, marchingRow) { it * scale }
+        }
+    }
+
+    private fun rrefReduceOtherRows(marchingRow: Int, marchingCol: Int) {
+        for (row in 0 until height) {
+            if (row != marchingRow) {
+                val factor = data[idx(marchingCol, row)]
+                for (col in (marchingCol) until width) {
+                    update(col, row) { it - (factor * get(col, marchingRow)) }
+                }
+            }
         }
     }
 

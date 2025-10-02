@@ -14,14 +14,15 @@ import art.luxels.engine.simulation.CommonConfiguration
 import art.luxels.engine.simulation.SceneConfiguration
 import art.luxels.engine.simulation.runner.FrameInfo
 import kotlinx.coroutines.CoroutineName
-import kotlinx.datetime.Clock
-import kotlinx.datetime.Instant
 import kotlin.coroutines.coroutineContext
 import kotlin.math.max
+import kotlin.time.Clock
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.minutes
 import kotlin.time.Duration.Companion.seconds
 import kotlin.time.DurationUnit
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 
 /**
  * An abstract [SimulationWorker] to simplify boilerplate logic.
@@ -35,6 +36,7 @@ import kotlin.time.DurationUnit
  * @property logHandler the [LogHandler] to use throughout the simulation
  * @property progressionCallback a callback to handle progression events
  */
+@OptIn(ExperimentalTime::class)
 abstract class AbstractSimulationWorker<D : Dimension, L : Luxel<D>, E : Environment<D>>(
     internal val simulationType: SimulationType,
     internal val simulator: Simulator<D, L, E>,

@@ -15,6 +15,7 @@ import kotlin.math.min
  * @property b the blue component.
  * @property a the alpha component.
  */
+@Suppress("TooManyFunctions")
 data class HDRColor(val r: Double, val g: Double, val b: Double, val a: Double = 1.0) : Color {
     // region Operators
 
@@ -49,7 +50,6 @@ data class HDRColor(val r: Double, val g: Double, val b: Double, val a: Double =
     operator fun div(scale: Double): HDRColor {
         return HDRColor(r / scale, g / scale, b / scale, a / scale)
     }
-
 
     /**
      * @param scale the factor by which to multiply the color

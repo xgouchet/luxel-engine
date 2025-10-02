@@ -17,7 +17,7 @@ dependencies {
 }
 
 ktlint {
-    version = "1.1.1"
+    version = "1.7.1"
     filter {
         exclude("**/generated/**")
         exclude("**/build/**")

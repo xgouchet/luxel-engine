@@ -30,7 +30,7 @@ abstract class FilmRasterDataWrapper(val film: Film) : RasterData {
 
     // endregion
 
-    // region FilmRasterDataWrapper
+    // region FilmRasterData
 
     /**
      * Method to convert the raw color at the given position into the final color to use in the [RasterData].

@@ -1,6 +1,7 @@
 package art.luxels.components.io.wrapper
 
 import art.luxels.components.io.converter.FilmConverter
+import art.luxels.components.io.converter.ProxyFilmConverter
 import art.luxels.core.render.Film
 import art.luxels.imageio.color.Color
 import art.luxels.imageio.color.HDRColor
@@ -9,9 +10,9 @@ import art.luxels.imageio.data.RasterData
 /**
  * A no-op [FilmRasterDataWrapper] keeping the film raw colors as is.
  */
-class RawWrapper(film: Film) : FilmRasterDataWrapper(film) {
+class RawFilmWrapper(film: Film) : FilmRasterDataWrapper(film) {
 
-    // region Raster Data
+    // region RasterData
 
     override fun prepare() {
     }
@@ -31,12 +32,9 @@ class RawWrapper(film: Film) : FilmRasterDataWrapper(film) {
     // endregion
 
     companion object {
-        val CONVERTER: FilmConverter = object : FilmConverter {
-            override val name: String = "raw"
-
-            override fun convert(film: Film): RasterData {
-                return RawWrapper(film)
-            }
-        }
+        /**
+         * A [FilmConverter] using a [RawFilmWrapper].
+         */
+        val CONVERTER: FilmConverter = ProxyFilmConverter("raw") { RawFilmWrapper(it) }
     }
 }
